@@ -1,0 +1,7 @@
+auth:
+  username: ''
+  password: ''
+variables: # path variable replacements for {varname} in the paths below, which override any path examples defined in spec
+  webstoreIdentifier: 't66x-7cd928b1e9399909e6810edac6dc1fd1eefc57cb'
+order:
+ - url: GET /accounts/{webstoreIdentifier}
