@@ -13,29 +13,31 @@ info:
 servers:
   - url: https://headless.tebex.io/api
 tags:
-  - name: Ident
-    description: A string identifier representing the basket
-  - name: Basket
-    description: The basket, similar to a standard eCommerce basket will contain the items that the customer is purchasing.
-  - name: Categories
-    description: Each store can have Categories of Packages that the webstore owner can define in order to better organize their packages offered.
-  - name: Coupons
-    description: Coupons define and apply a discount to a given package.
-  - name: Gift Cards
-    description: Gift cards can be presented as a form of payment for a basket, reducing the basket amount due.
-  - name: Creator Codes
-    description: Purchases can be attributed to Creators for revenue sharing.
-  - name: Packages
-    description: A package is a pre-defined item for sale.
+  # - name: Ident
+  #   description: A string identifier representing the basket
+  # - name: Basket
+  #   description: The basket, similar to a standard eCommerce basket will contain the items that the customer is purchasing.
+  # - name: Categories
+  #   description: Each store can have Categories of Packages that the webstore owner can define in order to better organize their packages offered.
+  # - name: Coupons
+  #   description: Coupons define and apply a discount to a given package.
+  # - name: Gift Cards
+  #   description: Gift cards can be presented as a form of payment for a basket, reducing the basket amount due.
+  # - name: Creator Codes
+  #   description: Purchases can be attributed to Creators for revenue sharing.
+  # - name: Packages
+  #   description: A package is a pre-defined item for sale.
   - name: Basket Packages
     description: A basket package is a Package within a basket
   - name: Webstores
     description: Webstore is the term for a Tebex store.
+  - name: Headless
+    description: Endpoints which interact with a basket requiring the basket ID
 paths:
   /accounts/{webstoreIdentifier}:
     get:
       tags:
-      - Webstores
+      - Headless
       operationId: getWebstoreById
       summary: Fetch a webstore by its identifier
       parameters:
@@ -55,56 +57,797 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webstore'
+                $ref: "#/components/schemas/WebstoreResponse"
+                    
+  /accounts/{webstoreIdentifier}/baskets/{basketIdent}:
+    get:
+      tags:
+      - Headless
+      operationId: getBasketById
+      summary: Fetch a basket from a webstore by its identifier
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: basketIdent
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          required: true
+          description: The basket identifier.
+      description: |- 
+          Gets a basket associated with the provided identifier.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns the basket information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasketResponse'
+        # '422':
+        #   description: The provided webstore ID is invalid.
+  /accounts/{webstoreIdentifier}/baskets:
+    post:
+      tags:
+      - Headless
+      operationId: createBasket
+      summary: Create a new basket
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+      description: |- 
+          Creates a new basket for use during checkout.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                complete_url:
+                  type: string
+                  description: A URL the user can return to when checkout is completed.
+                  example: "https://example.tebex.io/thank-you"
+                cancel_url:
+                  type: string
+                  description: A URL the user can return to when cancelling checkout.
+                  example: "https://tebex.io/"
+                custom:
+                  type: object
+                  description: Custom data you wish to associate with the basket. This data will be included with webhook responses and GET requests associated with the Basket.
+                  example: {
+                    "foo": "bar"
+                  }
+                complete_auto_redirect:
+                  type: boolean
+                  example: true
+                  description: True if the user should automatically be redirected to the relevant complete/cancel URL #TODO
+      responses:
+        '200':
+          description: |- 
+            Successful response returns the basket information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasketResponse'
         '422':
           description: The provided webstore ID is invalid.
+  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/auth?returnUrl={returnUrl}: #TODO
+    get:
+      tags:
+      - Headless
+      operationId: getBasketAuthUrl
+      summary: Fetch a basket from a webstore by its identifier
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: basketIdent
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          required: true
+          description: The basket identifier.
+        - in: path
+          name: returnUrl
+          description: The URL you would like to redirect the user to after successful basket authentication.
+          schema:
+            type: string
+            example: https://example.tebex.io/
+          required: true
+      description: |- 
+          Fetches a basket's auth URL.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns the basket auth information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasketResponse'
+        '422':
+          description: The provided webstore ID or basket ID is invalid.
+  /accounts/{webstoreIdentifier}/categories: #FIXME this is returning package information, not category information?
+    get:
+      tags:
+      - Headless
+      operationId: getAllCategories
+      summary: Gets all categories available in the webstore.
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+      description: |- 
+          Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns a list of category information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+                      
+  /accounts/{webstoreIdentifier}/categories?includePackages=1:
+    get:
+      tags:
+      - Headless
+      operationId: getAllCategoriesIncludingPackages
+      summary: Gets a store's categories including all package information with them.
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+      description: |- 
+          Gets all categories from a webstore including packages.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns a list of category information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
 
+  /accounts/{webstoreIdentifier}/categories/{categoryId}:
+    get:
+      tags:
+      - Headless
+      operationId: getCategoryById
+      summary: Gets information about a specific category
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: string
+            example: 127244343
+          description: The ID of the category to fetch.
+      description: |- 
+          Gets information about a category and returns the packages in that category.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns the category without package information.
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CategoryResponse'
+
+  /accounts/{webstoreIdentifier}/categories/{categoryId}?includePackages=1:
+    get:
+      tags:
+      - Headless
+      operationId: getCategoryIncludingPackages
+      summary: Gets information about a specific category, including all the packages in the category
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: string
+            example: 127244343
+          description: The ID of the category to fetch.
+      description: |- 
+          Gets information about a category and returns the packages in that category.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns the category with package information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+
+  /accounts/{webstoreIdentifier}/packages/{packageId}:
+    get:
+      tags:
+      - Headless
+      operationId: getPackageById
+      summary: Fetch a package from a webstore by its identifier
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: packageId
+          schema:
+            type: number
+            example: 1272441812
+          required: true
+          description: The package's ID.
+      description: |- 
+          Gets a package from a webstore by ID.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns the package information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageResponse'
+        '400':
+          description: An invalid package ID was provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /accounts/{webstoreIdentifier}/packages:
+    get:
+      tags:
+      - Headless
+      operationId: getAllPackages
+      summary: Fetch all packages from a webstore
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+      description: |- 
+          Gets all packages from a webstore.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns a list of package information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageResponse'
+        # '422':
+        #   description: The provided request is invalid.
+  /accounts/{webstoreIdentifier}/packages?ipAddress={ipAddress}:
+    get:
+      tags:
+      - Headless
+      operationId: getAllPackagesWithAuthedIP
+      summary: Fetch a package from a webstore by its identifier
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: ipAddress
+          required: true
+          schema:
+            type: string
+            example: 127.0.0.1
+          description: An IP address can be provided with authenticated requests. #TODO why?
+      description: |- 
+          Gets all packages from a webstore.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns a list of package information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageResponse'
+        '422':
+          description: The provided request is invalid.
+  /accounts/{webstoreIdentifier}/packages?basketIdent={basketIdent}:
+    get:
+      tags:
+      - Headless
+      operationId: getAllPackagesWithBasket
+      summary: Fetch a package from a webstore by its identifier
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: basketIdent
+          required: true
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          description: The basket identifier. #TODO why?
+      description: |- 
+          Gets all packages from a webstore.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns a list of package information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageResponse'
+        '422':
+          description: The provided request is invalid.
+  /accounts/{webstoreIdentifier}/packages?ipAddress={ipAddress}&basketIdent={basketIdent}:
+    get:
+      tags:
+      - Headless
+      operationId: getAllPackagesWithAuthedIPAndBasket
+      summary: Fetch a package from a webstore by its identifier
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: basketIdent
+          required: true
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          description: The basket identifier. #TODO why?
+        - in: path
+          name: ipAddress
+          required: true
+          schema:
+            type: string
+            example: 127.0.0.1
+          description: An IP address can be provided with authenticated requests. #TODO why?
+      description: |- 
+          Gets all packages from a webstore.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns a list of package information.
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PackageResponse'
+        '422':
+          description: The provided request is invalid.
+  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/creator-codes:
+    post:
+      tags:
+      - Headless
+      operationId: applyCreatorCode
+      summary: Apply a creator code to a basket.
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: basketIdent
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          required: true
+          description: The basket identifier.
+      description: |- 
+          Applies a creator code to a basket.
+      requestBody:
+        description: Provide a `creator_code` to apply to the basket.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                creator_code:
+                  type: string
+                  example: Academy10
+      responses:
+        '200':
+          description: |- 
+            Successful response returns the basket.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasketResponse'
+        '422':
+          description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
+  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/creator-codes/remove:
+    post:
+      tags:
+      - Headless
+      operationId: removeCreatorCode
+      summary: Remove a creator code from the basket.
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: basketIdent
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          required: true
+          description: The basket identifier.
+      description: |- 
+          Applies a creator code to a basket.
+      responses:
+        '200':
+          description: |- 
+            Creator code removed successfully.
+        '422':
+          description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
+  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/giftcards:
+    post:
+      tags:
+      - Headless
+      operationId: applyGiftCard
+      summary: Apply a gift card to a basket.
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: basketIdent
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          required: true
+          description: The basket identifier.
+      description: |- 
+          Applies a creator code to a basket.
+      requestBody:
+        description: Provide a `card_number` to apply to the basket.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GiftCard'
+      responses:
+        '200':
+          description: |- 
+            Successful response returns the basket.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasketResponse'
+  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/giftcards/remove:
+    post:
+      tags:
+      - Headless
+      operationId: removeGiftCard
+      summary: Remove a gift card from the basket.
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: basketIdent
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          required: true
+          description: The basket identifier.
+      description: |- 
+          Removes a gift card from the basket.
+      requestBody:
+        description: Provide the `card_number` to remove from the basket.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card_number:
+                  type: string
+                  example: "0127 0244 7210 1111"
+      responses:
+        '200':
+          description: |- 
+            Gift card removed successfully.
+        '422':
+          description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
+  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/coupons:
+    post:
+      tags:
+      - Headless
+      operationId: applyCoupon
+      summary: Apply a coupon to a basket.
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: basketIdent
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          required: true
+          description: The basket identifier.
+      description: |- 
+          Applies a creator code to a basket.
+      requestBody:
+        description: Provide a `coupon_code` to apply to the basket.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Coupon'
+      responses:
+        '200':
+          description: |- 
+            Successful response returns the basket.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasketResponse'
+
+  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/coupons/remove:
+    post:
+      tags:
+      - Headless
+      operationId: removeCoupon
+      summary: Remove a gift card from the basket.
+      parameters:
+        - in: path
+          name: webstoreIdentifier
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: basketIdent
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          required: true
+          description: The basket identifier.
+      description: |- 
+          Removes a coupon code from a basket
+      responses:
+        '200':
+          description: |- 
+            Successful response.
+        '422':
+          description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
+  /baskets/{basketIdent}/packages:
+   post:
+      tags:
+      - Headless
+      operationId: addBasketPackage
+      summary: Add a package to a basket
+      parameters:
+        - in: path
+          name: basketIdent
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          required: true
+          description: The basket identifier.
+      description: |- 
+          Add a package with the given ID to the basket.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                package_id: 
+                  type: string
+                  example: 6276316
+                quantity:
+                  type: number
+                  example: 1
+      responses:
+        '200':
+          description: |- 
+            Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basket'
+        '422':
+          description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
+  /baskets/{basketIdent}/packages/remove:
+    post:
+      tags:
+      - Headless
+      operationId: removeBasketPackage
+      summary: Remove a package from a basket
+      parameters:
+        - in: path
+          name: basketIdent
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          required: true
+          description: The basket identifier.
+      description: |- 
+          Remove the given package ID from the basket.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                package_id: 
+                  type: string
+                  example: 6276316
+      responses:
+        '200':
+          description: |- 
+            Successful response returns the basket.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basket'
+        '422':
+          description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
+  /baskets/{basketIdent}/packages/{packageId}:
+    put:
+      tags:
+      - Headless
+      operationId: updatePackageQuantity
+      summary: Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
+      parameters:
+        - in: path
+          name: basketIdent
+          schema:
+            type: string
+            example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+          required: true
+          description: The basket identifier.
+        - in: path
+          name: packageId
+          schema:
+            type: number
+            example: 6276316
+          required: true
+          description: The package identifier.
+      description: |- 
+          Sets the quantity of the given item in the basket.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: number
+                  example: 1
+      responses:
+        '200':
+          description: |- 
+            Successful response.
+        '422':
+          description: The provided request is invalid. The error response will include detail as to which parameter failed validation.   
 components:
   schemas:
     Webstore:
       type: object
       properties:
-        data: 
+        id:
+          type: integer
+          example: 1
+        description:
+          type: string
+          description: Store description in HTML format
+          example: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fermentum eget tellus et cursus. Pellentesque vel vehicula velit, sit amet tincidunt diam. Aliquam sit amet fermentum lorem.</p>"
+        name:
+          type: string
+          description: Name of the store
+          example: "Minecraft Store"
+        webstore_url:
+          type: string
+          format: uri
+          description: URL of the webstore
+          example: "https://example.tebex.io"
+        currency:
+          type: string
+          description: Currency used in the store
+          example: "USD"
+        lang:
+          type: string
+          description: Language of the store
+          example: "en"
+        logo:
+          type: string
+          format: uri
+          description: URL of the store's logo
+          nullable: true
+        platform_type:
+          type: string
+          description: Platform type for the store
+          example: "Minecraft: Java Edition"
+        platform_type_id:
+          type: string
+          example: minecraft
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the store was created
+          example: "2023-05-25T09:49:37+00:00"
+    WebstoreResponse:
+      type: object
+      properties:
+        data:
           type: object
           properties:
-            id:
-              type: integer
-              example: 1
-            description:
-              type: string
-              description: Store description in HTML format
-              example: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fermentum eget tellus et cursus. Pellentesque vel vehicula velit, sit amet tincidunt diam. Aliquam sit amet fermentum lorem.</p>"
-            name:
-              type: string
-              description: Name of the store
-              example: "Minecraft Store"
-            webstore_url:
-              type: string
-              format: uri
-              description: URL of the webstore
-              example: "https://example.tebex.io"
-            currency:
-              type: string
-              description: Currency used in the store
-              example: "USD"
-            lang:
-              type: string
-              description: Language of the store
-              example: "en"
-            logo:
-              type: string
-              format: uri
-              description: URL of the store's logo
-              nullable: true
-            platform_type:
-              type: string
-              description: Platform type for the store
-              example: "Minecraft: Java Edition"
-            created_at:
-              type: string
-              format: date-time
-              description: The date and time when the store was created
-              example: "2023-05-25T09:49:37+00:00"
+            schema:
+              $ref: '#/components/schemas/Webstore'
+      description: Wrapped webstore information in a "data" object.
     ErrorResponse:
       type: object
       properties:
@@ -131,64 +874,44 @@ components:
           type: string
           description: A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced
           example: /path/to/ref
-    
-    
-    GiftCard: #TODO
+    GiftCard:
       type: object
-    RecurringPeriod: #TODO
+      properties:
+        card_number:
+          type: string
+          example: "0127 0244 7210 1111"
+    Coupon:
       type: object
-    Tax: #TODO
+      properties:
+        coupon_code:
+          type: string
+          example: "Academy10"
+    BasketResponse:
       type: object
-    Discount: #TODO
-      type: object
-    Coupon: #TODO
-      type: object
+      properties:
+        data:
+          type: object
+          $ref: '#/components/schemas/Basket'
     Basket:
       type: object
       properties:
+        id:
+          type: string
+          example: 244127617
         ident:
           type: string
           example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
-        expire:
-          type: string
-          example: 2022-10-25 15:15:40
-        price:
-          type: number
-          example: 1.27
-        priceDetails:
-          $ref: '#/components/schemas/PriceDetails'
-        type:
-          type: string
-          example: single
-        recurring:
-          type: boolean
-          example: false
-        recurringPeriod:
-          $ref: '#/components/schemas/RecurringPeriod'
-          nullable: true
-        recurringNextPaymentDate:
-          type: string
-          nullable: true
-        isPaymentMethodUpdate:
-          type: boolean
-          example: false
-        returnUrl:
-          type: string
-          nullable: true
-          example: null
         complete:
           type: boolean
           example: false
-        tax:
-          $ref: '#/components/schemas/Tax'
+        email:
+          type: string
+          example: support@tebex.io
+          nullable: true
         username:
           type: string
           example: null
           nullable: true
-        discounts:
-          type: array 
-          items:
-            $ref: '#/components/schemas/Discount'
         coupons:
           type: array 
           items:
@@ -197,24 +920,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GiftCard'
-        address:
-          $ref: '#/components/schemas/Address'
-        rows:
-          type: array
-          items:
-            $ref: "#/components/schemas/BasketPackage"
-        fingerprint:
-          type: string
-          example: ""
-          description: Browser fingerprint to identify the user
-          nullable: true
         creator_code:
           type: string
           description: The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
-        roundup:
-          type: boolean
-          example: false
-          nullable: true
         cancel_url:
           type: string
           example: https://tebex.io
@@ -225,45 +933,170 @@ components:
         complete_auto_redirect:
           type: boolean
           example: false
+        country:
+          type: string
+          example: US
+          description: A two-character country code
+        ip:
+          type: string
+          example: 127.0.0.1
+        username_id:
+          type: number
+          example: 127244
+        base_price:
+          type: number
+          format: float
+          example: 1.27
+        sales_tax:
+          type: number
+          format: float
+          example: 0.11
+        total_price:
+          type: number
+          format: float
+          example: 1.38
+        currency:
+          type: string
+          description: A 3 character currency code
+          example: USD
+        packages:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasketPackage'
         custom: 
           type: object
           nullable: true
           example: 
             foo: bar
             ref: 1234
-        
-        #TODO
-        #links:
-        #  $ref: "#/components/schemas/BasketLinks"
+        links:
+          $ref: "#/components/schemas/BasketLinks"
+    BasketLinks:
+      type: object
+      properties:
+        payment:
+          type: string
+          description: The `links.payment` property is only returned if the basket has been paid for and a payment exists with the `complete`,`refund`, or `chargeback` status.
+          example: https://checkout.tebex.io/api/payments/tbx-12345
+        checkout:
+          type: string
+          description: The `links.checkout` property is only returned if the basket has not been paid, and is the URL to send the customer to make payment
+          example: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
+    CategoryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items: 
+            $ref: "#/components/schemas/Category"
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2678660,
+        name:
+          type: string
+          example: "Test"
+          description: User-friendly name of the category
+        slug:
+          type: string
+          description: Short identifier slug for the category
+          nullable: true
+        parent: 
+          type: object
+          description: Parent category, if applicable
+          format: Category
+          nullable: true
+        description:
+          type: string
+          description: HTML description of the category
+        packages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Package"
+          nullable: true
+        order:
+          type: integer
+          example: 1
+          description: The numeric order in which to display the category.
+        display_type:
+          type: string
+          enum: [list] #TODO acceptable values?
+          description: How the category should be displayed 
+    PackageResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Package'
     Package:
       type: object
       properties:
+        id:
+          type: integer
+          example: 6276316
         name:
           type: string
-          description: The name of the item being purchased. This should be user-friendly as it is shown to the customer on checkout and receipts.
-          example: 1000 Gold
-        price:
-          type: number
-          example: 1.27
-          description: A float (decimal describing the price of the package in your account currency)
-        expiry_period:
+          example: 'test package 101'
+        description:
           type: string
-          enum: [day, month, year]
-          description: The renewal period of this item
-          example: month
-        expiry_length:
-          type: integer
-          description: An integer representing the number of `expiry_periods` that make up the renewal period.
-          example: 3
-        metaData:
+          example: '<p>this is just a test. only a test. nothing more.</p>'
+        image:
+          type: string
+          nullable: true
+          example: null
+        type:
+          type: string
+          example: 'single'
+        category:
           type: object
           properties:
-            custom:
+            id:
+              type: integer
+              example: 2678660
+            name:
               type: string
-              description: A free-text string field that is passed back to you via the webhook (for example, a tracking ID)
-              example: Foo
-          example:
-            foo: bar
+              example: 'Packages'
+        base_price:
+          type: number
+          format: float
+          example: 5
+        sales_tax:
+          type: number
+          format: float
+          example: 0
+        total_price:
+          type: number
+          format: float
+          example: 5
+        currency:
+          type: string
+          example: 'USD'
+        discount:
+          type: number
+          format: float
+          example: 0
+        disable_quantity:
+          type: boolean
+          example: false
+        disable_gifting:
+          type: boolean
+          example: false
+        expiration_date:
+          type: string
+          nullable: true
+          format: date-time
+          example: null
+        created_at:
+          type: string
+          format: date-time
+          example: '2024-05-21T18:09:17+00:00'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2024-05-21T18:09:17+00:00'
     BasketPackage:
       type: object
       description: A package within an existing basket.
@@ -287,7 +1120,7 @@ components:
       properties:
         wallet_ref:
           type: string
-          example: some_wallet_reference #TODO
+          example: some_wallet_reference
         amount:
           type: number
           example: 0.50
@@ -296,90 +1129,3 @@ components:
           type: number
           example: 50.00
           description: A float (decimal) value representing the percentage of the gateway fee that should be dedicated from this wallet’s revenue share. This optional value can be anywhere between 0 - 100.
-    PriceDetails:
-      type: object
-      properties:
-        fullPrice:
-          type: number
-        subTotal:
-          type: number
-        discounts:
-          type: array
-          items:
-            type: object #TODO
-        total:
-          type: number
-        tax:
-          type: number
-        balance:
-          type: number
-        sales:
-          type: array
-          items:
-            $ref: '#/components/schemas/Sale'
-        giftcards:
-          type: array
-          items:
-            $ref: '#/components/schemas/GiftCard'
-#        recurring:   will be made obsolete in the next few weeks, potential do not document.
-#          type: object
-#          description: Contains recurring amount. Limited to 1 subscription package in the basket at a time. 
-        roundUp:
-          type: number
-          nullable: true
-      example:
-        fullPrice: 1.40
-        subTotal: 1.27
-        discounts: []
-        total: 1.40
-        surcharges: []
-        tax: 0.13
-        balance: 0
-        sales: []
-        giftcards: []
-        roundUp: null
-    Address:
-      type: object
-      properties:
-        name:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        address:
-          type: string
-        email:
-          type: string
-        state_id:
-          type: string
-          nullable: true
-        country:
-          type: string
-        postal_code:
-          type: string
-      example:
-        name: Ted Tebex
-        first_name: Ted
-        last_name: Tebex
-        address: 37 Broadhurst Gardens, London, United Kingdom, NW6 3QT
-        email: example@tebex.io
-        state_id: null
-        country: UK
-        postal_code: NW6 3QT
-    Sale:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the sale (displayed to the customer)
-          example: Test Sale
-        discount_type:
-          type: string
-          enum: [percentage, amount]
-          description: The type of discount, either `percentage` for deducting a percentage of each item, or `amount` to deduct a fixed amount from each item.
-          example: amount
-        amount:
-          type: number
-          description: The amount or percentage to deduct
-          example: 4.99

@@ -449,12 +449,20 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
         if testResponse.jsonBody is not {} and persistVars is not None:
             jsonBodyDict = json.dumps(testResponse.jsonBody)
             jsonBodyDict = json.loads(jsonBodyDict)
+            global PERSIST_VARIABLES
+
             for var in persistVars:
                 if var in jsonBodyDict:
-                    print(purple(f" persisting response variable: {var}={jsonBodyDict[var]}"), end='')
-                    global PERSIST_VARIABLES
+                    print(purple(f" persisting response variable: {var}={jsonBodyDict[var]}"), end='')        
                     PERSIST_VARIABLES[var] = jsonBodyDict[var]
-        
+                    continue
+
+                # support persisting wrapped data
+                if "data" in jsonBodyDict and var in jsonBodyDict["data"]:
+                    print(purple(f" persisting data response variable: {var}={jsonBodyDict['data'][var]}"), end='')        
+                    PERSIST_VARIABLES[var] = jsonBodyDict["data"][var]
+                    continue
+
         #ensure response body matches expected if content is provided
         expectedResponseJson = route.definition['responses'][str(expectedResponseCode)]
         if 'content' in expectedResponseJson:
@@ -463,20 +471,70 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
                 expectedResponseJson = expectedResponseJson['schema']
                 if '$ref' in expectedResponseJson:
                     expectedResponseJson = expandRef(expectedResponseJson['$ref'])['properties']
+        
+            
+            #Support nested object types with refs
+            if 'type' in expectedResponseJson and expectedResponseJson['type'] == 'object':
+                expectedResponseJson = expectedResponseJson['properties']
 
+                # Headless defines values wrapped in a 'data' object, expand the ref so we test for the appropriate keys
+                if 'data' in expectedResponseJson and '$ref' in expectedResponseJson['data']:
+                    expectedResponseJson = expandRef(expectedResponseJson['data']['$ref'])['properties']
+                
             keysMissing = []
+            keysExtra = []
+
             for key in expectedResponseJson:
-                if key not in testResponse.jsonBody:
+                if type(testResponse.jsonBody) == list:
+                    print(red(testResponse.jsonBody))
+                    writeTestFail(f"unexpected list response") #TODO 
+                    return
+                    
+                # Test for a wrapped "data" object so all inner keys are tested
+                if len(testResponse.jsonBody.keys()) == 1 and "data" in testResponse.jsonBody:
+                    if key not in testResponse.jsonBody["data"] and key != "data":
+                        keysMissing.append(key)
+
+                # Otherwise the object is not wrapped, test the base object for the key
+                elif key not in testResponse.jsonBody:
                     keysMissing.append(key)
 
+            if "data" in testResponse.jsonBody:
+                # data might be a list, so take the first element so we can check for needed keys
+                responseData = testResponse.jsonBody["data"]
+                if type(responseData) is list:
+                    responseData = responseData[0]
+
+                for key in responseData:
+                    # # if we have a wrapped data object, such as when lists are returned, take the first item in the data list for key testing.
+                    # if "data" in expectedResponseJson:
+                    #     expectedResponseJson = expectedResponseJson["data"]
+                    #     if type(expectedResponseJson) is list:
+                    #         expectedResponseJson = expectedResponseJson[0]
+
+                    if key not in expectedResponseJson:
+                        keysExtra.append(key)
+
             if len(keysMissing) > 0:
-                writeTestFail(f"API response keys do not match specification")
-                writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "Response keys do not match specification")
+                writeTestFail(f"API response keys were missing according to specification")
+                print(red(f"  keys missing:   {keysMissing}"))
+                print(yellow(f"  response: {testResponse.jsonBody}"))
+                print(purple(f"  expected:   {' '.join(expectedResponseJson.keys())}"))
+                writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "API response keys were missing according to specification")
                 return
-            else:
-                writeTestPass(f"")
-                writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
+            
+            if len(keysExtra) > 0:
+                writeTestFail(f"API response keys included extra data not in specification")
+                print(red(f"  keys extra:   {keysExtra}"))
+                print(yellow(f"  response: {testResponse.jsonBody}"))
+                print(purple(f"  expected:   {''.join(expectedResponseJson.keys())}"))
+                writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "API response keys included extra data not in specification")
                 return
+            
+            writeTestPass(f"")
+            writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
+            return
+
         
         writeTestPass(f"")
         writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
