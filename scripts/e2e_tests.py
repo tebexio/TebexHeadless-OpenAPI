@@ -463,7 +463,7 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
                     PERSIST_VARIABLES[var] = jsonBodyDict["data"][var]
                     continue
 
-        #ensure response body matches expected if content is provided
+        # ensure response body matches expected if content is provided
         expectedResponseJson = route.definition['responses'][str(expectedResponseCode)]
         if 'content' in expectedResponseJson:
             expectedResponseJson = expectedResponseJson['content']['application/json']
@@ -471,28 +471,52 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
                 expectedResponseJson = expectedResponseJson['schema']
                 if '$ref' in expectedResponseJson:
                     expectedResponseJson = expandRef(expectedResponseJson['$ref'])['properties']
-        
-            
+
+                    # support "data" wrapped objects, which might also contain refs
+                    if 'data' in expectedResponseJson:
+                        expectedResponseJson = expectedResponseJson['data']
+                    
+                        # handle array return types
+                        if 'type' in expectedResponseJson and expectedResponseJson['type'] == 'array':
+                            expectedResponseJson = expectedResponseJson['items']
+
+                        if 'schema' in expectedResponseJson:
+                            expectedResponseJson = expectedResponseJson['schema']
+
+                        if '$ref' in expectedResponseJson:
+                            expectedResponseJson = expandRef(expectedResponseJson['$ref'])['properties']
+
             #Support nested object types with refs
             if 'type' in expectedResponseJson and expectedResponseJson['type'] == 'object':
                 expectedResponseJson = expectedResponseJson['properties']
+                
+                if 'schema' in expectedResponseJson:
+                    expectedResponseJson = expectedResponseJson['schema']
+
+                if '$ref' in expectedResponseJson:
+                    expectedResponseJson = expandRef(expectedResponseJson['$ref'])['properties']
 
                 # Headless defines values wrapped in a 'data' object, expand the ref so we test for the appropriate keys
                 if 'data' in expectedResponseJson and '$ref' in expectedResponseJson['data']:
                     expectedResponseJson = expandRef(expectedResponseJson['data']['$ref'])['properties']
-                
+                    
             keysMissing = []
             keysExtra = []
 
             for key in expectedResponseJson:
                 if type(testResponse.jsonBody) == list:
                     print(red(testResponse.jsonBody))
-                    writeTestFail(f"unexpected list response") #TODO 
+                    writeTestFail(f"unexpected list response") #TODO
                     return
                     
                 # Test for a wrapped "data" object so all inner keys are tested
                 if len(testResponse.jsonBody.keys()) == 1 and "data" in testResponse.jsonBody:
-                    if key not in testResponse.jsonBody["data"] and key != "data":
+                    # data could be an array, so check the first object in the array
+                    if type(testResponse.jsonBody["data"]) == list:
+                        if key not in testResponse.jsonBody["data"][0] and key != "data":
+                            keysMissing.append(key)
+                        
+                    elif key not in testResponse.jsonBody["data"] and key != "data":
                         keysMissing.append(key)
 
                 # Otherwise the object is not wrapped, test the base object for the key
@@ -550,7 +574,7 @@ def main():
        The overall number of test passes and fails are also printed on completion.
     """
     parseConfig()
-    routes = parseOpenAPISpec("../openapi.yaml")
+    routes = parseOpenAPISpec("../headless-api.yaml")
     numRoutesTested = 0
     routesTested = []
 
