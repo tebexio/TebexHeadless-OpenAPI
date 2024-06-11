@@ -2,32 +2,32 @@ auth:
   username: ''
   password: ''
 variables: # path variable replacements for {varname} in the paths below, which override any path examples defined in spec
-  webstoreIdentifier: 't66x-7cd928b1e9399909e6810edac6dc1fd1eefc57cb'
+  token: 't66x-7cd928b1e9399909e6810edac6dc1fd1eefc57cb'
   basketIdent: 'c00sxt-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c'
   returnUrl: 'https://example.tebex.io'
   ipAddress: 127.0.0.1
   packageId: 6276316
   categoryId: 2678688
 order:
- - url: GET /accounts/{webstoreIdentifier}
- - url: GET /accounts/{webstoreIdentifier}/baskets/{basketIdent}
- - url: POST /accounts/{webstoreIdentifier}/baskets
- #- url: GET /accounts/{webstoreIdentifier}/baskets/{basketIdent}/auth?returnUrl={returnUrl} # skip: user must login
- #- url: GET /accounts/{webstoreIdentifier}/packages # skip: "extra keys" are included in rendered spec
- - url: GET /accounts/{webstoreIdentifier}/packages/{packageId}
- #- url: GET /accounts/{webstoreIdentifier}/packages?ipAddress={ipAddress} # skip: auth required
- #- url: GET /accounts/{webstoreIdentifier}/packages?basketIdent={basketIdent} # skip: "extra keys" are included in rendered spec
- #- url: GET /accounts/{webstoreIdentifier}/packages?ipAddress={ipAddress}&basketIdent={basketIdent} # skip: auth required
- #- url: POST /accounts/{webstoreIdentifier}/baskets/{basketIdent}/creator-codes         # skip: test with example creator code
- #- url: POST /accounts/{webstoreIdentifier}/baskets/{basketIdent}/creator-codes/remove  # skip
- #- url: POST /accounts/{webstoreIdentifier}/baskets/{basketIdent}/giftcards        #skip: test with generated card
- #- url: POST /accounts/{webstoreIdentifier}/baskets/{basketIdent}/giftcards/remove #skip:
- - url: POST /accounts/{webstoreIdentifier}/baskets/{basketIdent}/coupons
- - url: POST /accounts/{webstoreIdentifier}/baskets/{basketIdent}/coupons/remove
- #- url: GET /accounts/{webstoreIdentifier}/categories                                  #skip: "extra keys" are included in rendered spec
- - url: GET /accounts/{webstoreIdentifier}/categories?includePackages=1
- - url: GET /accounts/{webstoreIdentifier}/categories/{categoryId}
- #- url: GET /accounts/{webstoreIdentifier}/categories/{categoryId}?includePackages=1  #skip: "extra keys" are included in rendered spec
- - url: POST /baskets/{basketIdent}/packages #FIXME
- - url: POST /baskets/{basketIdent}/packages/remove #FIXME
- #- url: PUT /baskets/{basketIdent}/packages/{packageId}      #skip: user must login
+ - url: GET /accounts/{token}
+ - url: GET /accounts/{token}/baskets/{basketIdent}
+ - url: POST /accounts/{token}/baskets
+ - url: GET /accounts/{token}/baskets/{basketIdent}/auth?returnUrl={returnUrl}
+ - url: GET /accounts/{token}/packages
+ - url: GET /accounts/{token}/packages/{packageId}
+ - url: GET /accounts/{token}/packages?ipAddress={ipAddress
+ - url: GET /accounts/{token}/packages?basketIdent={basketIdent}
+ - url: GET /accounts/{token}/packages?ipAddress={ipAddress}&basketIdent={basketIdent}
+ - url: POST /accounts/{token}/baskets/{basketIdent}/creator-codes
+ - url: POST /accounts/{token}/baskets/{basketIdent}/creator-codes/remove
+ - url: POST /accounts/{token}/baskets/{basketIdent}/giftcards
+ - url: POST /accounts/{token}/baskets/{basketIdent}/giftcards/remove
+ - url: POST /accounts/{token}/baskets/{basketIdent}/coupons
+ - url: POST /accounts/{token}/baskets/{basketIdent}/coupons/remove
+ - url: GET /accounts/{token}/categories                                  
+ - url: GET /accounts/{token}/categories?includePackages=1
+ - url: GET /accounts/{token}/categories/{categoryId}
+ - url: GET /accounts/{token}/categories/{categoryId}?includePackages=1 
+ - url: POST /baskets/{basketIdent}/packages 
+ - url: POST /baskets/{basketIdent}/packages/remove
+ - url: PUT /baskets/{basketIdent}/packages/{packageId}
