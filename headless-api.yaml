@@ -34,7 +34,7 @@ tags:
   - name: Headless
     description: Endpoints which interact with a basket requiring the basket ID
 paths:
-  /accounts/{webstoreIdentifier}:
+  /accounts/{token}:
     get:
       tags:
       - Headless
@@ -59,7 +59,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/WebstoreResponse"
                     
-  /accounts/{webstoreIdentifier}/baskets/{basketIdent}:
+  /accounts/{token}/baskets/{basketIdent}:
     get:
       tags:
       - Headless
@@ -92,7 +92,7 @@ paths:
                 $ref: '#/components/schemas/BasketResponse'
         # '422':
         #   description: The provided webstore ID is invalid.
-  /accounts/{webstoreIdentifier}/baskets:
+  /accounts/{token}/baskets:
     post:
       tags:
       - Headless
@@ -142,7 +142,7 @@ paths:
                 $ref: '#/components/schemas/BasketResponse'
         '422':
           description: The provided webstore ID is invalid.
-  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/auth?returnUrl={returnUrl}: #TODO
+  /accounts/{token}/baskets/{basketIdent}/auth?returnUrl={returnUrl}: #TODO
     get:
       tags:
       - Headless
@@ -182,7 +182,7 @@ paths:
                 $ref: '#/components/schemas/BasketResponse'
         '422':
           description: The provided webstore ID or basket ID is invalid.
-  /accounts/{webstoreIdentifier}/categories: #FIXME this is returning package information, not category information?
+  /accounts/{token}/categories:
     get:
       tags:
       - Headless
@@ -207,7 +207,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
                       
-  /accounts/{webstoreIdentifier}/categories?includePackages=1:
+  /accounts/{token}/categories?includePackages=1:
     get:
       tags:
       - Headless
@@ -232,7 +232,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
 
-  /accounts/{webstoreIdentifier}/categories/{categoryId}:
+  /accounts/{token}/categories/{categoryId}:
     get:
       tags:
       - Headless
@@ -265,7 +265,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/CategoryResponse'
 
-  /accounts/{webstoreIdentifier}/categories/{categoryId}?includePackages=1:
+  /accounts/{token}/categories/{categoryId}?includePackages=1:
     get:
       tags:
       - Headless
@@ -297,7 +297,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
 
-  /accounts/{webstoreIdentifier}/packages/{packageId}:
+  /accounts/{token}/packages/{packageId}:
     get:
       tags:
       - Headless
@@ -328,13 +328,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PackageResponse'
-        '400':
-          description: An invalid package ID was provided.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-  /accounts/{webstoreIdentifier}/packages:
+  /accounts/{token}/packages:
     get:
       tags:
       - Headless
@@ -360,7 +354,7 @@ paths:
                 $ref: '#/components/schemas/PackageResponse'
         # '422':
         #   description: The provided request is invalid.
-  /accounts/{webstoreIdentifier}/packages?ipAddress={ipAddress}:
+  /accounts/{token}/packages?ipAddress={ipAddress}:
     get:
       tags:
       - Headless
@@ -393,7 +387,7 @@ paths:
                 $ref: '#/components/schemas/PackageResponse'
         '422':
           description: The provided request is invalid.
-  /accounts/{webstoreIdentifier}/packages?basketIdent={basketIdent}:
+  /accounts/{token}/packages?basketIdent={basketIdent}:
     get:
       tags:
       - Headless
@@ -426,7 +420,7 @@ paths:
                 $ref: '#/components/schemas/PackageResponse'
         '422':
           description: The provided request is invalid.
-  /accounts/{webstoreIdentifier}/packages?ipAddress={ipAddress}&basketIdent={basketIdent}:
+  /accounts/{token}/packages?ipAddress={ipAddress}&basketIdent={basketIdent}:
     get:
       tags:
       - Headless
@@ -467,7 +461,7 @@ paths:
                   $ref: '#/components/schemas/PackageResponse'
         '422':
           description: The provided request is invalid.
-  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/creator-codes:
+  /accounts/{token}/baskets/{basketIdent}/creator-codes:
     post:
       tags:
       - Headless
@@ -510,7 +504,7 @@ paths:
                 $ref: '#/components/schemas/BasketResponse'
         '422':
           description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
-  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/creator-codes/remove:
+  /accounts/{token}/baskets/{basketIdent}/creator-codes/remove:
     post:
       tags:
       - Headless
@@ -539,7 +533,7 @@ paths:
             Creator code removed successfully.
         '422':
           description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
-  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/giftcards:
+  /accounts/{token}/baskets/{basketIdent}/giftcards:
     post:
       tags:
       - Headless
@@ -576,7 +570,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BasketResponse'
-  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/giftcards/remove:
+  /accounts/{token}/baskets/{basketIdent}/giftcards/remove:
     post:
       tags:
       - Headless
@@ -615,7 +609,7 @@ paths:
             Gift card removed successfully.
         '422':
           description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
-  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/coupons:
+  /accounts/{token}/baskets/{basketIdent}/coupons:
     post:
       tags:
       - Headless
@@ -653,12 +647,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/BasketResponse'
 
-  /accounts/{webstoreIdentifier}/baskets/{basketIdent}/coupons/remove:
+  /accounts/{token}/baskets/{basketIdent}/coupons/remove:
     post:
       tags:
       - Headless
       operationId: removeCoupon
-      summary: Remove a gift card from the basket.
+      summary: Remove a coupon from the basket.
       parameters:
         - in: path
           name: webstoreIdentifier
@@ -1022,7 +1016,7 @@ components:
           description: The numeric order in which to display the category.
         display_type:
           type: string
-          enum: [list] #TODO acceptable values?
+          enum: [list, grid]
           description: How the category should be displayed 
     PackageResponse:
       type: object
