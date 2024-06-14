@@ -1,0 +1,1258 @@
+{
+	"info": {
+		"name": "Tebex Headless API",
+		"description": {
+		    "content": "The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.",
+		    "type": "text/markdown"
+		},
+		"version": "1.0.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+	        {
+	            "name": "Headless",
+	            "item": [
+	                        {
+    "name": "/accounts/:token",
+                "description": "Gets the webstore associated with the provided identifier.",
+                 "item": [
+                            {
+                                "name": "Fetch a webstore by its identifier",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets the webstore associated with the provided identifier."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/baskets",
+                "description": "Creates a new basket for use during checkout.",
+                 "item": [
+                            {
+                                "name": "Create a new basket",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"complete_url\": \"<string>\",\n \"cancel_url\": \"<string>\",\n \"custom\": \"<string>\",\n \"complete_auto_redirect\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/baskets",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "baskets"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Creates a new basket for use during checkout."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/baskets/:basketIdent",
+                "description": "Gets a basket associated with the provided identifier.",
+                 "item": [
+                            {
+                                "name": "Fetch a basket from a webstore by its identifier",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/baskets/:basketIdent",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "baskets",
+                                            ":basketIdent"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets a basket associated with the provided identifier."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/baskets/:basketIdent/auth?returnUrl&#x3D;:returnUrl",
+                "description": "Fetches a basket's auth URL.",
+                 "item": [
+                            {
+                                "name": "Fetch a basket from a webstore by its identifier",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/baskets/:basketIdent/auth?returnUrl&#x3D;:returnUrl",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "baskets",
+                                            ":basketIdent",
+                                            "auth?returnUrl&#x3D;:returnUrl"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            },
+                                            {
+                                                "key": "returnUrl",
+                                                "value": "",
+                                                "description": "The URL you would like to redirect the user to after successful basket authentication."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Fetches a basket's auth URL."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/baskets/:basketIdent/coupons",
+                "description": "Applies a creator code to a basket.",
+                 "item": [
+                            {
+                                "name": "Apply a coupon to a basket.",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"coupon_code\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/baskets/:basketIdent/coupons",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "baskets",
+                                            ":basketIdent",
+                                            "coupons"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Applies a creator code to a basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/baskets/:basketIdent/coupons/remove",
+                "description": "Removes a coupon code from a basket",
+                 "item": [
+                            {
+                                "name": "Remove a coupon from the basket.",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/baskets/:basketIdent/coupons/remove",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "baskets",
+                                            ":basketIdent",
+                                            "coupons",
+                                            "remove"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Removes a coupon code from a basket"
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/baskets/:basketIdent/creator-codes",
+                "description": "Applies a creator code to a basket.",
+                 "item": [
+                            {
+                                "name": "Apply a creator code to a basket.",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"creator_code\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/baskets/:basketIdent/creator-codes",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "baskets",
+                                            ":basketIdent",
+                                            "creator-codes"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Applies a creator code to a basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/baskets/:basketIdent/creator-codes/remove",
+                "description": "Applies a creator code to a basket.",
+                 "item": [
+                            {
+                                "name": "Remove a creator code from the basket.",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/baskets/:basketIdent/creator-codes/remove",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "baskets",
+                                            ":basketIdent",
+                                            "creator-codes",
+                                            "remove"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Applies a creator code to a basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/baskets/:basketIdent/giftcards",
+                "description": "Applies a creator code to a basket.",
+                 "item": [
+                            {
+                                "name": "Apply a gift card to a basket.",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"card_number\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/baskets/:basketIdent/giftcards",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "baskets",
+                                            ":basketIdent",
+                                            "giftcards"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Applies a creator code to a basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/baskets/:basketIdent/giftcards/remove",
+                "description": "Removes a gift card from the basket.",
+                 "item": [
+                            {
+                                "name": "Remove a gift card from the basket.",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"card_number\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/baskets/:basketIdent/giftcards/remove",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "baskets",
+                                            ":basketIdent",
+                                            "giftcards",
+                                            "remove"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Removes a gift card from the basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/categories",
+                "description": "Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL.",
+                 "item": [
+                            {
+                                "name": "Gets all categories available in the webstore.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/categories",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "categories"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/categories/:categoryId",
+                "description": "Gets information about a category and returns the packages in that category.",
+                 "item": [
+                            {
+                                "name": "Gets information about a specific category",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/categories/:categoryId",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "categories",
+                                            ":categoryId"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "categoryId",
+                                                "value": "",
+                                                "description": "The ID of the category to fetch."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets information about a category and returns the packages in that category."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/categories/:categoryId?includePackages&#x3D;1",
+                "description": "Gets information about a category and returns the packages in that category.",
+                 "item": [
+                            {
+                                "name": "Gets information about a specific category, including all the packages in the category",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/categories/:categoryId?includePackages&#x3D;1",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "categories",
+                                            ":categoryId?includePackages&#x3D;1"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "categoryId",
+                                                "value": "",
+                                                "description": "The ID of the category to fetch."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets information about a category and returns the packages in that category."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/categories?includePackages&#x3D;1",
+                "description": "Gets all categories from a webstore including packages.",
+                 "item": [
+                            {
+                                "name": "Gets a store's categories including all package information with them.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/categories?includePackages&#x3D;1",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "categories?includePackages&#x3D;1"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all categories from a webstore including packages."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/packages",
+                "description": "Gets all packages from a webstore.",
+                 "item": [
+                            {
+                                "name": "Fetch all packages from a webstore",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/packages",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "packages"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all packages from a webstore."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/packages/:packageId",
+                "description": "Gets a package from a webstore by ID.",
+                 "item": [
+                            {
+                                "name": "Fetch a package from a webstore by its identifier",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/packages/:packageId",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "packages",
+                                            ":packageId"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "packageId",
+                                                "value": "",
+                                                "description": "The package's ID."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets a package from a webstore by ID."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/packages?basketIdent&#x3D;:basketIdent",
+                "description": "Gets all packages from a webstore.",
+                 "item": [
+                            {
+                                "name": "Fetch a package from a webstore by its identifier",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/packages?basketIdent&#x3D;:basketIdent",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "packages?basketIdent&#x3D;:basketIdent"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all packages from a webstore."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/packages?ipAddress&#x3D;:ipAddress",
+                "description": "Gets all packages from a webstore.",
+                 "item": [
+                            {
+                                "name": "Fetch a package from a webstore by its identifier",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/packages?ipAddress&#x3D;:ipAddress",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "packages?ipAddress&#x3D;:ipAddress"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "ipAddress",
+                                                "value": "",
+                                                "description": "An IP address can be provided with authenticated requests."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all packages from a webstore."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/packages?ipAddress&#x3D;:ipAddress&amp;basketIdent&#x3D;:basketIdent",
+                "description": "Gets all packages from a webstore.",
+                 "item": [
+                            {
+                                "name": "Fetch a package from a webstore by its identifier",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/packages?ipAddress&#x3D;:ipAddress&amp;basketIdent&#x3D;:basketIdent",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "packages?ipAddress&#x3D;:ipAddress&amp;basketIdent&#x3D;:basketIdent"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            },
+                                            {
+                                                "key": "ipAddress",
+                                                "value": "",
+                                                "description": "An IP address can be provided with authenticated requests."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all packages from a webstore."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent/packages",
+                "description": "Add a package with the given ID to the basket.",
+                 "item": [
+                            {
+                                "name": "Add a package to a basket",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"package_id\": \"<string>\",\n \"quantity\": \"<number>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent/packages",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent",
+                                            "packages"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Add a package with the given ID to the basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent/packages/:packageId",
+                "description": "Sets the quantity of the given item in the basket.",
+                 "item": [
+                            {
+                                "name": "Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.",
+                                "request": {
+                                    "method": "PUT",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"quantity\": \"<number>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent/packages/:packageId",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent",
+                                            "packages",
+                                            ":packageId"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            },
+                                            {
+                                                "key": "packageId",
+                                                "value": "",
+                                                "description": "The package identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Sets the quantity of the given item in the basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent/packages/remove",
+                "description": "Remove the given package ID from the basket.",
+                 "item": [
+                            {
+                                "name": "Remove a package from a basket",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"package_id\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent/packages/remove",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent",
+                                            "packages",
+                                            "remove"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Remove the given package ID from the basket."
+                                }
+                            }
+                            ]
+                        }
+	                    ]
+	        }
+    ],
+    
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://headless.tebex.io/api",
+			"type": "string"
+        }
+	]
+}
+

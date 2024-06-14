@@ -42,7 +42,7 @@ paths:
       summary: Fetch a webstore by its identifier
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: some-uuid
@@ -67,7 +67,7 @@ paths:
       summary: Fetch a basket from a webstore by its identifier
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -100,7 +100,7 @@ paths:
       summary: Create a new basket
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -150,7 +150,7 @@ paths:
       summary: Fetch a basket from a webstore by its identifier
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -190,7 +190,7 @@ paths:
       summary: Gets all categories available in the webstore.
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -215,7 +215,7 @@ paths:
       summary: Gets a store's categories including all package information with them.
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -240,7 +240,7 @@ paths:
       summary: Gets information about a specific category
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -273,7 +273,7 @@ paths:
       summary: Gets information about a specific category, including all the packages in the category
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -305,7 +305,7 @@ paths:
       summary: Fetch a package from a webstore by its identifier
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -336,7 +336,7 @@ paths:
       summary: Fetch all packages from a webstore
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -362,7 +362,7 @@ paths:
       summary: Fetch a package from a webstore by its identifier
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -395,7 +395,7 @@ paths:
       summary: Fetch a package from a webstore by its identifier
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -428,7 +428,7 @@ paths:
       summary: Fetch a package from a webstore by its identifier
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -469,7 +469,7 @@ paths:
       summary: Apply a creator code to a basket.
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -512,7 +512,7 @@ paths:
       summary: Remove a creator code from the basket.
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -541,7 +541,7 @@ paths:
       summary: Apply a gift card to a basket.
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -578,7 +578,7 @@ paths:
       summary: Remove a gift card from the basket.
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -617,7 +617,7 @@ paths:
       summary: Apply a coupon to a basket.
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
@@ -655,7 +655,7 @@ paths:
       summary: Remove a coupon from the basket.
       parameters:
         - in: path
-          name: webstoreIdentifier
+          name: token
           schema:
             type: string
             example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
