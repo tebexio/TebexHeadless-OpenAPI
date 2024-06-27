@@ -988,7 +988,7 @@ components:
       properties:
         id:
           type: integer
-          example: 2678660,
+          example: 2678660
         name:
           type: string
           example: "Test"
