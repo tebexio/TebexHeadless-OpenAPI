@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**getAllPackagesWithBasket**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
 [**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier
 [**getBasketById**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
+[**getCMSPages**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 [**getCategoryById**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 [**getCategoryIncludingPackages**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 [**getPackageById**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
@@ -26,6 +27,7 @@ Method | HTTP request | Description
 [**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
 [**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
 [**updatePackageQuantity**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
+[**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO
 
 
 
@@ -464,7 +466,7 @@ No authorization required
 
 ## getAllPackagesWithAuthedIPAndBasket
 
-> [PackageResponse] getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress)
+> PackageResponse getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress)
 
 Fetch a package from a webstore by its identifier
 
@@ -499,7 +501,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[PackageResponse]**](PackageResponse.md)
+[**PackageResponse**](PackageResponse.md)
 
 ### Authorization
 
@@ -654,9 +656,54 @@ No authorization required
 - **Accept**: application/json
 
 
+## getCMSPages
+
+> CMSPagesResponse getCMSPages(token)
+
+Fetch the custom pages associated with the store.
+
+Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+let token = "some-uuid"; // String | The webstore identifier.
+apiInstance.getCMSPages(token, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **String**| The webstore identifier. | 
+
+### Return type
+
+[**CMSPagesResponse**](CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## getCategoryById
 
-> [CategoryResponse] getCategoryById(token, categoryId)
+> CategoryResponse getCategoryById(token, categoryId)
 
 Gets information about a specific category
 
@@ -689,7 +736,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[CategoryResponse]**](CategoryResponse.md)
+[**CategoryResponse**](CategoryResponse.md)
 
 ### Authorization
 
@@ -1083,4 +1130,55 @@ No authorization required
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+
+## updateTier
+
+> CMSPagesResponse updateTier(token, tierId, opts)
+
+TODO
+
+Updates a tier.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+let token = "some-uuid"; // String | The webstore identifier.
+let tierId = "6276316"; // String | The tier identifier
+let opts = {
+  'updateTierRequest': new TebexHeadlessApi.UpdateTierRequest() // UpdateTierRequest | 
+};
+apiInstance.updateTier(token, tierId, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **String**| The webstore identifier. | 
+ **tierId** | **String**| The tier identifier | 
+ **updateTierRequest** | [**UpdateTierRequest**](UpdateTierRequest.md)|  | [optional] 
+
+### Return type
+
+[**CMSPagesResponse**](CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 

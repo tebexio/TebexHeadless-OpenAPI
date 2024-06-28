@@ -263,8 +263,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="basketIdent">The basket identifier.</param>
         /// <param name="ipAddress">An IP address can be provided with authenticated requests.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;PackageResponse&gt;</returns>
-        List<PackageResponse> GetAllPackagesWithAuthedIPAndBasket(string token, string basketIdent, string ipAddress, int operationIndex = 0);
+        /// <returns>PackageResponse</returns>
+        PackageResponse GetAllPackagesWithAuthedIPAndBasket(string token, string basketIdent, string ipAddress, int operationIndex = 0);
 
         /// <summary>
         /// Fetch a package from a webstore by its identifier
@@ -277,8 +277,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="basketIdent">The basket identifier.</param>
         /// <param name="ipAddress">An IP address can be provided with authenticated requests.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;PackageResponse&gt;</returns>
-        ApiResponse<List<PackageResponse>> GetAllPackagesWithAuthedIPAndBasketWithHttpInfo(string token, string basketIdent, string ipAddress, int operationIndex = 0);
+        /// <returns>ApiResponse of PackageResponse</returns>
+        ApiResponse<PackageResponse> GetAllPackagesWithAuthedIPAndBasketWithHttpInfo(string token, string basketIdent, string ipAddress, int operationIndex = 0);
         /// <summary>
         /// Fetch a package from a webstore by its identifier
         /// </summary>
@@ -357,6 +357,29 @@ namespace TebexHeadless.TebexHeadless
         /// <returns>ApiResponse of BasketResponse</returns>
         ApiResponse<BasketResponse> GetBasketByIdWithHttpInfo(string token, string basketIdent, int operationIndex = 0);
         /// <summary>
+        /// Fetch the custom pages associated with the store.
+        /// </summary>
+        /// <remarks>
+        /// Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+        /// </remarks>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>CMSPagesResponse</returns>
+        CMSPagesResponse GetCMSPages(string token, int operationIndex = 0);
+
+        /// <summary>
+        /// Fetch the custom pages associated with the store.
+        /// </summary>
+        /// <remarks>
+        /// Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+        /// </remarks>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of CMSPagesResponse</returns>
+        ApiResponse<CMSPagesResponse> GetCMSPagesWithHttpInfo(string token, int operationIndex = 0);
+        /// <summary>
         /// Gets information about a specific category
         /// </summary>
         /// <remarks>
@@ -366,8 +389,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="token">The webstore identifier.</param>
         /// <param name="categoryId">The ID of the category to fetch.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;CategoryResponse&gt;</returns>
-        List<CategoryResponse> GetCategoryById(string token, string categoryId, int operationIndex = 0);
+        /// <returns>CategoryResponse</returns>
+        CategoryResponse GetCategoryById(string token, string categoryId, int operationIndex = 0);
 
         /// <summary>
         /// Gets information about a specific category
@@ -379,8 +402,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="token">The webstore identifier.</param>
         /// <param name="categoryId">The ID of the category to fetch.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;CategoryResponse&gt;</returns>
-        ApiResponse<List<CategoryResponse>> GetCategoryByIdWithHttpInfo(string token, string categoryId, int operationIndex = 0);
+        /// <returns>ApiResponse of CategoryResponse</returns>
+        ApiResponse<CategoryResponse> GetCategoryByIdWithHttpInfo(string token, string categoryId, int operationIndex = 0);
         /// <summary>
         /// Gets information about a specific category, including all the packages in the category
         /// </summary>
@@ -583,6 +606,33 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> UpdatePackageQuantityWithHttpInfo(string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0);
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <remarks>
+        /// Updates a tier.
+        /// </remarks>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="tierId">The tier identifier</param>
+        /// <param name="updateTierRequest"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>CMSPagesResponse</returns>
+        CMSPagesResponse UpdateTier(string token, string tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0);
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <remarks>
+        /// Updates a tier.
+        /// </remarks>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="tierId">The tier identifier</param>
+        /// <param name="updateTierRequest"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of CMSPagesResponse</returns>
+        ApiResponse<CMSPagesResponse> UpdateTierWithHttpInfo(string token, string tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -847,8 +897,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="ipAddress">An IP address can be provided with authenticated requests.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;PackageResponse&gt;</returns>
-        System.Threading.Tasks.Task<List<PackageResponse>> GetAllPackagesWithAuthedIPAndBasketAsync(string token, string basketIdent, string ipAddress, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of PackageResponse</returns>
+        System.Threading.Tasks.Task<PackageResponse> GetAllPackagesWithAuthedIPAndBasketAsync(string token, string basketIdent, string ipAddress, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Fetch a package from a webstore by its identifier
@@ -862,8 +912,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="ipAddress">An IP address can be provided with authenticated requests.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;PackageResponse&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<PackageResponse>>> GetAllPackagesWithAuthedIPAndBasketWithHttpInfoAsync(string token, string basketIdent, string ipAddress, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (PackageResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<PackageResponse>> GetAllPackagesWithAuthedIPAndBasketWithHttpInfoAsync(string token, string basketIdent, string ipAddress, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Fetch a package from a webstore by its identifier
         /// </summary>
@@ -948,6 +998,31 @@ namespace TebexHeadless.TebexHeadless
         /// <returns>Task of ApiResponse (BasketResponse)</returns>
         System.Threading.Tasks.Task<ApiResponse<BasketResponse>> GetBasketByIdWithHttpInfoAsync(string token, string basketIdent, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
+        /// Fetch the custom pages associated with the store.
+        /// </summary>
+        /// <remarks>
+        /// Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+        /// </remarks>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of CMSPagesResponse</returns>
+        System.Threading.Tasks.Task<CMSPagesResponse> GetCMSPagesAsync(string token, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Fetch the custom pages associated with the store.
+        /// </summary>
+        /// <remarks>
+        /// Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+        /// </remarks>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (CMSPagesResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<CMSPagesResponse>> GetCMSPagesWithHttpInfoAsync(string token, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
         /// Gets information about a specific category
         /// </summary>
         /// <remarks>
@@ -958,8 +1033,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="categoryId">The ID of the category to fetch.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;CategoryResponse&gt;</returns>
-        System.Threading.Tasks.Task<List<CategoryResponse>> GetCategoryByIdAsync(string token, string categoryId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of CategoryResponse</returns>
+        System.Threading.Tasks.Task<CategoryResponse> GetCategoryByIdAsync(string token, string categoryId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Gets information about a specific category
@@ -972,8 +1047,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="categoryId">The ID of the category to fetch.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;CategoryResponse&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<CategoryResponse>>> GetCategoryByIdWithHttpInfoAsync(string token, string categoryId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (CategoryResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<CategoryResponse>> GetCategoryByIdWithHttpInfoAsync(string token, string categoryId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Gets information about a specific category, including all the packages in the category
         /// </summary>
@@ -1192,6 +1267,35 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> UpdatePackageQuantityWithHttpInfoAsync(string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <remarks>
+        /// Updates a tier.
+        /// </remarks>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="tierId">The tier identifier</param>
+        /// <param name="updateTierRequest"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of CMSPagesResponse</returns>
+        System.Threading.Tasks.Task<CMSPagesResponse> UpdateTierAsync(string token, string tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <remarks>
+        /// Updates a tier.
+        /// </remarks>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="tierId">The tier identifier</param>
+        /// <param name="updateTierRequest"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (CMSPagesResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<CMSPagesResponse>> UpdateTierWithHttpInfoAsync(string token, string tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -2728,10 +2832,10 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="basketIdent">The basket identifier.</param>
         /// <param name="ipAddress">An IP address can be provided with authenticated requests.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;PackageResponse&gt;</returns>
-        public List<PackageResponse> GetAllPackagesWithAuthedIPAndBasket(string token, string basketIdent, string ipAddress, int operationIndex = 0)
+        /// <returns>PackageResponse</returns>
+        public PackageResponse GetAllPackagesWithAuthedIPAndBasket(string token, string basketIdent, string ipAddress, int operationIndex = 0)
         {
-            TebexHeadless.Client.ApiResponse<List<PackageResponse>> localVarResponse = GetAllPackagesWithAuthedIPAndBasketWithHttpInfo(token, basketIdent, ipAddress);
+            TebexHeadless.Client.ApiResponse<PackageResponse> localVarResponse = GetAllPackagesWithAuthedIPAndBasketWithHttpInfo(token, basketIdent, ipAddress);
             return localVarResponse.Data;
         }
 
@@ -2743,8 +2847,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="basketIdent">The basket identifier.</param>
         /// <param name="ipAddress">An IP address can be provided with authenticated requests.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;PackageResponse&gt;</returns>
-        public TebexHeadless.Client.ApiResponse<List<PackageResponse>> GetAllPackagesWithAuthedIPAndBasketWithHttpInfo(string token, string basketIdent, string ipAddress, int operationIndex = 0)
+        /// <returns>ApiResponse of PackageResponse</returns>
+        public TebexHeadless.Client.ApiResponse<PackageResponse> GetAllPackagesWithAuthedIPAndBasketWithHttpInfo(string token, string basketIdent, string ipAddress, int operationIndex = 0)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -2795,7 +2899,7 @@ namespace TebexHeadless.TebexHeadless
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<List<PackageResponse>>("/accounts/{token}/packages?ipAddress={ipAddress}&basketIdent={basketIdent}", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<PackageResponse>("/accounts/{token}/packages?ipAddress={ipAddress}&basketIdent={basketIdent}", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetAllPackagesWithAuthedIPAndBasket", localVarResponse);
@@ -2817,10 +2921,10 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="ipAddress">An IP address can be provided with authenticated requests.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;PackageResponse&gt;</returns>
-        public async System.Threading.Tasks.Task<List<PackageResponse>> GetAllPackagesWithAuthedIPAndBasketAsync(string token, string basketIdent, string ipAddress, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of PackageResponse</returns>
+        public async System.Threading.Tasks.Task<PackageResponse> GetAllPackagesWithAuthedIPAndBasketAsync(string token, string basketIdent, string ipAddress, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            TebexHeadless.Client.ApiResponse<List<PackageResponse>> localVarResponse = await GetAllPackagesWithAuthedIPAndBasketWithHttpInfoAsync(token, basketIdent, ipAddress, operationIndex, cancellationToken).ConfigureAwait(false);
+            TebexHeadless.Client.ApiResponse<PackageResponse> localVarResponse = await GetAllPackagesWithAuthedIPAndBasketWithHttpInfoAsync(token, basketIdent, ipAddress, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -2833,8 +2937,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="ipAddress">An IP address can be provided with authenticated requests.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;PackageResponse&gt;)</returns>
-        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<List<PackageResponse>>> GetAllPackagesWithAuthedIPAndBasketWithHttpInfoAsync(string token, string basketIdent, string ipAddress, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (PackageResponse)</returns>
+        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<PackageResponse>> GetAllPackagesWithAuthedIPAndBasketWithHttpInfoAsync(string token, string basketIdent, string ipAddress, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -2886,7 +2990,7 @@ namespace TebexHeadless.TebexHeadless
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<List<PackageResponse>>("/accounts/{token}/packages?ipAddress={ipAddress}&basketIdent={basketIdent}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<PackageResponse>("/accounts/{token}/packages?ipAddress={ipAddress}&basketIdent={basketIdent}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -3405,16 +3509,160 @@ namespace TebexHeadless.TebexHeadless
         }
 
         /// <summary>
+        /// Fetch the custom pages associated with the store. Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+        /// </summary>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>CMSPagesResponse</returns>
+        public CMSPagesResponse GetCMSPages(string token, int operationIndex = 0)
+        {
+            TebexHeadless.Client.ApiResponse<CMSPagesResponse> localVarResponse = GetCMSPagesWithHttpInfo(token);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Fetch the custom pages associated with the store. Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+        /// </summary>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of CMSPagesResponse</returns>
+        public TebexHeadless.Client.ApiResponse<CMSPagesResponse> GetCMSPagesWithHttpInfo(string token, int operationIndex = 0)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+            {
+                throw new TebexHeadless.Client.ApiException(400, "Missing required parameter 'token' when calling HeadlessApi->GetCMSPages");
+            }
+
+            TebexHeadless.Client.RequestOptions localVarRequestOptions = new TebexHeadless.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = TebexHeadless.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            var localVarAccept = TebexHeadless.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("token", TebexHeadless.Client.ClientUtils.ParameterToString(token)); // path parameter
+
+            localVarRequestOptions.Operation = "HeadlessApi.GetCMSPages";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<CMSPagesResponse>("/accounts/{token}/pages", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetCMSPages", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Fetch the custom pages associated with the store. Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+        /// </summary>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of CMSPagesResponse</returns>
+        public async System.Threading.Tasks.Task<CMSPagesResponse> GetCMSPagesAsync(string token, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            TebexHeadless.Client.ApiResponse<CMSPagesResponse> localVarResponse = await GetCMSPagesWithHttpInfoAsync(token, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Fetch the custom pages associated with the store. Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+        /// </summary>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (CMSPagesResponse)</returns>
+        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<CMSPagesResponse>> GetCMSPagesWithHttpInfoAsync(string token, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+            {
+                throw new TebexHeadless.Client.ApiException(400, "Missing required parameter 'token' when calling HeadlessApi->GetCMSPages");
+            }
+
+
+            TebexHeadless.Client.RequestOptions localVarRequestOptions = new TebexHeadless.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = TebexHeadless.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            var localVarAccept = TebexHeadless.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("token", TebexHeadless.Client.ClientUtils.ParameterToString(token)); // path parameter
+
+            localVarRequestOptions.Operation = "HeadlessApi.GetCMSPages";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<CMSPagesResponse>("/accounts/{token}/pages", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetCMSPages", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Gets information about a specific category Gets information about a category and returns the packages in that category.
         /// </summary>
         /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The webstore identifier.</param>
         /// <param name="categoryId">The ID of the category to fetch.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;CategoryResponse&gt;</returns>
-        public List<CategoryResponse> GetCategoryById(string token, string categoryId, int operationIndex = 0)
+        /// <returns>CategoryResponse</returns>
+        public CategoryResponse GetCategoryById(string token, string categoryId, int operationIndex = 0)
         {
-            TebexHeadless.Client.ApiResponse<List<CategoryResponse>> localVarResponse = GetCategoryByIdWithHttpInfo(token, categoryId);
+            TebexHeadless.Client.ApiResponse<CategoryResponse> localVarResponse = GetCategoryByIdWithHttpInfo(token, categoryId);
             return localVarResponse.Data;
         }
 
@@ -3425,8 +3673,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="token">The webstore identifier.</param>
         /// <param name="categoryId">The ID of the category to fetch.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;CategoryResponse&gt;</returns>
-        public TebexHeadless.Client.ApiResponse<List<CategoryResponse>> GetCategoryByIdWithHttpInfo(string token, string categoryId, int operationIndex = 0)
+        /// <returns>ApiResponse of CategoryResponse</returns>
+        public TebexHeadless.Client.ApiResponse<CategoryResponse> GetCategoryByIdWithHttpInfo(string token, string categoryId, int operationIndex = 0)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -3470,7 +3718,7 @@ namespace TebexHeadless.TebexHeadless
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<List<CategoryResponse>>("/accounts/{token}/categories/{categoryId}", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<CategoryResponse>("/accounts/{token}/categories/{categoryId}", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetCategoryById", localVarResponse);
@@ -3491,10 +3739,10 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="categoryId">The ID of the category to fetch.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;CategoryResponse&gt;</returns>
-        public async System.Threading.Tasks.Task<List<CategoryResponse>> GetCategoryByIdAsync(string token, string categoryId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of CategoryResponse</returns>
+        public async System.Threading.Tasks.Task<CategoryResponse> GetCategoryByIdAsync(string token, string categoryId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            TebexHeadless.Client.ApiResponse<List<CategoryResponse>> localVarResponse = await GetCategoryByIdWithHttpInfoAsync(token, categoryId, operationIndex, cancellationToken).ConfigureAwait(false);
+            TebexHeadless.Client.ApiResponse<CategoryResponse> localVarResponse = await GetCategoryByIdWithHttpInfoAsync(token, categoryId, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -3506,8 +3754,8 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="categoryId">The ID of the category to fetch.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;CategoryResponse&gt;)</returns>
-        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<List<CategoryResponse>>> GetCategoryByIdWithHttpInfoAsync(string token, string categoryId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (CategoryResponse)</returns>
+        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<CategoryResponse>> GetCategoryByIdWithHttpInfoAsync(string token, string categoryId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -3552,7 +3800,7 @@ namespace TebexHeadless.TebexHeadless
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<List<CategoryResponse>>("/accounts/{token}/categories/{categoryId}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<CategoryResponse>("/accounts/{token}/categories/{categoryId}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -4801,6 +5049,176 @@ namespace TebexHeadless.TebexHeadless
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("UpdatePackageQuantity", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// TODO Updates a tier.
+        /// </summary>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="tierId">The tier identifier</param>
+        /// <param name="updateTierRequest"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>CMSPagesResponse</returns>
+        public CMSPagesResponse UpdateTier(string token, string tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0)
+        {
+            TebexHeadless.Client.ApiResponse<CMSPagesResponse> localVarResponse = UpdateTierWithHttpInfo(token, tierId, updateTierRequest);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// TODO Updates a tier.
+        /// </summary>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="tierId">The tier identifier</param>
+        /// <param name="updateTierRequest"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of CMSPagesResponse</returns>
+        public TebexHeadless.Client.ApiResponse<CMSPagesResponse> UpdateTierWithHttpInfo(string token, string tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+            {
+                throw new TebexHeadless.Client.ApiException(400, "Missing required parameter 'token' when calling HeadlessApi->UpdateTier");
+            }
+
+            // verify the required parameter 'tierId' is set
+            if (tierId == null)
+            {
+                throw new TebexHeadless.Client.ApiException(400, "Missing required parameter 'tierId' when calling HeadlessApi->UpdateTier");
+            }
+
+            TebexHeadless.Client.RequestOptions localVarRequestOptions = new TebexHeadless.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = TebexHeadless.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            var localVarAccept = TebexHeadless.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("token", TebexHeadless.Client.ClientUtils.ParameterToString(token)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tierId", TebexHeadless.Client.ClientUtils.ParameterToString(tierId)); // path parameter
+            localVarRequestOptions.Data = updateTierRequest;
+
+            localVarRequestOptions.Operation = "HeadlessApi.UpdateTier";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Patch<CMSPagesResponse>("/accounts/{token}/tiers/{tierId}", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("UpdateTier", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// TODO Updates a tier.
+        /// </summary>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="tierId">The tier identifier</param>
+        /// <param name="updateTierRequest"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of CMSPagesResponse</returns>
+        public async System.Threading.Tasks.Task<CMSPagesResponse> UpdateTierAsync(string token, string tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            TebexHeadless.Client.ApiResponse<CMSPagesResponse> localVarResponse = await UpdateTierWithHttpInfoAsync(token, tierId, updateTierRequest, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// TODO Updates a tier.
+        /// </summary>
+        /// <exception cref="TebexHeadless.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The webstore identifier.</param>
+        /// <param name="tierId">The tier identifier</param>
+        /// <param name="updateTierRequest"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (CMSPagesResponse)</returns>
+        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<CMSPagesResponse>> UpdateTierWithHttpInfoAsync(string token, string tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+            {
+                throw new TebexHeadless.Client.ApiException(400, "Missing required parameter 'token' when calling HeadlessApi->UpdateTier");
+            }
+
+            // verify the required parameter 'tierId' is set
+            if (tierId == null)
+            {
+                throw new TebexHeadless.Client.ApiException(400, "Missing required parameter 'tierId' when calling HeadlessApi->UpdateTier");
+            }
+
+
+            TebexHeadless.Client.RequestOptions localVarRequestOptions = new TebexHeadless.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = TebexHeadless.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            var localVarAccept = TebexHeadless.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("token", TebexHeadless.Client.ClientUtils.ParameterToString(token)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tierId", TebexHeadless.Client.ClientUtils.ParameterToString(tierId)); // path parameter
+            localVarRequestOptions.Data = updateTierRequest;
+
+            localVarRequestOptions.Operation = "HeadlessApi.UpdateTier";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PatchAsync<CMSPagesResponse>("/accounts/{token}/tiers/{tierId}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("UpdateTier", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;

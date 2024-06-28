@@ -46,6 +46,31 @@ paths:
       summary: Fetch a webstore by its identifier
       tags:
       - Headless
+  /accounts/{token}/pages:
+    get:
+      description: Gets a list of custom pages associated with the webstore. These
+        contain a `content` variable with the HTML content of the page.
+      operationId: getCMSPages
+      parameters:
+      - description: The webstore identifier.
+        explode: false
+        in: path
+        name: token
+        required: true
+        schema:
+          example: some-uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CMSPagesResponse'
+          description: Successful response returns the webstore's pages.
+      summary: Fetch the custom pages associated with the store.
+      tags:
+      - Headless
   /accounts/{token}/baskets/{basketIdent}:
     get:
       description: Gets a basket associated with the provided identifier.
@@ -234,9 +259,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/CategoryResponse'
-                type: array
+                $ref: '#/components/schemas/CategoryResponse'
           description: Successful response returns the category without package information.
       summary: Gets information about a specific category
       tags:
@@ -440,9 +463,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/PackageResponse'
-                type: array
+                $ref: '#/components/schemas/PackageResponse'
           description: Successful response returns a list of package information.
         "422":
           description: The provided request is invalid.
@@ -773,6 +794,44 @@ paths:
         be logged in before the quantity can be changed.
       tags:
       - Headless
+  /accounts/{token}/tiers/{tierId}:
+    patch:
+      description: Updates a tier.
+      operationId: updateTier
+      parameters:
+      - description: The webstore identifier.
+        explode: false
+        in: path
+        name: token
+        required: true
+        schema:
+          example: some-uuid
+          type: string
+        style: simple
+      - description: The tier identifier
+        explode: false
+        in: path
+        name: tierId
+        required: true
+        schema:
+          example: "6276316"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateTier_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CMSPagesResponse'
+          description: Successful response.
+      summary: TODO
+      tags:
+      - Headless
 components:
   schemas:
     Webstore:
@@ -854,6 +913,125 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/WebstoreResponse_data'
+      type: object
+    UpdateTierResponse:
+      properties:
+        success:
+          example: true
+          type: boolean
+        message:
+          example: "Tier successfully upgraded, please allow a few moments for your\
+            \ changes to take effect."
+          type: string
+      type: object
+    CMSPagesResponse:
+      example:
+        data:
+        - sequence: false
+          private: false
+          account_id: 244
+          updated_at: 2023-11-13T20:59:54Z
+          hidden: false
+          created_at: 2023-11-13T20:59:54Z
+          disabled: false
+          id: 127
+          title: About
+          slug: about
+          content: |-
+            <p>This is a custom page which you can add your own content to if you wish.</p>
+
+            <p>You can modify your pages by going to <strong>Webstore</strong> &gt; <strong>Pages</strong> from within the
+            Tebex Store control panel.</p>
+
+            <p>Make sure to take a look at our <a href="https://help.tebex.io" rel="noreferrer" target="_blank">knowledgebase</a>
+            for helpful guides on getting started.</p>
+        - sequence: false
+          private: false
+          account_id: 244
+          updated_at: 2023-11-13T20:59:54Z
+          hidden: false
+          created_at: 2023-11-13T20:59:54Z
+          disabled: false
+          id: 127
+          title: About
+          slug: about
+          content: |-
+            <p>This is a custom page which you can add your own content to if you wish.</p>
+
+            <p>You can modify your pages by going to <strong>Webstore</strong> &gt; <strong>Pages</strong> from within the
+            Tebex Store control panel.</p>
+
+            <p>Make sure to take a look at our <a href="https://help.tebex.io" rel="noreferrer" target="_blank">knowledgebase</a>
+            for helpful guides on getting started.</p>
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/CMSPage'
+          type: array
+      type: object
+    CMSPage:
+      example:
+        sequence: false
+        private: false
+        account_id: 244
+        updated_at: 2023-11-13T20:59:54Z
+        hidden: false
+        created_at: 2023-11-13T20:59:54Z
+        disabled: false
+        id: 127
+        title: About
+        slug: about
+        content: |-
+          <p>This is a custom page which you can add your own content to if you wish.</p>
+
+          <p>You can modify your pages by going to <strong>Webstore</strong> &gt; <strong>Pages</strong> from within the
+          Tebex Store control panel.</p>
+
+          <p>Make sure to take a look at our <a href="https://help.tebex.io" rel="noreferrer" target="_blank">knowledgebase</a>
+          for helpful guides on getting started.</p>
+      properties:
+        id:
+          example: 127
+          type: number
+        created_at:
+          example: 2023-11-13T20:59:54Z
+          format: date-time
+          type: string
+        updated_at:
+          example: 2023-11-13T20:59:54Z
+          format: date-time
+          type: string
+        account_id:
+          example: 244
+          type: number
+        title:
+          example: About
+          type: string
+        slug:
+          example: about
+          type: string
+        private:
+          example: false
+          type: boolean
+        hidden:
+          example: false
+          type: boolean
+        disabled:
+          example: false
+          type: boolean
+        sequence:
+          example: false
+          type: boolean
+        content:
+          example: |-
+            <p>This is a custom page which you can add your own content to if you wish.</p>
+
+            <p>You can modify your pages by going to <strong>Webstore</strong> &gt; <strong>Pages</strong> from within the
+            Tebex Store control panel.</p>
+
+            <p>Make sure to take a look at our <a href="https://help.tebex.io" rel="noreferrer" target="_blank">knowledgebase</a>
+            for helpful guides on getting started.</p>
+          type: string
       type: object
     ErrorResponse:
       properties:
@@ -1107,7 +1285,7 @@ components:
           parent: "{}"
           name: Test
           description: description
-          id: 0
+          id: 2678660
           packages:
           - image: image
             total_price: 5
@@ -1151,7 +1329,7 @@ components:
           parent: "{}"
           name: Test
           description: description
-          id: 0
+          id: 2678660
           packages:
           - image: image
             total_price: 5
@@ -1203,7 +1381,7 @@ components:
         parent: "{}"
         name: Test
         description: description
-        id: 0
+        id: 2678660
         packages:
         - image: image
           total_price: 5
@@ -1245,6 +1423,7 @@ components:
         order: 1
       properties:
         id:
+          example: 2678660
           type: integer
         name:
           description: User-friendly name of the category
@@ -1511,6 +1690,12 @@ components:
         quantity:
           example: 1
           type: number
+      type: object
+    updateTier_request:
+      properties:
+        package_id:
+          example: "123456789"
+          type: string
       type: object
     WebstoreResponse_data:
       example:

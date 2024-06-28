@@ -128,6 +128,7 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**GetAllPackagesWithBasket**](docs/HeadlessApi.md#getallpackageswithbasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
 *HeadlessApi* | [**GetBasketAuthUrl**](docs/HeadlessApi.md#getbasketauthurl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier
 *HeadlessApi* | [**GetBasketById**](docs/HeadlessApi.md#getbasketbyid) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
+*HeadlessApi* | [**GetCMSPages**](docs/HeadlessApi.md#getcmspages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 *HeadlessApi* | [**GetCategoryById**](docs/HeadlessApi.md#getcategorybyid) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 *HeadlessApi* | [**GetCategoryIncludingPackages**](docs/HeadlessApi.md#getcategoryincludingpackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 *HeadlessApi* | [**GetPackageById**](docs/HeadlessApi.md#getpackagebyid) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
@@ -137,6 +138,7 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**RemoveCreatorCode**](docs/HeadlessApi.md#removecreatorcode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
 *HeadlessApi* | [**RemoveGiftCard**](docs/HeadlessApi.md#removegiftcard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
 *HeadlessApi* | [**UpdatePackageQuantity**](docs/HeadlessApi.md#updatepackagequantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
+*HeadlessApi* | [**UpdateTier**](docs/HeadlessApi.md#updatetier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO
 
 
 <a id="documentation-for-models"></a>
@@ -148,6 +150,8 @@ Class | Method | HTTP request | Description
  - [Model.BasketLinks](docs/BasketLinks.md)
  - [Model.BasketPackage](docs/BasketPackage.md)
  - [Model.BasketResponse](docs/BasketResponse.md)
+ - [Model.CMSPage](docs/CMSPage.md)
+ - [Model.CMSPagesResponse](docs/CMSPagesResponse.md)
  - [Model.Category](docs/Category.md)
  - [Model.CategoryResponse](docs/CategoryResponse.md)
  - [Model.Coupon](docs/Coupon.md)
@@ -161,6 +165,8 @@ Class | Method | HTTP request | Description
  - [Model.RemoveGiftCardRequest](docs/RemoveGiftCardRequest.md)
  - [Model.RevenueShare](docs/RevenueShare.md)
  - [Model.UpdatePackageQuantityRequest](docs/UpdatePackageQuantityRequest.md)
+ - [Model.UpdateTierRequest](docs/UpdateTierRequest.md)
+ - [Model.UpdateTierResponse](docs/UpdateTierResponse.md)
  - [Model.Webstore](docs/Webstore.md)
  - [Model.WebstoreResponse](docs/WebstoreResponse.md)
  - [Model.WebstoreResponseData](docs/WebstoreResponseData.md)

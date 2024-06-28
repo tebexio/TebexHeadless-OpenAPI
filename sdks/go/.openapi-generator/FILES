@@ -12,6 +12,8 @@ docs/Basket.md
 docs/BasketLinks.md
 docs/BasketPackage.md
 docs/BasketResponse.md
+docs/CMSPage.md
+docs/CMSPagesResponse.md
 docs/Category.md
 docs/CategoryResponse.md
 docs/Coupon.md
@@ -26,6 +28,8 @@ docs/RemoveBasketPackageRequest.md
 docs/RemoveGiftCardRequest.md
 docs/RevenueShare.md
 docs/UpdatePackageQuantityRequest.md
+docs/UpdateTierRequest.md
+docs/UpdateTierResponse.md
 docs/Webstore.md
 docs/WebstoreResponse.md
 docs/WebstoreResponseData.md
@@ -40,6 +44,8 @@ model_basket_package.go
 model_basket_response.go
 model_category.go
 model_category_response.go
+model_cms_page.go
+model_cms_pages_response.go
 model_coupon.go
 model_create_basket_request.go
 model_error_response.go
@@ -51,6 +57,8 @@ model_remove_basket_package_request.go
 model_remove_gift_card_request.go
 model_revenue_share.go
 model_update_package_quantity_request.go
+model_update_tier_request.go
+model_update_tier_response.go
 model_webstore.go
 model_webstore_response.go
 model_webstore_response_data.go

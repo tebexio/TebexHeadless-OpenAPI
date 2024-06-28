@@ -17,6 +17,7 @@ import AddBasketPackageRequest from '../model/AddBasketPackageRequest';
 import ApplyCreatorCodeRequest from '../model/ApplyCreatorCodeRequest';
 import Basket from '../model/Basket';
 import BasketResponse from '../model/BasketResponse';
+import CMSPagesResponse from '../model/CMSPagesResponse';
 import CategoryResponse from '../model/CategoryResponse';
 import Coupon from '../model/Coupon';
 import CreateBasketRequest from '../model/CreateBasketRequest';
@@ -25,6 +26,7 @@ import PackageResponse from '../model/PackageResponse';
 import RemoveBasketPackageRequest from '../model/RemoveBasketPackageRequest';
 import RemoveGiftCardRequest from '../model/RemoveGiftCardRequest';
 import UpdatePackageQuantityRequest from '../model/UpdatePackageQuantityRequest';
+import UpdateTierRequest from '../model/UpdateTierRequest';
 import WebstoreResponse from '../model/WebstoreResponse';
 
 /**
@@ -476,7 +478,7 @@ export default class HeadlessApi {
      * Callback function to receive the result of the getAllPackagesWithAuthedIPAndBasket operation.
      * @callback module:TebexHeadless/TebexHeadless/HeadlessApi~getAllPackagesWithAuthedIPAndBasketCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:TebexHeadless/model/PackageResponse>} data The data returned by the service call.
+     * @param {module:TebexHeadless/model/PackageResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -487,7 +489,7 @@ export default class HeadlessApi {
      * @param {String} basketIdent The basket identifier.
      * @param {String} ipAddress An IP address can be provided with authenticated requests.
      * @param {module:TebexHeadless/TebexHeadless/HeadlessApi~getAllPackagesWithAuthedIPAndBasketCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:TebexHeadless/model/PackageResponse>}
+     * data is of type: {@link module:TebexHeadless/model/PackageResponse}
      */
     getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress, callback) {
       let postBody = null;
@@ -519,7 +521,7 @@ export default class HeadlessApi {
       let authNames = [];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [PackageResponse];
+      let returnType = PackageResponse;
       return this.apiClient.callApi(
         '/accounts/{token}/packages?ipAddress={ipAddress}&basketIdent={basketIdent}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -681,10 +683,53 @@ export default class HeadlessApi {
     }
 
     /**
+     * Callback function to receive the result of the getCMSPages operation.
+     * @callback module:TebexHeadless/TebexHeadless/HeadlessApi~getCMSPagesCallback
+     * @param {String} error Error message, if any.
+     * @param {module:TebexHeadless/model/CMSPagesResponse} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Fetch the custom pages associated with the store.
+     * Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.
+     * @param {String} token The webstore identifier.
+     * @param {module:TebexHeadless/TebexHeadless/HeadlessApi~getCMSPagesCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:TebexHeadless/model/CMSPagesResponse}
+     */
+    getCMSPages(token, callback) {
+      let postBody = null;
+      // verify the required parameter 'token' is set
+      if (token === undefined || token === null) {
+        throw new Error("Missing the required parameter 'token' when calling getCMSPages");
+      }
+
+      let pathParams = {
+        'token': token
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = CMSPagesResponse;
+      return this.apiClient.callApi(
+        '/accounts/{token}/pages', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the getCategoryById operation.
      * @callback module:TebexHeadless/TebexHeadless/HeadlessApi~getCategoryByIdCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:TebexHeadless/model/CategoryResponse>} data The data returned by the service call.
+     * @param {module:TebexHeadless/model/CategoryResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -694,7 +739,7 @@ export default class HeadlessApi {
      * @param {String} token The webstore identifier.
      * @param {String} categoryId The ID of the category to fetch.
      * @param {module:TebexHeadless/TebexHeadless/HeadlessApi~getCategoryByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:TebexHeadless/model/CategoryResponse>}
+     * data is of type: {@link module:TebexHeadless/model/CategoryResponse}
      */
     getCategoryById(token, categoryId, callback) {
       let postBody = null;
@@ -721,7 +766,7 @@ export default class HeadlessApi {
       let authNames = [];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [CategoryResponse];
+      let returnType = CategoryResponse;
       return this.apiClient.callApi(
         '/accounts/{token}/categories/{categoryId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1109,6 +1154,58 @@ export default class HeadlessApi {
       let returnType = null;
       return this.apiClient.callApi(
         '/baskets/{basketIdent}/packages/{packageId}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the updateTier operation.
+     * @callback module:TebexHeadless/TebexHeadless/HeadlessApi~updateTierCallback
+     * @param {String} error Error message, if any.
+     * @param {module:TebexHeadless/model/CMSPagesResponse} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * TODO
+     * Updates a tier.
+     * @param {String} token The webstore identifier.
+     * @param {String} tierId The tier identifier
+     * @param {Object} opts Optional parameters
+     * @param {module:TebexHeadless/model/UpdateTierRequest} [updateTierRequest] 
+     * @param {module:TebexHeadless/TebexHeadless/HeadlessApi~updateTierCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:TebexHeadless/model/CMSPagesResponse}
+     */
+    updateTier(token, tierId, opts, callback) {
+      opts = opts || {};
+      let postBody = opts['updateTierRequest'];
+      // verify the required parameter 'token' is set
+      if (token === undefined || token === null) {
+        throw new Error("Missing the required parameter 'token' when calling updateTier");
+      }
+      // verify the required parameter 'tierId' is set
+      if (tierId === undefined || tierId === null) {
+        throw new Error("Missing the required parameter 'tierId' when calling updateTier");
+      }
+
+      let pathParams = {
+        'token': token,
+        'tierId': tierId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = CMSPagesResponse;
+      return this.apiClient.callApi(
+        '/accounts/{token}/tiers/{tierId}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

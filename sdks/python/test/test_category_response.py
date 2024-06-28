@@ -38,7 +38,7 @@ class TestCategoryResponse(unittest.TestCase):
             return CategoryResponse(
                 data = [
                     TebexHeadless.models.category.Category(
-                        id = 56, 
+                        id = 2678660, 
                         name = 'Test', 
                         slug = '', 
                         parent = TebexHeadless.models.parent.parent(), 

@@ -10,6 +10,8 @@ docs/Basket.md
 docs/BasketLinks.md
 docs/BasketPackage.md
 docs/BasketResponse.md
+docs/CMSPage.md
+docs/CMSPagesResponse.md
 docs/Category.md
 docs/CategoryResponse.md
 docs/Coupon.md
@@ -24,6 +26,8 @@ docs/RemoveBasketPackageRequest.md
 docs/RemoveGiftCardRequest.md
 docs/RevenueShare.md
 docs/UpdatePackageQuantityRequest.md
+docs/UpdateTierRequest.md
+docs/UpdateTierResponse.md
 docs/Webstore.md
 docs/WebstoreResponse.md
 docs/WebstoreResponseData.md
@@ -34,6 +38,8 @@ src/TebexHeadless.Test/Model/BasketLinksTests.cs
 src/TebexHeadless.Test/Model/BasketPackageTests.cs
 src/TebexHeadless.Test/Model/BasketResponseTests.cs
 src/TebexHeadless.Test/Model/BasketTests.cs
+src/TebexHeadless.Test/Model/CMSPageTests.cs
+src/TebexHeadless.Test/Model/CMSPagesResponseTests.cs
 src/TebexHeadless.Test/Model/CategoryResponseTests.cs
 src/TebexHeadless.Test/Model/CategoryTests.cs
 src/TebexHeadless.Test/Model/CouponTests.cs
@@ -47,6 +53,8 @@ src/TebexHeadless.Test/Model/RemoveBasketPackageRequestTests.cs
 src/TebexHeadless.Test/Model/RemoveGiftCardRequestTests.cs
 src/TebexHeadless.Test/Model/RevenueShareTests.cs
 src/TebexHeadless.Test/Model/UpdatePackageQuantityRequestTests.cs
+src/TebexHeadless.Test/Model/UpdateTierRequestTests.cs
+src/TebexHeadless.Test/Model/UpdateTierResponseTests.cs
 src/TebexHeadless.Test/Model/WebstoreResponseDataTests.cs
 src/TebexHeadless.Test/Model/WebstoreResponseTests.cs
 src/TebexHeadless.Test/Model/WebstoreTests.cs
@@ -75,6 +83,8 @@ src/TebexHeadless/Model/Basket.cs
 src/TebexHeadless/Model/BasketLinks.cs
 src/TebexHeadless/Model/BasketPackage.cs
 src/TebexHeadless/Model/BasketResponse.cs
+src/TebexHeadless/Model/CMSPage.cs
+src/TebexHeadless/Model/CMSPagesResponse.cs
 src/TebexHeadless/Model/Category.cs
 src/TebexHeadless/Model/CategoryResponse.cs
 src/TebexHeadless/Model/Coupon.cs
@@ -88,6 +98,8 @@ src/TebexHeadless/Model/RemoveBasketPackageRequest.cs
 src/TebexHeadless/Model/RemoveGiftCardRequest.cs
 src/TebexHeadless/Model/RevenueShare.cs
 src/TebexHeadless/Model/UpdatePackageQuantityRequest.cs
+src/TebexHeadless/Model/UpdateTierRequest.cs
+src/TebexHeadless/Model/UpdateTierResponse.cs
 src/TebexHeadless/Model/Webstore.cs
 src/TebexHeadless/Model/WebstoreResponse.cs
 src/TebexHeadless/Model/WebstoreResponseData.cs

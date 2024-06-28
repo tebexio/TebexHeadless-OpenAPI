@@ -11,6 +11,8 @@ docs/Model/Basket.md
 docs/Model/BasketLinks.md
 docs/Model/BasketPackage.md
 docs/Model/BasketResponse.md
+docs/Model/CMSPage.md
+docs/Model/CMSPagesResponse.md
 docs/Model/Category.md
 docs/Model/CategoryResponse.md
 docs/Model/Coupon.md
@@ -24,6 +26,8 @@ docs/Model/RemoveBasketPackageRequest.md
 docs/Model/RemoveGiftCardRequest.md
 docs/Model/RevenueShare.md
 docs/Model/UpdatePackageQuantityRequest.md
+docs/Model/UpdateTierRequest.md
+docs/Model/UpdateTierResponse.md
 docs/Model/Webstore.md
 docs/Model/WebstoreResponse.md
 docs/Model/WebstoreResponseData.md
@@ -38,6 +42,8 @@ lib/Model/Basket.php
 lib/Model/BasketLinks.php
 lib/Model/BasketPackage.php
 lib/Model/BasketResponse.php
+lib/Model/CMSPage.php
+lib/Model/CMSPagesResponse.php
 lib/Model/Category.php
 lib/Model/CategoryResponse.php
 lib/Model/Coupon.php
@@ -52,6 +58,8 @@ lib/Model/RemoveBasketPackageRequest.php
 lib/Model/RemoveGiftCardRequest.php
 lib/Model/RevenueShare.php
 lib/Model/UpdatePackageQuantityRequest.php
+lib/Model/UpdateTierRequest.php
+lib/Model/UpdateTierResponse.php
 lib/Model/Webstore.php
 lib/Model/WebstoreResponse.php
 lib/Model/WebstoreResponseData.php
@@ -64,6 +72,8 @@ test/Model/BasketLinksTest.php
 test/Model/BasketPackageTest.php
 test/Model/BasketResponseTest.php
 test/Model/BasketTest.php
+test/Model/CMSPageTest.php
+test/Model/CMSPagesResponseTest.php
 test/Model/CategoryResponseTest.php
 test/Model/CategoryTest.php
 test/Model/CouponTest.php
@@ -77,6 +87,8 @@ test/Model/RemoveBasketPackageRequestTest.php
 test/Model/RemoveGiftCardRequestTest.php
 test/Model/RevenueShareTest.php
 test/Model/UpdatePackageQuantityRequestTest.php
+test/Model/UpdateTierRequestTest.php
+test/Model/UpdateTierResponseTest.php
 test/Model/WebstoreResponseDataTest.php
 test/Model/WebstoreResponseTest.php
 test/Model/WebstoreTest.php

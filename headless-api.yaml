@@ -58,7 +58,31 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/WebstoreResponse"
-                    
+  /accounts/{token}/pages:
+    get:
+      tags:
+      - Headless
+      operationId: getCMSPages
+      summary: Fetch the custom pages associated with the store.
+      parameters:
+        - in: path
+          name: token
+          schema:
+            type: string
+            example: some-uuid
+          required: true
+          description: The webstore identifier.
+      description: |-
+        Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.
+      responses:
+        '200':
+          description: |-
+            Successful response returns the webstore's pages.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CMSPagesResponse"
+
   /accounts/{token}/baskets/{basketIdent}:
     get:
       tags:
@@ -262,8 +286,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/CategoryResponse'
+                $ref: '#/components/schemas/CategoryResponse'
 
   /accounts/{token}/categories/{categoryId}?includePackages=1:
     get:
@@ -352,8 +375,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PackageResponse'
-        # '422':
-        #   description: The provided request is invalid.
   /accounts/{token}/packages?ipAddress={ipAddress}:
     get:
       tags:
@@ -457,8 +478,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/PackageResponse'
+                $ref: '#/components/schemas/PackageResponse'
         '422':
           description: The provided request is invalid.
   /accounts/{token}/baskets/{basketIdent}/creator-codes:
@@ -786,7 +806,47 @@ paths:
           description: |- 
             Successful response.
         '422':
-          description: The provided request is invalid. The error response will include detail as to which parameter failed validation.   
+          description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
+  /accounts/{token}/tiers/{tierId}:
+    patch:
+      tags:
+      - Headless
+      operationId: updateTier
+      summary: TODO
+      parameters:
+        - in: path
+          name: token
+          schema:
+            type: string
+            example: some-uuid
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: tierId
+          schema:
+            type: string
+            example: 6276316
+          required: true
+          description: The tier identifier
+      description: |-
+        Updates a tier.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                package_id:
+                  type: string
+                  example: 123456789
+      responses:
+        '200':
+          description: 
+            Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CMSPagesResponse'
 components:
   schemas:
     Webstore:
@@ -842,6 +902,60 @@ components:
             schema:
               $ref: '#/components/schemas/Webstore'
       description: Wrapped webstore information in a "data" object.
+    UpdateTierResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Tier successfully upgraded, please allow a few moments for your changes to take effect."
+    CMSPagesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSPage'
+    CMSPage:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 127
+        created_at:
+          type: string
+          format: date-time
+          example: "2023-11-13T20:59:54.000000Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2023-11-13T20:59:54.000000Z"
+        account_id:
+          type: number
+          example: 244
+        title:
+          type: string
+          example: About
+        slug:
+          type: string
+          example: about
+        private:
+          type: boolean
+          example: false
+        hidden:
+          type: boolean
+          example: false
+        disabled:
+          type: boolean
+          example: false
+        sequence:
+          type: boolean
+          example: false
+        content:
+          type: string
+          example: "<p>This is a custom page which you can add your own content to if you wish.</p>\n\n<p>You can modify your pages by going to <strong>Webstore</strong> &gt; <strong>Pages</strong> from within the\nTebex Store control panel.</p>\n\n<p>Make sure to take a look at our <a href=\"https://help.tebex.io\" rel=\"noreferrer\" target=\"_blank\">knowledgebase</a>\nfor helpful guides on getting started.</p>"
     ErrorResponse:
       type: object
       properties:

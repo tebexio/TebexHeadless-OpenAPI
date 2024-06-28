@@ -17,6 +17,7 @@ All URIs are relative to https://headless.tebex.io/api, except if the operation 
 | [**getAllPackagesWithBasket()**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
 | [**getBasketAuthUrl()**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier |
 | [**getBasketById()**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
+| [**getCMSPages()**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
 | [**getCategoryById()**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**getCategoryIncludingPackages()**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**getPackageById()**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
@@ -26,6 +27,7 @@ All URIs are relative to https://headless.tebex.io/api, except if the operation 
 | [**removeCreatorCode()**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
 | [**removeGiftCard()**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
 | [**updatePackageQuantity()**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
+| [**updateTier()**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO |
 
 
 ## `addBasketPackage()`
@@ -553,7 +555,7 @@ No authorization required
 ## `getAllPackagesWithAuthedIPAndBasket()`
 
 ```php
-getAllPackagesWithAuthedIPAndBasket($token, $basket_ident, $ip_address): \TebexHeadless\Model\PackageResponse[]
+getAllPackagesWithAuthedIPAndBasket($token, $basket_ident, $ip_address): \TebexHeadless\Model\PackageResponse
 ```
 
 Fetch a package from a webstore by its identifier
@@ -595,7 +597,7 @@ try {
 
 ### Return type
 
-[**\TebexHeadless\Model\PackageResponse[]**](../Model/PackageResponse.md)
+[**\TebexHeadless\Model\PackageResponse**](../Model/PackageResponse.md)
 
 ### Authorization
 
@@ -786,10 +788,66 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getCMSPages()`
+
+```php
+getCMSPages($token): \TebexHeadless\Model\CMSPagesResponse
+```
+
+Fetch the custom pages associated with the store.
+
+Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$token = some-uuid; // string | The webstore identifier.
+
+try {
+    $result = $apiInstance->getCMSPages($token);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getCMSPages: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **token** | **string**| The webstore identifier. | |
+
+### Return type
+
+[**\TebexHeadless\Model\CMSPagesResponse**](../Model/CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getCategoryById()`
 
 ```php
-getCategoryById($token, $category_id): \TebexHeadless\Model\CategoryResponse[]
+getCategoryById($token, $category_id): \TebexHeadless\Model\CategoryResponse
 ```
 
 Gets information about a specific category
@@ -829,7 +887,7 @@ try {
 
 ### Return type
 
-[**\TebexHeadless\Model\CategoryResponse[]**](../Model/CategoryResponse.md)
+[**\TebexHeadless\Model\CategoryResponse**](../Model/CategoryResponse.md)
 
 ### Authorization
 
@@ -1301,6 +1359,66 @@ No authorization required
 
 - **Content-Type**: `application/json`
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateTier()`
+
+```php
+updateTier($token, $tier_id, $update_tier_request): \TebexHeadless\Model\CMSPagesResponse
+```
+
+TODO
+
+Updates a tier.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$token = some-uuid; // string | The webstore identifier.
+$tier_id = 6276316; // string | The tier identifier
+$update_tier_request = new \TebexHeadless\Model\UpdateTierRequest(); // \TebexHeadless\Model\UpdateTierRequest
+
+try {
+    $result = $apiInstance->updateTier($token, $tier_id, $update_tier_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->updateTier: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **token** | **string**| The webstore identifier. | |
+| **tier_id** | **string**| The tier identifier | |
+| **update_tier_request** | [**\TebexHeadless\Model\UpdateTierRequest**](../Model/UpdateTierRequest.md)|  | [optional] |
+
+### Return type
+
+[**\TebexHeadless\Model\CMSPagesResponse**](../Model/CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

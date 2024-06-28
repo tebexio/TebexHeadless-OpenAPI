@@ -178,6 +178,16 @@
         done();
       });
     });
+    describe('getCMSPages', function() {
+      it('should call getCMSPages successfully', function(done) {
+        //uncomment below and update the code to test getCMSPages
+        //instance.getCMSPages(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('getCategoryById', function() {
       it('should call getCategoryById successfully', function(done) {
         //uncomment below and update the code to test getCategoryById
@@ -262,6 +272,16 @@
       it('should call updatePackageQuantity successfully', function(done) {
         //uncomment below and update the code to test updatePackageQuantity
         //instance.updatePackageQuantity(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('updateTier', function() {
+      it('should call updateTier successfully', function(done) {
+        //uncomment below and update the code to test updateTier
+        //instance.updateTier(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

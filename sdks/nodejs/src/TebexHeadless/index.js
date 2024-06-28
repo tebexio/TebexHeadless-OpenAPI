@@ -19,6 +19,8 @@ import Basket from './model/Basket';
 import BasketLinks from './model/BasketLinks';
 import BasketPackage from './model/BasketPackage';
 import BasketResponse from './model/BasketResponse';
+import CMSPage from './model/CMSPage';
+import CMSPagesResponse from './model/CMSPagesResponse';
 import Category from './model/Category';
 import CategoryResponse from './model/CategoryResponse';
 import Coupon from './model/Coupon';
@@ -32,6 +34,8 @@ import RemoveBasketPackageRequest from './model/RemoveBasketPackageRequest';
 import RemoveGiftCardRequest from './model/RemoveGiftCardRequest';
 import RevenueShare from './model/RevenueShare';
 import UpdatePackageQuantityRequest from './model/UpdatePackageQuantityRequest';
+import UpdateTierRequest from './model/UpdateTierRequest';
+import UpdateTierResponse from './model/UpdateTierResponse';
 import Webstore from './model/Webstore';
 import WebstoreResponse from './model/WebstoreResponse';
 import WebstoreResponseData from './model/WebstoreResponseData';
@@ -113,6 +117,18 @@ export {
     BasketResponse,
 
     /**
+     * The CMSPage model constructor.
+     * @property {module:TebexHeadless/model/CMSPage}
+     */
+    CMSPage,
+
+    /**
+     * The CMSPagesResponse model constructor.
+     * @property {module:TebexHeadless/model/CMSPagesResponse}
+     */
+    CMSPagesResponse,
+
+    /**
      * The Category model constructor.
      * @property {module:TebexHeadless/model/Category}
      */
@@ -189,6 +205,18 @@ export {
      * @property {module:TebexHeadless/model/UpdatePackageQuantityRequest}
      */
     UpdatePackageQuantityRequest,
+
+    /**
+     * The UpdateTierRequest model constructor.
+     * @property {module:TebexHeadless/model/UpdateTierRequest}
+     */
+    UpdateTierRequest,
+
+    /**
+     * The UpdateTierResponse model constructor.
+     * @property {module:TebexHeadless/model/UpdateTierResponse}
+     */
+    UpdateTierResponse,
 
     /**
      * The Webstore model constructor.

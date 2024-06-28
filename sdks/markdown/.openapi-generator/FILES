@@ -3,6 +3,8 @@ Models/Basket.md
 Models/BasketLinks.md
 Models/BasketPackage.md
 Models/BasketResponse.md
+Models/CMSPage.md
+Models/CMSPagesResponse.md
 Models/Category.md
 Models/CategoryResponse.md
 Models/Coupon.md
@@ -12,6 +14,7 @@ Models/Package.md
 Models/PackageResponse.md
 Models/Package_category.md
 Models/RevenueShare.md
+Models/UpdateTierResponse.md
 Models/Webstore.md
 Models/WebstoreResponse.md
 Models/WebstoreResponse_data.md
@@ -21,5 +24,6 @@ Models/createBasket_request.md
 Models/removeBasketPackage_request.md
 Models/removeGiftCard_request.md
 Models/updatePackageQuantity_request.md
+Models/updateTier_request.md
 README.md
 TebexHeadless/HeadlessApi.md

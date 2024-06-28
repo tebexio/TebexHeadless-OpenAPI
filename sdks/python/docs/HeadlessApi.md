@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**get_basket_by_id**](HeadlessApi.md#get_basket_by_id) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
 [**get_category_by_id**](HeadlessApi.md#get_category_by_id) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 [**get_category_including_packages**](HeadlessApi.md#get_category_including_packages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
+[**get_cms_pages**](HeadlessApi.md#get_cms_pages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 [**get_package_by_id**](HeadlessApi.md#get_package_by_id) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
 [**get_webstore_by_id**](HeadlessApi.md#get_webstore_by_id) | **GET** /accounts/{token} | Fetch a webstore by its identifier
 [**remove_basket_package**](HeadlessApi.md#remove_basket_package) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
@@ -26,6 +27,7 @@ Method | HTTP request | Description
 [**remove_creator_code**](HeadlessApi.md#remove_creator_code) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
 [**remove_gift_card**](HeadlessApi.md#remove_gift_card) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
 [**update_package_quantity**](HeadlessApi.md#update_package_quantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
+[**update_tier**](HeadlessApi.md#update_tier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO
 
 
 # **add_basket_package**
@@ -668,7 +670,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_packages_with_authed_ip_and_basket**
-> List[PackageResponse] get_all_packages_with_authed_ip_and_basket(token, basket_ident, ip_address)
+> PackageResponse get_all_packages_with_authed_ip_and_basket(token, basket_ident, ip_address)
 
 Fetch a package from a webstore by its identifier
 
@@ -720,7 +722,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[PackageResponse]**](PackageResponse.md)
+[**PackageResponse**](PackageResponse.md)
 
 ### Authorization
 
@@ -955,7 +957,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_category_by_id**
-> List[CategoryResponse] get_category_by_id(token, category_id)
+> CategoryResponse get_category_by_id(token, category_id)
 
 Gets information about a specific category
 
@@ -1005,7 +1007,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[CategoryResponse]**](CategoryResponse.md)
+[**CategoryResponse**](CategoryResponse.md)
 
 ### Authorization
 
@@ -1091,6 +1093,74 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response returns the category with package information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_cms_pages**
+> CMSPagesResponse get_cms_pages(token)
+
+Fetch the custom pages associated with the store.
+
+Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.
+
+### Example
+
+
+```python
+import TebexHeadless
+from TebexHeadless.models.cms_pages_response import CMSPagesResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    token = 'some-uuid' # str | The webstore identifier.
+
+    try:
+        # Fetch the custom pages associated with the store.
+        api_response = api_instance.get_cms_pages(token)
+        print("The response of HeadlessApi->get_cms_pages:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_cms_pages: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **str**| The webstore identifier. | 
+
+### Return type
+
+[**CMSPagesResponse**](CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns the webstore&#39;s pages. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1579,6 +1649,79 @@ No authorization required
 |-------------|-------------|------------------|
 **200** | Successful response. |  -  |
 **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_tier**
+> CMSPagesResponse update_tier(token, tier_id, update_tier_request=update_tier_request)
+
+TODO
+
+Updates a tier.
+
+### Example
+
+
+```python
+import TebexHeadless
+from TebexHeadless.models.cms_pages_response import CMSPagesResponse
+from TebexHeadless.models.update_tier_request import UpdateTierRequest
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    token = 'some-uuid' # str | The webstore identifier.
+    tier_id = '6276316' # str | The tier identifier
+    update_tier_request = TebexHeadless.UpdateTierRequest() # UpdateTierRequest |  (optional)
+
+    try:
+        # TODO
+        api_response = api_instance.update_tier(token, tier_id, update_tier_request=update_tier_request)
+        print("The response of HeadlessApi->update_tier:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->update_tier: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **str**| The webstore identifier. | 
+ **tier_id** | **str**| The tier identifier | 
+ **update_tier_request** | [**UpdateTierRequest**](UpdateTierRequest.md)|  | [optional] 
+
+### Return type
+
+[**CMSPagesResponse**](CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

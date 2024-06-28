@@ -19,6 +19,7 @@ import org.openapitools.client.model.ApplyCreatorCodeRequest;
 import org.openapitools.client.model.Basket;
 import org.openapitools.client.model.BasketResponse;
 import java.math.BigDecimal;
+import org.openapitools.client.model.CMSPagesResponse;
 import org.openapitools.client.model.CategoryResponse;
 import org.openapitools.client.model.Coupon;
 import org.openapitools.client.model.CreateBasketRequest;
@@ -27,6 +28,7 @@ import org.openapitools.client.model.PackageResponse;
 import org.openapitools.client.model.RemoveBasketPackageRequest;
 import org.openapitools.client.model.RemoveGiftCardRequest;
 import org.openapitools.client.model.UpdatePackageQuantityRequest;
+import org.openapitools.client.model.UpdateTierRequest;
 import org.openapitools.client.model.WebstoreResponse;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -191,7 +193,7 @@ public class HeadlessApiTest {
         String token = null;
         String basketIdent = null;
         String ipAddress = null;
-        List<PackageResponse> response = api.getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress);
+        PackageResponse response = api.getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress);
         // TODO: test validations
     }
 
@@ -242,6 +244,20 @@ public class HeadlessApiTest {
     }
 
     /**
+     * Fetch the custom pages associated with the store.
+     *
+     * Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getCMSPagesTest() throws ApiException {
+        String token = null;
+        CMSPagesResponse response = api.getCMSPages(token);
+        // TODO: test validations
+    }
+
+    /**
      * Gets information about a specific category
      *
      * Gets information about a category and returns the packages in that category.
@@ -252,7 +268,7 @@ public class HeadlessApiTest {
     public void getCategoryByIdTest() throws ApiException {
         String token = null;
         String categoryId = null;
-        List<CategoryResponse> response = api.getCategoryById(token, categoryId);
+        CategoryResponse response = api.getCategoryById(token, categoryId);
         // TODO: test validations
     }
 
@@ -374,6 +390,22 @@ public class HeadlessApiTest {
         BigDecimal packageId = null;
         UpdatePackageQuantityRequest updatePackageQuantityRequest = null;
         api.updatePackageQuantity(basketIdent, packageId, updatePackageQuantityRequest);
+        // TODO: test validations
+    }
+
+    /**
+     * TODO
+     *
+     * Updates a tier.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void updateTierTest() throws ApiException {
+        String token = null;
+        String tierId = null;
+        UpdateTierRequest updateTierRequest = null;
+        CMSPagesResponse response = api.updateTier(token, tierId, updateTierRequest);
         // TODO: test validations
     }
 

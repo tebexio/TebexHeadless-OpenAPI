@@ -132,6 +132,13 @@ class TestHeadlessApi(unittest.TestCase):
         """
         pass
 
+    def test_get_cms_pages(self) -> None:
+        """Test case for get_cms_pages
+
+        Fetch the custom pages associated with the store.
+        """
+        pass
+
     def test_get_package_by_id(self) -> None:
         """Test case for get_package_by_id
 
@@ -178,6 +185,13 @@ class TestHeadlessApi(unittest.TestCase):
         """Test case for update_package_quantity
 
         Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
+        """
+        pass
+
+    def test_update_tier(self) -> None:
+        """Test case for update_tier
+
+        TODO
         """
         pass
 

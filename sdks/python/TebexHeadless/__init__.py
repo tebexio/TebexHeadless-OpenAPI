@@ -38,6 +38,8 @@ from TebexHeadless.models.basket import Basket
 from TebexHeadless.models.basket_links import BasketLinks
 from TebexHeadless.models.basket_package import BasketPackage
 from TebexHeadless.models.basket_response import BasketResponse
+from TebexHeadless.models.cms_page import CMSPage
+from TebexHeadless.models.cms_pages_response import CMSPagesResponse
 from TebexHeadless.models.category import Category
 from TebexHeadless.models.category_response import CategoryResponse
 from TebexHeadless.models.coupon import Coupon
@@ -51,6 +53,8 @@ from TebexHeadless.models.remove_basket_package_request import RemoveBasketPacka
 from TebexHeadless.models.remove_gift_card_request import RemoveGiftCardRequest
 from TebexHeadless.models.revenue_share import RevenueShare
 from TebexHeadless.models.update_package_quantity_request import UpdatePackageQuantityRequest
+from TebexHeadless.models.update_tier_request import UpdateTierRequest
+from TebexHeadless.models.update_tier_response import UpdateTierResponse
 from TebexHeadless.models.webstore import Webstore
 from TebexHeadless.models.webstore_response import WebstoreResponse
 from TebexHeadless.models.webstore_response_data import WebstoreResponseData

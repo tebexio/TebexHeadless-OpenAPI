@@ -1075,6 +1075,118 @@
                             ]
                         },
 	                        {
+    "name": "/accounts/:token/pages",
+                "description": "Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.",
+                 "item": [
+                            {
+                                "name": "Fetch the custom pages associated with the store.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/pages",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "pages"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/accounts/:token/tiers/:tierId",
+                "description": "Updates a tier.",
+                 "item": [
+                            {
+                                "name": "TODO",
+                                "request": {
+                                    "method": "PATCH",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"package_id\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/tiers/:tierId",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "tiers",
+                                            ":tierId"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "tierId",
+                                                "value": "",
+                                                "description": "The tier identifier"
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Updates a tier."
+                                }
+                            }
+                            ]
+                        },
+	                        {
     "name": "/baskets/:basketIdent/packages",
                 "description": "Add a package with the given ID to the basket.",
                  "item": [

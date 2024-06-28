@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**GetAllPackagesWithBasket**](HeadlessAPI.md#GetAllPackagesWithBasket) | **Get** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
 [**GetBasketAuthUrl**](HeadlessAPI.md#GetBasketAuthUrl) | **Get** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier
 [**GetBasketById**](HeadlessAPI.md#GetBasketById) | **Get** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
+[**GetCMSPages**](HeadlessAPI.md#GetCMSPages) | **Get** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 [**GetCategoryById**](HeadlessAPI.md#GetCategoryById) | **Get** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 [**GetCategoryIncludingPackages**](HeadlessAPI.md#GetCategoryIncludingPackages) | **Get** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 [**GetPackageById**](HeadlessAPI.md#GetPackageById) | **Get** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
@@ -26,6 +27,7 @@ Method | HTTP request | Description
 [**RemoveCreatorCode**](HeadlessAPI.md#RemoveCreatorCode) | **Post** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
 [**RemoveGiftCard**](HeadlessAPI.md#RemoveGiftCard) | **Post** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
 [**UpdatePackageQuantity**](HeadlessAPI.md#UpdatePackageQuantity) | **Put** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
+[**UpdateTier**](HeadlessAPI.md#UpdateTier) | **Patch** /accounts/{token}/tiers/{tierId} | TODO
 
 
 
@@ -683,7 +685,7 @@ No authorization required
 
 ## GetAllPackagesWithAuthedIPAndBasket
 
-> []PackageResponse GetAllPackagesWithAuthedIPAndBasket(ctx, token, basketIdent, ipAddress).Execute()
+> PackageResponse GetAllPackagesWithAuthedIPAndBasket(ctx, token, basketIdent, ipAddress).Execute()
 
 Fetch a package from a webstore by its identifier
 
@@ -713,7 +715,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetAllPackagesWithAuthedIPAndBasket``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAllPackagesWithAuthedIPAndBasket`: []PackageResponse
+	// response from `GetAllPackagesWithAuthedIPAndBasket`: PackageResponse
 	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetAllPackagesWithAuthedIPAndBasket`: %v\n", resp)
 }
 ```
@@ -741,7 +743,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]PackageResponse**](PackageResponse.md)
+[**PackageResponse**](PackageResponse.md)
 
 ### Authorization
 
@@ -979,9 +981,79 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetCMSPages
+
+> CMSPagesResponse GetCMSPages(ctx, token).Execute()
+
+Fetch the custom pages associated with the store.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	token := "some-uuid" // string | The webstore identifier.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetCMSPages(context.Background(), token).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCMSPages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCMSPages`: CMSPagesResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCMSPages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**token** | **string** | The webstore identifier. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCMSPagesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CMSPagesResponse**](CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetCategoryById
 
-> []CategoryResponse GetCategoryById(ctx, token, categoryId).Execute()
+> CategoryResponse GetCategoryById(ctx, token, categoryId).Execute()
 
 Gets information about a specific category
 
@@ -1010,7 +1082,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCategoryById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCategoryById`: []CategoryResponse
+	// response from `GetCategoryById`: CategoryResponse
 	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCategoryById`: %v\n", resp)
 }
 ```
@@ -1036,7 +1108,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]CategoryResponse**](CategoryResponse.md)
+[**CategoryResponse**](CategoryResponse.md)
 
 ### Authorization
 
@@ -1622,6 +1694,81 @@ No authorization required
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateTier
+
+> CMSPagesResponse UpdateTier(ctx, token, tierId).UpdateTierRequest(updateTierRequest).Execute()
+
+TODO
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	token := "some-uuid" // string | The webstore identifier.
+	tierId := "6276316" // string | The tier identifier
+	updateTierRequest := *openapiclient.NewUpdateTierRequest() // UpdateTierRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.UpdateTier(context.Background(), token, tierId).UpdateTierRequest(updateTierRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.UpdateTier``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateTier`: CMSPagesResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.UpdateTier`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**token** | **string** | The webstore identifier. | 
+**tierId** | **string** | The tier identifier | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateTierRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **updateTierRequest** | [**UpdateTierRequest**](UpdateTierRequest.md) |  | 
+
+### Return type
+
+[**CMSPagesResponse**](CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

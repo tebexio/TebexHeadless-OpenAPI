@@ -2,7 +2,7 @@
 
 Tebex Headless API
 - API version: 1.0.0
-  - Build date: 2024-06-13T09:50:52.859317-05:00[America/Chicago]
+  - Build date: 2024-06-28T09:45:28.830932-05:00[America/Chicago]
   - Generator version: 7.5.0
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
@@ -129,6 +129,7 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**getAllPackagesWithBasket**](docs/HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
 *HeadlessApi* | [**getBasketAuthUrl**](docs/HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier
 *HeadlessApi* | [**getBasketById**](docs/HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
+*HeadlessApi* | [**getCMSPages**](docs/HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 *HeadlessApi* | [**getCategoryById**](docs/HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 *HeadlessApi* | [**getCategoryIncludingPackages**](docs/HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 *HeadlessApi* | [**getPackageById**](docs/HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
@@ -138,6 +139,7 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**removeCreatorCode**](docs/HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
 *HeadlessApi* | [**removeGiftCard**](docs/HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
 *HeadlessApi* | [**updatePackageQuantity**](docs/HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
+*HeadlessApi* | [**updateTier**](docs/HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO
 
 
 ## Documentation for Models
@@ -148,6 +150,8 @@ Class | Method | HTTP request | Description
  - [BasketLinks](docs/BasketLinks.md)
  - [BasketPackage](docs/BasketPackage.md)
  - [BasketResponse](docs/BasketResponse.md)
+ - [CMSPage](docs/CMSPage.md)
+ - [CMSPagesResponse](docs/CMSPagesResponse.md)
  - [Category](docs/Category.md)
  - [CategoryResponse](docs/CategoryResponse.md)
  - [Coupon](docs/Coupon.md)
@@ -161,6 +165,8 @@ Class | Method | HTTP request | Description
  - [RemoveGiftCardRequest](docs/RemoveGiftCardRequest.md)
  - [RevenueShare](docs/RevenueShare.md)
  - [UpdatePackageQuantityRequest](docs/UpdatePackageQuantityRequest.md)
+ - [UpdateTierRequest](docs/UpdateTierRequest.md)
+ - [UpdateTierResponse](docs/UpdateTierResponse.md)
  - [Webstore](docs/Webstore.md)
  - [WebstoreResponse](docs/WebstoreResponse.md)
  - [WebstoreResponseData](docs/WebstoreResponseData.md)

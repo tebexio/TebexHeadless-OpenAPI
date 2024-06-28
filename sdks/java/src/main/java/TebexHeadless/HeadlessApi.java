@@ -32,6 +32,7 @@ import org.openapitools.client.model.ApplyCreatorCodeRequest;
 import org.openapitools.client.model.Basket;
 import org.openapitools.client.model.BasketResponse;
 import java.math.BigDecimal;
+import org.openapitools.client.model.CMSPagesResponse;
 import org.openapitools.client.model.CategoryResponse;
 import org.openapitools.client.model.Coupon;
 import org.openapitools.client.model.CreateBasketRequest;
@@ -40,6 +41,7 @@ import org.openapitools.client.model.PackageResponse;
 import org.openapitools.client.model.RemoveBasketPackageRequest;
 import org.openapitools.client.model.RemoveGiftCardRequest;
 import org.openapitools.client.model.UpdatePackageQuantityRequest;
+import org.openapitools.client.model.UpdateTierRequest;
 import org.openapitools.client.model.WebstoreResponse;
 
 import java.lang.reflect.Type;
@@ -1362,7 +1364,7 @@ public class HeadlessApi {
      * @param token The webstore identifier. (required)
      * @param basketIdent The basket identifier. (required)
      * @param ipAddress An IP address can be provided with authenticated requests. (required)
-     * @return List&lt;PackageResponse&gt;
+     * @return PackageResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1371,8 +1373,8 @@ public class HeadlessApi {
         <tr><td> 422 </td><td> The provided request is invalid. </td><td>  -  </td></tr>
      </table>
      */
-    public List<PackageResponse> getAllPackagesWithAuthedIPAndBasket(String token, String basketIdent, String ipAddress) throws ApiException {
-        ApiResponse<List<PackageResponse>> localVarResp = getAllPackagesWithAuthedIPAndBasketWithHttpInfo(token, basketIdent, ipAddress);
+    public PackageResponse getAllPackagesWithAuthedIPAndBasket(String token, String basketIdent, String ipAddress) throws ApiException {
+        ApiResponse<PackageResponse> localVarResp = getAllPackagesWithAuthedIPAndBasketWithHttpInfo(token, basketIdent, ipAddress);
         return localVarResp.getData();
     }
 
@@ -1382,7 +1384,7 @@ public class HeadlessApi {
      * @param token The webstore identifier. (required)
      * @param basketIdent The basket identifier. (required)
      * @param ipAddress An IP address can be provided with authenticated requests. (required)
-     * @return ApiResponse&lt;List&lt;PackageResponse&gt;&gt;
+     * @return ApiResponse&lt;PackageResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1391,9 +1393,9 @@ public class HeadlessApi {
         <tr><td> 422 </td><td> The provided request is invalid. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<PackageResponse>> getAllPackagesWithAuthedIPAndBasketWithHttpInfo(String token, String basketIdent, String ipAddress) throws ApiException {
+    public ApiResponse<PackageResponse> getAllPackagesWithAuthedIPAndBasketWithHttpInfo(String token, String basketIdent, String ipAddress) throws ApiException {
         okhttp3.Call localVarCall = getAllPackagesWithAuthedIPAndBasketValidateBeforeCall(token, basketIdent, ipAddress, null);
-        Type localVarReturnType = new TypeToken<List<PackageResponse>>(){}.getType();
+        Type localVarReturnType = new TypeToken<PackageResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -1413,10 +1415,10 @@ public class HeadlessApi {
         <tr><td> 422 </td><td> The provided request is invalid. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getAllPackagesWithAuthedIPAndBasketAsync(String token, String basketIdent, String ipAddress, final ApiCallback<List<PackageResponse>> _callback) throws ApiException {
+    public okhttp3.Call getAllPackagesWithAuthedIPAndBasketAsync(String token, String basketIdent, String ipAddress, final ApiCallback<PackageResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getAllPackagesWithAuthedIPAndBasketValidateBeforeCall(token, basketIdent, ipAddress, _callback);
-        Type localVarReturnType = new TypeToken<List<PackageResponse>>(){}.getType();
+        Type localVarReturnType = new TypeToken<PackageResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1838,6 +1840,129 @@ public class HeadlessApi {
         return localVarCall;
     }
     /**
+     * Build call for getCMSPages
+     * @param token The webstore identifier. (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful response returns the webstore&#39;s pages. </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getCMSPagesCall(String token, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/accounts/{token}/pages"
+            .replace("{" + "token" + "}", localVarApiClient.escapeString(token.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getCMSPagesValidateBeforeCall(String token, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'token' is set
+        if (token == null) {
+            throw new ApiException("Missing the required parameter 'token' when calling getCMSPages(Async)");
+        }
+
+        return getCMSPagesCall(token, _callback);
+
+    }
+
+    /**
+     * Fetch the custom pages associated with the store.
+     * Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+     * @param token The webstore identifier. (required)
+     * @return CMSPagesResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful response returns the webstore&#39;s pages. </td><td>  -  </td></tr>
+     </table>
+     */
+    public CMSPagesResponse getCMSPages(String token) throws ApiException {
+        ApiResponse<CMSPagesResponse> localVarResp = getCMSPagesWithHttpInfo(token);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Fetch the custom pages associated with the store.
+     * Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+     * @param token The webstore identifier. (required)
+     * @return ApiResponse&lt;CMSPagesResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful response returns the webstore&#39;s pages. </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<CMSPagesResponse> getCMSPagesWithHttpInfo(String token) throws ApiException {
+        okhttp3.Call localVarCall = getCMSPagesValidateBeforeCall(token, null);
+        Type localVarReturnType = new TypeToken<CMSPagesResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Fetch the custom pages associated with the store. (asynchronously)
+     * Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+     * @param token The webstore identifier. (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful response returns the webstore&#39;s pages. </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getCMSPagesAsync(String token, final ApiCallback<CMSPagesResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getCMSPagesValidateBeforeCall(token, _callback);
+        Type localVarReturnType = new TypeToken<CMSPagesResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
      * Build call for getCategoryById
      * @param token The webstore identifier. (required)
      * @param categoryId The ID of the category to fetch. (required)
@@ -1917,7 +2042,7 @@ public class HeadlessApi {
      * Gets information about a category and returns the packages in that category.
      * @param token The webstore identifier. (required)
      * @param categoryId The ID of the category to fetch. (required)
-     * @return List&lt;CategoryResponse&gt;
+     * @return CategoryResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1925,8 +2050,8 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response returns the category without package information. </td><td>  -  </td></tr>
      </table>
      */
-    public List<CategoryResponse> getCategoryById(String token, String categoryId) throws ApiException {
-        ApiResponse<List<CategoryResponse>> localVarResp = getCategoryByIdWithHttpInfo(token, categoryId);
+    public CategoryResponse getCategoryById(String token, String categoryId) throws ApiException {
+        ApiResponse<CategoryResponse> localVarResp = getCategoryByIdWithHttpInfo(token, categoryId);
         return localVarResp.getData();
     }
 
@@ -1935,7 +2060,7 @@ public class HeadlessApi {
      * Gets information about a category and returns the packages in that category.
      * @param token The webstore identifier. (required)
      * @param categoryId The ID of the category to fetch. (required)
-     * @return ApiResponse&lt;List&lt;CategoryResponse&gt;&gt;
+     * @return ApiResponse&lt;CategoryResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1943,9 +2068,9 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response returns the category without package information. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<CategoryResponse>> getCategoryByIdWithHttpInfo(String token, String categoryId) throws ApiException {
+    public ApiResponse<CategoryResponse> getCategoryByIdWithHttpInfo(String token, String categoryId) throws ApiException {
         okhttp3.Call localVarCall = getCategoryByIdValidateBeforeCall(token, categoryId, null);
-        Type localVarReturnType = new TypeToken<List<CategoryResponse>>(){}.getType();
+        Type localVarReturnType = new TypeToken<CategoryResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -1963,10 +2088,10 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response returns the category without package information. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCategoryByIdAsync(String token, String categoryId, final ApiCallback<List<CategoryResponse>> _callback) throws ApiException {
+    public okhttp3.Call getCategoryByIdAsync(String token, String categoryId, final ApiCallback<CategoryResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getCategoryByIdValidateBeforeCall(token, categoryId, _callback);
-        Type localVarReturnType = new TypeToken<List<CategoryResponse>>(){}.getType();
+        Type localVarReturnType = new TypeToken<CategoryResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -3027,6 +3152,144 @@ public class HeadlessApi {
 
         okhttp3.Call localVarCall = updatePackageQuantityValidateBeforeCall(basketIdent, packageId, updatePackageQuantityRequest, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for updateTier
+     * @param token The webstore identifier. (required)
+     * @param tierId The tier identifier (required)
+     * @param updateTierRequest  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful response. </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updateTierCall(String token, String tierId, UpdateTierRequest updateTierRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = updateTierRequest;
+
+        // create path and map variables
+        String localVarPath = "/accounts/{token}/tiers/{tierId}"
+            .replace("{" + "token" + "}", localVarApiClient.escapeString(token.toString()))
+            .replace("{" + "tierId" + "}", localVarApiClient.escapeString(tierId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updateTierValidateBeforeCall(String token, String tierId, UpdateTierRequest updateTierRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'token' is set
+        if (token == null) {
+            throw new ApiException("Missing the required parameter 'token' when calling updateTier(Async)");
+        }
+
+        // verify the required parameter 'tierId' is set
+        if (tierId == null) {
+            throw new ApiException("Missing the required parameter 'tierId' when calling updateTier(Async)");
+        }
+
+        return updateTierCall(token, tierId, updateTierRequest, _callback);
+
+    }
+
+    /**
+     * TODO
+     * Updates a tier.
+     * @param token The webstore identifier. (required)
+     * @param tierId The tier identifier (required)
+     * @param updateTierRequest  (optional)
+     * @return CMSPagesResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful response. </td><td>  -  </td></tr>
+     </table>
+     */
+    public CMSPagesResponse updateTier(String token, String tierId, UpdateTierRequest updateTierRequest) throws ApiException {
+        ApiResponse<CMSPagesResponse> localVarResp = updateTierWithHttpInfo(token, tierId, updateTierRequest);
+        return localVarResp.getData();
+    }
+
+    /**
+     * TODO
+     * Updates a tier.
+     * @param token The webstore identifier. (required)
+     * @param tierId The tier identifier (required)
+     * @param updateTierRequest  (optional)
+     * @return ApiResponse&lt;CMSPagesResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful response. </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<CMSPagesResponse> updateTierWithHttpInfo(String token, String tierId, UpdateTierRequest updateTierRequest) throws ApiException {
+        okhttp3.Call localVarCall = updateTierValidateBeforeCall(token, tierId, updateTierRequest, null);
+        Type localVarReturnType = new TypeToken<CMSPagesResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * TODO (asynchronously)
+     * Updates a tier.
+     * @param token The webstore identifier. (required)
+     * @param tierId The tier identifier (required)
+     * @param updateTierRequest  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful response. </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updateTierAsync(String token, String tierId, UpdateTierRequest updateTierRequest, final ApiCallback<CMSPagesResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = updateTierValidateBeforeCall(token, tierId, updateTierRequest, _callback);
+        Type localVarReturnType = new TypeToken<CMSPagesResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 }

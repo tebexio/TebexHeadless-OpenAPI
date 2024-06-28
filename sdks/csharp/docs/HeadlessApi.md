@@ -17,6 +17,7 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**GetAllPackagesWithBasket**](HeadlessApi.md#getallpackageswithbasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
 | [**GetBasketAuthUrl**](HeadlessApi.md#getbasketauthurl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier |
 | [**GetBasketById**](HeadlessApi.md#getbasketbyid) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
+| [**GetCMSPages**](HeadlessApi.md#getcmspages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
 | [**GetCategoryById**](HeadlessApi.md#getcategorybyid) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**GetCategoryIncludingPackages**](HeadlessApi.md#getcategoryincludingpackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**GetPackageById**](HeadlessApi.md#getpackagebyid) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
@@ -26,6 +27,7 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**RemoveCreatorCode**](HeadlessApi.md#removecreatorcode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
 | [**RemoveGiftCard**](HeadlessApi.md#removegiftcard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
 | [**UpdatePackageQuantity**](HeadlessApi.md#updatepackagequantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
+| [**UpdateTier**](HeadlessApi.md#updatetier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO |
 
 <a id="addbasketpackage"></a>
 # **AddBasketPackage**
@@ -870,7 +872,7 @@ No authorization required
 
 <a id="getallpackageswithauthedipandbasket"></a>
 # **GetAllPackagesWithAuthedIPAndBasket**
-> List&lt;PackageResponse&gt; GetAllPackagesWithAuthedIPAndBasket (string token, string basketIdent, string ipAddress)
+> PackageResponse GetAllPackagesWithAuthedIPAndBasket (string token, string basketIdent, string ipAddress)
 
 Fetch a package from a webstore by its identifier
 
@@ -900,7 +902,7 @@ namespace Example
             try
             {
                 // Fetch a package from a webstore by its identifier
-                List<PackageResponse> result = apiInstance.GetAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress);
+                PackageResponse result = apiInstance.GetAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -921,7 +923,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Fetch a package from a webstore by its identifier
-    ApiResponse<List<PackageResponse>> response = apiInstance.GetAllPackagesWithAuthedIPAndBasketWithHttpInfo(token, basketIdent, ipAddress);
+    ApiResponse<PackageResponse> response = apiInstance.GetAllPackagesWithAuthedIPAndBasketWithHttpInfo(token, basketIdent, ipAddress);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -944,7 +946,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;PackageResponse&gt;**](PackageResponse.md)
+[**PackageResponse**](PackageResponse.md)
 
 ### Authorization
 
@@ -1247,9 +1249,100 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="getcmspages"></a>
+# **GetCMSPages**
+> CMSPagesResponse GetCMSPages (string token)
+
+Fetch the custom pages associated with the store.
+
+Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetCMSPagesExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api";
+            var apiInstance = new HeadlessApi(config);
+            var token = some-uuid;  // string | The webstore identifier.
+
+            try
+            {
+                // Fetch the custom pages associated with the store.
+                CMSPagesResponse result = apiInstance.GetCMSPages(token);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetCMSPages: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetCMSPagesWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Fetch the custom pages associated with the store.
+    ApiResponse<CMSPagesResponse> response = apiInstance.GetCMSPagesWithHttpInfo(token);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetCMSPagesWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **token** | **string** | The webstore identifier. |  |
+
+### Return type
+
+[**CMSPagesResponse**](CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the webstore&#39;s pages. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a id="getcategorybyid"></a>
 # **GetCategoryById**
-> List&lt;CategoryResponse&gt; GetCategoryById (string token, string categoryId)
+> CategoryResponse GetCategoryById (string token, string categoryId)
 
 Gets information about a specific category
 
@@ -1278,7 +1371,7 @@ namespace Example
             try
             {
                 // Gets information about a specific category
-                List<CategoryResponse> result = apiInstance.GetCategoryById(token, categoryId);
+                CategoryResponse result = apiInstance.GetCategoryById(token, categoryId);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1299,7 +1392,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Gets information about a specific category
-    ApiResponse<List<CategoryResponse>> response = apiInstance.GetCategoryByIdWithHttpInfo(token, categoryId);
+    ApiResponse<CategoryResponse> response = apiInstance.GetCategoryByIdWithHttpInfo(token, categoryId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1321,7 +1414,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;CategoryResponse&gt;**](CategoryResponse.md)
+[**CategoryResponse**](CategoryResponse.md)
 
 ### Authorization
 
@@ -2072,6 +2165,101 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Successful response. |  -  |
 | **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="updatetier"></a>
+# **UpdateTier**
+> CMSPagesResponse UpdateTier (string token, string tierId, UpdateTierRequest? updateTierRequest = null)
+
+TODO
+
+Updates a tier.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class UpdateTierExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api";
+            var apiInstance = new HeadlessApi(config);
+            var token = some-uuid;  // string | The webstore identifier.
+            var tierId = 6276316;  // string | The tier identifier
+            var updateTierRequest = new UpdateTierRequest?(); // UpdateTierRequest? |  (optional) 
+
+            try
+            {
+                // TODO
+                CMSPagesResponse result = apiInstance.UpdateTier(token, tierId, updateTierRequest);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.UpdateTier: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the UpdateTierWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // TODO
+    ApiResponse<CMSPagesResponse> response = apiInstance.UpdateTierWithHttpInfo(token, tierId, updateTierRequest);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.UpdateTierWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **token** | **string** | The webstore identifier. |  |
+| **tierId** | **string** | The tier identifier |  |
+| **updateTierRequest** | [**UpdateTierRequest?**](UpdateTierRequest?.md) |  | [optional]  |
+
+### Return type
+
+[**CMSPagesResponse**](CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

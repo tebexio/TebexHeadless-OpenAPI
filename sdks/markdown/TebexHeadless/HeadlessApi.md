@@ -17,6 +17,7 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**getAllPackagesWithBasket**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
 | [**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier |
 | [**getBasketById**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
+| [**getCMSPages**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
 | [**getCategoryById**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**getCategoryIncludingPackages**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**getPackageById**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
@@ -26,6 +27,7 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
 | [**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
 | [**updatePackageQuantity**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
+| [**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO |
 
 
 <a name="addBasketPackage"></a>
@@ -282,7 +284,7 @@ No authorization required
 
 <a name="getAllPackagesWithAuthedIPAndBasket"></a>
 # **getAllPackagesWithAuthedIPAndBasket**
-> List getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress)
+> PackageResponse getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress)
 
 Fetch a package from a webstore by its identifier
 
@@ -298,7 +300,7 @@ Fetch a package from a webstore by its identifier
 
 ### Return type
 
-[**List**](../Models/PackageResponse.md)
+[**PackageResponse**](../Models/PackageResponse.md)
 
 ### Authorization
 
@@ -394,9 +396,36 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
+<a name="getCMSPages"></a>
+# **getCMSPages**
+> CMSPagesResponse getCMSPages(token)
+
+Fetch the custom pages associated with the store.
+
+    Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **token** | **String**| The webstore identifier. | [default to null] |
+
+### Return type
+
+[**CMSPagesResponse**](../Models/CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 <a name="getCategoryById"></a>
 # **getCategoryById**
-> List getCategoryById(token, categoryId)
+> CategoryResponse getCategoryById(token, categoryId)
 
 Gets information about a specific category
 
@@ -411,7 +440,7 @@ Gets information about a specific category
 
 ### Return type
 
-[**List**](../Models/CategoryResponse.md)
+[**CategoryResponse**](../Models/CategoryResponse.md)
 
 ### Authorization
 
@@ -646,4 +675,33 @@ No authorization required
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+<a name="updateTier"></a>
+# **updateTier**
+> CMSPagesResponse updateTier(token, tierId, updateTier\_request)
+
+TODO
+
+    Updates a tier.
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **token** | **String**| The webstore identifier. | [default to null] |
+| **tierId** | **String**| The tier identifier | [default to null] |
+| **updateTier\_request** | [**updateTier_request**](../Models/updateTier_request.md)|  | [optional] |
+
+### Return type
+
+[**CMSPagesResponse**](../Models/CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 

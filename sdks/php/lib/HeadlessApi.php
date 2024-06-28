@@ -111,6 +111,9 @@ class HeadlessApi
         'getBasketById' => [
             'application/json',
         ],
+        'getCMSPages' => [
+            'application/json',
+        ],
         'getCategoryById' => [
             'application/json',
         ],
@@ -136,6 +139,9 @@ class HeadlessApi
             'application/json',
         ],
         'updatePackageQuantity' => [
+            'application/json',
+        ],
+        'updateTier' => [
             'application/json',
         ],
     ];
@@ -3106,7 +3112,7 @@ class HeadlessApi
      *
      * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \TebexHeadless\Model\PackageResponse[]
+     * @return \TebexHeadless\Model\PackageResponse
      */
     public function getAllPackagesWithAuthedIPAndBasket($token, $basket_ident, $ip_address, string $contentType = self::contentTypes['getAllPackagesWithAuthedIPAndBasket'][0])
     {
@@ -3126,7 +3132,7 @@ class HeadlessApi
      *
      * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \TebexHeadless\Model\PackageResponse[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \TebexHeadless\Model\PackageResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAllPackagesWithAuthedIPAndBasketWithHttpInfo($token, $basket_ident, $ip_address, string $contentType = self::contentTypes['getAllPackagesWithAuthedIPAndBasket'][0])
     {
@@ -3169,11 +3175,11 @@ class HeadlessApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\TebexHeadless\Model\PackageResponse[]' === '\SplFileObject') {
+                    if ('\TebexHeadless\Model\PackageResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\TebexHeadless\Model\PackageResponse[]' !== 'string') {
+                        if ('\TebexHeadless\Model\PackageResponse' !== 'string') {
                             try {
                                 $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
                             } catch (\JsonException $exception) {
@@ -3191,13 +3197,13 @@ class HeadlessApi
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\TebexHeadless\Model\PackageResponse[]', []),
+                        ObjectSerializer::deserialize($content, '\TebexHeadless\Model\PackageResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\TebexHeadless\Model\PackageResponse[]';
+            $returnType = '\TebexHeadless\Model\PackageResponse';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -3230,7 +3236,7 @@ class HeadlessApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\TebexHeadless\Model\PackageResponse[]',
+                        '\TebexHeadless\Model\PackageResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3278,7 +3284,7 @@ class HeadlessApi
      */
     public function getAllPackagesWithAuthedIPAndBasketAsyncWithHttpInfo($token, $basket_ident, $ip_address, string $contentType = self::contentTypes['getAllPackagesWithAuthedIPAndBasket'][0])
     {
-        $returnType = '\TebexHeadless\Model\PackageResponse[]';
+        $returnType = '\TebexHeadless\Model\PackageResponse';
         $request = $this->getAllPackagesWithAuthedIPAndBasketRequest($token, $basket_ident, $ip_address, $contentType);
 
         return $this->client
@@ -4443,6 +4449,313 @@ class HeadlessApi
     }
 
     /**
+     * Operation getCMSPages
+     *
+     * Fetch the custom pages associated with the store.
+     *
+     * @param  string $token The webstore identifier. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCMSPages'] to see the possible values for this operation
+     *
+     * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \TebexHeadless\Model\CMSPagesResponse
+     */
+    public function getCMSPages($token, string $contentType = self::contentTypes['getCMSPages'][0])
+    {
+        list($response) = $this->getCMSPagesWithHttpInfo($token, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getCMSPagesWithHttpInfo
+     *
+     * Fetch the custom pages associated with the store.
+     *
+     * @param  string $token The webstore identifier. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCMSPages'] to see the possible values for this operation
+     *
+     * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \TebexHeadless\Model\CMSPagesResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getCMSPagesWithHttpInfo($token, string $contentType = self::contentTypes['getCMSPages'][0])
+    {
+        $request = $this->getCMSPagesRequest($token, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\TebexHeadless\Model\CMSPagesResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\TebexHeadless\Model\CMSPagesResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\TebexHeadless\Model\CMSPagesResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\TebexHeadless\Model\CMSPagesResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\TebexHeadless\Model\CMSPagesResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getCMSPagesAsync
+     *
+     * Fetch the custom pages associated with the store.
+     *
+     * @param  string $token The webstore identifier. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCMSPages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCMSPagesAsync($token, string $contentType = self::contentTypes['getCMSPages'][0])
+    {
+        return $this->getCMSPagesAsyncWithHttpInfo($token, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getCMSPagesAsyncWithHttpInfo
+     *
+     * Fetch the custom pages associated with the store.
+     *
+     * @param  string $token The webstore identifier. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCMSPages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCMSPagesAsyncWithHttpInfo($token, string $contentType = self::contentTypes['getCMSPages'][0])
+    {
+        $returnType = '\TebexHeadless\Model\CMSPagesResponse';
+        $request = $this->getCMSPagesRequest($token, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getCMSPages'
+     *
+     * @param  string $token The webstore identifier. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCMSPages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getCMSPagesRequest($token, string $contentType = self::contentTypes['getCMSPages'][0])
+    {
+
+        // verify the required parameter 'token' is set
+        if ($token === null || (is_array($token) && count($token) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $token when calling getCMSPages'
+            );
+        }
+
+
+        $resourcePath = '/accounts/{token}/pages';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($token !== null) {
+            $resourcePath = str_replace(
+                '{' . 'token' . '}',
+                ObjectSerializer::toPathValue($token),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getCategoryById
      *
      * Gets information about a specific category
@@ -4453,7 +4766,7 @@ class HeadlessApi
      *
      * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \TebexHeadless\Model\CategoryResponse[]
+     * @return \TebexHeadless\Model\CategoryResponse
      */
     public function getCategoryById($token, $category_id, string $contentType = self::contentTypes['getCategoryById'][0])
     {
@@ -4472,7 +4785,7 @@ class HeadlessApi
      *
      * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \TebexHeadless\Model\CategoryResponse[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \TebexHeadless\Model\CategoryResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCategoryByIdWithHttpInfo($token, $category_id, string $contentType = self::contentTypes['getCategoryById'][0])
     {
@@ -4515,11 +4828,11 @@ class HeadlessApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\TebexHeadless\Model\CategoryResponse[]' === '\SplFileObject') {
+                    if ('\TebexHeadless\Model\CategoryResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\TebexHeadless\Model\CategoryResponse[]' !== 'string') {
+                        if ('\TebexHeadless\Model\CategoryResponse' !== 'string') {
                             try {
                                 $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
                             } catch (\JsonException $exception) {
@@ -4537,13 +4850,13 @@ class HeadlessApi
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\TebexHeadless\Model\CategoryResponse[]', []),
+                        ObjectSerializer::deserialize($content, '\TebexHeadless\Model\CategoryResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\TebexHeadless\Model\CategoryResponse[]';
+            $returnType = '\TebexHeadless\Model\CategoryResponse';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -4576,7 +4889,7 @@ class HeadlessApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\TebexHeadless\Model\CategoryResponse[]',
+                        '\TebexHeadless\Model\CategoryResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4622,7 +4935,7 @@ class HeadlessApi
      */
     public function getCategoryByIdAsyncWithHttpInfo($token, $category_id, string $contentType = self::contentTypes['getCategoryById'][0])
     {
-        $returnType = '\TebexHeadless\Model\CategoryResponse[]';
+        $returnType = '\TebexHeadless\Model\CategoryResponse';
         $request = $this->getCategoryByIdRequest($token, $category_id, $contentType);
 
         return $this->client
@@ -7066,6 +7379,346 @@ class HeadlessApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation updateTier
+     *
+     * TODO
+     *
+     * @param  string $token The webstore identifier. (required)
+     * @param  string $tier_id The tier identifier (required)
+     * @param  \TebexHeadless\Model\UpdateTierRequest $update_tier_request update_tier_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTier'] to see the possible values for this operation
+     *
+     * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \TebexHeadless\Model\CMSPagesResponse
+     */
+    public function updateTier($token, $tier_id, $update_tier_request = null, string $contentType = self::contentTypes['updateTier'][0])
+    {
+        list($response) = $this->updateTierWithHttpInfo($token, $tier_id, $update_tier_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation updateTierWithHttpInfo
+     *
+     * TODO
+     *
+     * @param  string $token The webstore identifier. (required)
+     * @param  string $tier_id The tier identifier (required)
+     * @param  \TebexHeadless\Model\UpdateTierRequest $update_tier_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTier'] to see the possible values for this operation
+     *
+     * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \TebexHeadless\Model\CMSPagesResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function updateTierWithHttpInfo($token, $tier_id, $update_tier_request = null, string $contentType = self::contentTypes['updateTier'][0])
+    {
+        $request = $this->updateTierRequest($token, $tier_id, $update_tier_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\TebexHeadless\Model\CMSPagesResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\TebexHeadless\Model\CMSPagesResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\TebexHeadless\Model\CMSPagesResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\TebexHeadless\Model\CMSPagesResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\TebexHeadless\Model\CMSPagesResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation updateTierAsync
+     *
+     * TODO
+     *
+     * @param  string $token The webstore identifier. (required)
+     * @param  string $tier_id The tier identifier (required)
+     * @param  \TebexHeadless\Model\UpdateTierRequest $update_tier_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTier'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateTierAsync($token, $tier_id, $update_tier_request = null, string $contentType = self::contentTypes['updateTier'][0])
+    {
+        return $this->updateTierAsyncWithHttpInfo($token, $tier_id, $update_tier_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation updateTierAsyncWithHttpInfo
+     *
+     * TODO
+     *
+     * @param  string $token The webstore identifier. (required)
+     * @param  string $tier_id The tier identifier (required)
+     * @param  \TebexHeadless\Model\UpdateTierRequest $update_tier_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTier'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateTierAsyncWithHttpInfo($token, $tier_id, $update_tier_request = null, string $contentType = self::contentTypes['updateTier'][0])
+    {
+        $returnType = '\TebexHeadless\Model\CMSPagesResponse';
+        $request = $this->updateTierRequest($token, $tier_id, $update_tier_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'updateTier'
+     *
+     * @param  string $token The webstore identifier. (required)
+     * @param  string $tier_id The tier identifier (required)
+     * @param  \TebexHeadless\Model\UpdateTierRequest $update_tier_request (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTier'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function updateTierRequest($token, $tier_id, $update_tier_request = null, string $contentType = self::contentTypes['updateTier'][0])
+    {
+
+        // verify the required parameter 'token' is set
+        if ($token === null || (is_array($token) && count($token) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $token when calling updateTier'
+            );
+        }
+
+        // verify the required parameter 'tier_id' is set
+        if ($tier_id === null || (is_array($tier_id) && count($tier_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $tier_id when calling updateTier'
+            );
+        }
+
+
+
+        $resourcePath = '/accounts/{token}/tiers/{tierId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($token !== null) {
+            $resourcePath = str_replace(
+                '{' . 'token' . '}',
+                ObjectSerializer::toPathValue($token),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($tier_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'tierId' . '}',
+                ObjectSerializer::toPathValue($tier_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($update_tier_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($update_tier_request));
+            } else {
+                $httpBody = $update_tier_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

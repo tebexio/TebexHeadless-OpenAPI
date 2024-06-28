@@ -1018,7 +1018,7 @@ type ApiGetAllPackagesWithAuthedIPAndBasketRequest struct {
 	ipAddress string
 }
 
-func (r ApiGetAllPackagesWithAuthedIPAndBasketRequest) Execute() ([]PackageResponse, *http.Response, error) {
+func (r ApiGetAllPackagesWithAuthedIPAndBasketRequest) Execute() (*PackageResponse, *http.Response, error) {
 	return r.ApiService.GetAllPackagesWithAuthedIPAndBasketExecute(r)
 }
 
@@ -1044,13 +1044,13 @@ func (a *HeadlessAPIService) GetAllPackagesWithAuthedIPAndBasket(ctx context.Con
 }
 
 // Execute executes the request
-//  @return []PackageResponse
-func (a *HeadlessAPIService) GetAllPackagesWithAuthedIPAndBasketExecute(r ApiGetAllPackagesWithAuthedIPAndBasketRequest) ([]PackageResponse, *http.Response, error) {
+//  @return PackageResponse
+func (a *HeadlessAPIService) GetAllPackagesWithAuthedIPAndBasketExecute(r ApiGetAllPackagesWithAuthedIPAndBasketRequest) (*PackageResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []PackageResponse
+		localVarReturnValue  *PackageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetAllPackagesWithAuthedIPAndBasket")
@@ -1446,6 +1446,109 @@ func (a *HeadlessAPIService) GetBasketByIdExecute(r ApiGetBasketByIdRequest) (*B
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetCMSPagesRequest struct {
+	ctx context.Context
+	ApiService *HeadlessAPIService
+	token string
+}
+
+func (r ApiGetCMSPagesRequest) Execute() (*CMSPagesResponse, *http.Response, error) {
+	return r.ApiService.GetCMSPagesExecute(r)
+}
+
+/*
+GetCMSPages Fetch the custom pages associated with the store.
+
+Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param token The webstore identifier.
+ @return ApiGetCMSPagesRequest
+*/
+func (a *HeadlessAPIService) GetCMSPages(ctx context.Context, token string) ApiGetCMSPagesRequest {
+	return ApiGetCMSPagesRequest{
+		ApiService: a,
+		ctx: ctx,
+		token: token,
+	}
+}
+
+// Execute executes the request
+//  @return CMSPagesResponse
+func (a *HeadlessAPIService) GetCMSPagesExecute(r ApiGetCMSPagesRequest) (*CMSPagesResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CMSPagesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetCMSPages")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{token}/pages"
+	localVarPath = strings.Replace(localVarPath, "{"+"token"+"}", url.PathEscape(parameterValueToString(r.token, "token")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetCategoryByIdRequest struct {
 	ctx context.Context
 	ApiService *HeadlessAPIService
@@ -1453,7 +1556,7 @@ type ApiGetCategoryByIdRequest struct {
 	categoryId string
 }
 
-func (r ApiGetCategoryByIdRequest) Execute() ([]CategoryResponse, *http.Response, error) {
+func (r ApiGetCategoryByIdRequest) Execute() (*CategoryResponse, *http.Response, error) {
 	return r.ApiService.GetCategoryByIdExecute(r)
 }
 
@@ -1477,13 +1580,13 @@ func (a *HeadlessAPIService) GetCategoryById(ctx context.Context, token string, 
 }
 
 // Execute executes the request
-//  @return []CategoryResponse
-func (a *HeadlessAPIService) GetCategoryByIdExecute(r ApiGetCategoryByIdRequest) ([]CategoryResponse, *http.Response, error) {
+//  @return CategoryResponse
+func (a *HeadlessAPIService) GetCategoryByIdExecute(r ApiGetCategoryByIdRequest) (*CategoryResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []CategoryResponse
+		localVarReturnValue  *CategoryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetCategoryById")
@@ -2380,4 +2483,119 @@ func (a *HeadlessAPIService) UpdatePackageQuantityExecute(r ApiUpdatePackageQuan
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type ApiUpdateTierRequest struct {
+	ctx context.Context
+	ApiService *HeadlessAPIService
+	token string
+	tierId string
+	updateTierRequest *UpdateTierRequest
+}
+
+func (r ApiUpdateTierRequest) UpdateTierRequest(updateTierRequest UpdateTierRequest) ApiUpdateTierRequest {
+	r.updateTierRequest = &updateTierRequest
+	return r
+}
+
+func (r ApiUpdateTierRequest) Execute() (*CMSPagesResponse, *http.Response, error) {
+	return r.ApiService.UpdateTierExecute(r)
+}
+
+/*
+UpdateTier TODO
+
+Updates a tier.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param token The webstore identifier.
+ @param tierId The tier identifier
+ @return ApiUpdateTierRequest
+*/
+func (a *HeadlessAPIService) UpdateTier(ctx context.Context, token string, tierId string) ApiUpdateTierRequest {
+	return ApiUpdateTierRequest{
+		ApiService: a,
+		ctx: ctx,
+		token: token,
+		tierId: tierId,
+	}
+}
+
+// Execute executes the request
+//  @return CMSPagesResponse
+func (a *HeadlessAPIService) UpdateTierExecute(r ApiUpdateTierRequest) (*CMSPagesResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CMSPagesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.UpdateTier")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{token}/tiers/{tierId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"token"+"}", url.PathEscape(parameterValueToString(r.token, "token")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tierId"+"}", url.PathEscape(parameterValueToString(r.tierId, "tierId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.updateTierRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

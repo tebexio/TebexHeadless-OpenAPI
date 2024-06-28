@@ -183,7 +183,7 @@ namespace TebexHeadless.Test.Api
             //string basketIdent = null;
             //string ipAddress = null;
             //var response = instance.GetAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress);
-            //Assert.IsType<List<PackageResponse>>(response);
+            //Assert.IsType<PackageResponse>(response);
         }
 
         /// <summary>
@@ -227,6 +227,18 @@ namespace TebexHeadless.Test.Api
         }
 
         /// <summary>
+        /// Test GetCMSPages
+        /// </summary>
+        [Fact]
+        public void GetCMSPagesTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string token = null;
+            //var response = instance.GetCMSPages(token);
+            //Assert.IsType<CMSPagesResponse>(response);
+        }
+
+        /// <summary>
         /// Test GetCategoryById
         /// </summary>
         [Fact]
@@ -236,7 +248,7 @@ namespace TebexHeadless.Test.Api
             //string token = null;
             //string categoryId = null;
             //var response = instance.GetCategoryById(token, categoryId);
-            //Assert.IsType<List<CategoryResponse>>(response);
+            //Assert.IsType<CategoryResponse>(response);
         }
 
         /// <summary>
@@ -338,6 +350,20 @@ namespace TebexHeadless.Test.Api
             //decimal packageId = null;
             //UpdatePackageQuantityRequest? updatePackageQuantityRequest = null;
             //instance.UpdatePackageQuantity(basketIdent, packageId, updatePackageQuantityRequest);
+        }
+
+        /// <summary>
+        /// Test UpdateTier
+        /// </summary>
+        [Fact]
+        public void UpdateTierTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string token = null;
+            //string tierId = null;
+            //UpdateTierRequest? updateTierRequest = null;
+            //var response = instance.UpdateTier(token, tierId, updateTierRequest);
+            //Assert.IsType<CMSPagesResponse>(response);
         }
     }
 }

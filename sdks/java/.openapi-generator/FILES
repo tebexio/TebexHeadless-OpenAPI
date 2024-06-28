@@ -12,6 +12,8 @@ docs/Basket.md
 docs/BasketLinks.md
 docs/BasketPackage.md
 docs/BasketResponse.md
+docs/CMSPage.md
+docs/CMSPagesResponse.md
 docs/Category.md
 docs/CategoryResponse.md
 docs/Coupon.md
@@ -26,6 +28,8 @@ docs/RemoveBasketPackageRequest.md
 docs/RemoveGiftCardRequest.md
 docs/RevenueShare.md
 docs/UpdatePackageQuantityRequest.md
+docs/UpdateTierRequest.md
+docs/UpdateTierResponse.md
 docs/Webstore.md
 docs/WebstoreResponse.md
 docs/WebstoreResponseData.md
@@ -63,6 +67,8 @@ src/main/java/org/openapitools/client/model/Basket.java
 src/main/java/org/openapitools/client/model/BasketLinks.java
 src/main/java/org/openapitools/client/model/BasketPackage.java
 src/main/java/org/openapitools/client/model/BasketResponse.java
+src/main/java/org/openapitools/client/model/CMSPage.java
+src/main/java/org/openapitools/client/model/CMSPagesResponse.java
 src/main/java/org/openapitools/client/model/Category.java
 src/main/java/org/openapitools/client/model/CategoryResponse.java
 src/main/java/org/openapitools/client/model/Coupon.java
@@ -76,6 +82,8 @@ src/main/java/org/openapitools/client/model/RemoveBasketPackageRequest.java
 src/main/java/org/openapitools/client/model/RemoveGiftCardRequest.java
 src/main/java/org/openapitools/client/model/RevenueShare.java
 src/main/java/org/openapitools/client/model/UpdatePackageQuantityRequest.java
+src/main/java/org/openapitools/client/model/UpdateTierRequest.java
+src/main/java/org/openapitools/client/model/UpdateTierResponse.java
 src/main/java/org/openapitools/client/model/Webstore.java
 src/main/java/org/openapitools/client/model/WebstoreResponse.java
 src/main/java/org/openapitools/client/model/WebstoreResponseData.java
@@ -86,6 +94,8 @@ src/test/java/org/openapitools/client/model/BasketLinksTest.java
 src/test/java/org/openapitools/client/model/BasketPackageTest.java
 src/test/java/org/openapitools/client/model/BasketResponseTest.java
 src/test/java/org/openapitools/client/model/BasketTest.java
+src/test/java/org/openapitools/client/model/CMSPageTest.java
+src/test/java/org/openapitools/client/model/CMSPagesResponseTest.java
 src/test/java/org/openapitools/client/model/CategoryResponseTest.java
 src/test/java/org/openapitools/client/model/CategoryTest.java
 src/test/java/org/openapitools/client/model/CouponTest.java
@@ -99,6 +109,8 @@ src/test/java/org/openapitools/client/model/RemoveBasketPackageRequestTest.java
 src/test/java/org/openapitools/client/model/RemoveGiftCardRequestTest.java
 src/test/java/org/openapitools/client/model/RevenueShareTest.java
 src/test/java/org/openapitools/client/model/UpdatePackageQuantityRequestTest.java
+src/test/java/org/openapitools/client/model/UpdateTierRequestTest.java
+src/test/java/org/openapitools/client/model/UpdateTierResponseTest.java
 src/test/java/org/openapitools/client/model/WebstoreResponseDataTest.java
 src/test/java/org/openapitools/client/model/WebstoreResponseTest.java
 src/test/java/org/openapitools/client/model/WebstoreTest.java

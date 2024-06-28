@@ -85,6 +85,7 @@ namespace TebexHeadless.Model
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
+        /// <example>2678660</example>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         public int Id { get; set; }
 

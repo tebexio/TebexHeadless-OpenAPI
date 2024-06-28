@@ -229,6 +229,18 @@ class HeadlessApiTest extends TestCase
     }
 
     /**
+     * Test case for getCMSPages
+     *
+     * Fetch the custom pages associated with the store..
+     *
+     */
+    public function testGetCMSPages()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for getCategoryById
      *
      * Gets information about a specific category.
@@ -331,6 +343,18 @@ class HeadlessApiTest extends TestCase
      *
      */
     public function testUpdatePackageQuantity()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for updateTier
+     *
+     * TODO.
+     *
+     */
+    public function testUpdateTier()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

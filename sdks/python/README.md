@@ -101,6 +101,7 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**get_basket_by_id**](docs/HeadlessApi.md#get_basket_by_id) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
 *HeadlessApi* | [**get_category_by_id**](docs/HeadlessApi.md#get_category_by_id) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 *HeadlessApi* | [**get_category_including_packages**](docs/HeadlessApi.md#get_category_including_packages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
+*HeadlessApi* | [**get_cms_pages**](docs/HeadlessApi.md#get_cms_pages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 *HeadlessApi* | [**get_package_by_id**](docs/HeadlessApi.md#get_package_by_id) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
 *HeadlessApi* | [**get_webstore_by_id**](docs/HeadlessApi.md#get_webstore_by_id) | **GET** /accounts/{token} | Fetch a webstore by its identifier
 *HeadlessApi* | [**remove_basket_package**](docs/HeadlessApi.md#remove_basket_package) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
@@ -108,6 +109,7 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**remove_creator_code**](docs/HeadlessApi.md#remove_creator_code) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
 *HeadlessApi* | [**remove_gift_card**](docs/HeadlessApi.md#remove_gift_card) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
 *HeadlessApi* | [**update_package_quantity**](docs/HeadlessApi.md#update_package_quantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
+*HeadlessApi* | [**update_tier**](docs/HeadlessApi.md#update_tier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO
 
 
 ## Documentation For Models
@@ -118,6 +120,8 @@ Class | Method | HTTP request | Description
  - [BasketLinks](docs/BasketLinks.md)
  - [BasketPackage](docs/BasketPackage.md)
  - [BasketResponse](docs/BasketResponse.md)
+ - [CMSPage](docs/CMSPage.md)
+ - [CMSPagesResponse](docs/CMSPagesResponse.md)
  - [Category](docs/Category.md)
  - [CategoryResponse](docs/CategoryResponse.md)
  - [Coupon](docs/Coupon.md)
@@ -131,6 +135,8 @@ Class | Method | HTTP request | Description
  - [RemoveGiftCardRequest](docs/RemoveGiftCardRequest.md)
  - [RevenueShare](docs/RevenueShare.md)
  - [UpdatePackageQuantityRequest](docs/UpdatePackageQuantityRequest.md)
+ - [UpdateTierRequest](docs/UpdateTierRequest.md)
+ - [UpdateTierResponse](docs/UpdateTierResponse.md)
  - [Webstore](docs/Webstore.md)
  - [WebstoreResponse](docs/WebstoreResponse.md)
  - [WebstoreResponseData](docs/WebstoreResponseData.md)

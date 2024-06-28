@@ -1,0 +1,10 @@
+- Gifting a package to a username must be documented
+
+- Server Error on adding package returns 400 but no detail
+
+/baskets/{basketIdent}/packages:
+  - expect: 200  
+  - using: /baskets/c00sxt-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c/packages [FAIL] got 400 | 
+  - request: {"package_id": 6276316, "quantity": 1}
+  - response: 
+  {"status": 400, "type": "about:blank", "title": "There was an error adding the package to your basket", "detail": "Server error", "error_code": "", "field_details": [], "meta": []}

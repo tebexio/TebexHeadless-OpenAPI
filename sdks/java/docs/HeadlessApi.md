@@ -17,6 +17,7 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**getAllPackagesWithBasket**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
 | [**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier |
 | [**getBasketById**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
+| [**getCMSPages**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
 | [**getCategoryById**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**getCategoryIncludingPackages**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**getPackageById**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
@@ -26,6 +27,7 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
 | [**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
 | [**updatePackageQuantity**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
+| [**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO |
 
 
 <a id="addBasketPackage"></a>
@@ -610,7 +612,7 @@ No authorization required
 
 <a id="getAllPackagesWithAuthedIPAndBasket"></a>
 # **getAllPackagesWithAuthedIPAndBasket**
-> List&lt;PackageResponse&gt; getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress)
+> PackageResponse getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress)
 
 Fetch a package from a webstore by its identifier
 
@@ -635,7 +637,7 @@ public class Example {
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
     String ipAddress = "127.0.0.1"; // String | An IP address can be provided with authenticated requests.
     try {
-      List<PackageResponse> result = apiInstance.getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress);
+      PackageResponse result = apiInstance.getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#getAllPackagesWithAuthedIPAndBasket");
@@ -658,7 +660,7 @@ public class Example {
 
 ### Return type
 
-[**List&lt;PackageResponse&gt;**](PackageResponse.md)
+[**PackageResponse**](PackageResponse.md)
 
 ### Authorization
 
@@ -871,9 +873,71 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Successful response returns the basket information. |  -  |
 
+<a id="getCMSPages"></a>
+# **getCMSPages**
+> CMSPagesResponse getCMSPages(token)
+
+Fetch the custom pages associated with the store.
+
+Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    String token = "some-uuid"; // String | The webstore identifier.
+    try {
+      CMSPagesResponse result = apiInstance.getCMSPages(token);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getCMSPages");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **token** | **String**| The webstore identifier. | |
+
+### Return type
+
+[**CMSPagesResponse**](CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the webstore&#39;s pages. |  -  |
+
 <a id="getCategoryById"></a>
 # **getCategoryById**
-> List&lt;CategoryResponse&gt; getCategoryById(token, categoryId)
+> CategoryResponse getCategoryById(token, categoryId)
 
 Gets information about a specific category
 
@@ -897,7 +961,7 @@ public class Example {
     String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     String categoryId = "127244343"; // String | The ID of the category to fetch.
     try {
-      List<CategoryResponse> result = apiInstance.getCategoryById(token, categoryId);
+      CategoryResponse result = apiInstance.getCategoryById(token, categoryId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#getCategoryById");
@@ -919,7 +983,7 @@ public class Example {
 
 ### Return type
 
-[**List&lt;CategoryResponse&gt;**](CategoryResponse.md)
+[**CategoryResponse**](CategoryResponse.md)
 
 ### Authorization
 
@@ -1449,4 +1513,70 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Successful response. |  -  |
 | **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
+
+<a id="updateTier"></a>
+# **updateTier**
+> CMSPagesResponse updateTier(token, tierId, updateTierRequest)
+
+TODO
+
+Updates a tier.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    String token = "some-uuid"; // String | The webstore identifier.
+    String tierId = "6276316"; // String | The tier identifier
+    UpdateTierRequest updateTierRequest = new UpdateTierRequest(); // UpdateTierRequest | 
+    try {
+      CMSPagesResponse result = apiInstance.updateTier(token, tierId, updateTierRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#updateTier");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **token** | **String**| The webstore identifier. | |
+| **tierId** | **String**| The tier identifier | |
+| **updateTierRequest** | [**UpdateTierRequest**](UpdateTierRequest.md)|  | [optional] |
+
+### Return type
+
+[**CMSPagesResponse**](CMSPagesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response. |  -  |
 
