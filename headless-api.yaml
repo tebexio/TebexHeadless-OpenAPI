@@ -166,12 +166,12 @@ paths:
                 $ref: '#/components/schemas/BasketResponse'
         '422':
           description: The provided webstore ID is invalid.
-  /accounts/{token}/baskets/{basketIdent}/auth?returnUrl={returnUrl}: #TODO
+  /accounts/{token}/baskets/{basketIdent}/auth?returnUrl={returnUrl}:
     get:
       tags:
       - Headless
       operationId: getBasketAuthUrl
-      summary: Fetch a basket from a webstore by its identifier
+      summary: Get authentication links for a basket.
       parameters:
         - in: path
           name: token
@@ -203,7 +203,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BasketResponse'
+                $ref: '#/components/schemas/BasketAuthResponse'
         '422':
           description: The provided webstore ID or basket ID is invalid.
   /accounts/{token}/categories:
@@ -994,6 +994,17 @@ components:
         coupon_code:
           type: string
           example: "Academy10"
+    BasketAuthResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            example: "FiveM"
+          url:
+            type: string
+            example: "https://ident.tebex.io/"
     BasketResponse:
       type: object
       properties:
