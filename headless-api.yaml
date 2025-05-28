@@ -9,28 +9,10 @@ info:
   license:
     name: MIT
     url: https://opensource.org/license/mit
-  version: 1.0.0
+  version: 1.1.0
 servers:
   - url: https://headless.tebex.io/api
 tags:
-  # - name: Ident
-  #   description: A string identifier representing the basket
-  # - name: Basket
-  #   description: The basket, similar to a standard eCommerce basket will contain the items that the customer is purchasing.
-  # - name: Categories
-  #   description: Each store can have Categories of Packages that the webstore owner can define in order to better organize their packages offered.
-  # - name: Coupons
-  #   description: Coupons define and apply a discount to a given package.
-  # - name: Gift Cards
-  #   description: Gift cards can be presented as a form of payment for a basket, reducing the basket amount due.
-  # - name: Creator Codes
-  #   description: Purchases can be attributed to Creators for revenue sharing.
-  # - name: Packages
-  #   description: A package is a pre-defined item for sale.
-  - name: Basket Packages
-    description: A basket package is a Package within a basket
-  - name: Webstores
-    description: Webstore is the term for a Tebex store.
   - name: Headless
     description: Endpoints which interact with a basket requiring the basket ID
 paths:
@@ -247,6 +229,37 @@ paths:
           description: The webstore identifier.
       description: |- 
           Gets all categories from a webstore including packages.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns a list of category information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+
+  /accounts/{token}/categories?usernameId={usernameId}:
+    get:
+      tags:
+      - Headless
+      operationId: getTieredCategoriesForUser
+      summary: Gets a store's categories including all package information with them.
+      parameters:
+        - in: path
+          name: token
+          schema:
+            type: string
+            example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          required: true
+          description: The webstore identifier.
+        - in: path
+          name: usernameId
+          schema:
+              type: number
+              example: 76561198042467022
+          required: true
+      description: |- 
+          Gets all categories from the webstore, returning active tier information for the given player.
       responses:
         '200':
           description: |- 
@@ -812,24 +825,24 @@ paths:
       tags:
       - Headless
       operationId: updateTier
-      summary: TODO
+      summary: Updates the given teir to the provided package.
       parameters:
         - in: path
           name: token
+          required: true
           schema:
             type: string
             example: some-uuid
-          required: true
           description: The webstore identifier.
         - in: path
           name: tierId
-          schema:
-            type: string
-            example: 6276316
           required: true
+          schema:
+            type: number
+            example: 6276316
           description: The tier identifier
       description: |-
-        Updates a tier.
+        Updates a tier to a new package.
       requestBody:
         content:
           application/json:
@@ -837,7 +850,7 @@ paths:
               type: object
               properties:
                 package_id:
-                  type: string
+                  type: number
                   example: 123456789
       responses:
         '200':
@@ -846,7 +859,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CMSPagesResponse'
+                $ref: "#/components/schemas/UpdateTierResponse"
 components:
   schemas:
     Webstore:
@@ -898,9 +911,7 @@ components:
       properties:
         data:
           type: object
-          properties:
-            schema:
-              $ref: '#/components/schemas/Webstore'
+          $ref: '#/components/schemas/Webstore'
       description: Wrapped webstore information in a "data" object.
     UpdateTierResponse:
       type: object
@@ -1127,6 +1138,14 @@ components:
           description: Parent category, if applicable
           format: Category
           nullable: true
+        tiered:
+          type: boolean
+          description: True if this is a tiered category
+          example: false
+        active_tier:
+          description: If this is a teired category and the usernameId is provided, this will be the active tier information for this category.
+          nullable: true
+          $ref: "#/components/schemas/Tier"
         description:
           type: string
           description: HTML description of the category
@@ -1193,6 +1212,11 @@ components:
         currency:
           type: string
           example: 'USD'
+        prorate_price:
+          type: number
+          format: float
+          description: If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier.
+          nullable: true
         discount:
           type: number
           format: float
@@ -1248,3 +1272,52 @@ components:
           type: number
           example: 50.00
           description: A float (decimal) value representing the percentage of the gateway fee that should be dedicated from this wallet’s revenue share. This optional value can be anywhere between 0 - 100.
+    Tier:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 40796
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the tier became active
+          example: "2025-05-14T13:48:56.000000Z"
+        username_id:
+          type: string
+          description: The user's username ID. For Steam, this is a numeric representation of their Steam64ID
+        package:
+          $ref: '#/components/schemas/Package'
+        active:
+          type: boolean
+          description: True if the tier is currently active.
+          example: true
+        recurring_payment_reference:
+          type: string
+          description: The ID of the recurring payment this tier is attached to.
+          example: tbx-r-757925142
+        next_payment_date:
+          type: string
+          format: date-time
+          description: The date and time of the next payment for this tier.
+          example: "2025-06-14T13:48:56+00:00"
+        status:
+          type: object
+          properties:
+            id:
+              type: number
+              example: 2
+            description:
+              type: string
+              example: Active
+        pending_downgrade_package:
+          type: object
+          properties:
+            id:
+              type: number
+              example: 6834820
+            name:
+              type: string
+              example: Bronze
+          description: The package this tier is downgrading to if a downgrade is pending.
+          nullable: true
