@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**packageId** | **String** |  |  [optional] |
+|**packageId** | **BigDecimal** |  |  [optional] |
 
 
 

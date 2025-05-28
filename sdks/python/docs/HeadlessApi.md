@@ -15,19 +15,20 @@ Method | HTTP request | Description
 [**get_all_packages_with_authed_ip**](HeadlessApi.md#get_all_packages_with_authed_ip) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier
 [**get_all_packages_with_authed_ip_and_basket**](HeadlessApi.md#get_all_packages_with_authed_ip_and_basket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
 [**get_all_packages_with_basket**](HeadlessApi.md#get_all_packages_with_basket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
-[**get_basket_auth_url**](HeadlessApi.md#get_basket_auth_url) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier
+[**get_basket_auth_url**](HeadlessApi.md#get_basket_auth_url) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket.
 [**get_basket_by_id**](HeadlessApi.md#get_basket_by_id) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
 [**get_category_by_id**](HeadlessApi.md#get_category_by_id) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 [**get_category_including_packages**](HeadlessApi.md#get_category_including_packages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 [**get_cms_pages**](HeadlessApi.md#get_cms_pages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 [**get_package_by_id**](HeadlessApi.md#get_package_by_id) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
+[**get_tiered_categories_for_user**](HeadlessApi.md#get_tiered_categories_for_user) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them.
 [**get_webstore_by_id**](HeadlessApi.md#get_webstore_by_id) | **GET** /accounts/{token} | Fetch a webstore by its identifier
 [**remove_basket_package**](HeadlessApi.md#remove_basket_package) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 [**remove_coupon**](HeadlessApi.md#remove_coupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
 [**remove_creator_code**](HeadlessApi.md#remove_creator_code) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
 [**remove_gift_card**](HeadlessApi.md#remove_gift_card) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
 [**update_package_quantity**](HeadlessApi.md#update_package_quantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-[**update_tier**](HeadlessApi.md#update_tier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO
+[**update_tier**](HeadlessApi.md#update_tier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package.
 
 
 # **add_basket_package**
@@ -814,9 +815,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_basket_auth_url**
-> BasketResponse get_basket_auth_url(token, basket_ident, return_url)
+> List[BasketAuthResponseInner] get_basket_auth_url(token, basket_ident, return_url)
 
-Fetch a basket from a webstore by its identifier
+Get authentication links for a basket.
 
 Fetches a basket's auth URL.
 
@@ -825,7 +826,7 @@ Fetches a basket's auth URL.
 
 ```python
 import TebexHeadless
-from TebexHeadless.models.basket_response import BasketResponse
+from TebexHeadless.models.basket_auth_response_inner import BasketAuthResponseInner
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
@@ -845,7 +846,7 @@ with TebexHeadless.ApiClient(configuration) as api_client:
     return_url = 'https://example.tebex.io/' # str | The URL you would like to redirect the user to after successful basket authentication.
 
     try:
-        # Fetch a basket from a webstore by its identifier
+        # Get authentication links for a basket.
         api_response = api_instance.get_basket_auth_url(token, basket_ident, return_url)
         print("The response of HeadlessApi->get_basket_auth_url:\n")
         pprint(api_response)
@@ -866,7 +867,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**List[BasketAuthResponseInner]**](BasketAuthResponseInner.md)
 
 ### Authorization
 
@@ -1231,6 +1232,76 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response returns the package information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_tiered_categories_for_user**
+> CategoryResponse get_tiered_categories_for_user(token, username_id)
+
+Gets a store's categories including all package information with them.
+
+Gets all categories from the webstore, returning active tier information for the given player.
+
+### Example
+
+
+```python
+import TebexHeadless
+from TebexHeadless.models.category_response import CategoryResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
+    username_id = 76561198042467022 # float | 
+
+    try:
+        # Gets a store's categories including all package information with them.
+        api_response = api_instance.get_tiered_categories_for_user(token, username_id)
+        print("The response of HeadlessApi->get_tiered_categories_for_user:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_tiered_categories_for_user: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **str**| The webstore identifier. | 
+ **username_id** | **float**|  | 
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns a list of category information. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1653,19 +1724,19 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_tier**
-> CMSPagesResponse update_tier(token, tier_id, update_tier_request=update_tier_request)
+> UpdateTierResponse update_tier(token, tier_id, update_tier_request=update_tier_request)
 
-TODO
+Updates the given teir to the provided package.
 
-Updates a tier.
+Updates a tier to a new package.
 
 ### Example
 
 
 ```python
 import TebexHeadless
-from TebexHeadless.models.cms_pages_response import CMSPagesResponse
 from TebexHeadless.models.update_tier_request import UpdateTierRequest
+from TebexHeadless.models.update_tier_response import UpdateTierResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
@@ -1681,11 +1752,11 @@ with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
     token = 'some-uuid' # str | The webstore identifier.
-    tier_id = '6276316' # str | The tier identifier
+    tier_id = 6276316 # float | The tier identifier
     update_tier_request = TebexHeadless.UpdateTierRequest() # UpdateTierRequest |  (optional)
 
     try:
-        # TODO
+        # Updates the given teir to the provided package.
         api_response = api_instance.update_tier(token, tier_id, update_tier_request=update_tier_request)
         print("The response of HeadlessApi->update_tier:\n")
         pprint(api_response)
@@ -1701,12 +1772,12 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **str**| The webstore identifier. | 
- **tier_id** | **str**| The tier identifier | 
+ **tier_id** | **float**| The tier identifier | 
  **update_tier_request** | [**UpdateTierRequest**](UpdateTierRequest.md)|  | [optional] 
 
 ### Return type
 
-[**CMSPagesResponse**](CMSPagesResponse.md)
+[**UpdateTierResponse**](UpdateTierResponse.md)
 
 ### Authorization
 

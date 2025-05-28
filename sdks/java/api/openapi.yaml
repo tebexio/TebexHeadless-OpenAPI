@@ -11,14 +11,10 @@ info:
     url: https://opensource.org/license/mit
   termsOfService: https://tebex.io/terms-creator-agreement
   title: Tebex Headless API
-  version: 1.0.0
+  version: 1.1.0
 servers:
 - url: https://headless.tebex.io/api
 tags:
-- description: A basket package is a Package within a basket
-  name: Basket Packages
-- description: Webstore is the term for a Tebex store.
-  name: Webstores
 - description: Endpoints which interact with a basket requiring the basket ID
   name: Headless
 paths:
@@ -182,11 +178,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BasketResponse'
+                $ref: '#/components/schemas/BasketAuthResponse'
           description: Successful response returns the basket auth information.
         "422":
           description: The provided webstore ID or basket ID is invalid.
-      summary: Fetch a basket from a webstore by its identifier
+      summary: Get authentication links for a basket.
       tags:
       - Headless
       x-accepts:
@@ -232,6 +228,41 @@ paths:
         schema:
           example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
           type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+          description: Successful response returns a list of category information.
+      summary: Gets a store's categories including all package information with them.
+      tags:
+      - Headless
+      x-accepts:
+      - application/json
+  /accounts/{token}/categories?usernameId={usernameId}:
+    get:
+      description: "Gets all categories from the webstore, returning active tier information\
+        \ for the given player."
+      operationId: getTieredCategoriesForUser
+      parameters:
+      - description: The webstore identifier.
+        explode: false
+        in: path
+        name: token
+        required: true
+        schema:
+          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: usernameId
+        required: true
+        schema:
+          example: 76561198042467022
+          type: number
         style: simple
       responses:
         "200":
@@ -850,7 +881,7 @@ paths:
       - application/json
   /accounts/{token}/tiers/{tierId}:
     patch:
-      description: Updates a tier.
+      description: Updates a tier to a new package.
       operationId: updateTier
       parameters:
       - description: The webstore identifier.
@@ -868,8 +899,8 @@ paths:
         name: tierId
         required: true
         schema:
-          example: "6276316"
-          type: string
+          example: 6276316
+          type: number
         style: simple
       requestBody:
         content:
@@ -881,9 +912,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CMSPagesResponse'
+                $ref: '#/components/schemas/UpdateTierResponse'
           description: Successful response.
-      summary: TODO
+      summary: Updates the given teir to the provided package.
       tags:
       - Headless
       x-content-type: application/json
@@ -954,24 +985,27 @@ components:
       description: Wrapped webstore information in a "data" object.
       example:
         data:
-          schema:
-            platform_type: "Minecraft: Java Edition"
-            webstore_url: https://example.tebex.io
-            name: Minecraft Store
-            description: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.\
-              \ Mauris fermentum eget tellus et cursus. Pellentesque vel vehicula\
-              \ velit, sit amet tincidunt diam. Aliquam sit amet fermentum lorem.</p>"
-            logo: https://openapi-generator.tech
-            created_at: 2023-05-25T09:49:37Z
-            currency: USD
-            id: 1
-            lang: en
-            platform_type_id: minecraft
+          platform_type: "Minecraft: Java Edition"
+          webstore_url: https://example.tebex.io
+          name: Minecraft Store
+          description: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.\
+            \ Mauris fermentum eget tellus et cursus. Pellentesque vel vehicula velit,\
+            \ sit amet tincidunt diam. Aliquam sit amet fermentum lorem.</p>"
+          logo: https://openapi-generator.tech
+          created_at: 2023-05-25T09:49:37Z
+          currency: USD
+          id: 1
+          lang: en
+          platform_type_id: minecraft
       properties:
         data:
-          $ref: '#/components/schemas/WebstoreResponse_data'
+          $ref: '#/components/schemas/Webstore'
       type: object
     UpdateTierResponse:
+      example:
+        success: true
+        message: "Tier successfully upgraded, please allow a few moments for your\
+          \ changes to take effect."
       properties:
         success:
           example: true
@@ -1136,6 +1170,10 @@ components:
           example: Academy10
           type: string
       type: object
+    BasketAuthResponse:
+      items:
+        $ref: '#/components/schemas/BasketAuthResponse_inner'
+      type: array
     BasketResponse:
       example:
         data:
@@ -1341,10 +1379,12 @@ components:
         - display_type: list
           parent: "{}"
           name: Test
+          tiered: false
           description: description
           id: 2678660
           packages:
           - image: image
+            prorate_price: 0.8008282
             total_price: 5
             disable_quantity: false
             description: <p>this is just a test. only a test. nothing more.</p>
@@ -1363,6 +1403,7 @@ components:
               name: Packages
               id: 2678660
           - image: image
+            prorate_price: 0.8008282
             total_price: 5
             disable_quantity: false
             description: <p>this is just a test. only a test. nothing more.</p>
@@ -1381,14 +1422,49 @@ components:
               name: Packages
               id: 2678660
           slug: slug
+          active_tier:
+            package:
+              image: image
+              prorate_price: 0.8008282
+              total_price: 5
+              disable_quantity: false
+              description: <p>this is just a test. only a test. nothing more.</p>
+              discount: 0
+              disable_gifting: false
+              created_at: 2024-05-21T18:09:17Z
+              type: single
+              expiration_date: 2000-01-23T04:56:07.000+00:00
+              sales_tax: 0
+              updated_at: 2024-05-21T18:09:17Z
+              name: test package 101
+              base_price: 5
+              currency: USD
+              id: 6276316
+              category:
+                name: Packages
+                id: 2678660
+            recurring_payment_reference: tbx-r-757925142
+            pending_downgrade_package:
+              name: Bronze
+              id: 6834820
+            username_id: username_id
+            created_at: 2025-05-14T13:48:56Z
+            active: true
+            id: 40796
+            next_payment_date: 2025-06-14T13:48:56Z
+            status:
+              description: Active
+              id: 2
           order: 1
         - display_type: list
           parent: "{}"
           name: Test
+          tiered: false
           description: description
           id: 2678660
           packages:
           - image: image
+            prorate_price: 0.8008282
             total_price: 5
             disable_quantity: false
             description: <p>this is just a test. only a test. nothing more.</p>
@@ -1407,6 +1483,7 @@ components:
               name: Packages
               id: 2678660
           - image: image
+            prorate_price: 0.8008282
             total_price: 5
             disable_quantity: false
             description: <p>this is just a test. only a test. nothing more.</p>
@@ -1425,6 +1502,39 @@ components:
               name: Packages
               id: 2678660
           slug: slug
+          active_tier:
+            package:
+              image: image
+              prorate_price: 0.8008282
+              total_price: 5
+              disable_quantity: false
+              description: <p>this is just a test. only a test. nothing more.</p>
+              discount: 0
+              disable_gifting: false
+              created_at: 2024-05-21T18:09:17Z
+              type: single
+              expiration_date: 2000-01-23T04:56:07.000+00:00
+              sales_tax: 0
+              updated_at: 2024-05-21T18:09:17Z
+              name: test package 101
+              base_price: 5
+              currency: USD
+              id: 6276316
+              category:
+                name: Packages
+                id: 2678660
+            recurring_payment_reference: tbx-r-757925142
+            pending_downgrade_package:
+              name: Bronze
+              id: 6834820
+            username_id: username_id
+            created_at: 2025-05-14T13:48:56Z
+            active: true
+            id: 40796
+            next_payment_date: 2025-06-14T13:48:56Z
+            status:
+              description: Active
+              id: 2
           order: 1
       properties:
         data:
@@ -1437,10 +1547,12 @@ components:
         display_type: list
         parent: "{}"
         name: Test
+        tiered: false
         description: description
         id: 2678660
         packages:
         - image: image
+          prorate_price: 0.8008282
           total_price: 5
           disable_quantity: false
           description: <p>this is just a test. only a test. nothing more.</p>
@@ -1459,6 +1571,7 @@ components:
             name: Packages
             id: 2678660
         - image: image
+          prorate_price: 0.8008282
           total_price: 5
           disable_quantity: false
           description: <p>this is just a test. only a test. nothing more.</p>
@@ -1477,6 +1590,39 @@ components:
             name: Packages
             id: 2678660
         slug: slug
+        active_tier:
+          package:
+            image: image
+            prorate_price: 0.8008282
+            total_price: 5
+            disable_quantity: false
+            description: <p>this is just a test. only a test. nothing more.</p>
+            discount: 0
+            disable_gifting: false
+            created_at: 2024-05-21T18:09:17Z
+            type: single
+            expiration_date: 2000-01-23T04:56:07.000+00:00
+            sales_tax: 0
+            updated_at: 2024-05-21T18:09:17Z
+            name: test package 101
+            base_price: 5
+            currency: USD
+            id: 6276316
+            category:
+              name: Packages
+              id: 2678660
+          recurring_payment_reference: tbx-r-757925142
+          pending_downgrade_package:
+            name: Bronze
+            id: 6834820
+          username_id: username_id
+          created_at: 2025-05-14T13:48:56Z
+          active: true
+          id: 40796
+          next_payment_date: 2025-06-14T13:48:56Z
+          status:
+            description: Active
+            id: 2
         order: 1
       properties:
         id:
@@ -1495,6 +1641,12 @@ components:
           format: Category
           nullable: true
           type: object
+        tiered:
+          description: True if this is a tiered category
+          example: false
+          type: boolean
+        active_tier:
+          $ref: '#/components/schemas/Tier'
         description:
           description: HTML description of the category
           type: string
@@ -1518,6 +1670,7 @@ components:
       example:
         data:
         - image: image
+          prorate_price: 0.8008282
           total_price: 5
           disable_quantity: false
           description: <p>this is just a test. only a test. nothing more.</p>
@@ -1536,6 +1689,7 @@ components:
             name: Packages
             id: 2678660
         - image: image
+          prorate_price: 0.8008282
           total_price: 5
           disable_quantity: false
           description: <p>this is just a test. only a test. nothing more.</p>
@@ -1562,6 +1716,7 @@ components:
     Package:
       example:
         image: image
+        prorate_price: 0.8008282
         total_price: 5
         disable_quantity: false
         description: <p>this is just a test. only a test. nothing more.</p>
@@ -1613,6 +1768,12 @@ components:
         currency:
           example: USD
           type: string
+        prorate_price:
+          description: "If this package is part of a tiered category, this is the\
+            \ difference on upgrade pricing from the current active tier."
+          format: float
+          nullable: true
+          type: number
         discount:
           example: 0
           format: float
@@ -1692,6 +1853,73 @@ components:
           example: 50.0
           type: number
       type: object
+    Tier:
+      example:
+        package:
+          image: image
+          prorate_price: 0.8008282
+          total_price: 5
+          disable_quantity: false
+          description: <p>this is just a test. only a test. nothing more.</p>
+          discount: 0
+          disable_gifting: false
+          created_at: 2024-05-21T18:09:17Z
+          type: single
+          expiration_date: 2000-01-23T04:56:07.000+00:00
+          sales_tax: 0
+          updated_at: 2024-05-21T18:09:17Z
+          name: test package 101
+          base_price: 5
+          currency: USD
+          id: 6276316
+          category:
+            name: Packages
+            id: 2678660
+        recurring_payment_reference: tbx-r-757925142
+        pending_downgrade_package:
+          name: Bronze
+          id: 6834820
+        username_id: username_id
+        created_at: 2025-05-14T13:48:56Z
+        active: true
+        id: 40796
+        next_payment_date: 2025-06-14T13:48:56Z
+        status:
+          description: Active
+          id: 2
+      properties:
+        id:
+          example: 40796
+          type: number
+        created_at:
+          description: The date and time when the tier became active
+          example: 2025-05-14T13:48:56Z
+          format: date-time
+          type: string
+        username_id:
+          description: "The user's username ID. For Steam, this is a numeric representation\
+            \ of their Steam64ID"
+          type: string
+        package:
+          $ref: '#/components/schemas/Package'
+        active:
+          description: True if the tier is currently active.
+          example: true
+          type: boolean
+        recurring_payment_reference:
+          description: The ID of the recurring payment this tier is attached to.
+          example: tbx-r-757925142
+          type: string
+        next_payment_date:
+          description: The date and time of the next payment for this tier.
+          example: 2025-06-14T13:48:56Z
+          format: date-time
+          type: string
+        status:
+          $ref: '#/components/schemas/Tier_status'
+        pending_downgrade_package:
+          $ref: '#/components/schemas/Tier_pending_downgrade_package'
+      type: object
     createBasket_request:
       properties:
         complete_url:
@@ -1751,27 +1979,20 @@ components:
     updateTier_request:
       properties:
         package_id:
-          example: "123456789"
-          type: string
+          example: 123456789
+          type: number
       type: object
-    WebstoreResponse_data:
+    BasketAuthResponse_inner:
       example:
-        schema:
-          platform_type: "Minecraft: Java Edition"
-          webstore_url: https://example.tebex.io
-          name: Minecraft Store
-          description: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.\
-            \ Mauris fermentum eget tellus et cursus. Pellentesque vel vehicula velit,\
-            \ sit amet tincidunt diam. Aliquam sit amet fermentum lorem.</p>"
-          logo: https://openapi-generator.tech
-          created_at: 2023-05-25T09:49:37Z
-          currency: USD
-          id: 1
-          lang: en
-          platform_type_id: minecraft
+        name: FiveM
+        url: https://ident.tebex.io/
       properties:
-        schema:
-          $ref: '#/components/schemas/Webstore'
+        name:
+          example: FiveM
+          type: string
+        url:
+          example: https://ident.tebex.io/
+          type: string
       type: object
     Package_category:
       example:
@@ -1783,6 +2004,32 @@ components:
           type: integer
         name:
           example: Packages
+          type: string
+      type: object
+    Tier_status:
+      example:
+        description: Active
+        id: 2
+      properties:
+        id:
+          example: 2
+          type: number
+        description:
+          example: Active
+          type: string
+      type: object
+    Tier_pending_downgrade_package:
+      description: The package this tier is downgrading to if a downgrade is pending.
+      example:
+        name: Bronze
+        id: 6834820
+      nullable: true
+      properties:
+        id:
+          example: 6834820
+          type: number
+        name:
+          example: Bronze
           type: string
       type: object
 

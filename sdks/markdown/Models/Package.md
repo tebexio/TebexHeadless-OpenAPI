@@ -13,6 +13,7 @@
 | **sales\_tax** | **Float** |  | [optional] [default to null] |
 | **total\_price** | **Float** |  | [optional] [default to null] |
 | **currency** | **String** |  | [optional] [default to null] |
+| **prorate\_price** | **Float** | If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier. | [optional] [default to null] |
 | **discount** | **Float** |  | [optional] [default to null] |
 | **disable\_quantity** | **Boolean** |  | [optional] [default to null] |
 | **disable\_gifting** | **Boolean** |  | [optional] [default to null] |

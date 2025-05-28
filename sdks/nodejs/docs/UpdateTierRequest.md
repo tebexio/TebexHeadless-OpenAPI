@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**packageId** | **String** |  | [optional] 
+**packageId** | **Number** |  | [optional] 
 
 

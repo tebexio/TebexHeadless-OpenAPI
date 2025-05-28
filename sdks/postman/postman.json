@@ -5,7 +5,7 @@
 		    "content": "The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.",
 		    "type": "text/markdown"
 		},
-		"version": "1.0.0",
+		"version": "1.1.0",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -178,7 +178,7 @@
                 "description": "Fetches a basket's auth URL.",
                  "item": [
                             {
-                                "name": "Fetch a basket from a webstore by its identifier",
+                                "name": "Get authentication links for a basket.",
                                 "request": {
                                     "method": "GET",
                                     "header": [
@@ -799,6 +799,61 @@
                             ]
                         },
 	                        {
+    "name": "/accounts/:token/categories?usernameId&#x3D;:usernameId",
+                "description": "Gets all categories from the webstore, returning active tier information for the given player.",
+                 "item": [
+                            {
+                                "name": "Gets a store's categories including all package information with them.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/accounts/:token/categories?usernameId&#x3D;:usernameId",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "accounts",
+                                            ":token",
+                                            "categories?usernameId&#x3D;:usernameId"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            },
+                                            {
+                                                "key": "usernameId",
+                                                "value": "",
+                                                "description": ""
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all categories from the webstore, returning active tier information for the given player."
+                                }
+                            }
+                            ]
+                        },
+	                        {
     "name": "/accounts/:token/packages",
                 "description": "Gets all packages from a webstore.",
                  "item": [
@@ -1126,10 +1181,10 @@
                         },
 	                        {
     "name": "/accounts/:token/tiers/:tierId",
-                "description": "Updates a tier.",
+                "description": "Updates a tier to a new package.",
                  "item": [
                             {
-                                "name": "TODO",
+                                "name": "Updates the given teir to the provided package.",
                                 "request": {
                                     "method": "PATCH",
                                     "header": [
@@ -1148,7 +1203,7 @@
                                     ],
                                     "body": {
                                         "mode": "raw",
-                                        "raw": "{\n \"package_id\": \"<string>\"\n}",
+                                        "raw": "{\n \"package_id\": \"<number>\"\n}",
                                         "options": {
                                             "raw": {
                                                 "language": "json"
@@ -1181,7 +1236,7 @@
                                         "query": [
                                         ]
                                     },
-                                    "description": "Updates a tier."
+                                    "description": "Updates a tier to a new package."
                                 }
                             }
                             ]

@@ -15,19 +15,20 @@ All URIs are relative to https://headless.tebex.io/api, except if the operation 
 | [**getAllPackagesWithAuthedIP()**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier |
 | [**getAllPackagesWithAuthedIPAndBasket()**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
 | [**getAllPackagesWithBasket()**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**getBasketAuthUrl()**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier |
+| [**getBasketAuthUrl()**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket. |
 | [**getBasketById()**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
 | [**getCMSPages()**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
 | [**getCategoryById()**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**getCategoryIncludingPackages()**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**getPackageById()**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
+| [**getTieredCategoriesForUser()**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them. |
 | [**getWebstoreById()**](HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
 | [**removeBasketPackage()**](HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
 | [**removeCoupon()**](HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
 | [**removeCreatorCode()**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
 | [**removeGiftCard()**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
 | [**updatePackageQuantity()**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
-| [**updateTier()**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO |
+| [**updateTier()**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package. |
 
 
 ## `addBasketPackage()`
@@ -673,10 +674,10 @@ No authorization required
 ## `getBasketAuthUrl()`
 
 ```php
-getBasketAuthUrl($token, $basket_ident, $return_url): \TebexHeadless\Model\BasketResponse
+getBasketAuthUrl($token, $basket_ident, $return_url): \TebexHeadless\Model\BasketAuthResponseInner[]
 ```
 
-Fetch a basket from a webstore by its identifier
+Get authentication links for a basket.
 
 Fetches a basket's auth URL.
 
@@ -715,7 +716,7 @@ try {
 
 ### Return type
 
-[**\TebexHeadless\Model\BasketResponse**](../Model/BasketResponse.md)
+[**\TebexHeadless\Model\BasketAuthResponseInner[]**](../Model/BasketAuthResponseInner.md)
 
 ### Authorization
 
@@ -1004,6 +1005,64 @@ try {
 ### Return type
 
 [**\TebexHeadless\Model\PackageResponse**](../Model/PackageResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getTieredCategoriesForUser()`
+
+```php
+getTieredCategoriesForUser($token, $username_id): \TebexHeadless\Model\CategoryResponse
+```
+
+Gets a store's categories including all package information with them.
+
+Gets all categories from the webstore, returning active tier information for the given player.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
+$username_id = 76561198042467022; // float
+
+try {
+    $result = $apiInstance->getTieredCategoriesForUser($token, $username_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getTieredCategoriesForUser: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **token** | **string**| The webstore identifier. | |
+| **username_id** | **float**|  | |
+
+### Return type
+
+[**\TebexHeadless\Model\CategoryResponse**](../Model/CategoryResponse.md)
 
 ### Authorization
 
@@ -1367,12 +1426,12 @@ No authorization required
 ## `updateTier()`
 
 ```php
-updateTier($token, $tier_id, $update_tier_request): \TebexHeadless\Model\CMSPagesResponse
+updateTier($token, $tier_id, $update_tier_request): \TebexHeadless\Model\UpdateTierResponse
 ```
 
-TODO
+Updates the given teir to the provided package.
 
-Updates a tier.
+Updates a tier to a new package.
 
 ### Example
 
@@ -1388,7 +1447,7 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     new GuzzleHttp\Client()
 );
 $token = some-uuid; // string | The webstore identifier.
-$tier_id = 6276316; // string | The tier identifier
+$tier_id = 6276316; // float | The tier identifier
 $update_tier_request = new \TebexHeadless\Model\UpdateTierRequest(); // \TebexHeadless\Model\UpdateTierRequest
 
 try {
@@ -1404,12 +1463,12 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **token** | **string**| The webstore identifier. | |
-| **tier_id** | **string**| The tier identifier | |
+| **tier_id** | **float**| The tier identifier | |
 | **update_tier_request** | [**\TebexHeadless\Model\UpdateTierRequest**](../Model/UpdateTierRequest.md)|  | [optional] |
 
 ### Return type
 
-[**\TebexHeadless\Model\CMSPagesResponse**](../Model/CMSPagesResponse.md)
+[**\TebexHeadless\Model\UpdateTierResponse**](../Model/UpdateTierResponse.md)
 
 ### Authorization
 

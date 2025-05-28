@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PackageId** | Pointer to **string** |  | [optional] 
+**PackageId** | Pointer to **float32** |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetPackageId
 
-`func (o *UpdateTierRequest) GetPackageId() string`
+`func (o *UpdateTierRequest) GetPackageId() float32`
 
 GetPackageId returns the PackageId field if non-nil, zero value otherwise.
 
 ### GetPackageIdOk
 
-`func (o *UpdateTierRequest) GetPackageIdOk() (*string, bool)`
+`func (o *UpdateTierRequest) GetPackageIdOk() (*float32, bool)`
 
 GetPackageIdOk returns a tuple with the PackageId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPackageId
 
-`func (o *UpdateTierRequest) SetPackageId(v string)`
+`func (o *UpdateTierRequest) SetPackageId(v float32)`
 
 SetPackageId sets PackageId field to given value.
 

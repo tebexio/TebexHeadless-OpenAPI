@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**WebstoreResponseData**](WebstoreResponseData.md) |  | [optional] 
+**Data** | Pointer to [**Webstore**](Webstore.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetData
 
-`func (o *WebstoreResponse) GetData() WebstoreResponseData`
+`func (o *WebstoreResponse) GetData() Webstore`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *WebstoreResponse) GetDataOk() (*WebstoreResponseData, bool)`
+`func (o *WebstoreResponse) GetDataOk() (*Webstore, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *WebstoreResponse) SetData(v WebstoreResponseData)`
+`func (o *WebstoreResponse) SetData(v Webstore)`
 
 SetData sets Data field to given value.
 

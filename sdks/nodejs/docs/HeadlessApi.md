@@ -15,19 +15,20 @@ Method | HTTP request | Description
 [**getAllPackagesWithAuthedIP**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier
 [**getAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
 [**getAllPackagesWithBasket**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
-[**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier
+[**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket.
 [**getBasketById**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
 [**getCMSPages**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 [**getCategoryById**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 [**getCategoryIncludingPackages**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 [**getPackageById**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
+[**getTieredCategoriesForUser**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them.
 [**getWebstoreById**](HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier
 [**removeBasketPackage**](HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 [**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
 [**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
 [**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
 [**updatePackageQuantity**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-[**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO
+[**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package.
 
 
 
@@ -562,9 +563,9 @@ No authorization required
 
 ## getBasketAuthUrl
 
-> BasketResponse getBasketAuthUrl(token, basketIdent, returnUrl)
+> [BasketAuthResponseInner] getBasketAuthUrl(token, basketIdent, returnUrl)
 
-Fetch a basket from a webstore by its identifier
+Get authentication links for a basket.
 
 Fetches a basket&#39;s auth URL.
 
@@ -597,7 +598,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**[BasketAuthResponseInner]**](BasketAuthResponseInner.md)
 
 ### Authorization
 
@@ -831,6 +832,53 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PackageResponse**](PackageResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## getTieredCategoriesForUser
+
+> CategoryResponse getTieredCategoriesForUser(token, usernameId)
+
+Gets a store&#39;s categories including all package information with them.
+
+Gets all categories from the webstore, returning active tier information for the given player.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
+let usernameId = 76561198042467022; // Number | 
+apiInstance.getTieredCategoriesForUser(token, usernameId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **String**| The webstore identifier. | 
+ **usernameId** | **Number**|  | 
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
 
 ### Authorization
 
@@ -1134,11 +1182,11 @@ No authorization required
 
 ## updateTier
 
-> CMSPagesResponse updateTier(token, tierId, opts)
+> UpdateTierResponse updateTier(token, tierId, opts)
 
-TODO
+Updates the given teir to the provided package.
 
-Updates a tier.
+Updates a tier to a new package.
 
 ### Example
 
@@ -1147,7 +1195,7 @@ import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
 let token = "some-uuid"; // String | The webstore identifier.
-let tierId = "6276316"; // String | The tier identifier
+let tierId = 6276316; // Number | The tier identifier
 let opts = {
   'updateTierRequest': new TebexHeadlessApi.UpdateTierRequest() // UpdateTierRequest | 
 };
@@ -1166,12 +1214,12 @@ apiInstance.updateTier(token, tierId, opts, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **String**| The webstore identifier. | 
- **tierId** | **String**| The tier identifier | 
+ **tierId** | **Number**| The tier identifier | 
  **updateTierRequest** | [**UpdateTierRequest**](UpdateTierRequest.md)|  | [optional] 
 
 ### Return type
 
-[**CMSPagesResponse**](CMSPagesResponse.md)
+[**UpdateTierResponse**](UpdateTierResponse.md)
 
 ### Authorization
 

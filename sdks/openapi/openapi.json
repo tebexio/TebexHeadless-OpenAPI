@@ -11,18 +11,12 @@
     },
     "termsOfService" : "https://tebex.io/terms-creator-agreement",
     "title" : "Tebex Headless API",
-    "version" : "1.0.0"
+    "version" : "1.1.0"
   },
   "servers" : [ {
     "url" : "https://headless.tebex.io/api"
   } ],
   "tags" : [ {
-    "description" : "A basket package is a Package within a basket",
-    "name" : "Basket Packages"
-  }, {
-    "description" : "Webstore is the term for a Tebex store.",
-    "name" : "Webstores"
-  }, {
     "description" : "Endpoints which interact with a basket requiring the basket ID",
     "name" : "Headless"
   } ],
@@ -221,7 +215,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/BasketResponse"
+                  "$ref" : "#/components/schemas/BasketAuthResponse"
                 }
               }
             },
@@ -231,7 +225,7 @@
             "description" : "The provided webstore ID or basket ID is invalid."
           }
         },
-        "summary" : "Fetch a basket from a webstore by its identifier",
+        "summary" : "Get authentication links for a basket.",
         "tags" : [ "Headless" ]
       }
     },
@@ -280,6 +274,48 @@
           "schema" : {
             "example" : "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb",
             "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CategoryResponse"
+                }
+              }
+            },
+            "description" : "Successful response returns a list of category information."
+          }
+        },
+        "summary" : "Gets a store's categories including all package information with them.",
+        "tags" : [ "Headless" ]
+      }
+    },
+    "/accounts/{token}/categories?usernameId={usernameId}" : {
+      "get" : {
+        "description" : "Gets all categories from the webstore, returning active tier information for the given player.",
+        "operationId" : "getTieredCategoriesForUser",
+        "parameters" : [ {
+          "description" : "The webstore identifier.",
+          "explode" : false,
+          "in" : "path",
+          "name" : "token",
+          "required" : true,
+          "schema" : {
+            "example" : "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb",
+            "type" : "string"
+          },
+          "style" : "simple"
+        }, {
+          "explode" : false,
+          "in" : "path",
+          "name" : "usernameId",
+          "required" : true,
+          "schema" : {
+            "example" : 76561198042467022,
+            "type" : "number"
           },
           "style" : "simple"
         } ],
@@ -1036,7 +1072,7 @@
     },
     "/accounts/{token}/tiers/{tierId}" : {
       "patch" : {
-        "description" : "Updates a tier.",
+        "description" : "Updates a tier to a new package.",
         "operationId" : "updateTier",
         "parameters" : [ {
           "description" : "The webstore identifier.",
@@ -1056,8 +1092,8 @@
           "name" : "tierId",
           "required" : true,
           "schema" : {
-            "example" : "6276316",
-            "type" : "string"
+            "example" : 6276316,
+            "type" : "number"
           },
           "style" : "simple"
         } ],
@@ -1075,14 +1111,14 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/CMSPagesResponse"
+                  "$ref" : "#/components/schemas/UpdateTierResponse"
                 }
               }
             },
             "description" : "Successful response."
           }
         },
-        "summary" : "TODO",
+        "summary" : "Updates the given teir to the provided package.",
         "tags" : [ "Headless" ]
       }
     }
@@ -1149,7 +1185,7 @@
         "description" : "Wrapped webstore information in a \"data\" object.",
         "properties" : {
           "data" : {
-            "$ref" : "#/components/schemas/WebstoreResponse_data"
+            "$ref" : "#/components/schemas/Webstore"
           }
         },
         "type" : "object"
@@ -1274,6 +1310,12 @@
           }
         },
         "type" : "object"
+      },
+      "BasketAuthResponse" : {
+        "items" : {
+          "$ref" : "#/components/schemas/BasketAuthResponse_inner"
+        },
+        "type" : "array"
       },
       "BasketResponse" : {
         "properties" : {
@@ -1437,6 +1479,14 @@
             "nullable" : true,
             "type" : "object"
           },
+          "tiered" : {
+            "description" : "True if this is a tiered category",
+            "example" : false,
+            "type" : "boolean"
+          },
+          "active_tier" : {
+            "$ref" : "#/components/schemas/Tier"
+          },
           "description" : {
             "description" : "HTML description of the category",
             "type" : "string"
@@ -1517,6 +1567,12 @@
             "example" : "USD",
             "type" : "string"
           },
+          "prorate_price" : {
+            "description" : "If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier.",
+            "format" : "float",
+            "nullable" : true,
+            "type" : "number"
+          },
           "discount" : {
             "example" : 0,
             "format" : "float",
@@ -1588,6 +1644,50 @@
             "description" : "A float (decimal) value representing the percentage of the gateway fee that should be dedicated from this wallet’s revenue share. This optional value can be anywhere between 0 - 100.",
             "example" : 50.0,
             "type" : "number"
+          }
+        },
+        "type" : "object"
+      },
+      "Tier" : {
+        "properties" : {
+          "id" : {
+            "example" : 40796,
+            "type" : "number"
+          },
+          "created_at" : {
+            "description" : "The date and time when the tier became active",
+            "example" : "2025-05-14T13:48:56Z",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "username_id" : {
+            "description" : "The user's username ID. For Steam, this is a numeric representation of their Steam64ID",
+            "type" : "string"
+          },
+          "package" : {
+            "$ref" : "#/components/schemas/Package"
+          },
+          "active" : {
+            "description" : "True if the tier is currently active.",
+            "example" : true,
+            "type" : "boolean"
+          },
+          "recurring_payment_reference" : {
+            "description" : "The ID of the recurring payment this tier is attached to.",
+            "example" : "tbx-r-757925142",
+            "type" : "string"
+          },
+          "next_payment_date" : {
+            "description" : "The date and time of the next payment for this tier.",
+            "example" : "2025-06-14T13:48:56Z",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/Tier_status"
+          },
+          "pending_downgrade_package" : {
+            "$ref" : "#/components/schemas/Tier_pending_downgrade_package"
           }
         },
         "type" : "object"
@@ -1671,16 +1771,21 @@
       "updateTier_request" : {
         "properties" : {
           "package_id" : {
-            "example" : "123456789",
-            "type" : "string"
+            "example" : 123456789,
+            "type" : "number"
           }
         },
         "type" : "object"
       },
-      "WebstoreResponse_data" : {
+      "BasketAuthResponse_inner" : {
         "properties" : {
-          "schema" : {
-            "$ref" : "#/components/schemas/Webstore"
+          "name" : {
+            "example" : "FiveM",
+            "type" : "string"
+          },
+          "url" : {
+            "example" : "https://ident.tebex.io/",
+            "type" : "string"
           }
         },
         "type" : "object"
@@ -1693,6 +1798,34 @@
           },
           "name" : {
             "example" : "Packages",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "Tier_status" : {
+        "properties" : {
+          "id" : {
+            "example" : 2,
+            "type" : "number"
+          },
+          "description" : {
+            "example" : "Active",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "Tier_pending_downgrade_package" : {
+        "description" : "The package this tier is downgrading to if a downgrade is pending.",
+        "nullable" : true,
+        "properties" : {
+          "id" : {
+            "example" : 6834820,
+            "type" : "number"
+          },
+          "name" : {
+            "example" : "Bronze",
             "type" : "string"
           }
         },

@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
 
-API version: 1.0.0
+API version: 1.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -27,6 +27,9 @@ type Category struct {
 	Slug NullableString `json:"slug,omitempty"`
 	// Parent category, if applicable
 	Parent map[string]interface{} `json:"parent,omitempty"`
+	// True if this is a tiered category
+	Tiered *bool `json:"tiered,omitempty"`
+	ActiveTier *Tier `json:"active_tier,omitempty"`
 	// HTML description of the category
 	Description *string `json:"description,omitempty"`
 	Packages []Package `json:"packages,omitempty"`
@@ -192,6 +195,70 @@ func (o *Category) SetParent(v map[string]interface{}) {
 	o.Parent = v
 }
 
+// GetTiered returns the Tiered field value if set, zero value otherwise.
+func (o *Category) GetTiered() bool {
+	if o == nil || IsNil(o.Tiered) {
+		var ret bool
+		return ret
+	}
+	return *o.Tiered
+}
+
+// GetTieredOk returns a tuple with the Tiered field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Category) GetTieredOk() (*bool, bool) {
+	if o == nil || IsNil(o.Tiered) {
+		return nil, false
+	}
+	return o.Tiered, true
+}
+
+// HasTiered returns a boolean if a field has been set.
+func (o *Category) HasTiered() bool {
+	if o != nil && !IsNil(o.Tiered) {
+		return true
+	}
+
+	return false
+}
+
+// SetTiered gets a reference to the given bool and assigns it to the Tiered field.
+func (o *Category) SetTiered(v bool) {
+	o.Tiered = &v
+}
+
+// GetActiveTier returns the ActiveTier field value if set, zero value otherwise.
+func (o *Category) GetActiveTier() Tier {
+	if o == nil || IsNil(o.ActiveTier) {
+		var ret Tier
+		return ret
+	}
+	return *o.ActiveTier
+}
+
+// GetActiveTierOk returns a tuple with the ActiveTier field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Category) GetActiveTierOk() (*Tier, bool) {
+	if o == nil || IsNil(o.ActiveTier) {
+		return nil, false
+	}
+	return o.ActiveTier, true
+}
+
+// HasActiveTier returns a boolean if a field has been set.
+func (o *Category) HasActiveTier() bool {
+	if o != nil && !IsNil(o.ActiveTier) {
+		return true
+	}
+
+	return false
+}
+
+// SetActiveTier gets a reference to the given Tier and assigns it to the ActiveTier field.
+func (o *Category) SetActiveTier(v Tier) {
+	o.ActiveTier = &v
+}
+
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Category) GetDescription() string {
 	if o == nil || IsNil(o.Description) {
@@ -342,6 +409,12 @@ func (o Category) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Parent != nil {
 		toSerialize["parent"] = o.Parent
+	}
+	if !IsNil(o.Tiered) {
+		toSerialize["tiered"] = o.Tiered
+	}
+	if !IsNil(o.ActiveTier) {
+		toSerialize["active_tier"] = o.ActiveTier
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description

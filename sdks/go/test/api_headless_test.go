@@ -273,6 +273,21 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test HeadlessAPIService GetTieredCategoriesForUser", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var token string
+		var usernameId float32
+
+		resp, httpRes, err := apiClient.HeadlessAPI.GetTieredCategoriesForUser(context.Background(), token, usernameId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test HeadlessAPIService GetWebstoreById", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -362,7 +377,7 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		var token string
-		var tierId string
+		var tierId float32
 
 		resp, httpRes, err := apiClient.HeadlessAPI.UpdateTier(context.Background(), token, tierId).Execute()
 

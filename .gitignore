@@ -1,3 +1,4 @@
 
 .DS_Store
 scripts/e2e_test_results.csv
+openapitools.json

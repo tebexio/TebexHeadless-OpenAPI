@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
 
-API version: 1.0.0
+API version: 1.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &UpdateTierRequest{}
 
 // UpdateTierRequest struct for UpdateTierRequest
 type UpdateTierRequest struct {
-	PackageId *string `json:"package_id,omitempty"`
+	PackageId *float32 `json:"package_id,omitempty"`
 }
 
 // NewUpdateTierRequest instantiates a new UpdateTierRequest object
@@ -41,9 +41,9 @@ func NewUpdateTierRequestWithDefaults() *UpdateTierRequest {
 }
 
 // GetPackageId returns the PackageId field value if set, zero value otherwise.
-func (o *UpdateTierRequest) GetPackageId() string {
+func (o *UpdateTierRequest) GetPackageId() float32 {
 	if o == nil || IsNil(o.PackageId) {
-		var ret string
+		var ret float32
 		return ret
 	}
 	return *o.PackageId
@@ -51,7 +51,7 @@ func (o *UpdateTierRequest) GetPackageId() string {
 
 // GetPackageIdOk returns a tuple with the PackageId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateTierRequest) GetPackageIdOk() (*string, bool) {
+func (o *UpdateTierRequest) GetPackageIdOk() (*float32, bool) {
 	if o == nil || IsNil(o.PackageId) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *UpdateTierRequest) HasPackageId() bool {
 	return false
 }
 
-// SetPackageId gets a reference to the given string and assigns it to the PackageId field.
-func (o *UpdateTierRequest) SetPackageId(v string) {
+// SetPackageId gets a reference to the given float32 and assigns it to the PackageId field.
+func (o *UpdateTierRequest) SetPackageId(v float32) {
 	o.PackageId = &v
 }
 

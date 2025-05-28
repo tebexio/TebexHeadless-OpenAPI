@@ -11,6 +11,8 @@
 |**name** | **String** | User-friendly name of the category |  [optional] |
 |**slug** | **String** | Short identifier slug for the category |  [optional] |
 |**parent** | **Object** | Parent category, if applicable |  [optional] |
+|**tiered** | **Boolean** | True if this is a tiered category |  [optional] |
+|**activeTier** | [**Tier**](Tier.md) |  |  [optional] |
 |**description** | **String** | HTML description of the category |  [optional] |
 |**packages** | [**List&lt;ModelPackage&gt;**](ModelPackage.md) |  |  [optional] |
 |**order** | **Integer** | The numeric order in which to display the category. |  [optional] |

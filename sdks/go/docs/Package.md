@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **SalesTax** | Pointer to **float32** |  | [optional] 
 **TotalPrice** | Pointer to **float32** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
+**ProratePrice** | Pointer to **NullableFloat32** | If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier. | [optional] 
 **Discount** | Pointer to **float32** |  | [optional] 
 **DisableQuantity** | Pointer to **bool** |  | [optional] 
 **DisableGifting** | Pointer to **bool** |  | [optional] 
@@ -300,6 +301,41 @@ SetCurrency sets Currency field to given value.
 
 HasCurrency returns a boolean if a field has been set.
 
+### GetProratePrice
+
+`func (o *Package) GetProratePrice() float32`
+
+GetProratePrice returns the ProratePrice field if non-nil, zero value otherwise.
+
+### GetProratePriceOk
+
+`func (o *Package) GetProratePriceOk() (*float32, bool)`
+
+GetProratePriceOk returns a tuple with the ProratePrice field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProratePrice
+
+`func (o *Package) SetProratePrice(v float32)`
+
+SetProratePrice sets ProratePrice field to given value.
+
+### HasProratePrice
+
+`func (o *Package) HasProratePrice() bool`
+
+HasProratePrice returns a boolean if a field has been set.
+
+### SetProratePriceNil
+
+`func (o *Package) SetProratePriceNil(b bool)`
+
+ SetProratePriceNil sets the value for ProratePrice to be an explicit nil
+
+### UnsetProratePrice
+`func (o *Package) UnsetProratePrice()`
+
+UnsetProratePrice ensures that no value is present for ProratePrice, not even an explicit nil
 ### GetDiscount
 
 `func (o *Package) GetDiscount() float32`

@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | User-friendly name of the category | [optional] 
 **Slug** | Pointer to **NullableString** | Short identifier slug for the category | [optional] 
 **Parent** | Pointer to **map[string]interface{}** | Parent category, if applicable | [optional] 
+**Tiered** | Pointer to **bool** | True if this is a tiered category | [optional] 
+**ActiveTier** | Pointer to [**Tier**](Tier.md) |  | [optional] 
 **Description** | Pointer to **string** | HTML description of the category | [optional] 
 **Packages** | Pointer to [**[]Package**](Package.md) |  | [optional] 
 **Order** | Pointer to **int32** | The numeric order in which to display the category. | [optional] 
@@ -152,6 +154,56 @@ HasParent returns a boolean if a field has been set.
 `func (o *Category) UnsetParent()`
 
 UnsetParent ensures that no value is present for Parent, not even an explicit nil
+### GetTiered
+
+`func (o *Category) GetTiered() bool`
+
+GetTiered returns the Tiered field if non-nil, zero value otherwise.
+
+### GetTieredOk
+
+`func (o *Category) GetTieredOk() (*bool, bool)`
+
+GetTieredOk returns a tuple with the Tiered field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTiered
+
+`func (o *Category) SetTiered(v bool)`
+
+SetTiered sets Tiered field to given value.
+
+### HasTiered
+
+`func (o *Category) HasTiered() bool`
+
+HasTiered returns a boolean if a field has been set.
+
+### GetActiveTier
+
+`func (o *Category) GetActiveTier() Tier`
+
+GetActiveTier returns the ActiveTier field if non-nil, zero value otherwise.
+
+### GetActiveTierOk
+
+`func (o *Category) GetActiveTierOk() (*Tier, bool)`
+
+GetActiveTierOk returns a tuple with the ActiveTier field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActiveTier
+
+`func (o *Category) SetActiveTier(v Tier)`
+
+SetActiveTier sets ActiveTier field to given value.
+
+### HasActiveTier
+
+`func (o *Category) HasActiveTier() bool`
+
+HasActiveTier returns a boolean if a field has been set.
+
 ### GetDescription
 
 `func (o *Category) GetDescription() string`

@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **name** | **str** | User-friendly name of the category | [optional] 
 **slug** | **str** | Short identifier slug for the category | [optional] 
 **parent** | **object** | Parent category, if applicable | [optional] 
+**tiered** | **bool** | True if this is a tiered category | [optional] 
+**active_tier** | [**Tier**](Tier.md) |  | [optional] 
 **description** | **str** | HTML description of the category | [optional] 
 **packages** | [**List[Package]**](Package.md) |  | [optional] 
 **order** | **int** | The numeric order in which to display the category. | [optional] 

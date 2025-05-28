@@ -15,19 +15,20 @@ Method | HTTP request | Description
 [**GetAllPackagesWithAuthedIP**](HeadlessAPI.md#GetAllPackagesWithAuthedIP) | **Get** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier
 [**GetAllPackagesWithAuthedIPAndBasket**](HeadlessAPI.md#GetAllPackagesWithAuthedIPAndBasket) | **Get** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
 [**GetAllPackagesWithBasket**](HeadlessAPI.md#GetAllPackagesWithBasket) | **Get** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
-[**GetBasketAuthUrl**](HeadlessAPI.md#GetBasketAuthUrl) | **Get** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier
+[**GetBasketAuthUrl**](HeadlessAPI.md#GetBasketAuthUrl) | **Get** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket.
 [**GetBasketById**](HeadlessAPI.md#GetBasketById) | **Get** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
 [**GetCMSPages**](HeadlessAPI.md#GetCMSPages) | **Get** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 [**GetCategoryById**](HeadlessAPI.md#GetCategoryById) | **Get** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 [**GetCategoryIncludingPackages**](HeadlessAPI.md#GetCategoryIncludingPackages) | **Get** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 [**GetPackageById**](HeadlessAPI.md#GetPackageById) | **Get** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
+[**GetTieredCategoriesForUser**](HeadlessAPI.md#GetTieredCategoriesForUser) | **Get** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them.
 [**GetWebstoreById**](HeadlessAPI.md#GetWebstoreById) | **Get** /accounts/{token} | Fetch a webstore by its identifier
 [**RemoveBasketPackage**](HeadlessAPI.md#RemoveBasketPackage) | **Post** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 [**RemoveCoupon**](HeadlessAPI.md#RemoveCoupon) | **Post** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
 [**RemoveCreatorCode**](HeadlessAPI.md#RemoveCreatorCode) | **Post** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
 [**RemoveGiftCard**](HeadlessAPI.md#RemoveGiftCard) | **Post** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
 [**UpdatePackageQuantity**](HeadlessAPI.md#UpdatePackageQuantity) | **Put** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-[**UpdateTier**](HeadlessAPI.md#UpdateTier) | **Patch** /accounts/{token}/tiers/{tierId} | TODO
+[**UpdateTier**](HeadlessAPI.md#UpdateTier) | **Patch** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package.
 
 
 
@@ -834,9 +835,9 @@ No authorization required
 
 ## GetBasketAuthUrl
 
-> BasketResponse GetBasketAuthUrl(ctx, token, basketIdent, returnUrl).Execute()
+> []BasketAuthResponseInner GetBasketAuthUrl(ctx, token, basketIdent, returnUrl).Execute()
 
-Fetch a basket from a webstore by its identifier
+Get authentication links for a basket.
 
 
 
@@ -864,7 +865,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetBasketAuthUrl``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBasketAuthUrl`: BasketResponse
+	// response from `GetBasketAuthUrl`: []BasketAuthResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetBasketAuthUrl`: %v\n", resp)
 }
 ```
@@ -892,7 +893,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**[]BasketAuthResponseInner**](BasketAuthResponseInner.md)
 
 ### Authorization
 
@@ -1255,6 +1256,79 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PackageResponse**](PackageResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetTieredCategoriesForUser
+
+> CategoryResponse GetTieredCategoriesForUser(ctx, token, usernameId).Execute()
+
+Gets a store's categories including all package information with them.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
+	usernameId := float32(76561198042467022) // float32 | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetTieredCategoriesForUser(context.Background(), token, usernameId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetTieredCategoriesForUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTieredCategoriesForUser`: CategoryResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetTieredCategoriesForUser`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**token** | **string** | The webstore identifier. | 
+**usernameId** | **float32** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTieredCategoriesForUserRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
 
 ### Authorization
 
@@ -1702,9 +1776,9 @@ No authorization required
 
 ## UpdateTier
 
-> CMSPagesResponse UpdateTier(ctx, token, tierId).UpdateTierRequest(updateTierRequest).Execute()
+> UpdateTierResponse UpdateTier(ctx, token, tierId).UpdateTierRequest(updateTierRequest).Execute()
 
-TODO
+Updates the given teir to the provided package.
 
 
 
@@ -1722,7 +1796,7 @@ import (
 
 func main() {
 	token := "some-uuid" // string | The webstore identifier.
-	tierId := "6276316" // string | The tier identifier
+	tierId := float32(6276316) // float32 | The tier identifier
 	updateTierRequest := *openapiclient.NewUpdateTierRequest() // UpdateTierRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1732,7 +1806,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.UpdateTier``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateTier`: CMSPagesResponse
+	// response from `UpdateTier`: UpdateTierResponse
 	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.UpdateTier`: %v\n", resp)
 }
 ```
@@ -1744,7 +1818,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **token** | **string** | The webstore identifier. | 
-**tierId** | **string** | The tier identifier | 
+**tierId** | **float32** | The tier identifier | 
 
 ### Other Parameters
 
@@ -1759,7 +1833,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CMSPagesResponse**](CMSPagesResponse.md)
+[**UpdateTierResponse**](UpdateTierResponse.md)
 
 ### Authorization
 

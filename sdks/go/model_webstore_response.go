@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
 
-API version: 1.0.0
+API version: 1.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &WebstoreResponse{}
 
 // WebstoreResponse Wrapped webstore information in a \"data\" object.
 type WebstoreResponse struct {
-	Data *WebstoreResponseData `json:"data,omitempty"`
+	Data Webstore `json:"data,omitempty"`
 }
 
 // NewWebstoreResponse instantiates a new WebstoreResponse object
@@ -41,19 +41,19 @@ func NewWebstoreResponseWithDefaults() *WebstoreResponse {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *WebstoreResponse) GetData() WebstoreResponseData {
+func (o *WebstoreResponse) GetData() Webstore {
 	if o == nil || IsNil(o.Data) {
-		var ret WebstoreResponseData
+		var ret Webstore
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebstoreResponse) GetDataOk() (*WebstoreResponseData, bool) {
+func (o *WebstoreResponse) GetDataOk() (Webstore, bool) {
 	if o == nil || IsNil(o.Data) {
-		return nil, false
+		return Webstore{}, false
 	}
 	return o.Data, true
 }
@@ -67,9 +67,9 @@ func (o *WebstoreResponse) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given WebstoreResponseData and assigns it to the Data field.
-func (o *WebstoreResponse) SetData(v WebstoreResponseData) {
-	o.Data = &v
+// SetData gets a reference to the given Webstore and assigns it to the Data field.
+func (o *WebstoreResponse) SetData(v Webstore) {
+	o.Data = v
 }
 
 func (o WebstoreResponse) MarshalJSON() ([]byte, error) {

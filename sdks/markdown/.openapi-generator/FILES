@@ -1,5 +1,6 @@
 .openapi-generator-ignore
 Models/Basket.md
+Models/BasketAuthResponse_inner.md
 Models/BasketLinks.md
 Models/BasketPackage.md
 Models/BasketResponse.md
@@ -14,10 +15,12 @@ Models/Package.md
 Models/PackageResponse.md
 Models/Package_category.md
 Models/RevenueShare.md
+Models/Tier.md
+Models/Tier_pending_downgrade_package.md
+Models/Tier_status.md
 Models/UpdateTierResponse.md
 Models/Webstore.md
 Models/WebstoreResponse.md
-Models/WebstoreResponse_data.md
 Models/addBasketPackage_request.md
 Models/applyCreatorCode_request.md
 Models/createBasket_request.md

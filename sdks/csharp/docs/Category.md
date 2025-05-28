@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **Name** | **string** | User-friendly name of the category | [optional] 
 **Slug** | **string** | Short identifier slug for the category | [optional] 
 **Parent** | **Object** | Parent category, if applicable | [optional] 
+**Tiered** | **bool** | True if this is a tiered category | [optional] 
+**ActiveTier** | [**Tier**](Tier.md) |  | [optional] 
 **Description** | **string** | HTML description of the category | [optional] 
 **Packages** | [**List&lt;Package&gt;**](Package.md) |  | [optional] 
 **Order** | **int** | The numeric order in which to display the category. | [optional] 
