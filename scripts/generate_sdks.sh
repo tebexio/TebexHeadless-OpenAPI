@@ -10,7 +10,7 @@ openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/php --api-pack
 openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/markdown --api-package TebexHeadless --package-name TebexHeadless -g markdown --invoker-package TebexHeadless &
 openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/java --api-package TebexHeadless --package-name TebexHeadless -g java --invoker-package TebexHeadless &
 openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/nodejs --api-package TebexHeadless --package-name TebexHeadless -g javascript --invoker-package TebexHeadless &
-openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/typescript --api-package TebexHeadless --package-name TebexHeadless -g typescript --invoker-package TebexHeadless &
+openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/typescript --api-package TebexHeadless --package-name TebexHeadless -g typescript-node --invoker-package TebexHeadless &
 openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/go --api-package TebexHeadless --package-name TebexHeadless -g go --invoker-package TebexHeadless &
 openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/csharp --api-package TebexHeadless --package-name TebexHeadless -g csharp --invoker-package TebexHeadless &
 openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/openapi --api-package TebexHeadless --package-name TebexHeadless -g openapi --invoker-package TebexHeadless &
