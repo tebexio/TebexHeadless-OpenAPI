@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **BigDecimal** |  |  [optional] |
+|**id** | **Integer** |  |  [optional] |
 |**createdAt** | **OffsetDateTime** | The date and time when the tier became active |  [optional] |
 |**usernameId** | **String** | The user&#39;s username ID. For Steam, this is a numeric representation of their Steam64ID |  [optional] |
 |**_package** | [**ModelPackage**](ModelPackage.md) |  |  [optional] |

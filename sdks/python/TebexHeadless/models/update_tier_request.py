@@ -18,8 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +27,7 @@ class UpdateTierRequest(BaseModel):
     """
     UpdateTierRequest
     """ # noqa: E501
-    package_id: Optional[Union[StrictFloat, StrictInt]] = None
+    package_id: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["package_id"]
 
     model_config = ConfigDict(

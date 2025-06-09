@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **decimal** |  | [optional] 
+**Id** | **int** |  | [optional] 
 **CreatedAt** | **DateTime** | The date and time when the tier became active | [optional] 
 **UsernameId** | **string** | The user&#39;s username ID. For Steam, this is a numeric representation of their Steam64ID | [optional] 
 **Package** | [**Package**](Package.md) |  | [optional] 

@@ -20,7 +20,7 @@ var _ MappedNullable = &UpdatePackageQuantityRequest{}
 
 // UpdatePackageQuantityRequest struct for UpdatePackageQuantityRequest
 type UpdatePackageQuantityRequest struct {
-	Quantity *float32 `json:"quantity,omitempty"`
+	Quantity *int32 `json:"quantity,omitempty"`
 }
 
 // NewUpdatePackageQuantityRequest instantiates a new UpdatePackageQuantityRequest object
@@ -41,9 +41,9 @@ func NewUpdatePackageQuantityRequestWithDefaults() *UpdatePackageQuantityRequest
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
-func (o *UpdatePackageQuantityRequest) GetQuantity() float32 {
+func (o *UpdatePackageQuantityRequest) GetQuantity() int32 {
 	if o == nil || IsNil(o.Quantity) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Quantity
@@ -51,7 +51,7 @@ func (o *UpdatePackageQuantityRequest) GetQuantity() float32 {
 
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdatePackageQuantityRequest) GetQuantityOk() (*float32, bool) {
+func (o *UpdatePackageQuantityRequest) GetQuantityOk() (*int32, bool) {
 	if o == nil || IsNil(o.Quantity) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *UpdatePackageQuantityRequest) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given float32 and assigns it to the Quantity field.
-func (o *UpdatePackageQuantityRequest) SetQuantity(v float32) {
+// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
+func (o *UpdatePackageQuantityRequest) SetQuantity(v int32) {
 	o.Quantity = &v
 }
 

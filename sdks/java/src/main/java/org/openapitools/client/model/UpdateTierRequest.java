@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Arrays;
 
 import com.google.gson.Gson;
@@ -50,16 +49,16 @@ import TebexHeadless.JSON;
 /**
  * UpdateTierRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-05-28T10:23:56.841100-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-06-09T08:23:39.979241-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class UpdateTierRequest {
   public static final String SERIALIZED_NAME_PACKAGE_ID = "package_id";
   @SerializedName(SERIALIZED_NAME_PACKAGE_ID)
-  private BigDecimal packageId;
+  private Integer packageId;
 
   public UpdateTierRequest() {
   }
 
-  public UpdateTierRequest packageId(BigDecimal packageId) {
+  public UpdateTierRequest packageId(Integer packageId) {
     this.packageId = packageId;
     return this;
   }
@@ -69,11 +68,11 @@ public class UpdateTierRequest {
    * @return packageId
   **/
   @javax.annotation.Nullable
-  public BigDecimal getPackageId() {
+  public Integer getPackageId() {
     return packageId;
   }
 
-  public void setPackageId(BigDecimal packageId) {
+  public void setPackageId(Integer packageId) {
     this.packageId = packageId;
   }
 

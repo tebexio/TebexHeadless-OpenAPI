@@ -132,7 +132,7 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**GetCategoryById**](docs/HeadlessApi.md#getcategorybyid) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 *HeadlessApi* | [**GetCategoryIncludingPackages**](docs/HeadlessApi.md#getcategoryincludingpackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 *HeadlessApi* | [**GetPackageById**](docs/HeadlessApi.md#getpackagebyid) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
-*HeadlessApi* | [**GetTieredCategoriesForUser**](docs/HeadlessApi.md#gettieredcategoriesforuser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store's categories including all package information with them.
+*HeadlessApi* | [**GetTieredCategoriesForUser**](docs/HeadlessApi.md#gettieredcategoriesforuser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store's categories including all package information with them.
 *HeadlessApi* | [**GetWebstoreById**](docs/HeadlessApi.md#getwebstorebyid) | **GET** /accounts/{token} | Fetch a webstore by its identifier
 *HeadlessApi* | [**RemoveBasketPackage**](docs/HeadlessApi.md#removebasketpackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 *HeadlessApi* | [**RemoveCoupon**](docs/HeadlessApi.md#removecoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -179,5 +179,10 @@ Class | Method | HTTP request | Description
 <a id="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+<a id="basicAuth"></a>
+### basicAuth
+
+- **Type**: HTTP basic authentication
 

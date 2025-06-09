@@ -440,7 +440,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="packageId">The package&#39;s ID.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>PackageResponse</returns>
-        PackageResponse GetPackageById(string token, decimal packageId, int operationIndex = 0);
+        PackageResponse GetPackageById(string token, int packageId, int operationIndex = 0);
 
         /// <summary>
         /// Fetch a package from a webstore by its identifier
@@ -453,7 +453,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="packageId">The package&#39;s ID.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of PackageResponse</returns>
-        ApiResponse<PackageResponse> GetPackageByIdWithHttpInfo(string token, decimal packageId, int operationIndex = 0);
+        ApiResponse<PackageResponse> GetPackageByIdWithHttpInfo(string token, int packageId, int operationIndex = 0);
         /// <summary>
         /// Gets a store&#39;s categories including all package information with them.
         /// </summary>
@@ -465,7 +465,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="usernameId"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>CategoryResponse</returns>
-        CategoryResponse GetTieredCategoriesForUser(string token, decimal usernameId, int operationIndex = 0);
+        CategoryResponse GetTieredCategoriesForUser(string token, int usernameId, int operationIndex = 0);
 
         /// <summary>
         /// Gets a store&#39;s categories including all package information with them.
@@ -478,7 +478,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="usernameId"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of CategoryResponse</returns>
-        ApiResponse<CategoryResponse> GetTieredCategoriesForUserWithHttpInfo(string token, decimal usernameId, int operationIndex = 0);
+        ApiResponse<CategoryResponse> GetTieredCategoriesForUserWithHttpInfo(string token, int usernameId, int operationIndex = 0);
         /// <summary>
         /// Fetch a webstore by its identifier
         /// </summary>
@@ -616,7 +616,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="updatePackageQuantityRequest"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
-        void UpdatePackageQuantity(string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0);
+        void UpdatePackageQuantity(string basketIdent, int packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0);
 
         /// <summary>
         /// Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
@@ -630,7 +630,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="updatePackageQuantityRequest"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> UpdatePackageQuantityWithHttpInfo(string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0);
+        ApiResponse<Object> UpdatePackageQuantityWithHttpInfo(string basketIdent, int packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0);
         /// <summary>
         /// Updates the given teir to the provided package.
         /// </summary>
@@ -643,7 +643,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="updateTierRequest"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>UpdateTierResponse</returns>
-        UpdateTierResponse UpdateTier(string token, decimal tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0);
+        UpdateTierResponse UpdateTier(string token, int tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0);
 
         /// <summary>
         /// Updates the given teir to the provided package.
@@ -657,7 +657,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="updateTierRequest"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of UpdateTierResponse</returns>
-        ApiResponse<UpdateTierResponse> UpdateTierWithHttpInfo(string token, decimal tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0);
+        ApiResponse<UpdateTierResponse> UpdateTierWithHttpInfo(string token, int tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -1113,7 +1113,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of PackageResponse</returns>
-        System.Threading.Tasks.Task<PackageResponse> GetPackageByIdAsync(string token, decimal packageId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<PackageResponse> GetPackageByIdAsync(string token, int packageId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Fetch a package from a webstore by its identifier
@@ -1127,7 +1127,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (PackageResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<PackageResponse>> GetPackageByIdWithHttpInfoAsync(string token, decimal packageId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<PackageResponse>> GetPackageByIdWithHttpInfoAsync(string token, int packageId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Gets a store&#39;s categories including all package information with them.
         /// </summary>
@@ -1140,7 +1140,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of CategoryResponse</returns>
-        System.Threading.Tasks.Task<CategoryResponse> GetTieredCategoriesForUserAsync(string token, decimal usernameId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<CategoryResponse> GetTieredCategoriesForUserAsync(string token, int usernameId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Gets a store&#39;s categories including all package information with them.
@@ -1154,7 +1154,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (CategoryResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<CategoryResponse>> GetTieredCategoriesForUserWithHttpInfoAsync(string token, decimal usernameId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<CategoryResponse>> GetTieredCategoriesForUserWithHttpInfoAsync(string token, int usernameId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Fetch a webstore by its identifier
         /// </summary>
@@ -1303,7 +1303,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task UpdatePackageQuantityAsync(string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task UpdatePackageQuantityAsync(string basketIdent, int packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
@@ -1318,7 +1318,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> UpdatePackageQuantityWithHttpInfoAsync(string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> UpdatePackageQuantityWithHttpInfoAsync(string basketIdent, int packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Updates the given teir to the provided package.
         /// </summary>
@@ -1332,7 +1332,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of UpdateTierResponse</returns>
-        System.Threading.Tasks.Task<UpdateTierResponse> UpdateTierAsync(string token, decimal tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<UpdateTierResponse> UpdateTierAsync(string token, int tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Updates the given teir to the provided package.
@@ -1347,7 +1347,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (UpdateTierResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<UpdateTierResponse>> UpdateTierWithHttpInfoAsync(string token, decimal tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<UpdateTierResponse>> UpdateTierWithHttpInfoAsync(string token, int tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -4036,7 +4036,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="packageId">The package&#39;s ID.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>PackageResponse</returns>
-        public PackageResponse GetPackageById(string token, decimal packageId, int operationIndex = 0)
+        public PackageResponse GetPackageById(string token, int packageId, int operationIndex = 0)
         {
             TebexHeadless.Client.ApiResponse<PackageResponse> localVarResponse = GetPackageByIdWithHttpInfo(token, packageId);
             return localVarResponse.Data;
@@ -4050,7 +4050,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="packageId">The package&#39;s ID.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of PackageResponse</returns>
-        public TebexHeadless.Client.ApiResponse<PackageResponse> GetPackageByIdWithHttpInfo(string token, decimal packageId, int operationIndex = 0)
+        public TebexHeadless.Client.ApiResponse<PackageResponse> GetPackageByIdWithHttpInfo(string token, int packageId, int operationIndex = 0)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -4110,7 +4110,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of PackageResponse</returns>
-        public async System.Threading.Tasks.Task<PackageResponse> GetPackageByIdAsync(string token, decimal packageId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PackageResponse> GetPackageByIdAsync(string token, int packageId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             TebexHeadless.Client.ApiResponse<PackageResponse> localVarResponse = await GetPackageByIdWithHttpInfoAsync(token, packageId, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -4125,7 +4125,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (PackageResponse)</returns>
-        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<PackageResponse>> GetPackageByIdWithHttpInfoAsync(string token, decimal packageId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<PackageResponse>> GetPackageByIdWithHttpInfoAsync(string token, int packageId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -4186,7 +4186,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="usernameId"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>CategoryResponse</returns>
-        public CategoryResponse GetTieredCategoriesForUser(string token, decimal usernameId, int operationIndex = 0)
+        public CategoryResponse GetTieredCategoriesForUser(string token, int usernameId, int operationIndex = 0)
         {
             TebexHeadless.Client.ApiResponse<CategoryResponse> localVarResponse = GetTieredCategoriesForUserWithHttpInfo(token, usernameId);
             return localVarResponse.Data;
@@ -4200,7 +4200,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="usernameId"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of CategoryResponse</returns>
-        public TebexHeadless.Client.ApiResponse<CategoryResponse> GetTieredCategoriesForUserWithHttpInfo(string token, decimal usernameId, int operationIndex = 0)
+        public TebexHeadless.Client.ApiResponse<CategoryResponse> GetTieredCategoriesForUserWithHttpInfo(string token, int usernameId, int operationIndex = 0)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -4236,9 +4236,15 @@ namespace TebexHeadless.TebexHeadless
             localVarRequestOptions.Operation = "HeadlessApi.GetTieredCategoriesForUser";
             localVarRequestOptions.OperationIndex = operationIndex;
 
+            // authentication (basicAuth) required
+            // http basic authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + TebexHeadless.Client.ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+            }
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<CategoryResponse>("/accounts/{token}/categories?usernameId={usernameId}", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<CategoryResponse>("/accounts/{token}/categories?usernameId={usernameId}&includePackages=1", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetTieredCategoriesForUser", localVarResponse);
@@ -4260,7 +4266,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of CategoryResponse</returns>
-        public async System.Threading.Tasks.Task<CategoryResponse> GetTieredCategoriesForUserAsync(string token, decimal usernameId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<CategoryResponse> GetTieredCategoriesForUserAsync(string token, int usernameId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             TebexHeadless.Client.ApiResponse<CategoryResponse> localVarResponse = await GetTieredCategoriesForUserWithHttpInfoAsync(token, usernameId, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -4275,7 +4281,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (CategoryResponse)</returns>
-        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<CategoryResponse>> GetTieredCategoriesForUserWithHttpInfoAsync(string token, decimal usernameId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<CategoryResponse>> GetTieredCategoriesForUserWithHttpInfoAsync(string token, int usernameId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -4312,9 +4318,15 @@ namespace TebexHeadless.TebexHeadless
             localVarRequestOptions.Operation = "HeadlessApi.GetTieredCategoriesForUser";
             localVarRequestOptions.OperationIndex = operationIndex;
 
+            // authentication (basicAuth) required
+            // http basic authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + TebexHeadless.Client.ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+            }
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<CategoryResponse>("/accounts/{token}/categories?usernameId={usernameId}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<CategoryResponse>("/accounts/{token}/categories?usernameId={usernameId}&includePackages=1", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -5115,7 +5127,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="updatePackageQuantityRequest"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
-        public void UpdatePackageQuantity(string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0)
+        public void UpdatePackageQuantity(string basketIdent, int packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0)
         {
             UpdatePackageQuantityWithHttpInfo(basketIdent, packageId, updatePackageQuantityRequest);
         }
@@ -5129,7 +5141,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="updatePackageQuantityRequest"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public TebexHeadless.Client.ApiResponse<Object> UpdatePackageQuantityWithHttpInfo(string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0)
+        public TebexHeadless.Client.ApiResponse<Object> UpdatePackageQuantityWithHttpInfo(string basketIdent, int packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0)
         {
             // verify the required parameter 'basketIdent' is set
             if (basketIdent == null)
@@ -5191,7 +5203,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task UpdatePackageQuantityAsync(string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task UpdatePackageQuantityAsync(string basketIdent, int packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             await UpdatePackageQuantityWithHttpInfoAsync(basketIdent, packageId, updatePackageQuantityRequest, operationIndex, cancellationToken).ConfigureAwait(false);
         }
@@ -5206,7 +5218,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<Object>> UpdatePackageQuantityWithHttpInfoAsync(string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<Object>> UpdatePackageQuantityWithHttpInfoAsync(string basketIdent, int packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = default(UpdatePackageQuantityRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'basketIdent' is set
             if (basketIdent == null)
@@ -5269,7 +5281,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="updateTierRequest"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>UpdateTierResponse</returns>
-        public UpdateTierResponse UpdateTier(string token, decimal tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0)
+        public UpdateTierResponse UpdateTier(string token, int tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0)
         {
             TebexHeadless.Client.ApiResponse<UpdateTierResponse> localVarResponse = UpdateTierWithHttpInfo(token, tierId, updateTierRequest);
             return localVarResponse.Data;
@@ -5284,7 +5296,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="updateTierRequest"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of UpdateTierResponse</returns>
-        public TebexHeadless.Client.ApiResponse<UpdateTierResponse> UpdateTierWithHttpInfo(string token, decimal tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0)
+        public TebexHeadless.Client.ApiResponse<UpdateTierResponse> UpdateTierWithHttpInfo(string token, int tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -5322,6 +5334,12 @@ namespace TebexHeadless.TebexHeadless
             localVarRequestOptions.Operation = "HeadlessApi.UpdateTier";
             localVarRequestOptions.OperationIndex = operationIndex;
 
+            // authentication (basicAuth) required
+            // http basic authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + TebexHeadless.Client.ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+            }
 
             // make the HTTP request
             var localVarResponse = this.Client.Patch<UpdateTierResponse>("/accounts/{token}/tiers/{tierId}", localVarRequestOptions, this.Configuration);
@@ -5347,7 +5365,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of UpdateTierResponse</returns>
-        public async System.Threading.Tasks.Task<UpdateTierResponse> UpdateTierAsync(string token, decimal tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<UpdateTierResponse> UpdateTierAsync(string token, int tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             TebexHeadless.Client.ApiResponse<UpdateTierResponse> localVarResponse = await UpdateTierWithHttpInfoAsync(token, tierId, updateTierRequest, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -5363,7 +5381,7 @@ namespace TebexHeadless.TebexHeadless
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (UpdateTierResponse)</returns>
-        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<UpdateTierResponse>> UpdateTierWithHttpInfoAsync(string token, decimal tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<TebexHeadless.Client.ApiResponse<UpdateTierResponse>> UpdateTierWithHttpInfoAsync(string token, int tierId, UpdateTierRequest? updateTierRequest = default(UpdateTierRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -5402,6 +5420,12 @@ namespace TebexHeadless.TebexHeadless
             localVarRequestOptions.Operation = "HeadlessApi.UpdateTier";
             localVarRequestOptions.OperationIndex = operationIndex;
 
+            // authentication (basicAuth) required
+            // http basic authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + TebexHeadless.Client.ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+            }
 
             // make the HTTP request
             var localVarResponse = await this.AsynchronousClient.PatchAsync<UpdateTierResponse>("/accounts/{token}/tiers/{tierId}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);

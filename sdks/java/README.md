@@ -2,7 +2,7 @@
 
 Tebex Headless API
 - API version: 1.1.0
-  - Build date: 2025-05-28T10:23:56.841100-05:00[America/Chicago]
+  - Build date: 2025-06-09T08:23:39.979241-05:00[America/Chicago]
   - Generator version: 7.5.0
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
@@ -133,7 +133,7 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**getCategoryById**](docs/HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 *HeadlessApi* | [**getCategoryIncludingPackages**](docs/HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 *HeadlessApi* | [**getPackageById**](docs/HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
-*HeadlessApi* | [**getTieredCategoriesForUser**](docs/HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them.
+*HeadlessApi* | [**getTieredCategoriesForUser**](docs/HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
 *HeadlessApi* | [**getWebstoreById**](docs/HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier
 *HeadlessApi* | [**removeBasketPackage**](docs/HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 *HeadlessApi* | [**removeCoupon**](docs/HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -179,7 +179,12 @@ Class | Method | HTTP request | Description
 <a id="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+<a id="basicAuth"></a>
+### basicAuth
+
+- **Type**: HTTP basic authentication
 
 
 ## Recommendation

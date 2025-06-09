@@ -18,8 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +28,7 @@ class AddBasketPackageRequest(BaseModel):
     AddBasketPackageRequest
     """ # noqa: E501
     package_id: Optional[StrictStr] = None
-    quantity: Optional[Union[StrictFloat, StrictInt]] = None
+    quantity: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["package_id", "quantity"]
 
     model_config = ConfigDict(

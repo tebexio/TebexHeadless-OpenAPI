@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Quantity** | Pointer to **float32** |  | [optional] 
+**Quantity** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetQuantity
 
-`func (o *UpdatePackageQuantityRequest) GetQuantity() float32`
+`func (o *UpdatePackageQuantityRequest) GetQuantity() int32`
 
 GetQuantity returns the Quantity field if non-nil, zero value otherwise.
 
 ### GetQuantityOk
 
-`func (o *UpdatePackageQuantityRequest) GetQuantityOk() (*float32, bool)`
+`func (o *UpdatePackageQuantityRequest) GetQuantityOk() (*int32, bool)`
 
 GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuantity
 
-`func (o *UpdatePackageQuantityRequest) SetQuantity(v float32)`
+`func (o *UpdatePackageQuantityRequest) SetQuantity(v int32)`
 
 SetQuantity sets Quantity field to given value.
 

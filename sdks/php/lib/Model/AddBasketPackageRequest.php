@@ -59,7 +59,7 @@ class AddBasketPackageRequest implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static $openAPITypes = [
         'package_id' => 'string',
-        'quantity' => 'float'
+        'quantity' => 'int'
     ];
 
     /**
@@ -327,7 +327,7 @@ class AddBasketPackageRequest implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Gets quantity
      *
-     * @return float|null
+     * @return int|null
      */
     public function getQuantity()
     {
@@ -337,7 +337,7 @@ class AddBasketPackageRequest implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets quantity
      *
-     * @param float|null $quantity quantity
+     * @param int|null $quantity quantity
      *
      * @return self
      */

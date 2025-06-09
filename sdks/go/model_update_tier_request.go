@@ -20,7 +20,7 @@ var _ MappedNullable = &UpdateTierRequest{}
 
 // UpdateTierRequest struct for UpdateTierRequest
 type UpdateTierRequest struct {
-	PackageId *float32 `json:"package_id,omitempty"`
+	PackageId *int32 `json:"package_id,omitempty"`
 }
 
 // NewUpdateTierRequest instantiates a new UpdateTierRequest object
@@ -41,9 +41,9 @@ func NewUpdateTierRequestWithDefaults() *UpdateTierRequest {
 }
 
 // GetPackageId returns the PackageId field value if set, zero value otherwise.
-func (o *UpdateTierRequest) GetPackageId() float32 {
+func (o *UpdateTierRequest) GetPackageId() int32 {
 	if o == nil || IsNil(o.PackageId) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.PackageId
@@ -51,7 +51,7 @@ func (o *UpdateTierRequest) GetPackageId() float32 {
 
 // GetPackageIdOk returns a tuple with the PackageId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateTierRequest) GetPackageIdOk() (*float32, bool) {
+func (o *UpdateTierRequest) GetPackageIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.PackageId) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *UpdateTierRequest) HasPackageId() bool {
 	return false
 }
 
-// SetPackageId gets a reference to the given float32 and assigns it to the PackageId field.
-func (o *UpdateTierRequest) SetPackageId(v float32) {
+// SetPackageId gets a reference to the given int32 and assigns it to the PackageId field.
+func (o *UpdateTierRequest) SetPackageId(v int32) {
 	o.PackageId = &v
 }
 

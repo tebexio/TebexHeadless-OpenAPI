@@ -24,7 +24,7 @@ All URIs are relative to *https://headless.tebex.io/api*
 *HeadlessApi* | [**getCategoryById**](Apis/HeadlessApi.md#getcategorybyid) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 *HeadlessApi* | [**getCategoryIncludingPackages**](Apis/HeadlessApi.md#getcategoryincludingpackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 *HeadlessApi* | [**getPackageById**](Apis/HeadlessApi.md#getpackagebyid) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
-*HeadlessApi* | [**getTieredCategoriesForUser**](Apis/HeadlessApi.md#gettieredcategoriesforuser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store's categories including all package information with them. |
+*HeadlessApi* | [**getTieredCategoriesForUser**](Apis/HeadlessApi.md#gettieredcategoriesforuser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store's categories including all package information with them. |
 *HeadlessApi* | [**getWebstoreById**](Apis/HeadlessApi.md#getwebstorebyid) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
 *HeadlessApi* | [**removeBasketPackage**](Apis/HeadlessApi.md#removebasketpackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
 *HeadlessApi* | [**removeCoupon**](Apis/HeadlessApi.md#removecoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
@@ -71,4 +71,8 @@ All URIs are relative to *https://headless.tebex.io/api*
 <a name="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-All endpoints do not require authorization.
+<a name="basicAuth"></a>
+### basicAuth
+
+- **Type**: HTTP basic authentication
+

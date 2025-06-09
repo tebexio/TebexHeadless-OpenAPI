@@ -21,7 +21,7 @@ All URIs are relative to https://headless.tebex.io/api, except if the operation 
 | [**getCategoryById()**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**getCategoryIncludingPackages()**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**getPackageById()**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
-| [**getTieredCategoriesForUser()**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them. |
+| [**getTieredCategoriesForUser()**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
 | [**getWebstoreById()**](HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
 | [**removeBasketPackage()**](HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
 | [**removeCoupon()**](HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
@@ -985,7 +985,7 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     new GuzzleHttp\Client()
 );
 $token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
-$package_id = 1272441812; // float | The package's ID.
+$package_id = 1272441812; // int | The package's ID.
 
 try {
     $result = $apiInstance->getPackageById($token, $package_id);
@@ -1000,7 +1000,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **token** | **string**| The webstore identifier. | |
-| **package_id** | **float**| The package&#39;s ID. | |
+| **package_id** | **int**| The package&#39;s ID. | |
 
 ### Return type
 
@@ -1036,14 +1036,20 @@ Gets all categories from the webstore, returning active tier information for the
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: basicAuth
+$config = TebexHeadless\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
-$username_id = 76561198042467022; // float
+$username_id = 76561198042467022; // int
 
 try {
     $result = $apiInstance->getTieredCategoriesForUser($token, $username_id);
@@ -1058,7 +1064,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **token** | **string**| The webstore identifier. | |
-| **username_id** | **float**|  | |
+| **username_id** | **int**|  | |
 
 ### Return type
 
@@ -1066,7 +1072,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -1388,7 +1394,7 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     new GuzzleHttp\Client()
 );
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
-$package_id = 6276316; // float | The package identifier.
+$package_id = 6276316; // int | The package identifier.
 $update_package_quantity_request = new \TebexHeadless\Model\UpdatePackageQuantityRequest(); // \TebexHeadless\Model\UpdatePackageQuantityRequest
 
 try {
@@ -1403,7 +1409,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **basket_ident** | **string**| The basket identifier. | |
-| **package_id** | **float**| The package identifier. | |
+| **package_id** | **int**| The package identifier. | |
 | **update_package_quantity_request** | [**\TebexHeadless\Model\UpdatePackageQuantityRequest**](../Model/UpdatePackageQuantityRequest.md)|  | [optional] |
 
 ### Return type
@@ -1440,14 +1446,20 @@ Updates a tier to a new package.
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: basicAuth
+$config = TebexHeadless\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $token = some-uuid; // string | The webstore identifier.
-$tier_id = 6276316; // float | The tier identifier
+$tier_id = 6276316; // int | The tier identifier
 $update_tier_request = new \TebexHeadless\Model\UpdateTierRequest(); // \TebexHeadless\Model\UpdateTierRequest
 
 try {
@@ -1463,7 +1475,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **token** | **string**| The webstore identifier. | |
-| **tier_id** | **float**| The tier identifier | |
+| **tier_id** | **int**| The tier identifier | |
 | **update_tier_request** | [**\TebexHeadless\Model\UpdateTierRequest**](../Model/UpdateTierRequest.md)|  | [optional] |
 
 ### Return type
@@ -1472,7 +1484,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../../README.md#basicAuth)
 
 ### HTTP request headers
 

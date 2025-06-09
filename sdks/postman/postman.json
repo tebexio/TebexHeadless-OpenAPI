@@ -799,7 +799,7 @@
                             ]
                         },
 	                        {
-    "name": "/accounts/:token/categories?usernameId&#x3D;:usernameId",
+    "name": "/accounts/:token/categories?usernameId&#x3D;:usernameId&amp;includePackages&#x3D;1",
                 "description": "Gets all categories from the webstore, returning active tier information for the given player.",
                  "item": [
                             {
@@ -824,14 +824,14 @@
                                         }
                                     },
                                     "url": {
-                                        "raw": "{{baseUrl}}/accounts/:token/categories?usernameId&#x3D;:usernameId",
+                                        "raw": "{{baseUrl}}/accounts/:token/categories?usernameId&#x3D;:usernameId&amp;includePackages&#x3D;1",
                                         "host": [
                                             "{{baseUrl}}"
                                         ],
                                         "path": [
                                             "accounts",
                                             ":token",
-                                            "categories?usernameId&#x3D;:usernameId"
+                                            "categories?usernameId&#x3D;:usernameId&amp;includePackages&#x3D;1"
                                         ],
                                         "variable": [
                                             {
@@ -1413,7 +1413,21 @@
 	                    ]
 	        }
     ],
-    
+    "auth": {
+            		"type": "basic",
+            		"basic": [
+            			{
+            				"key": "username",
+            				"value": "{{USERNAME}}",
+            				"type": "string"
+            			},
+            			{
+            				"key": "password",
+            				"value": "{{PASSWORD}}",
+            				"type": "string"
+            			}
+            		]
+            	},
 	"variable": [
 		{
 			"key": "baseUrl",

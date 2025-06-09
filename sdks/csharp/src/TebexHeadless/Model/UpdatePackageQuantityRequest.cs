@@ -36,7 +36,7 @@ namespace TebexHeadless.Model
         /// Initializes a new instance of the <see cref="UpdatePackageQuantityRequest" /> class.
         /// </summary>
         /// <param name="quantity">quantity.</param>
-        public UpdatePackageQuantityRequest(decimal quantity = default(decimal))
+        public UpdatePackageQuantityRequest(int quantity = default(int))
         {
             this.Quantity = quantity;
         }
@@ -46,7 +46,7 @@ namespace TebexHeadless.Model
         /// </summary>
         /// <example>1</example>
         [DataMember(Name = "quantity", EmitDefaultValue = false)]
-        public decimal Quantity { get; set; }
+        public int Quantity { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

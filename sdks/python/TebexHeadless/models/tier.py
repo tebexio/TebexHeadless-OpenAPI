@@ -19,8 +19,8 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from TebexHeadless.models.package import Package
 from TebexHeadless.models.tier_pending_downgrade_package import TierPendingDowngradePackage
 from TebexHeadless.models.tier_status import TierStatus
@@ -31,7 +31,7 @@ class Tier(BaseModel):
     """
     Tier
     """ # noqa: E501
-    id: Optional[Union[StrictFloat, StrictInt]] = None
+    id: Optional[StrictInt] = None
     created_at: Optional[datetime] = Field(default=None, description="The date and time when the tier became active")
     username_id: Optional[StrictStr] = Field(default=None, description="The user's username ID. For Steam, this is a numeric representation of their Steam64ID")
     package: Optional[Package] = None

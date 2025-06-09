@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **CompleteAutoRedirect** | **bool** |  | [optional] 
 **Country** | **string** | A two-character country code | [optional] 
 **Ip** | **string** |  | [optional] 
-**UsernameId** | **decimal** |  | [optional] 
+**UsernameId** | **int** |  | [optional] 
 **BasePrice** | **float** |  | [optional] 
 **SalesTax** | **float** |  | [optional] 
 **TotalPrice** | **float** |  | [optional] 

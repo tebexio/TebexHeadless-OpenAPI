@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,7 +56,7 @@ import TebexHeadless.JSON;
 /**
  * Basket
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-05-28T10:23:56.841100-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-06-09T08:23:39.979241-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class Basket {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -113,7 +112,7 @@ public class Basket {
 
   public static final String SERIALIZED_NAME_USERNAME_ID = "username_id";
   @SerializedName(SERIALIZED_NAME_USERNAME_ID)
-  private BigDecimal usernameId;
+  private Integer usernameId;
 
   public static final String SERIALIZED_NAME_BASE_PRICE = "base_price";
   @SerializedName(SERIALIZED_NAME_BASE_PRICE)
@@ -409,7 +408,7 @@ public class Basket {
   }
 
 
-  public Basket usernameId(BigDecimal usernameId) {
+  public Basket usernameId(Integer usernameId) {
     this.usernameId = usernameId;
     return this;
   }
@@ -419,11 +418,11 @@ public class Basket {
    * @return usernameId
   **/
   @javax.annotation.Nullable
-  public BigDecimal getUsernameId() {
+  public Integer getUsernameId() {
     return usernameId;
   }
 
-  public void setUsernameId(BigDecimal usernameId) {
+  public void setUsernameId(Integer usernameId) {
     this.usernameId = usernameId;
   }
 

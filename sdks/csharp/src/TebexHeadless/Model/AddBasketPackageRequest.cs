@@ -37,7 +37,7 @@ namespace TebexHeadless.Model
         /// </summary>
         /// <param name="packageId">packageId.</param>
         /// <param name="quantity">quantity.</param>
-        public AddBasketPackageRequest(string packageId = default(string), decimal quantity = default(decimal))
+        public AddBasketPackageRequest(string packageId = default(string), int quantity = default(int))
         {
             this.PackageId = packageId;
             this.Quantity = quantity;
@@ -55,7 +55,7 @@ namespace TebexHeadless.Model
         /// </summary>
         /// <example>1</example>
         [DataMember(Name = "quantity", EmitDefaultValue = false)]
-        public decimal Quantity { get; set; }
+        public int Quantity { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

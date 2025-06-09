@@ -71,7 +71,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'complete_auto_redirect' => 'bool',
         'country' => 'string',
         'ip' => 'string',
-        'username_id' => 'float',
+        'username_id' => 'int',
         'base_price' => 'float',
         'sales_tax' => 'float',
         'total_price' => 'float',
@@ -805,7 +805,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets username_id
      *
-     * @return float|null
+     * @return int|null
      */
     public function getUsernameId()
     {
@@ -815,7 +815,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets username_id
      *
-     * @param float|null $username_id username_id
+     * @param int|null $username_id username_id
      *
      * @return self
      */

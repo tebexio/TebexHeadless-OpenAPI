@@ -21,7 +21,7 @@ var _ MappedNullable = &Tier{}
 
 // Tier struct for Tier
 type Tier struct {
-	Id *float32 `json:"id,omitempty"`
+	Id *int32 `json:"id,omitempty"`
 	// The date and time when the tier became active
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The user's username ID. For Steam, this is a numeric representation of their Steam64ID
@@ -55,9 +55,9 @@ func NewTierWithDefaults() *Tier {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *Tier) GetId() float32 {
+func (o *Tier) GetId() int32 {
 	if o == nil || IsNil(o.Id) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Id
@@ -65,7 +65,7 @@ func (o *Tier) GetId() float32 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tier) GetIdOk() (*float32, bool) {
+func (o *Tier) GetIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -81,8 +81,8 @@ func (o *Tier) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given float32 and assigns it to the Id field.
-func (o *Tier) SetId(v float32) {
+// SetId gets a reference to the given int32 and assigns it to the Id field.
+func (o *Tier) SetId(v int32) {
 	o.Id = &v
 }
 

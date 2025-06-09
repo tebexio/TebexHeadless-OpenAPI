@@ -44,7 +44,7 @@ namespace TebexHeadless.Model
         /// <param name="nextPaymentDate">The date and time of the next payment for this tier..</param>
         /// <param name="status">status.</param>
         /// <param name="pendingDowngradePackage">pendingDowngradePackage.</param>
-        public Tier(decimal id = default(decimal), DateTime createdAt = default(DateTime), string usernameId = default(string), Package package = default(Package), bool active = default(bool), string recurringPaymentReference = default(string), DateTime nextPaymentDate = default(DateTime), TierStatus status = default(TierStatus), TierPendingDowngradePackage pendingDowngradePackage = default(TierPendingDowngradePackage))
+        public Tier(int id = default(int), DateTime createdAt = default(DateTime), string usernameId = default(string), Package package = default(Package), bool active = default(bool), string recurringPaymentReference = default(string), DateTime nextPaymentDate = default(DateTime), TierStatus status = default(TierStatus), TierPendingDowngradePackage pendingDowngradePackage = default(TierPendingDowngradePackage))
         {
             this.Id = id;
             this.CreatedAt = createdAt;
@@ -62,7 +62,7 @@ namespace TebexHeadless.Model
         /// </summary>
         /// <example>40796</example>
         [DataMember(Name = "id", EmitDefaultValue = false)]
-        public decimal Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// The date and time when the tier became active

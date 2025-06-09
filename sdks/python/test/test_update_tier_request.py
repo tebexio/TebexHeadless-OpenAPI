@@ -36,7 +36,7 @@ class TestUpdateTierRequest(unittest.TestCase):
         model = UpdateTierRequest()
         if include_optional:
             return UpdateTierRequest(
-                package_id = 123456789
+                package_id = 6834822
             )
         else:
             return UpdateTierRequest(

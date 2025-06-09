@@ -3,10 +3,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-| **id** | **BigDecimal** |  | [optional] [default to null] |
+| **id** | **Integer** |  | [optional] [default to null] |
 | **created\_at** | **Date** |  | [optional] [default to null] |
 | **updated\_at** | **Date** |  | [optional] [default to null] |
-| **account\_id** | **BigDecimal** |  | [optional] [default to null] |
+| **account\_id** | **Integer** |  | [optional] [default to null] |
 | **title** | **String** |  | [optional] [default to null] |
 | **slug** | **String** |  | [optional] [default to null] |
 | **private** | **Boolean** |  | [optional] [default to null] |

@@ -50,7 +50,7 @@ import TebexHeadless.JSON;
 /**
  * BasketResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-05-28T10:23:56.841100-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-06-09T08:23:39.979241-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class BasketResponse {
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)

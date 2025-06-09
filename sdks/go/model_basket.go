@@ -35,7 +35,7 @@ type Basket struct {
 	// A two-character country code
 	Country *string `json:"country,omitempty"`
 	Ip *string `json:"ip,omitempty"`
-	UsernameId *float32 `json:"username_id,omitempty"`
+	UsernameId *int32 `json:"username_id,omitempty"`
 	BasePrice *float32 `json:"base_price,omitempty"`
 	SalesTax *float32 `json:"sales_tax,omitempty"`
 	TotalPrice *float32 `json:"total_price,omitempty"`
@@ -510,9 +510,9 @@ func (o *Basket) SetIp(v string) {
 }
 
 // GetUsernameId returns the UsernameId field value if set, zero value otherwise.
-func (o *Basket) GetUsernameId() float32 {
+func (o *Basket) GetUsernameId() int32 {
 	if o == nil || IsNil(o.UsernameId) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.UsernameId
@@ -520,7 +520,7 @@ func (o *Basket) GetUsernameId() float32 {
 
 // GetUsernameIdOk returns a tuple with the UsernameId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Basket) GetUsernameIdOk() (*float32, bool) {
+func (o *Basket) GetUsernameIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.UsernameId) {
 		return nil, false
 	}
@@ -536,8 +536,8 @@ func (o *Basket) HasUsernameId() bool {
 	return false
 }
 
-// SetUsernameId gets a reference to the given float32 and assigns it to the UsernameId field.
-func (o *Basket) SetUsernameId(v float32) {
+// SetUsernameId gets a reference to the given int32 and assigns it to the UsernameId field.
+func (o *Basket) SetUsernameId(v int32) {
 	o.UsernameId = &v
 }
 

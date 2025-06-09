@@ -20,7 +20,7 @@ var _ MappedNullable = &TierPendingDowngradePackage{}
 
 // TierPendingDowngradePackage The package this tier is downgrading to if a downgrade is pending.
 type TierPendingDowngradePackage struct {
-	Id *float32 `json:"id,omitempty"`
+	Id *int32 `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
@@ -42,9 +42,9 @@ func NewTierPendingDowngradePackageWithDefaults() *TierPendingDowngradePackage {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *TierPendingDowngradePackage) GetId() float32 {
+func (o *TierPendingDowngradePackage) GetId() int32 {
 	if o == nil || IsNil(o.Id) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Id
@@ -52,7 +52,7 @@ func (o *TierPendingDowngradePackage) GetId() float32 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TierPendingDowngradePackage) GetIdOk() (*float32, bool) {
+func (o *TierPendingDowngradePackage) GetIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -68,8 +68,8 @@ func (o *TierPendingDowngradePackage) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given float32 and assigns it to the Id field.
-func (o *TierPendingDowngradePackage) SetId(v float32) {
+// SetId gets a reference to the given int32 and assigns it to the Id field.
+func (o *TierPendingDowngradePackage) SetId(v int32) {
 	o.Id = &v
 }
 

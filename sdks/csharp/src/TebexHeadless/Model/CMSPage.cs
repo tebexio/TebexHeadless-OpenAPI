@@ -46,7 +46,7 @@ namespace TebexHeadless.Model
         /// <param name="disabled">disabled.</param>
         /// <param name="sequence">sequence.</param>
         /// <param name="content">content.</param>
-        public CMSPage(decimal id = default(decimal), DateTime createdAt = default(DateTime), DateTime updatedAt = default(DateTime), decimal accountId = default(decimal), string title = default(string), string slug = default(string), bool varPrivate = default(bool), bool hidden = default(bool), bool disabled = default(bool), bool sequence = default(bool), string content = default(string))
+        public CMSPage(int id = default(int), DateTime createdAt = default(DateTime), DateTime updatedAt = default(DateTime), int accountId = default(int), string title = default(string), string slug = default(string), bool varPrivate = default(bool), bool hidden = default(bool), bool disabled = default(bool), bool sequence = default(bool), string content = default(string))
         {
             this.Id = id;
             this.CreatedAt = createdAt;
@@ -66,7 +66,7 @@ namespace TebexHeadless.Model
         /// </summary>
         /// <example>127</example>
         [DataMember(Name = "id", EmitDefaultValue = false)]
-        public decimal Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or Sets CreatedAt
@@ -87,7 +87,7 @@ namespace TebexHeadless.Model
         /// </summary>
         /// <example>244</example>
         [DataMember(Name = "account_id", EmitDefaultValue = false)]
-        public decimal AccountId { get; set; }
+        public int AccountId { get; set; }
 
         /// <summary>
         /// Gets or Sets Title

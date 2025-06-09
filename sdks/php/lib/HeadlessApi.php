@@ -5418,7 +5418,7 @@ class HeadlessApi
      * Fetch a package from a webstore by its identifier
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $package_id The package&#39;s ID. (required)
+     * @param  int $package_id The package&#39;s ID. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPackageById'] to see the possible values for this operation
      *
      * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
@@ -5437,7 +5437,7 @@ class HeadlessApi
      * Fetch a package from a webstore by its identifier
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $package_id The package&#39;s ID. (required)
+     * @param  int $package_id The package&#39;s ID. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPackageById'] to see the possible values for this operation
      *
      * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
@@ -5562,7 +5562,7 @@ class HeadlessApi
      * Fetch a package from a webstore by its identifier
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $package_id The package&#39;s ID. (required)
+     * @param  int $package_id The package&#39;s ID. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPackageById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -5584,7 +5584,7 @@ class HeadlessApi
      * Fetch a package from a webstore by its identifier
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $package_id The package&#39;s ID. (required)
+     * @param  int $package_id The package&#39;s ID. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPackageById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -5635,7 +5635,7 @@ class HeadlessApi
      * Create request for operation 'getPackageById'
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $package_id The package&#39;s ID. (required)
+     * @param  int $package_id The package&#39;s ID. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPackageById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -5745,7 +5745,7 @@ class HeadlessApi
      * Gets a store&#39;s categories including all package information with them.
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $username_id username_id (required)
+     * @param  int $username_id username_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTieredCategoriesForUser'] to see the possible values for this operation
      *
      * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
@@ -5764,7 +5764,7 @@ class HeadlessApi
      * Gets a store&#39;s categories including all package information with them.
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $username_id (required)
+     * @param  int $username_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTieredCategoriesForUser'] to see the possible values for this operation
      *
      * @throws \TebexHeadless\ApiException on non-2xx response or if the response body is not in the expected format
@@ -5889,7 +5889,7 @@ class HeadlessApi
      * Gets a store&#39;s categories including all package information with them.
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $username_id (required)
+     * @param  int $username_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTieredCategoriesForUser'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -5911,7 +5911,7 @@ class HeadlessApi
      * Gets a store&#39;s categories including all package information with them.
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $username_id (required)
+     * @param  int $username_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTieredCategoriesForUser'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -5962,7 +5962,7 @@ class HeadlessApi
      * Create request for operation 'getTieredCategoriesForUser'
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $username_id (required)
+     * @param  int $username_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTieredCategoriesForUser'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -5986,7 +5986,7 @@ class HeadlessApi
         }
 
 
-        $resourcePath = '/accounts/{token}/categories?usernameId={usernameId}';
+        $resourcePath = '/accounts/{token}/categories?usernameId={usernameId}&includePackages=1';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6044,6 +6044,10 @@ class HeadlessApi
             }
         }
 
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -7459,7 +7463,7 @@ class HeadlessApi
      * Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
      *
      * @param  string $basket_ident The basket identifier. (required)
-     * @param  float $package_id The package identifier. (required)
+     * @param  int $package_id The package identifier. (required)
      * @param  \TebexHeadless\Model\UpdatePackageQuantityRequest $update_package_quantity_request update_package_quantity_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updatePackageQuantity'] to see the possible values for this operation
      *
@@ -7478,7 +7482,7 @@ class HeadlessApi
      * Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
      *
      * @param  string $basket_ident The basket identifier. (required)
-     * @param  float $package_id The package identifier. (required)
+     * @param  int $package_id The package identifier. (required)
      * @param  \TebexHeadless\Model\UpdatePackageQuantityRequest $update_package_quantity_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updatePackageQuantity'] to see the possible values for this operation
      *
@@ -7540,7 +7544,7 @@ class HeadlessApi
      * Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
      *
      * @param  string $basket_ident The basket identifier. (required)
-     * @param  float $package_id The package identifier. (required)
+     * @param  int $package_id The package identifier. (required)
      * @param  \TebexHeadless\Model\UpdatePackageQuantityRequest $update_package_quantity_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updatePackageQuantity'] to see the possible values for this operation
      *
@@ -7563,7 +7567,7 @@ class HeadlessApi
      * Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
      *
      * @param  string $basket_ident The basket identifier. (required)
-     * @param  float $package_id The package identifier. (required)
+     * @param  int $package_id The package identifier. (required)
      * @param  \TebexHeadless\Model\UpdatePackageQuantityRequest $update_package_quantity_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updatePackageQuantity'] to see the possible values for this operation
      *
@@ -7602,7 +7606,7 @@ class HeadlessApi
      * Create request for operation 'updatePackageQuantity'
      *
      * @param  string $basket_ident The basket identifier. (required)
-     * @param  float $package_id The package identifier. (required)
+     * @param  int $package_id The package identifier. (required)
      * @param  \TebexHeadless\Model\UpdatePackageQuantityRequest $update_package_quantity_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updatePackageQuantity'] to see the possible values for this operation
      *
@@ -7721,7 +7725,7 @@ class HeadlessApi
      * Updates the given teir to the provided package.
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $tier_id The tier identifier (required)
+     * @param  int $tier_id The tier identifier (required)
      * @param  \TebexHeadless\Model\UpdateTierRequest $update_tier_request update_tier_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTier'] to see the possible values for this operation
      *
@@ -7741,7 +7745,7 @@ class HeadlessApi
      * Updates the given teir to the provided package.
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $tier_id The tier identifier (required)
+     * @param  int $tier_id The tier identifier (required)
      * @param  \TebexHeadless\Model\UpdateTierRequest $update_tier_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTier'] to see the possible values for this operation
      *
@@ -7867,7 +7871,7 @@ class HeadlessApi
      * Updates the given teir to the provided package.
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $tier_id The tier identifier (required)
+     * @param  int $tier_id The tier identifier (required)
      * @param  \TebexHeadless\Model\UpdateTierRequest $update_tier_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTier'] to see the possible values for this operation
      *
@@ -7890,7 +7894,7 @@ class HeadlessApi
      * Updates the given teir to the provided package.
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $tier_id The tier identifier (required)
+     * @param  int $tier_id The tier identifier (required)
      * @param  \TebexHeadless\Model\UpdateTierRequest $update_tier_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTier'] to see the possible values for this operation
      *
@@ -7942,7 +7946,7 @@ class HeadlessApi
      * Create request for operation 'updateTier'
      *
      * @param  string $token The webstore identifier. (required)
-     * @param  float $tier_id The tier identifier (required)
+     * @param  int $tier_id The tier identifier (required)
      * @param  \TebexHeadless\Model\UpdateTierRequest $update_tier_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTier'] to see the possible values for this operation
      *
@@ -8033,6 +8037,10 @@ class HeadlessApi
             }
         }
 
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {

@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **float** |  | [optional] 
+**id** | **int** |  | [optional] 
 **created_at** | **datetime** |  | [optional] 
 **updated_at** | **datetime** |  | [optional] 
-**account_id** | **float** |  | [optional] 
+**account_id** | **int** |  | [optional] 
 **title** | **str** |  | [optional] 
 **slug** | **str** |  | [optional] 
 **private** | **bool** |  | [optional] 

@@ -17,8 +17,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictFloat, StrictInt, StrictStr
-from typing import List, Optional, Union
+from pydantic import Field, StrictInt, StrictStr
+from typing import List, Optional
 from typing_extensions import Annotated
 from TebexHeadless.models.add_basket_package_request import AddBasketPackageRequest
 from TebexHeadless.models.apply_creator_code_request import ApplyCreatorCodeRequest
@@ -4513,7 +4513,7 @@ class HeadlessApi:
     def get_package_by_id(
         self,
         token: Annotated[StrictStr, Field(description="The webstore identifier.")],
-        package_id: Annotated[Union[StrictFloat, StrictInt], Field(description="The package's ID.")],
+        package_id: Annotated[StrictInt, Field(description="The package's ID.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4534,7 +4534,7 @@ class HeadlessApi:
         :param token: The webstore identifier. (required)
         :type token: str
         :param package_id: The package's ID. (required)
-        :type package_id: float
+        :type package_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4584,7 +4584,7 @@ class HeadlessApi:
     def get_package_by_id_with_http_info(
         self,
         token: Annotated[StrictStr, Field(description="The webstore identifier.")],
-        package_id: Annotated[Union[StrictFloat, StrictInt], Field(description="The package's ID.")],
+        package_id: Annotated[StrictInt, Field(description="The package's ID.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4605,7 +4605,7 @@ class HeadlessApi:
         :param token: The webstore identifier. (required)
         :type token: str
         :param package_id: The package's ID. (required)
-        :type package_id: float
+        :type package_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4655,7 +4655,7 @@ class HeadlessApi:
     def get_package_by_id_without_preload_content(
         self,
         token: Annotated[StrictStr, Field(description="The webstore identifier.")],
-        package_id: Annotated[Union[StrictFloat, StrictInt], Field(description="The package's ID.")],
+        package_id: Annotated[StrictInt, Field(description="The package's ID.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4676,7 +4676,7 @@ class HeadlessApi:
         :param token: The webstore identifier. (required)
         :type token: str
         :param package_id: The package's ID. (required)
-        :type package_id: float
+        :type package_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4785,7 +4785,7 @@ class HeadlessApi:
     def get_tiered_categories_for_user(
         self,
         token: Annotated[StrictStr, Field(description="The webstore identifier.")],
-        username_id: Union[StrictFloat, StrictInt],
+        username_id: StrictInt,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4806,7 +4806,7 @@ class HeadlessApi:
         :param token: The webstore identifier. (required)
         :type token: str
         :param username_id: (required)
-        :type username_id: float
+        :type username_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4856,7 +4856,7 @@ class HeadlessApi:
     def get_tiered_categories_for_user_with_http_info(
         self,
         token: Annotated[StrictStr, Field(description="The webstore identifier.")],
-        username_id: Union[StrictFloat, StrictInt],
+        username_id: StrictInt,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4877,7 +4877,7 @@ class HeadlessApi:
         :param token: The webstore identifier. (required)
         :type token: str
         :param username_id: (required)
-        :type username_id: float
+        :type username_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4927,7 +4927,7 @@ class HeadlessApi:
     def get_tiered_categories_for_user_without_preload_content(
         self,
         token: Annotated[StrictStr, Field(description="The webstore identifier.")],
-        username_id: Union[StrictFloat, StrictInt],
+        username_id: StrictInt,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4948,7 +4948,7 @@ class HeadlessApi:
         :param token: The webstore identifier. (required)
         :type token: str
         :param username_id: (required)
-        :type username_id: float
+        :type username_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5033,11 +5033,12 @@ class HeadlessApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'basicAuth'
         ]
 
         return self.api_client.param_serialize(
             method='GET',
-            resource_path='/accounts/{token}/categories?usernameId={usernameId}',
+            resource_path='/accounts/{token}/categories?usernameId={usernameId}&includePackages=1',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -6437,7 +6438,7 @@ class HeadlessApi:
     def update_package_quantity(
         self,
         basket_ident: Annotated[StrictStr, Field(description="The basket identifier.")],
-        package_id: Annotated[Union[StrictFloat, StrictInt], Field(description="The package identifier.")],
+        package_id: Annotated[StrictInt, Field(description="The package identifier.")],
         update_package_quantity_request: Optional[UpdatePackageQuantityRequest] = None,
         _request_timeout: Union[
             None,
@@ -6459,7 +6460,7 @@ class HeadlessApi:
         :param basket_ident: The basket identifier. (required)
         :type basket_ident: str
         :param package_id: The package identifier. (required)
-        :type package_id: float
+        :type package_id: int
         :param update_package_quantity_request:
         :type update_package_quantity_request: UpdatePackageQuantityRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -6513,7 +6514,7 @@ class HeadlessApi:
     def update_package_quantity_with_http_info(
         self,
         basket_ident: Annotated[StrictStr, Field(description="The basket identifier.")],
-        package_id: Annotated[Union[StrictFloat, StrictInt], Field(description="The package identifier.")],
+        package_id: Annotated[StrictInt, Field(description="The package identifier.")],
         update_package_quantity_request: Optional[UpdatePackageQuantityRequest] = None,
         _request_timeout: Union[
             None,
@@ -6535,7 +6536,7 @@ class HeadlessApi:
         :param basket_ident: The basket identifier. (required)
         :type basket_ident: str
         :param package_id: The package identifier. (required)
-        :type package_id: float
+        :type package_id: int
         :param update_package_quantity_request:
         :type update_package_quantity_request: UpdatePackageQuantityRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -6589,7 +6590,7 @@ class HeadlessApi:
     def update_package_quantity_without_preload_content(
         self,
         basket_ident: Annotated[StrictStr, Field(description="The basket identifier.")],
-        package_id: Annotated[Union[StrictFloat, StrictInt], Field(description="The package identifier.")],
+        package_id: Annotated[StrictInt, Field(description="The package identifier.")],
         update_package_quantity_request: Optional[UpdatePackageQuantityRequest] = None,
         _request_timeout: Union[
             None,
@@ -6611,7 +6612,7 @@ class HeadlessApi:
         :param basket_ident: The basket identifier. (required)
         :type basket_ident: str
         :param package_id: The package identifier. (required)
-        :type package_id: float
+        :type package_id: int
         :param update_package_quantity_request:
         :type update_package_quantity_request: UpdatePackageQuantityRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -6734,7 +6735,7 @@ class HeadlessApi:
     def update_tier(
         self,
         token: Annotated[StrictStr, Field(description="The webstore identifier.")],
-        tier_id: Annotated[Union[StrictFloat, StrictInt], Field(description="The tier identifier")],
+        tier_id: Annotated[StrictInt, Field(description="The tier identifier")],
         update_tier_request: Optional[UpdateTierRequest] = None,
         _request_timeout: Union[
             None,
@@ -6756,7 +6757,7 @@ class HeadlessApi:
         :param token: The webstore identifier. (required)
         :type token: str
         :param tier_id: The tier identifier (required)
-        :type tier_id: float
+        :type tier_id: int
         :param update_tier_request:
         :type update_tier_request: UpdateTierRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -6809,7 +6810,7 @@ class HeadlessApi:
     def update_tier_with_http_info(
         self,
         token: Annotated[StrictStr, Field(description="The webstore identifier.")],
-        tier_id: Annotated[Union[StrictFloat, StrictInt], Field(description="The tier identifier")],
+        tier_id: Annotated[StrictInt, Field(description="The tier identifier")],
         update_tier_request: Optional[UpdateTierRequest] = None,
         _request_timeout: Union[
             None,
@@ -6831,7 +6832,7 @@ class HeadlessApi:
         :param token: The webstore identifier. (required)
         :type token: str
         :param tier_id: The tier identifier (required)
-        :type tier_id: float
+        :type tier_id: int
         :param update_tier_request:
         :type update_tier_request: UpdateTierRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -6884,7 +6885,7 @@ class HeadlessApi:
     def update_tier_without_preload_content(
         self,
         token: Annotated[StrictStr, Field(description="The webstore identifier.")],
-        tier_id: Annotated[Union[StrictFloat, StrictInt], Field(description="The tier identifier")],
+        tier_id: Annotated[StrictInt, Field(description="The tier identifier")],
         update_tier_request: Optional[UpdateTierRequest] = None,
         _request_timeout: Union[
             None,
@@ -6906,7 +6907,7 @@ class HeadlessApi:
         :param token: The webstore identifier. (required)
         :type token: str
         :param tier_id: The tier identifier (required)
-        :type tier_id: float
+        :type tier_id: int
         :param update_tier_request:
         :type update_tier_request: UpdateTierRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -7010,6 +7011,7 @@ class HeadlessApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'basicAuth'
         ]
 
         return self.api_client.param_serialize(

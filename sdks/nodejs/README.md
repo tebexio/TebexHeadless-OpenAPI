@@ -141,7 +141,7 @@ Class | Method | HTTP request | Description
 *TebexHeadlessApi.HeadlessApi* | [**getCategoryById**](docs/HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 *TebexHeadlessApi.HeadlessApi* | [**getCategoryIncludingPackages**](docs/HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 *TebexHeadlessApi.HeadlessApi* | [**getPackageById**](docs/HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
-*TebexHeadlessApi.HeadlessApi* | [**getTieredCategoriesForUser**](docs/HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them.
+*TebexHeadlessApi.HeadlessApi* | [**getTieredCategoriesForUser**](docs/HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
 *TebexHeadlessApi.HeadlessApi* | [**getWebstoreById**](docs/HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier
 *TebexHeadlessApi.HeadlessApi* | [**removeBasketPackage**](docs/HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 *TebexHeadlessApi.HeadlessApi* | [**removeCoupon**](docs/HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -186,5 +186,9 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Authorization
 
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+### basicAuth
+
+- **Type**: HTTP basic authentication
 

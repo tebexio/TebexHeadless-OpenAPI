@@ -37,7 +37,7 @@ namespace TebexHeadless.Model
         /// </summary>
         /// <param name="id">id.</param>
         /// <param name="name">name.</param>
-        public TierPendingDowngradePackage(decimal id = default(decimal), string name = default(string))
+        public TierPendingDowngradePackage(int id = default(int), string name = default(string))
         {
             this.Id = id;
             this.Name = name;
@@ -48,7 +48,7 @@ namespace TebexHeadless.Model
         /// </summary>
         /// <example>6834820</example>
         [DataMember(Name = "id", EmitDefaultValue = false)]
-        public decimal Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Name

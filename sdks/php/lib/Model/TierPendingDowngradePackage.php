@@ -59,7 +59,7 @@ class TierPendingDowngradePackage implements ModelInterface, ArrayAccess, \JsonS
       * @var string[]
       */
     protected static $openAPITypes = [
-        'id' => 'float',
+        'id' => 'int',
         'name' => 'string'
     ];
 
@@ -301,7 +301,7 @@ class TierPendingDowngradePackage implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets id
      *
-     * @return float|null
+     * @return int|null
      */
     public function getId()
     {
@@ -311,7 +311,7 @@ class TierPendingDowngradePackage implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets id
      *
-     * @param float|null $id id
+     * @param int|null $id id
      *
      * @return self
      */

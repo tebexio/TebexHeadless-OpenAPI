@@ -21,7 +21,7 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**getCategoryById**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**getCategoryIncludingPackages**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**getPackageById**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
-| [**getTieredCategoriesForUser**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them. |
+| [**getTieredCategoriesForUser**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
 | [**getWebstoreById**](HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
 | [**removeBasketPackage**](HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
 | [**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
@@ -1088,7 +1088,7 @@ public class Example {
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
     String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-    BigDecimal packageId = new BigDecimal("1272441812"); // BigDecimal | The package's ID.
+    Integer packageId = 1272441812; // Integer | The package's ID.
     try {
       PackageResponse result = apiInstance.getPackageById(token, packageId);
       System.out.println(result);
@@ -1108,7 +1108,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **token** | **String**| The webstore identifier. | |
-| **packageId** | **BigDecimal**| The package&#39;s ID. | |
+| **packageId** | **Integer**| The package&#39;s ID. | |
 
 ### Return type
 
@@ -1142,6 +1142,7 @@ Gets all categories from the webstore, returning active tier information for the
 import TebexHeadless.ApiClient;
 import TebexHeadless.ApiException;
 import TebexHeadless.Configuration;
+import TebexHeadless.auth.*;
 import TebexHeadless.models.*;
 import TebexHeadless.HeadlessApi;
 
@@ -1149,10 +1150,15 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://headless.tebex.io/api");
+    
+    // Configure HTTP basic authorization: basicAuth
+    HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+    basicAuth.setUsername("YOUR USERNAME");
+    basicAuth.setPassword("YOUR PASSWORD");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
     String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-    BigDecimal usernameId = new BigDecimal("76561198042467022"); // BigDecimal | 
+    Integer usernameId = 76561198042467022; // Integer | 
     try {
       CategoryResponse result = apiInstance.getTieredCategoriesForUser(token, usernameId);
       System.out.println(result);
@@ -1172,7 +1178,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **token** | **String**| The webstore identifier. | |
-| **usernameId** | **BigDecimal**|  | |
+| **usernameId** | **Integer**|  | |
 
 ### Return type
 
@@ -1180,7 +1186,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -1537,7 +1543,7 @@ public class Example {
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-    BigDecimal packageId = new BigDecimal("6276316"); // BigDecimal | The package identifier.
+    Integer packageId = 6276316; // Integer | The package identifier.
     UpdatePackageQuantityRequest updatePackageQuantityRequest = new UpdatePackageQuantityRequest(); // UpdatePackageQuantityRequest | 
     try {
       apiInstance.updatePackageQuantity(basketIdent, packageId, updatePackageQuantityRequest);
@@ -1557,7 +1563,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **basketIdent** | **String**| The basket identifier. | |
-| **packageId** | **BigDecimal**| The package identifier. | |
+| **packageId** | **Integer**| The package identifier. | |
 | **updatePackageQuantityRequest** | [**UpdatePackageQuantityRequest**](UpdatePackageQuantityRequest.md)|  | [optional] |
 
 ### Return type
@@ -1593,6 +1599,7 @@ Updates a tier to a new package.
 import TebexHeadless.ApiClient;
 import TebexHeadless.ApiException;
 import TebexHeadless.Configuration;
+import TebexHeadless.auth.*;
 import TebexHeadless.models.*;
 import TebexHeadless.HeadlessApi;
 
@@ -1600,10 +1607,15 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://headless.tebex.io/api");
+    
+    // Configure HTTP basic authorization: basicAuth
+    HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+    basicAuth.setUsername("YOUR USERNAME");
+    basicAuth.setPassword("YOUR PASSWORD");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
     String token = "some-uuid"; // String | The webstore identifier.
-    BigDecimal tierId = new BigDecimal("6276316"); // BigDecimal | The tier identifier
+    Integer tierId = 6276316; // Integer | The tier identifier
     UpdateTierRequest updateTierRequest = new UpdateTierRequest(); // UpdateTierRequest | 
     try {
       UpdateTierResponse result = apiInstance.updateTier(token, tierId, updateTierRequest);
@@ -1624,7 +1636,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **token** | **String**| The webstore identifier. | |
-| **tierId** | **BigDecimal**| The tier identifier | |
+| **tierId** | **Integer**| The tier identifier | |
 | **updateTierRequest** | [**UpdateTierRequest**](UpdateTierRequest.md)|  | [optional] |
 
 ### Return type
@@ -1633,7 +1645,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

@@ -18,8 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +27,7 @@ class UpdatePackageQuantityRequest(BaseModel):
     """
     UpdatePackageQuantityRequest
     """ # noqa: E501
-    quantity: Optional[Union[StrictFloat, StrictInt]] = None
+    quantity: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["quantity"]
 
     model_config = ConfigDict(

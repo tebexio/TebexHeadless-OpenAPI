@@ -20,7 +20,7 @@ var _ MappedNullable = &TierStatus{}
 
 // TierStatus struct for TierStatus
 type TierStatus struct {
-	Id *float32 `json:"id,omitempty"`
+	Id *int32 `json:"id,omitempty"`
 	Description *string `json:"description,omitempty"`
 }
 
@@ -42,9 +42,9 @@ func NewTierStatusWithDefaults() *TierStatus {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *TierStatus) GetId() float32 {
+func (o *TierStatus) GetId() int32 {
 	if o == nil || IsNil(o.Id) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Id
@@ -52,7 +52,7 @@ func (o *TierStatus) GetId() float32 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TierStatus) GetIdOk() (*float32, bool) {
+func (o *TierStatus) GetIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -68,8 +68,8 @@ func (o *TierStatus) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given float32 and assigns it to the Id field.
-func (o *TierStatus) SetId(v float32) {
+// SetId gets a reference to the given int32 and assigns it to the Id field.
+func (o *TierStatus) SetId(v int32) {
 	o.Id = &v
 }
 

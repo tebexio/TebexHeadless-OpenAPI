@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **float32** |  | [optional] 
+**Id** | Pointer to **int32** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** | The date and time when the tier became active | [optional] 
 **UsernameId** | Pointer to **string** | The user&#39;s username ID. For Steam, this is a numeric representation of their Steam64ID | [optional] 
 **Package** | Pointer to [**Package**](Package.md) |  | [optional] 
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetId
 
-`func (o *Tier) GetId() float32`
+`func (o *Tier) GetId() int32`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *Tier) GetIdOk() (*float32, bool)`
+`func (o *Tier) GetIdOk() (*int32, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *Tier) SetId(v float32)`
+`func (o *Tier) SetId(v int32)`
 
 SetId sets Id field to given value.
 

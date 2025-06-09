@@ -103,7 +103,7 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**get_category_including_packages**](docs/HeadlessApi.md#get_category_including_packages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 *HeadlessApi* | [**get_cms_pages**](docs/HeadlessApi.md#get_cms_pages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 *HeadlessApi* | [**get_package_by_id**](docs/HeadlessApi.md#get_package_by_id) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
-*HeadlessApi* | [**get_tiered_categories_for_user**](docs/HeadlessApi.md#get_tiered_categories_for_user) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them.
+*HeadlessApi* | [**get_tiered_categories_for_user**](docs/HeadlessApi.md#get_tiered_categories_for_user) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
 *HeadlessApi* | [**get_webstore_by_id**](docs/HeadlessApi.md#get_webstore_by_id) | **GET** /accounts/{token} | Fetch a webstore by its identifier
 *HeadlessApi* | [**remove_basket_package**](docs/HeadlessApi.md#remove_basket_package) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 *HeadlessApi* | [**remove_coupon**](docs/HeadlessApi.md#remove_coupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -149,7 +149,12 @@ Class | Method | HTTP request | Description
 <a id="documentation-for-authorization"></a>
 ## Documentation For Authorization
 
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+<a id="basicAuth"></a>
+### basicAuth
+
+- **Type**: HTTP basic authentication
 
 
 ## Author

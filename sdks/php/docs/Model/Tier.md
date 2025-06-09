@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **float** |  | [optional]
+**id** | **int** |  | [optional]
 **created_at** | **\DateTime** | The date and time when the tier became active | [optional]
 **username_id** | **string** | The user&#39;s username ID. For Steam, this is a numeric representation of their Steam64ID | [optional]
 **package** | [**\TebexHeadless\Model\Package**](Package.md) |  | [optional]

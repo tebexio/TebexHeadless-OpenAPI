@@ -272,7 +272,7 @@ namespace TebexHeadless.Test.Api
         {
             // TODO uncomment below to test the method and replace null with proper value
             //string token = null;
-            //decimal packageId = null;
+            //int packageId = null;
             //var response = instance.GetPackageById(token, packageId);
             //Assert.IsType<PackageResponse>(response);
         }
@@ -285,7 +285,7 @@ namespace TebexHeadless.Test.Api
         {
             // TODO uncomment below to test the method and replace null with proper value
             //string token = null;
-            //decimal usernameId = null;
+            //int usernameId = null;
             //var response = instance.GetTieredCategoriesForUser(token, usernameId);
             //Assert.IsType<CategoryResponse>(response);
         }
@@ -360,7 +360,7 @@ namespace TebexHeadless.Test.Api
         {
             // TODO uncomment below to test the method and replace null with proper value
             //string basketIdent = null;
-            //decimal packageId = null;
+            //int packageId = null;
             //UpdatePackageQuantityRequest? updatePackageQuantityRequest = null;
             //instance.UpdatePackageQuantity(basketIdent, packageId, updatePackageQuantityRequest);
         }
@@ -373,7 +373,7 @@ namespace TebexHeadless.Test.Api
         {
             // TODO uncomment below to test the method and replace null with proper value
             //string token = null;
-            //decimal tierId = null;
+            //int tierId = null;
             //UpdateTierRequest? updateTierRequest = null;
             //var response = instance.UpdateTier(token, tierId, updateTierRequest);
             //Assert.IsType<UpdateTierResponse>(response);

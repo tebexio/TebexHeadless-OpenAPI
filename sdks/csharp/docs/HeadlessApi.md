@@ -21,7 +21,7 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**GetCategoryById**](HeadlessApi.md#getcategorybyid) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**GetCategoryIncludingPackages**](HeadlessApi.md#getcategoryincludingpackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**GetPackageById**](HeadlessApi.md#getpackagebyid) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
-| [**GetTieredCategoriesForUser**](HeadlessApi.md#gettieredcategoriesforuser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them. |
+| [**GetTieredCategoriesForUser**](HeadlessApi.md#gettieredcategoriesforuser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
 | [**GetWebstoreById**](HeadlessApi.md#getwebstorebyid) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
 | [**RemoveBasketPackage**](HeadlessApi.md#removebasketpackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
 | [**RemoveCoupon**](HeadlessApi.md#removecoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
@@ -1529,7 +1529,7 @@ No authorization required
 
 <a id="getpackagebyid"></a>
 # **GetPackageById**
-> PackageResponse GetPackageById (string token, decimal packageId)
+> PackageResponse GetPackageById (string token, int packageId)
 
 Fetch a package from a webstore by its identifier
 
@@ -1553,7 +1553,7 @@ namespace Example
             config.BasePath = "https://headless.tebex.io/api";
             var apiInstance = new HeadlessApi(config);
             var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
-            var packageId = 1272441812;  // decimal | The package's ID.
+            var packageId = 1272441812;  // int | The package's ID.
 
             try
             {
@@ -1597,7 +1597,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **token** | **string** | The webstore identifier. |  |
-| **packageId** | **decimal** | The package&#39;s ID. |  |
+| **packageId** | **int** | The package&#39;s ID. |  |
 
 ### Return type
 
@@ -1622,7 +1622,7 @@ No authorization required
 
 <a id="gettieredcategoriesforuser"></a>
 # **GetTieredCategoriesForUser**
-> CategoryResponse GetTieredCategoriesForUser (string token, decimal usernameId)
+> CategoryResponse GetTieredCategoriesForUser (string token, int usernameId)
 
 Gets a store's categories including all package information with them.
 
@@ -1644,9 +1644,13 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://headless.tebex.io/api";
+            // Configure HTTP basic authorization: basicAuth
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new HeadlessApi(config);
             var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
-            var usernameId = 76561198042467022;  // decimal | 
+            var usernameId = 76561198042467022;  // int | 
 
             try
             {
@@ -1690,7 +1694,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **token** | **string** | The webstore identifier. |  |
-| **usernameId** | **decimal** |  |  |
+| **usernameId** | **int** |  |  |
 
 ### Return type
 
@@ -1698,7 +1702,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -2172,7 +2176,7 @@ No authorization required
 
 <a id="updatepackagequantity"></a>
 # **UpdatePackageQuantity**
-> void UpdatePackageQuantity (string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = null)
+> void UpdatePackageQuantity (string basketIdent, int packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = null)
 
 Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
 
@@ -2196,7 +2200,7 @@ namespace Example
             config.BasePath = "https://headless.tebex.io/api";
             var apiInstance = new HeadlessApi(config);
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
-            var packageId = 6276316;  // decimal | The package identifier.
+            var packageId = 6276316;  // int | The package identifier.
             var updatePackageQuantityRequest = new UpdatePackageQuantityRequest?(); // UpdatePackageQuantityRequest? |  (optional) 
 
             try
@@ -2237,7 +2241,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **basketIdent** | **string** | The basket identifier. |  |
-| **packageId** | **decimal** | The package identifier. |  |
+| **packageId** | **int** | The package identifier. |  |
 | **updatePackageQuantityRequest** | [**UpdatePackageQuantityRequest?**](UpdatePackageQuantityRequest?.md) |  | [optional]  |
 
 ### Return type
@@ -2264,7 +2268,7 @@ No authorization required
 
 <a id="updatetier"></a>
 # **UpdateTier**
-> UpdateTierResponse UpdateTier (string token, decimal tierId, UpdateTierRequest? updateTierRequest = null)
+> UpdateTierResponse UpdateTier (string token, int tierId, UpdateTierRequest? updateTierRequest = null)
 
 Updates the given teir to the provided package.
 
@@ -2286,9 +2290,13 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://headless.tebex.io/api";
+            // Configure HTTP basic authorization: basicAuth
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new HeadlessApi(config);
             var token = some-uuid;  // string | The webstore identifier.
-            var tierId = 6276316;  // decimal | The tier identifier
+            var tierId = 6276316;  // int | The tier identifier
             var updateTierRequest = new UpdateTierRequest?(); // UpdateTierRequest? |  (optional) 
 
             try
@@ -2333,7 +2341,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **token** | **string** | The webstore identifier. |  |
-| **tierId** | **decimal** | The tier identifier |  |
+| **tierId** | **int** | The tier identifier |  |
 | **updateTierRequest** | [**UpdateTierRequest?**](UpdateTierRequest?.md) |  | [optional]  |
 
 ### Return type
@@ -2342,7 +2350,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

@@ -21,7 +21,7 @@ Method | HTTP request | Description
 [**get_category_including_packages**](HeadlessApi.md#get_category_including_packages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 [**get_cms_pages**](HeadlessApi.md#get_cms_pages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 [**get_package_by_id**](HeadlessApi.md#get_package_by_id) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
-[**get_tiered_categories_for_user**](HeadlessApi.md#get_tiered_categories_for_user) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them.
+[**get_tiered_categories_for_user**](HeadlessApi.md#get_tiered_categories_for_user) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
 [**get_webstore_by_id**](HeadlessApi.md#get_webstore_by_id) | **GET** /accounts/{token} | Fetch a webstore by its identifier
 [**remove_basket_package**](HeadlessApi.md#remove_basket_package) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 [**remove_coupon**](HeadlessApi.md#remove_coupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -1193,7 +1193,7 @@ with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
     token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
-    package_id = 1272441812 # float | The package's ID.
+    package_id = 1272441812 # int | The package's ID.
 
     try:
         # Fetch a package from a webstore by its identifier
@@ -1212,7 +1212,7 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **str**| The webstore identifier. | 
- **package_id** | **float**| The package&#39;s ID. | 
+ **package_id** | **int**| The package&#39;s ID. | 
 
 ### Return type
 
@@ -1244,6 +1244,7 @@ Gets all categories from the webstore, returning active tier information for the
 
 ### Example
 
+* Basic Authentication (basicAuth):
 
 ```python
 import TebexHeadless
@@ -1257,13 +1258,23 @@ configuration = TebexHeadless.Configuration(
     host = "https://headless.tebex.io/api"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = TebexHeadless.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
     token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
-    username_id = 76561198042467022 # float | 
+    username_id = 76561198042467022 # int | 
 
     try:
         # Gets a store's categories including all package information with them.
@@ -1282,7 +1293,7 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **str**| The webstore identifier. | 
- **username_id** | **float**|  | 
+ **username_id** | **int**|  | 
 
 ### Return type
 
@@ -1290,7 +1301,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -1680,7 +1691,7 @@ with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
     basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
-    package_id = 6276316 # float | The package identifier.
+    package_id = 6276316 # int | The package identifier.
     update_package_quantity_request = TebexHeadless.UpdatePackageQuantityRequest() # UpdatePackageQuantityRequest |  (optional)
 
     try:
@@ -1698,7 +1709,7 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **basket_ident** | **str**| The basket identifier. | 
- **package_id** | **float**| The package identifier. | 
+ **package_id** | **int**| The package identifier. | 
  **update_package_quantity_request** | [**UpdatePackageQuantityRequest**](UpdatePackageQuantityRequest.md)|  | [optional] 
 
 ### Return type
@@ -1732,6 +1743,7 @@ Updates a tier to a new package.
 
 ### Example
 
+* Basic Authentication (basicAuth):
 
 ```python
 import TebexHeadless
@@ -1746,13 +1758,23 @@ configuration = TebexHeadless.Configuration(
     host = "https://headless.tebex.io/api"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = TebexHeadless.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
     token = 'some-uuid' # str | The webstore identifier.
-    tier_id = 6276316 # float | The tier identifier
+    tier_id = 6276316 # int | The tier identifier
     update_tier_request = TebexHeadless.UpdateTierRequest() # UpdateTierRequest |  (optional)
 
     try:
@@ -1772,7 +1794,7 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **str**| The webstore identifier. | 
- **tier_id** | **float**| The tier identifier | 
+ **tier_id** | **int**| The tier identifier | 
  **update_tier_request** | [**UpdateTierRequest**](UpdateTierRequest.md)|  | [optional] 
 
 ### Return type
@@ -1781,7 +1803,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

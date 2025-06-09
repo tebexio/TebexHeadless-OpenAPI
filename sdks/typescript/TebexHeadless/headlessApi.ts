@@ -34,6 +34,7 @@ import { UpdateTierResponse } from '../model/updateTierResponse';
 import { WebstoreResponse } from '../model/webstoreResponse';
 
 import { ObjectSerializer, Authentication, VoidAuth, Interceptor } from '../model/models';
+import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
 import { HttpError, RequestFile } from './apis';
 
@@ -53,13 +54,17 @@ export class HeadlessApi {
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
+        'basicAuth': new HttpBasicAuth(),
     }
 
     protected interceptors: Interceptor[] = [];
 
     constructor(basePath?: string);
+    constructor(username: string, password: string, basePath?: string);
     constructor(basePathOrUsername: string, password?: string, basePath?: string) {
         if (password) {
+            this.username = basePathOrUsername;
+            this.password = password
             if (basePath) {
                 this.basePath = basePath;
             }
@@ -96,6 +101,14 @@ export class HeadlessApi {
 
     public setApiKey(key: HeadlessApiApiKeys, value: string) {
         (this.authentications as any)[HeadlessApiApiKeys[key]].apiKey = value;
+    }
+
+    set username(username: string) {
+        this.authentications.basicAuth.username = username;
+    }
+
+    set password(password: string) {
+        this.authentications.basicAuth.password = password;
     }
 
     public addInterceptor(interceptor: Interceptor) {
@@ -1383,7 +1396,7 @@ export class HeadlessApi {
      * @param usernameId 
      */
     public async getTieredCategoriesForUser (token: string, usernameId: number, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: CategoryResponse;  }> {
-        const localVarPath = this.basePath + '/accounts/{token}/categories?usernameId={usernameId}'
+        const localVarPath = this.basePath + '/accounts/{token}/categories?usernameId={usernameId}&includePackages=1'
             .replace('{' + 'token' + '}', encodeURIComponent(String(token)))
             .replace('{' + 'usernameId' + '}', encodeURIComponent(String(usernameId)));
         let localVarQueryParameters: any = {};
@@ -1421,6 +1434,9 @@ export class HeadlessApi {
         };
 
         let authenticationPromise = Promise.resolve();
+        if (this.authentications.basicAuth.username && this.authentications.basicAuth.password) {
+            authenticationPromise = authenticationPromise.then(() => this.authentications.basicAuth.applyToRequest(localVarRequestOptions));
+        }
         authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
 
         let interceptorPromise = authenticationPromise;
@@ -1915,6 +1931,9 @@ export class HeadlessApi {
         };
 
         let authenticationPromise = Promise.resolve();
+        if (this.authentications.basicAuth.username && this.authentications.basicAuth.password) {
+            authenticationPromise = authenticationPromise.then(() => this.authentications.basicAuth.applyToRequest(localVarRequestOptions));
+        }
         authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
 
         let interceptorPromise = authenticationPromise;

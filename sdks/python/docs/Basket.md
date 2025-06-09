@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **complete_auto_redirect** | **bool** |  | [optional] 
 **country** | **str** | A two-character country code | [optional] 
 **ip** | **str** |  | [optional] 
-**username_id** | **float** |  | [optional] 
+**username_id** | **int** |  | [optional] 
 **base_price** | **float** |  | [optional] 
 **sales_tax** | **float** |  | [optional] 
 **total_price** | **float** |  | [optional] 

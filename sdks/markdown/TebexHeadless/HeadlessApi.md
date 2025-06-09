@@ -21,7 +21,7 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**getCategoryById**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**getCategoryIncludingPackages**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**getPackageById**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
-| [**getTieredCategoriesForUser**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them. |
+| [**getTieredCategoriesForUser**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
 | [**getWebstoreById**](HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
 | [**removeBasketPackage**](HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
 | [**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
@@ -493,7 +493,7 @@ Fetch a package from a webstore by its identifier
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **token** | **String**| The webstore identifier. | [default to null] |
-| **packageId** | **BigDecimal**| The package&#39;s ID. | [default to null] |
+| **packageId** | **Integer**| The package&#39;s ID. | [default to null] |
 
 ### Return type
 
@@ -521,7 +521,7 @@ Gets a store&#39;s categories including all package information with them.
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **token** | **String**| The webstore identifier. | [default to null] |
-| **usernameId** | **BigDecimal**|  | [default to null] |
+| **usernameId** | **Integer**|  | [default to null] |
 
 ### Return type
 
@@ -529,7 +529,7 @@ Gets a store&#39;s categories including all package information with them.
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -689,7 +689,7 @@ Updates the quantity of the given package in the basket. The user must be logged
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
-| **packageId** | **BigDecimal**| The package identifier. | [default to null] |
+| **packageId** | **Integer**| The package identifier. | [default to null] |
 | **updatePackageQuantity\_request** | [**updatePackageQuantity_request**](../Models/updatePackageQuantity_request.md)|  | [optional] |
 
 ### Return type
@@ -718,7 +718,7 @@ Updates the given teir to the provided package.
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **token** | **String**| The webstore identifier. | [default to null] |
-| **tierId** | **BigDecimal**| The tier identifier | [default to null] |
+| **tierId** | **Integer**| The tier identifier | [default to null] |
 | **updateTier\_request** | [**updateTier_request**](../Models/updateTier_request.md)|  | [optional] |
 
 ### Return type
@@ -727,7 +727,7 @@ Updates the given teir to the provided package.
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

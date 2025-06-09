@@ -1767,7 +1767,7 @@ type ApiGetPackageByIdRequest struct {
 	ctx context.Context
 	ApiService *HeadlessAPIService
 	token string
-	packageId float32
+	packageId int32
 }
 
 func (r ApiGetPackageByIdRequest) Execute() (*PackageResponse, *http.Response, error) {
@@ -1784,7 +1784,7 @@ Gets a package from a webstore by ID.
  @param packageId The package's ID.
  @return ApiGetPackageByIdRequest
 */
-func (a *HeadlessAPIService) GetPackageById(ctx context.Context, token string, packageId float32) ApiGetPackageByIdRequest {
+func (a *HeadlessAPIService) GetPackageById(ctx context.Context, token string, packageId int32) ApiGetPackageByIdRequest {
 	return ApiGetPackageByIdRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1874,7 +1874,7 @@ type ApiGetTieredCategoriesForUserRequest struct {
 	ctx context.Context
 	ApiService *HeadlessAPIService
 	token string
-	usernameId float32
+	usernameId int32
 }
 
 func (r ApiGetTieredCategoriesForUserRequest) Execute() (*CategoryResponse, *http.Response, error) {
@@ -1891,7 +1891,7 @@ Gets all categories from the webstore, returning active tier information for the
  @param usernameId
  @return ApiGetTieredCategoriesForUserRequest
 */
-func (a *HeadlessAPIService) GetTieredCategoriesForUser(ctx context.Context, token string, usernameId float32) ApiGetTieredCategoriesForUserRequest {
+func (a *HeadlessAPIService) GetTieredCategoriesForUser(ctx context.Context, token string, usernameId int32) ApiGetTieredCategoriesForUserRequest {
 	return ApiGetTieredCategoriesForUserRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1915,7 +1915,7 @@ func (a *HeadlessAPIService) GetTieredCategoriesForUserExecute(r ApiGetTieredCat
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{token}/categories?usernameId={usernameId}"
+	localVarPath := localBasePath + "/accounts/{token}/categories?usernameId={usernameId}&includePackages=1"
 	localVarPath = strings.Replace(localVarPath, "{"+"token"+"}", url.PathEscape(parameterValueToString(r.token, "token")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"usernameId"+"}", url.PathEscape(parameterValueToString(r.usernameId, "usernameId")), -1)
 
@@ -2492,7 +2492,7 @@ type ApiUpdatePackageQuantityRequest struct {
 	ctx context.Context
 	ApiService *HeadlessAPIService
 	basketIdent string
-	packageId float32
+	packageId int32
 	updatePackageQuantityRequest *UpdatePackageQuantityRequest
 }
 
@@ -2515,7 +2515,7 @@ Sets the quantity of the given item in the basket.
  @param packageId The package identifier.
  @return ApiUpdatePackageQuantityRequest
 */
-func (a *HeadlessAPIService) UpdatePackageQuantity(ctx context.Context, basketIdent string, packageId float32) ApiUpdatePackageQuantityRequest {
+func (a *HeadlessAPIService) UpdatePackageQuantity(ctx context.Context, basketIdent string, packageId int32) ApiUpdatePackageQuantityRequest {
 	return ApiUpdatePackageQuantityRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2596,7 +2596,7 @@ type ApiUpdateTierRequest struct {
 	ctx context.Context
 	ApiService *HeadlessAPIService
 	token string
-	tierId float32
+	tierId int32
 	updateTierRequest *UpdateTierRequest
 }
 
@@ -2619,7 +2619,7 @@ Updates a tier to a new package.
  @param tierId The tier identifier
  @return ApiUpdateTierRequest
 */
-func (a *HeadlessAPIService) UpdateTier(ctx context.Context, token string, tierId float32) ApiUpdateTierRequest {
+func (a *HeadlessAPIService) UpdateTier(ctx context.Context, token string, tierId int32) ApiUpdateTierRequest {
 	return ApiUpdateTierRequest{
 		ApiService: a,
 		ctx: ctx,

@@ -36,7 +36,7 @@ namespace TebexHeadless.Model
         /// Initializes a new instance of the <see cref="UpdateTierRequest" /> class.
         /// </summary>
         /// <param name="packageId">packageId.</param>
-        public UpdateTierRequest(decimal packageId = default(decimal))
+        public UpdateTierRequest(int packageId = default(int))
         {
             this.PackageId = packageId;
         }
@@ -44,9 +44,9 @@ namespace TebexHeadless.Model
         /// <summary>
         /// Gets or Sets PackageId
         /// </summary>
-        /// <example>123456789</example>
+        /// <example>6834822</example>
         [DataMember(Name = "package_id", EmitDefaultValue = false)]
-        public decimal PackageId { get; set; }
+        public int PackageId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

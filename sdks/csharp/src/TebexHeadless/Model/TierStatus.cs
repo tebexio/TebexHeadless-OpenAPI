@@ -37,7 +37,7 @@ namespace TebexHeadless.Model
         /// </summary>
         /// <param name="id">id.</param>
         /// <param name="description">description.</param>
-        public TierStatus(decimal id = default(decimal), string description = default(string))
+        public TierStatus(int id = default(int), string description = default(string))
         {
             this.Id = id;
             this.Description = description;
@@ -48,7 +48,7 @@ namespace TebexHeadless.Model
         /// </summary>
         /// <example>2</example>
         [DataMember(Name = "id", EmitDefaultValue = false)]
-        public decimal Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Description

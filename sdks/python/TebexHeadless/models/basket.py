@@ -44,7 +44,7 @@ class Basket(BaseModel):
     complete_auto_redirect: Optional[StrictBool] = None
     country: Optional[StrictStr] = Field(default=None, description="A two-character country code")
     ip: Optional[StrictStr] = None
-    username_id: Optional[Union[StrictFloat, StrictInt]] = None
+    username_id: Optional[StrictInt] = None
     base_price: Optional[Union[StrictFloat, StrictInt]] = None
     sales_tax: Optional[Union[StrictFloat, StrictInt]] = None
     total_price: Optional[Union[StrictFloat, StrictInt]] = None

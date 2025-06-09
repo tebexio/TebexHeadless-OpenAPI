@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**package_id** | **float** |  | [optional] 
+**package_id** | **int** |  | [optional] 
 
 ## Example
 

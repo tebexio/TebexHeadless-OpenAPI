@@ -32,7 +32,6 @@ import org.openapitools.client.model.ApplyCreatorCodeRequest;
 import org.openapitools.client.model.Basket;
 import org.openapitools.client.model.BasketAuthResponseInner;
 import org.openapitools.client.model.BasketResponse;
-import java.math.BigDecimal;
 import org.openapitools.client.model.CMSPagesResponse;
 import org.openapitools.client.model.CategoryResponse;
 import org.openapitools.client.model.Coupon;
@@ -2243,7 +2242,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response returns the package information. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getPackageByIdCall(String token, BigDecimal packageId, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getPackageByIdCall(String token, Integer packageId, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -2290,7 +2289,7 @@ public class HeadlessApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getPackageByIdValidateBeforeCall(String token, BigDecimal packageId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getPackageByIdValidateBeforeCall(String token, Integer packageId, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'token' is set
         if (token == null) {
             throw new ApiException("Missing the required parameter 'token' when calling getPackageById(Async)");
@@ -2318,7 +2317,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response returns the package information. </td><td>  -  </td></tr>
      </table>
      */
-    public PackageResponse getPackageById(String token, BigDecimal packageId) throws ApiException {
+    public PackageResponse getPackageById(String token, Integer packageId) throws ApiException {
         ApiResponse<PackageResponse> localVarResp = getPackageByIdWithHttpInfo(token, packageId);
         return localVarResp.getData();
     }
@@ -2336,7 +2335,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response returns the package information. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<PackageResponse> getPackageByIdWithHttpInfo(String token, BigDecimal packageId) throws ApiException {
+    public ApiResponse<PackageResponse> getPackageByIdWithHttpInfo(String token, Integer packageId) throws ApiException {
         okhttp3.Call localVarCall = getPackageByIdValidateBeforeCall(token, packageId, null);
         Type localVarReturnType = new TypeToken<PackageResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -2356,7 +2355,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response returns the package information. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getPackageByIdAsync(String token, BigDecimal packageId, final ApiCallback<PackageResponse> _callback) throws ApiException {
+    public okhttp3.Call getPackageByIdAsync(String token, Integer packageId, final ApiCallback<PackageResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getPackageByIdValidateBeforeCall(token, packageId, _callback);
         Type localVarReturnType = new TypeToken<PackageResponse>(){}.getType();
@@ -2376,7 +2375,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response returns a list of category information. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getTieredCategoriesForUserCall(String token, BigDecimal usernameId, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getTieredCategoriesForUserCall(String token, Integer usernameId, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -2393,7 +2392,7 @@ public class HeadlessApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/accounts/{token}/categories?usernameId={usernameId}"
+        String localVarPath = "/accounts/{token}/categories?usernameId={usernameId}&includePackages=1"
             .replace("{" + "token" + "}", localVarApiClient.escapeString(token.toString()))
             .replace("{" + "usernameId" + "}", localVarApiClient.escapeString(usernameId.toString()));
 
@@ -2418,12 +2417,12 @@ public class HeadlessApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "basicAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getTieredCategoriesForUserValidateBeforeCall(String token, BigDecimal usernameId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getTieredCategoriesForUserValidateBeforeCall(String token, Integer usernameId, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'token' is set
         if (token == null) {
             throw new ApiException("Missing the required parameter 'token' when calling getTieredCategoriesForUser(Async)");
@@ -2451,7 +2450,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response returns a list of category information. </td><td>  -  </td></tr>
      </table>
      */
-    public CategoryResponse getTieredCategoriesForUser(String token, BigDecimal usernameId) throws ApiException {
+    public CategoryResponse getTieredCategoriesForUser(String token, Integer usernameId) throws ApiException {
         ApiResponse<CategoryResponse> localVarResp = getTieredCategoriesForUserWithHttpInfo(token, usernameId);
         return localVarResp.getData();
     }
@@ -2469,7 +2468,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response returns a list of category information. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CategoryResponse> getTieredCategoriesForUserWithHttpInfo(String token, BigDecimal usernameId) throws ApiException {
+    public ApiResponse<CategoryResponse> getTieredCategoriesForUserWithHttpInfo(String token, Integer usernameId) throws ApiException {
         okhttp3.Call localVarCall = getTieredCategoriesForUserValidateBeforeCall(token, usernameId, null);
         Type localVarReturnType = new TypeToken<CategoryResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -2489,7 +2488,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response returns a list of category information. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getTieredCategoriesForUserAsync(String token, BigDecimal usernameId, final ApiCallback<CategoryResponse> _callback) throws ApiException {
+    public okhttp3.Call getTieredCategoriesForUserAsync(String token, Integer usernameId, final ApiCallback<CategoryResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getTieredCategoriesForUserValidateBeforeCall(token, usernameId, _callback);
         Type localVarReturnType = new TypeToken<CategoryResponse>(){}.getType();
@@ -3167,7 +3166,7 @@ public class HeadlessApi {
         <tr><td> 422 </td><td> The provided request is invalid. The error response will include detail as to which parameter failed validation. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updatePackageQuantityCall(String basketIdent, BigDecimal packageId, UpdatePackageQuantityRequest updatePackageQuantityRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updatePackageQuantityCall(String basketIdent, Integer packageId, UpdatePackageQuantityRequest updatePackageQuantityRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -3214,7 +3213,7 @@ public class HeadlessApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updatePackageQuantityValidateBeforeCall(String basketIdent, BigDecimal packageId, UpdatePackageQuantityRequest updatePackageQuantityRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updatePackageQuantityValidateBeforeCall(String basketIdent, Integer packageId, UpdatePackageQuantityRequest updatePackageQuantityRequest, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'basketIdent' is set
         if (basketIdent == null) {
             throw new ApiException("Missing the required parameter 'basketIdent' when calling updatePackageQuantity(Async)");
@@ -3243,7 +3242,7 @@ public class HeadlessApi {
         <tr><td> 422 </td><td> The provided request is invalid. The error response will include detail as to which parameter failed validation. </td><td>  -  </td></tr>
      </table>
      */
-    public void updatePackageQuantity(String basketIdent, BigDecimal packageId, UpdatePackageQuantityRequest updatePackageQuantityRequest) throws ApiException {
+    public void updatePackageQuantity(String basketIdent, Integer packageId, UpdatePackageQuantityRequest updatePackageQuantityRequest) throws ApiException {
         updatePackageQuantityWithHttpInfo(basketIdent, packageId, updatePackageQuantityRequest);
     }
 
@@ -3262,7 +3261,7 @@ public class HeadlessApi {
         <tr><td> 422 </td><td> The provided request is invalid. The error response will include detail as to which parameter failed validation. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> updatePackageQuantityWithHttpInfo(String basketIdent, BigDecimal packageId, UpdatePackageQuantityRequest updatePackageQuantityRequest) throws ApiException {
+    public ApiResponse<Void> updatePackageQuantityWithHttpInfo(String basketIdent, Integer packageId, UpdatePackageQuantityRequest updatePackageQuantityRequest) throws ApiException {
         okhttp3.Call localVarCall = updatePackageQuantityValidateBeforeCall(basketIdent, packageId, updatePackageQuantityRequest, null);
         return localVarApiClient.execute(localVarCall);
     }
@@ -3283,7 +3282,7 @@ public class HeadlessApi {
         <tr><td> 422 </td><td> The provided request is invalid. The error response will include detail as to which parameter failed validation. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updatePackageQuantityAsync(String basketIdent, BigDecimal packageId, UpdatePackageQuantityRequest updatePackageQuantityRequest, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call updatePackageQuantityAsync(String basketIdent, Integer packageId, UpdatePackageQuantityRequest updatePackageQuantityRequest, final ApiCallback<Void> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updatePackageQuantityValidateBeforeCall(basketIdent, packageId, updatePackageQuantityRequest, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
@@ -3303,7 +3302,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateTierCall(String token, BigDecimal tierId, UpdateTierRequest updateTierRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateTierCall(String token, Integer tierId, UpdateTierRequest updateTierRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -3346,12 +3345,12 @@ public class HeadlessApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "basicAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateTierValidateBeforeCall(String token, BigDecimal tierId, UpdateTierRequest updateTierRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateTierValidateBeforeCall(String token, Integer tierId, UpdateTierRequest updateTierRequest, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'token' is set
         if (token == null) {
             throw new ApiException("Missing the required parameter 'token' when calling updateTier(Async)");
@@ -3380,7 +3379,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response. </td><td>  -  </td></tr>
      </table>
      */
-    public UpdateTierResponse updateTier(String token, BigDecimal tierId, UpdateTierRequest updateTierRequest) throws ApiException {
+    public UpdateTierResponse updateTier(String token, Integer tierId, UpdateTierRequest updateTierRequest) throws ApiException {
         ApiResponse<UpdateTierResponse> localVarResp = updateTierWithHttpInfo(token, tierId, updateTierRequest);
         return localVarResp.getData();
     }
@@ -3399,7 +3398,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<UpdateTierResponse> updateTierWithHttpInfo(String token, BigDecimal tierId, UpdateTierRequest updateTierRequest) throws ApiException {
+    public ApiResponse<UpdateTierResponse> updateTierWithHttpInfo(String token, Integer tierId, UpdateTierRequest updateTierRequest) throws ApiException {
         okhttp3.Call localVarCall = updateTierValidateBeforeCall(token, tierId, updateTierRequest, null);
         Type localVarReturnType = new TypeToken<UpdateTierResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -3420,7 +3419,7 @@ public class HeadlessApi {
         <tr><td> 200 </td><td> Successful response. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateTierAsync(String token, BigDecimal tierId, UpdateTierRequest updateTierRequest, final ApiCallback<UpdateTierResponse> _callback) throws ApiException {
+    public okhttp3.Call updateTierAsync(String token, Integer tierId, UpdateTierRequest updateTierRequest, final ApiCallback<UpdateTierResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateTierValidateBeforeCall(token, tierId, updateTierRequest, _callback);
         Type localVarReturnType = new TypeToken<UpdateTierResponse>(){}.getType();

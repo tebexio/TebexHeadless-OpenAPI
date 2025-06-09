@@ -58,7 +58,7 @@ class UpdateTierRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        'package_id' => 'float'
+        'package_id' => 'int'
     ];
 
     /**
@@ -293,7 +293,7 @@ class UpdateTierRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets package_id
      *
-     * @return float|null
+     * @return int|null
      */
     public function getPackageId()
     {
@@ -303,7 +303,7 @@ class UpdateTierRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets package_id
      *
-     * @param float|null $package_id package_id
+     * @param int|null $package_id package_id
      *
      * @return self
      */

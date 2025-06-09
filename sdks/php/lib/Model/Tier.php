@@ -58,7 +58,7 @@ class Tier implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'id' => 'float',
+        'id' => 'int',
         'created_at' => '\DateTime',
         'username_id' => 'string',
         'package' => '\TebexHeadless\Model\Package',
@@ -349,7 +349,7 @@ class Tier implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return float|null
+     * @return int|null
      */
     public function getId()
     {
@@ -359,7 +359,7 @@ class Tier implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param float|null $id id
+     * @param int|null $id id
      *
      * @return self
      */

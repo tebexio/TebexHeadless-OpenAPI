@@ -8,7 +8,7 @@ The package this tier is downgrading to if a downgrade is pending.
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **BigDecimal** |  |  [optional] |
+|**id** | **Integer** |  |  [optional] |
 |**name** | **String** |  |  [optional] |
 
 

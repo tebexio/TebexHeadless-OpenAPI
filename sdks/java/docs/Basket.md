@@ -20,7 +20,7 @@
 |**completeAutoRedirect** | **Boolean** |  |  [optional] |
 |**country** | **String** | A two-character country code |  [optional] |
 |**ip** | **String** |  |  [optional] |
-|**usernameId** | **BigDecimal** |  |  [optional] |
+|**usernameId** | **Integer** |  |  [optional] |
 |**basePrice** | **Float** |  |  [optional] |
 |**salesTax** | **Float** |  |  [optional] |
 |**totalPrice** | **Float** |  |  [optional] |

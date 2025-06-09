@@ -46,6 +46,7 @@ class ApiClient {
          * @type {Array.<String>}
          */
         this.authentications = {
+            'basicAuth': {type: 'basic'}
         }
 
         /**

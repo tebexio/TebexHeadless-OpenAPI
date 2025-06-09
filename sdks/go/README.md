@@ -95,7 +95,7 @@ Class | Method | HTTP request | Description
 *HeadlessAPI* | [**GetCategoryById**](docs/HeadlessAPI.md#getcategorybyid) | **Get** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 *HeadlessAPI* | [**GetCategoryIncludingPackages**](docs/HeadlessAPI.md#getcategoryincludingpackages) | **Get** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 *HeadlessAPI* | [**GetPackageById**](docs/HeadlessAPI.md#getpackagebyid) | **Get** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
-*HeadlessAPI* | [**GetTieredCategoriesForUser**](docs/HeadlessAPI.md#gettieredcategoriesforuser) | **Get** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them.
+*HeadlessAPI* | [**GetTieredCategoriesForUser**](docs/HeadlessAPI.md#gettieredcategoriesforuser) | **Get** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
 *HeadlessAPI* | [**GetWebstoreById**](docs/HeadlessAPI.md#getwebstorebyid) | **Get** /accounts/{token} | Fetch a webstore by its identifier
 *HeadlessAPI* | [**RemoveBasketPackage**](docs/HeadlessAPI.md#removebasketpackage) | **Post** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 *HeadlessAPI* | [**RemoveCoupon**](docs/HeadlessAPI.md#removecoupon) | **Post** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -140,7 +140,21 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Authorization
 
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+### basicAuth
+
+- **Type**: HTTP basic authentication
+
+Example
+
+```go
+auth := context.WithValue(context.Background(), TebexHeadless.ContextBasicAuth, TebexHeadless.BasicAuth{
+	UserName: "username",
+	Password: "password",
+})
+r, err := client.Service.Operation(auth, args)
+```
 
 
 ## Documentation for Utility Methods

@@ -912,12 +912,12 @@ export default class HeadlessApi {
       let formParams = {
       };
 
-      let authNames = [];
+      let authNames = ['basicAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = CategoryResponse;
       return this.apiClient.callApi(
-        '/accounts/{token}/categories?usernameId={usernameId}', 'GET',
+        '/accounts/{token}/categories?usernameId={usernameId}&includePackages=1', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -1251,7 +1251,7 @@ export default class HeadlessApi {
       let formParams = {
       };
 
-      let authNames = [];
+      let authNames = ['basicAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
       let returnType = UpdateTierResponse;

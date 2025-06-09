@@ -58,7 +58,7 @@ class UpdatePackageQuantityRequest implements ModelInterface, ArrayAccess, \Json
       * @var string[]
       */
     protected static $openAPITypes = [
-        'quantity' => 'float'
+        'quantity' => 'int'
     ];
 
     /**
@@ -293,7 +293,7 @@ class UpdatePackageQuantityRequest implements ModelInterface, ArrayAccess, \Json
     /**
      * Gets quantity
      *
-     * @return float|null
+     * @return int|null
      */
     public function getQuantity()
     {
@@ -303,7 +303,7 @@ class UpdatePackageQuantityRequest implements ModelInterface, ArrayAccess, \Json
     /**
      * Sets quantity
      *
-     * @param float|null $quantity quantity
+     * @param int|null $quantity quantity
      *
      * @return self
      */

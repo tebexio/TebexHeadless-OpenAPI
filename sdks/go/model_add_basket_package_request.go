@@ -21,7 +21,7 @@ var _ MappedNullable = &AddBasketPackageRequest{}
 // AddBasketPackageRequest struct for AddBasketPackageRequest
 type AddBasketPackageRequest struct {
 	PackageId *string `json:"package_id,omitempty"`
-	Quantity *float32 `json:"quantity,omitempty"`
+	Quantity *int32 `json:"quantity,omitempty"`
 }
 
 // NewAddBasketPackageRequest instantiates a new AddBasketPackageRequest object
@@ -74,9 +74,9 @@ func (o *AddBasketPackageRequest) SetPackageId(v string) {
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
-func (o *AddBasketPackageRequest) GetQuantity() float32 {
+func (o *AddBasketPackageRequest) GetQuantity() int32 {
 	if o == nil || IsNil(o.Quantity) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Quantity
@@ -84,7 +84,7 @@ func (o *AddBasketPackageRequest) GetQuantity() float32 {
 
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AddBasketPackageRequest) GetQuantityOk() (*float32, bool) {
+func (o *AddBasketPackageRequest) GetQuantityOk() (*int32, bool) {
 	if o == nil || IsNil(o.Quantity) {
 		return nil, false
 	}
@@ -100,8 +100,8 @@ func (o *AddBasketPackageRequest) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given float32 and assigns it to the Quantity field.
-func (o *AddBasketPackageRequest) SetQuantity(v float32) {
+// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
+func (o *AddBasketPackageRequest) SetQuantity(v int32) {
 	o.Quantity = &v
 }
 

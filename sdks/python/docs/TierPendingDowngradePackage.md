@@ -6,7 +6,7 @@ The package this tier is downgrading to if a downgrade is pending.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **float** |  | [optional] 
+**id** | **int** |  | [optional] 
 **name** | **str** |  | [optional] 
 
 ## Example

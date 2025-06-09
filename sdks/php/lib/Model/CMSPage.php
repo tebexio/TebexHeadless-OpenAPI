@@ -58,10 +58,10 @@ class CMSPage implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'id' => 'float',
+        'id' => 'int',
         'created_at' => '\DateTime',
         'updated_at' => '\DateTime',
-        'account_id' => 'float',
+        'account_id' => 'int',
         'title' => 'string',
         'slug' => 'string',
         'private' => 'bool',
@@ -363,7 +363,7 @@ class CMSPage implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return float|null
+     * @return int|null
      */
     public function getId()
     {
@@ -373,7 +373,7 @@ class CMSPage implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param float|null $id id
+     * @param int|null $id id
      *
      * @return self
      */
@@ -444,7 +444,7 @@ class CMSPage implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets account_id
      *
-     * @return float|null
+     * @return int|null
      */
     public function getAccountId()
     {
@@ -454,7 +454,7 @@ class CMSPage implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets account_id
      *
-     * @param float|null $account_id account_id
+     * @param int|null $account_id account_id
      *
      * @return self
      */

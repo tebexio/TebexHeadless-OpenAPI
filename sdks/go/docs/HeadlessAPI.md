@@ -21,7 +21,7 @@ Method | HTTP request | Description
 [**GetCategoryById**](HeadlessAPI.md#GetCategoryById) | **Get** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 [**GetCategoryIncludingPackages**](HeadlessAPI.md#GetCategoryIncludingPackages) | **Get** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 [**GetPackageById**](HeadlessAPI.md#GetPackageById) | **Get** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
-[**GetTieredCategoriesForUser**](HeadlessAPI.md#GetTieredCategoriesForUser) | **Get** /accounts/{token}/categories?usernameId&#x3D;{usernameId} | Gets a store&#39;s categories including all package information with them.
+[**GetTieredCategoriesForUser**](HeadlessAPI.md#GetTieredCategoriesForUser) | **Get** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
 [**GetWebstoreById**](HeadlessAPI.md#GetWebstoreById) | **Get** /accounts/{token} | Fetch a webstore by its identifier
 [**RemoveBasketPackage**](HeadlessAPI.md#RemoveBasketPackage) | **Post** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 [**RemoveCoupon**](HeadlessAPI.md#RemoveCoupon) | **Post** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -1220,7 +1220,7 @@ import (
 
 func main() {
 	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
-	packageId := float32(1272441812) // float32 | The package's ID.
+	packageId := int32(1272441812) // int32 | The package's ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1241,7 +1241,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **token** | **string** | The webstore identifier. | 
-**packageId** | **float32** | The package&#39;s ID. | 
+**packageId** | **int32** | The package&#39;s ID. | 
 
 ### Other Parameters
 
@@ -1293,7 +1293,7 @@ import (
 
 func main() {
 	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
-	usernameId := float32(76561198042467022) // float32 | 
+	usernameId := int32(76561198042467022) // int32 | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1314,7 +1314,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **token** | **string** | The webstore identifier. | 
-**usernameId** | **float32** |  | 
+**usernameId** | **int32** |  | 
 
 ### Other Parameters
 
@@ -1332,7 +1332,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -1723,7 +1723,7 @@ import (
 
 func main() {
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
-	packageId := float32(6276316) // float32 | The package identifier.
+	packageId := int32(6276316) // int32 | The package identifier.
 	updatePackageQuantityRequest := *openapiclient.NewUpdatePackageQuantityRequest() // UpdatePackageQuantityRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1743,7 +1743,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **basketIdent** | **string** | The basket identifier. | 
-**packageId** | **float32** | The package identifier. | 
+**packageId** | **int32** | The package identifier. | 
 
 ### Other Parameters
 
@@ -1796,7 +1796,7 @@ import (
 
 func main() {
 	token := "some-uuid" // string | The webstore identifier.
-	tierId := float32(6276316) // float32 | The tier identifier
+	tierId := int32(6276316) // int32 | The tier identifier
 	updateTierRequest := *openapiclient.NewUpdateTierRequest() // UpdateTierRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1818,7 +1818,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **token** | **string** | The webstore identifier. | 
-**tierId** | **float32** | The tier identifier | 
+**tierId** | **int32** | The tier identifier | 
 
 ### Other Parameters
 
@@ -1837,7 +1837,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

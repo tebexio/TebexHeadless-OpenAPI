@@ -226,7 +226,7 @@ paths:
       summary: Gets a store's categories including all package information with them.
       tags:
       - Headless
-  /accounts/{token}/categories?usernameId={usernameId}:
+  /accounts/{token}/categories?usernameId={usernameId}&includePackages=1:
     get:
       description: "Gets all categories from the webstore, returning active tier information\
         \ for the given player."
@@ -247,7 +247,7 @@ paths:
         required: true
         schema:
           example: 76561198042467022
-          type: number
+          type: integer
         style: simple
       responses:
         "200":
@@ -256,6 +256,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
           description: Successful response returns a list of category information.
+      security:
+      - basicAuth: []
       summary: Gets a store's categories including all package information with them.
       tags:
       - Headless
@@ -349,7 +351,7 @@ paths:
         required: true
         schema:
           example: 1272441812
-          type: number
+          type: integer
         style: simple
       responses:
         "200":
@@ -806,7 +808,7 @@ paths:
         required: true
         schema:
           example: 6276316
-          type: number
+          type: integer
         style: simple
       requestBody:
         content:
@@ -844,7 +846,7 @@ paths:
         required: true
         schema:
           example: 6276316
-          type: number
+          type: integer
         style: simple
       requestBody:
         content:
@@ -858,6 +860,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UpdateTierResponse'
           description: Successful response.
+      security:
+      - basicAuth: []
       summary: Updates the given teir to the provided package.
       tags:
       - Headless
@@ -1024,7 +1028,7 @@ components:
       properties:
         id:
           example: 127
-          type: number
+          type: integer
         created_at:
           example: 2023-11-13T20:59:54Z
           format: date-time
@@ -1035,7 +1039,7 @@ components:
           type: string
         account_id:
           example: 244
-          type: number
+          type: integer
         title:
           example: About
           type: string
@@ -1267,7 +1271,7 @@ components:
           type: string
         username_id:
           example: 127244
-          type: number
+          type: integer
         base_price:
           example: 1.27
           format: float
@@ -1831,7 +1835,7 @@ components:
       properties:
         id:
           example: 40796
-          type: number
+          type: integer
         created_at:
           description: The date and time when the tier became active
           example: 2025-05-14T13:48:56Z
@@ -1903,7 +1907,7 @@ components:
           type: string
         quantity:
           example: 1
-          type: number
+          type: integer
       type: object
     removeBasketPackage_request:
       properties:
@@ -1915,13 +1919,13 @@ components:
       properties:
         quantity:
           example: 1
-          type: number
+          type: integer
       type: object
     updateTier_request:
       properties:
         package_id:
-          example: 123456789
-          type: number
+          example: 6834822
+          type: integer
       type: object
     BasketAuthResponse_inner:
       example:
@@ -1954,7 +1958,7 @@ components:
       properties:
         id:
           example: 2
-          type: number
+          type: integer
         description:
           example: Active
           type: string
@@ -1968,8 +1972,12 @@ components:
       properties:
         id:
           example: 6834820
-          type: number
+          type: integer
         name:
           example: Bronze
           type: string
       type: object
+  securitySchemes:
+    basicAuth:
+      scheme: basic
+      type: http

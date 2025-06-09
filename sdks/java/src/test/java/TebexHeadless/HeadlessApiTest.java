@@ -19,7 +19,6 @@ import org.openapitools.client.model.ApplyCreatorCodeRequest;
 import org.openapitools.client.model.Basket;
 import org.openapitools.client.model.BasketAuthResponseInner;
 import org.openapitools.client.model.BasketResponse;
-import java.math.BigDecimal;
 import org.openapitools.client.model.CMSPagesResponse;
 import org.openapitools.client.model.CategoryResponse;
 import org.openapitools.client.model.Coupon;
@@ -299,7 +298,7 @@ public class HeadlessApiTest {
     @Test
     public void getPackageByIdTest() throws ApiException {
         String token = null;
-        BigDecimal packageId = null;
+        Integer packageId = null;
         PackageResponse response = api.getPackageById(token, packageId);
         // TODO: test validations
     }
@@ -314,7 +313,7 @@ public class HeadlessApiTest {
     @Test
     public void getTieredCategoriesForUserTest() throws ApiException {
         String token = null;
-        BigDecimal usernameId = null;
+        Integer usernameId = null;
         CategoryResponse response = api.getTieredCategoriesForUser(token, usernameId);
         // TODO: test validations
     }
@@ -404,7 +403,7 @@ public class HeadlessApiTest {
     @Test
     public void updatePackageQuantityTest() throws ApiException {
         String basketIdent = null;
-        BigDecimal packageId = null;
+        Integer packageId = null;
         UpdatePackageQuantityRequest updatePackageQuantityRequest = null;
         api.updatePackageQuantity(basketIdent, packageId, updatePackageQuantityRequest);
         // TODO: test validations
@@ -420,7 +419,7 @@ public class HeadlessApiTest {
     @Test
     public void updateTierTest() throws ApiException {
         String token = null;
-        BigDecimal tierId = null;
+        Integer tierId = null;
         UpdateTierRequest updateTierRequest = null;
         UpdateTierResponse response = api.updateTier(token, tierId, updateTierRequest);
         // TODO: test validations
