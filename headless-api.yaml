@@ -868,7 +868,7 @@ components:
   securitySchemes:
     basicAuth:
       type: http
-      schema: basic
+      scheme: basic
   schemas:
     Webstore:
       type: object
