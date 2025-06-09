@@ -238,11 +238,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
 
-  /accounts/{token}/categories?usernameId={usernameId}:
+  /accounts/{token}/categories?usernameId={usernameId}&includePackages=1:
     get:
       tags:
       - Headless
       operationId: getTieredCategoriesForUser
+      security:
+        - basicAuth: []
       summary: Gets a store's categories including all package information with them.
       parameters:
         - in: path
@@ -255,7 +257,7 @@ paths:
         - in: path
           name: usernameId
           schema:
-              type: number
+              type: integer
               example: 76561198042467022
           required: true
       description: |- 
@@ -350,7 +352,7 @@ paths:
         - in: path
           name: packageId
           schema:
-            type: number
+            type: integer
             example: 1272441812
           required: true
           description: The package's ID.
@@ -735,7 +737,7 @@ paths:
                   type: string
                   example: 6276316
                 quantity:
-                  type: number
+                  type: integer
                   example: 1
       responses:
         '200':
@@ -799,7 +801,7 @@ paths:
         - in: path
           name: packageId
           schema:
-            type: number
+            type: integer
             example: 6276316
           required: true
           description: The package identifier.
@@ -812,7 +814,7 @@ paths:
               type: object
               properties:
                 quantity:
-                  type: number
+                  type: integer
                   example: 1
       responses:
         '200':
@@ -825,6 +827,8 @@ paths:
       tags:
       - Headless
       operationId: updateTier
+      security:
+        - basicAuth: []
       summary: Updates the given teir to the provided package.
       parameters:
         - in: path
@@ -838,7 +842,7 @@ paths:
           name: tierId
           required: true
           schema:
-            type: number
+            type: integer
             example: 6276316
           description: The tier identifier
       description: |-
@@ -850,8 +854,8 @@ paths:
               type: object
               properties:
                 package_id:
-                  type: number
-                  example: 123456789
+                  type: integer
+                  example: 6834822
       responses:
         '200':
           description: 
@@ -861,6 +865,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/UpdateTierResponse"
 components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      schema: basic
   schemas:
     Webstore:
       type: object
@@ -933,7 +941,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          type: integer
           example: 127
         created_at:
           type: string
@@ -944,7 +952,7 @@ components:
           format: date-time
           example: "2023-11-13T20:59:54.000000Z"
         account_id:
-          type: number
+          type: integer
           example: 244
         title:
           type: string
@@ -1071,7 +1079,7 @@ components:
           type: string
           example: 127.0.0.1
         username_id:
-          type: number
+          type: integer
           example: 127244
         base_price:
           type: number
@@ -1276,7 +1284,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          type: integer
           example: 40796
         created_at:
           type: string
@@ -1305,7 +1313,7 @@ components:
           type: object
           properties:
             id:
-              type: number
+              type: integer
               example: 2
             description:
               type: string
@@ -1314,7 +1322,7 @@ components:
           type: object
           properties:
             id:
-              type: number
+              type: integer
               example: 6834820
             name:
               type: string
