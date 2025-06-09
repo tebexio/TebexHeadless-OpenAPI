@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **float** |  | [optional]
+**id** | **int** |  | [optional]
 **created_at** | **\DateTime** |  | [optional]
 **updated_at** | **\DateTime** |  | [optional]
-**account_id** | **float** |  | [optional]
+**account_id** | **int** |  | [optional]
 **title** | **string** |  | [optional]
 **slug** | **string** |  | [optional]
 **private** | **bool** |  | [optional]

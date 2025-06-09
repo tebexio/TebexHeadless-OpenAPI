@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **sales_tax** | **float** |  | [optional] 
 **total_price** | **float** |  | [optional] 
 **currency** | **str** |  | [optional] 
+**prorate_price** | **float** | If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier. | [optional] 
 **discount** | **float** |  | [optional] 
 **disable_quantity** | **bool** |  | [optional] 
 **disable_gifting** | **bool** |  | [optional] 

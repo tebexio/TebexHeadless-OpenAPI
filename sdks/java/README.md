@@ -1,8 +1,8 @@
 # openapi-java-client
 
 Tebex Headless API
-- API version: 1.0.0
-  - Build date: 2024-06-28T09:45:28.830932-05:00[America/Chicago]
+- API version: 1.1.0
+  - Build date: 2025-06-09T08:23:39.979241-05:00[America/Chicago]
   - Generator version: 7.5.0
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
@@ -41,7 +41,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.openapitools</groupId>
   <artifactId>openapi-java-client</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -57,7 +57,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.openapitools:openapi-java-client:1.0.0"
+     implementation "org.openapitools:openapi-java-client:1.1.0"
   }
 ```
 
@@ -71,7 +71,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-1.0.0.jar`
+* `target/openapi-java-client-1.1.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -127,19 +127,20 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**getAllPackagesWithAuthedIP**](docs/HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier
 *HeadlessApi* | [**getAllPackagesWithAuthedIPAndBasket**](docs/HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
 *HeadlessApi* | [**getAllPackagesWithBasket**](docs/HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
-*HeadlessApi* | [**getBasketAuthUrl**](docs/HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier
+*HeadlessApi* | [**getBasketAuthUrl**](docs/HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket.
 *HeadlessApi* | [**getBasketById**](docs/HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
 *HeadlessApi* | [**getCMSPages**](docs/HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 *HeadlessApi* | [**getCategoryById**](docs/HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 *HeadlessApi* | [**getCategoryIncludingPackages**](docs/HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 *HeadlessApi* | [**getPackageById**](docs/HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
+*HeadlessApi* | [**getTieredCategoriesForUser**](docs/HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
 *HeadlessApi* | [**getWebstoreById**](docs/HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier
 *HeadlessApi* | [**removeBasketPackage**](docs/HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 *HeadlessApi* | [**removeCoupon**](docs/HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
 *HeadlessApi* | [**removeCreatorCode**](docs/HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
 *HeadlessApi* | [**removeGiftCard**](docs/HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
 *HeadlessApi* | [**updatePackageQuantity**](docs/HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-*HeadlessApi* | [**updateTier**](docs/HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO
+*HeadlessApi* | [**updateTier**](docs/HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package.
 
 
 ## Documentation for Models
@@ -147,6 +148,7 @@ Class | Method | HTTP request | Description
  - [AddBasketPackageRequest](docs/AddBasketPackageRequest.md)
  - [ApplyCreatorCodeRequest](docs/ApplyCreatorCodeRequest.md)
  - [Basket](docs/Basket.md)
+ - [BasketAuthResponseInner](docs/BasketAuthResponseInner.md)
  - [BasketLinks](docs/BasketLinks.md)
  - [BasketPackage](docs/BasketPackage.md)
  - [BasketResponse](docs/BasketResponse.md)
@@ -164,18 +166,25 @@ Class | Method | HTTP request | Description
  - [RemoveBasketPackageRequest](docs/RemoveBasketPackageRequest.md)
  - [RemoveGiftCardRequest](docs/RemoveGiftCardRequest.md)
  - [RevenueShare](docs/RevenueShare.md)
+ - [Tier](docs/Tier.md)
+ - [TierPendingDowngradePackage](docs/TierPendingDowngradePackage.md)
+ - [TierStatus](docs/TierStatus.md)
  - [UpdatePackageQuantityRequest](docs/UpdatePackageQuantityRequest.md)
  - [UpdateTierRequest](docs/UpdateTierRequest.md)
  - [UpdateTierResponse](docs/UpdateTierResponse.md)
  - [Webstore](docs/Webstore.md)
  - [WebstoreResponse](docs/WebstoreResponse.md)
- - [WebstoreResponseData](docs/WebstoreResponseData.md)
 
 
 <a id="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+<a id="basicAuth"></a>
+### basicAuth
+
+- **Type**: HTTP basic authentication
 
 
 ## Recommendation

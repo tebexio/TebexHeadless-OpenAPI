@@ -17,6 +17,7 @@
 |**salesTax** | **Float** |  |  [optional] |
 |**totalPrice** | **Float** |  |  [optional] |
 |**currency** | **String** |  |  [optional] |
+|**proratePrice** | **Float** | If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier. |  [optional] |
 |**discount** | **Float** |  |  [optional] |
 |**disableQuantity** | **Boolean** |  |  [optional] |
 |**disableGifting** | **Boolean** |  |  [optional] |

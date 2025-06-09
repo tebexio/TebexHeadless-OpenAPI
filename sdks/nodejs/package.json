@@ -1,6 +1,6 @@
 {
   "name": "tebex_headless_api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.",
   "license": "MIT",
   "main": "dist/TebexHeadless/index.js",

@@ -15,19 +15,20 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**getAllPackagesWithAuthedIP**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier |
 | [**getAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
 | [**getAllPackagesWithBasket**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier |
+| [**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket. |
 | [**getBasketById**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
 | [**getCMSPages**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
 | [**getCategoryById**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**getCategoryIncludingPackages**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**getPackageById**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
+| [**getTieredCategoriesForUser**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
 | [**getWebstoreById**](HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
 | [**removeBasketPackage**](HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
 | [**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
 | [**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
 | [**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
 | [**updatePackageQuantity**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
-| [**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO |
+| [**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package. |
 
 
 <a id="addBasketPackage"></a>
@@ -744,9 +745,9 @@ No authorization required
 
 <a id="getBasketAuthUrl"></a>
 # **getBasketAuthUrl**
-> BasketResponse getBasketAuthUrl(token, basketIdent, returnUrl)
+> List&lt;BasketAuthResponseInner&gt; getBasketAuthUrl(token, basketIdent, returnUrl)
 
-Fetch a basket from a webstore by its identifier
+Get authentication links for a basket.
 
 Fetches a basket&#39;s auth URL.
 
@@ -769,7 +770,7 @@ public class Example {
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
     String returnUrl = "https://example.tebex.io/"; // String | The URL you would like to redirect the user to after successful basket authentication.
     try {
-      BasketResponse result = apiInstance.getBasketAuthUrl(token, basketIdent, returnUrl);
+      List<BasketAuthResponseInner> result = apiInstance.getBasketAuthUrl(token, basketIdent, returnUrl);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#getBasketAuthUrl");
@@ -792,7 +793,7 @@ public class Example {
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**List&lt;BasketAuthResponseInner&gt;**](BasketAuthResponseInner.md)
 
 ### Authorization
 
@@ -1087,7 +1088,7 @@ public class Example {
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
     String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-    BigDecimal packageId = new BigDecimal("1272441812"); // BigDecimal | The package's ID.
+    Integer packageId = 1272441812; // Integer | The package's ID.
     try {
       PackageResponse result = apiInstance.getPackageById(token, packageId);
       System.out.println(result);
@@ -1107,7 +1108,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **token** | **String**| The webstore identifier. | |
-| **packageId** | **BigDecimal**| The package&#39;s ID. | |
+| **packageId** | **Integer**| The package&#39;s ID. | |
 
 ### Return type
 
@@ -1126,6 +1127,76 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response returns the package information. |  -  |
+
+<a id="getTieredCategoriesForUser"></a>
+# **getTieredCategoriesForUser**
+> CategoryResponse getTieredCategoriesForUser(token, usernameId)
+
+Gets a store&#39;s categories including all package information with them.
+
+Gets all categories from the webstore, returning active tier information for the given player.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.auth.*;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api");
+    
+    // Configure HTTP basic authorization: basicAuth
+    HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+    basicAuth.setUsername("YOUR USERNAME");
+    basicAuth.setPassword("YOUR PASSWORD");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
+    Integer usernameId = 76561198042467022; // Integer | 
+    try {
+      CategoryResponse result = apiInstance.getTieredCategoriesForUser(token, usernameId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getTieredCategoriesForUser");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **token** | **String**| The webstore identifier. | |
+| **usernameId** | **Integer**|  | |
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns a list of category information. |  -  |
 
 <a id="getWebstoreById"></a>
 # **getWebstoreById**
@@ -1472,7 +1543,7 @@ public class Example {
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-    BigDecimal packageId = new BigDecimal("6276316"); // BigDecimal | The package identifier.
+    Integer packageId = 6276316; // Integer | The package identifier.
     UpdatePackageQuantityRequest updatePackageQuantityRequest = new UpdatePackageQuantityRequest(); // UpdatePackageQuantityRequest | 
     try {
       apiInstance.updatePackageQuantity(basketIdent, packageId, updatePackageQuantityRequest);
@@ -1492,7 +1563,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **basketIdent** | **String**| The basket identifier. | |
-| **packageId** | **BigDecimal**| The package identifier. | |
+| **packageId** | **Integer**| The package identifier. | |
 | **updatePackageQuantityRequest** | [**UpdatePackageQuantityRequest**](UpdatePackageQuantityRequest.md)|  | [optional] |
 
 ### Return type
@@ -1516,11 +1587,11 @@ No authorization required
 
 <a id="updateTier"></a>
 # **updateTier**
-> CMSPagesResponse updateTier(token, tierId, updateTierRequest)
+> UpdateTierResponse updateTier(token, tierId, updateTierRequest)
 
-TODO
+Updates the given teir to the provided package.
 
-Updates a tier.
+Updates a tier to a new package.
 
 ### Example
 ```java
@@ -1528,6 +1599,7 @@ Updates a tier.
 import TebexHeadless.ApiClient;
 import TebexHeadless.ApiException;
 import TebexHeadless.Configuration;
+import TebexHeadless.auth.*;
 import TebexHeadless.models.*;
 import TebexHeadless.HeadlessApi;
 
@@ -1535,13 +1607,18 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://headless.tebex.io/api");
+    
+    // Configure HTTP basic authorization: basicAuth
+    HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+    basicAuth.setUsername("YOUR USERNAME");
+    basicAuth.setPassword("YOUR PASSWORD");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
     String token = "some-uuid"; // String | The webstore identifier.
-    String tierId = "6276316"; // String | The tier identifier
+    Integer tierId = 6276316; // Integer | The tier identifier
     UpdateTierRequest updateTierRequest = new UpdateTierRequest(); // UpdateTierRequest | 
     try {
-      CMSPagesResponse result = apiInstance.updateTier(token, tierId, updateTierRequest);
+      UpdateTierResponse result = apiInstance.updateTier(token, tierId, updateTierRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#updateTier");
@@ -1559,16 +1636,16 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **token** | **String**| The webstore identifier. | |
-| **tierId** | **String**| The tier identifier | |
+| **tierId** | **Integer**| The tier identifier | |
 | **updateTierRequest** | [**UpdateTierRequest**](UpdateTierRequest.md)|  | [optional] |
 
 ### Return type
 
-[**CMSPagesResponse**](CMSPagesResponse.md)
+[**UpdateTierResponse**](UpdateTierResponse.md)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

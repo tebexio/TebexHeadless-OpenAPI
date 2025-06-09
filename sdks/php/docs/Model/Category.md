@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **name** | **string** | User-friendly name of the category | [optional]
 **slug** | **string** | Short identifier slug for the category | [optional]
 **parent** | **object** | Parent category, if applicable | [optional]
+**tiered** | **bool** | True if this is a tiered category | [optional]
+**active_tier** | [**\TebexHeadless\Model\Tier**](Tier.md) |  | [optional]
 **description** | **string** | HTML description of the category | [optional]
 **packages** | [**\TebexHeadless\Model\Package[]**](Package.md) |  | [optional]
 **order** | **int** | The numeric order in which to display the category. | [optional]

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **SalesTax** | **float** |  | [optional] 
 **TotalPrice** | **float** |  | [optional] 
 **Currency** | **string** |  | [optional] 
+**ProratePrice** | **float?** | If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier. | [optional] 
 **Discount** | **float** |  | [optional] 
 **DisableQuantity** | **bool** |  | [optional] 
 **DisableGifting** | **bool** |  | [optional] 

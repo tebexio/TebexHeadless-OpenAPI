@@ -84,25 +84,27 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**getAllPackagesWithAuthedIP**](docs/Api/HeadlessApi.md#getallpackageswithauthedip) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier
 *HeadlessApi* | [**getAllPackagesWithAuthedIPAndBasket**](docs/Api/HeadlessApi.md#getallpackageswithauthedipandbasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
 *HeadlessApi* | [**getAllPackagesWithBasket**](docs/Api/HeadlessApi.md#getallpackageswithbasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
-*HeadlessApi* | [**getBasketAuthUrl**](docs/Api/HeadlessApi.md#getbasketauthurl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier
+*HeadlessApi* | [**getBasketAuthUrl**](docs/Api/HeadlessApi.md#getbasketauthurl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket.
 *HeadlessApi* | [**getBasketById**](docs/Api/HeadlessApi.md#getbasketbyid) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
 *HeadlessApi* | [**getCMSPages**](docs/Api/HeadlessApi.md#getcmspages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
 *HeadlessApi* | [**getCategoryById**](docs/Api/HeadlessApi.md#getcategorybyid) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
 *HeadlessApi* | [**getCategoryIncludingPackages**](docs/Api/HeadlessApi.md#getcategoryincludingpackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
 *HeadlessApi* | [**getPackageById**](docs/Api/HeadlessApi.md#getpackagebyid) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
+*HeadlessApi* | [**getTieredCategoriesForUser**](docs/Api/HeadlessApi.md#gettieredcategoriesforuser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
 *HeadlessApi* | [**getWebstoreById**](docs/Api/HeadlessApi.md#getwebstorebyid) | **GET** /accounts/{token} | Fetch a webstore by its identifier
 *HeadlessApi* | [**removeBasketPackage**](docs/Api/HeadlessApi.md#removebasketpackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
 *HeadlessApi* | [**removeCoupon**](docs/Api/HeadlessApi.md#removecoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
 *HeadlessApi* | [**removeCreatorCode**](docs/Api/HeadlessApi.md#removecreatorcode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
 *HeadlessApi* | [**removeGiftCard**](docs/Api/HeadlessApi.md#removegiftcard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
 *HeadlessApi* | [**updatePackageQuantity**](docs/Api/HeadlessApi.md#updatepackagequantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-*HeadlessApi* | [**updateTier**](docs/Api/HeadlessApi.md#updatetier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO
+*HeadlessApi* | [**updateTier**](docs/Api/HeadlessApi.md#updatetier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package.
 
 ## Models
 
 - [AddBasketPackageRequest](docs/Model/AddBasketPackageRequest.md)
 - [ApplyCreatorCodeRequest](docs/Model/ApplyCreatorCodeRequest.md)
 - [Basket](docs/Model/Basket.md)
+- [BasketAuthResponseInner](docs/Model/BasketAuthResponseInner.md)
 - [BasketLinks](docs/Model/BasketLinks.md)
 - [BasketPackage](docs/Model/BasketPackage.md)
 - [BasketResponse](docs/Model/BasketResponse.md)
@@ -120,15 +122,21 @@ Class | Method | HTTP request | Description
 - [RemoveBasketPackageRequest](docs/Model/RemoveBasketPackageRequest.md)
 - [RemoveGiftCardRequest](docs/Model/RemoveGiftCardRequest.md)
 - [RevenueShare](docs/Model/RevenueShare.md)
+- [Tier](docs/Model/Tier.md)
+- [TierPendingDowngradePackage](docs/Model/TierPendingDowngradePackage.md)
+- [TierStatus](docs/Model/TierStatus.md)
 - [UpdatePackageQuantityRequest](docs/Model/UpdatePackageQuantityRequest.md)
 - [UpdateTierRequest](docs/Model/UpdateTierRequest.md)
 - [UpdateTierResponse](docs/Model/UpdateTierResponse.md)
 - [Webstore](docs/Model/Webstore.md)
 - [WebstoreResponse](docs/Model/WebstoreResponse.md)
-- [WebstoreResponseData](docs/Model/WebstoreResponseData.md)
 
 ## Authorization
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+### basicAuth
+
+- **Type**: HTTP basic authentication
 
 ## Tests
 
@@ -147,6 +155,6 @@ tebex-integrations@overwolf.com
 
 This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: `1.0.0`
+- API version: `1.1.0`
     - Generator version: `7.5.0`
 - Build package: `org.openapitools.codegen.languages.PhpClientCodegen`

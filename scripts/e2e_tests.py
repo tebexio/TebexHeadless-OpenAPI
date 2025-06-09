@@ -291,6 +291,8 @@ class Route:
                 response = requests.put(API_PATH + path, json = jsonRequestBodyDict, auth=auth, headers=headers)
             elif self.method == "delete":
                 response = requests.delete(API_PATH + path, json = jsonRequestBodyDict, auth=auth, headers=headers)
+            elif self.method == "patch":
+                response = requests.patch(API_PATH + path, json = jsonRequestBodyDict, auth=auth, headers=headers)
             else:
                 print(" invalid method: " + red(str(self.method)))
                 return None

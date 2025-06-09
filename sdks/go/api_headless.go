@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
 
-API version: 1.0.0
+API version: 1.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -1236,12 +1236,12 @@ type ApiGetBasketAuthUrlRequest struct {
 	returnUrl string
 }
 
-func (r ApiGetBasketAuthUrlRequest) Execute() (*BasketResponse, *http.Response, error) {
+func (r ApiGetBasketAuthUrlRequest) Execute() ([]BasketAuthResponseInner, *http.Response, error) {
 	return r.ApiService.GetBasketAuthUrlExecute(r)
 }
 
 /*
-GetBasketAuthUrl Fetch a basket from a webstore by its identifier
+GetBasketAuthUrl Get authentication links for a basket.
 
 Fetches a basket's auth URL.
 
@@ -1262,13 +1262,13 @@ func (a *HeadlessAPIService) GetBasketAuthUrl(ctx context.Context, token string,
 }
 
 // Execute executes the request
-//  @return BasketResponse
-func (a *HeadlessAPIService) GetBasketAuthUrlExecute(r ApiGetBasketAuthUrlRequest) (*BasketResponse, *http.Response, error) {
+//  @return []BasketAuthResponseInner
+func (a *HeadlessAPIService) GetBasketAuthUrlExecute(r ApiGetBasketAuthUrlRequest) ([]BasketAuthResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *BasketResponse
+		localVarReturnValue  []BasketAuthResponseInner
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetBasketAuthUrl")
@@ -1767,7 +1767,7 @@ type ApiGetPackageByIdRequest struct {
 	ctx context.Context
 	ApiService *HeadlessAPIService
 	token string
-	packageId float32
+	packageId int32
 }
 
 func (r ApiGetPackageByIdRequest) Execute() (*PackageResponse, *http.Response, error) {
@@ -1784,7 +1784,7 @@ Gets a package from a webstore by ID.
  @param packageId The package's ID.
  @return ApiGetPackageByIdRequest
 */
-func (a *HeadlessAPIService) GetPackageById(ctx context.Context, token string, packageId float32) ApiGetPackageByIdRequest {
+func (a *HeadlessAPIService) GetPackageById(ctx context.Context, token string, packageId int32) ApiGetPackageByIdRequest {
 	return ApiGetPackageByIdRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1811,6 +1811,113 @@ func (a *HeadlessAPIService) GetPackageByIdExecute(r ApiGetPackageByIdRequest) (
 	localVarPath := localBasePath + "/accounts/{token}/packages/{packageId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"token"+"}", url.PathEscape(parameterValueToString(r.token, "token")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"packageId"+"}", url.PathEscape(parameterValueToString(r.packageId, "packageId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetTieredCategoriesForUserRequest struct {
+	ctx context.Context
+	ApiService *HeadlessAPIService
+	token string
+	usernameId int32
+}
+
+func (r ApiGetTieredCategoriesForUserRequest) Execute() (*CategoryResponse, *http.Response, error) {
+	return r.ApiService.GetTieredCategoriesForUserExecute(r)
+}
+
+/*
+GetTieredCategoriesForUser Gets a store's categories including all package information with them.
+
+Gets all categories from the webstore, returning active tier information for the given player.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param token The webstore identifier.
+ @param usernameId
+ @return ApiGetTieredCategoriesForUserRequest
+*/
+func (a *HeadlessAPIService) GetTieredCategoriesForUser(ctx context.Context, token string, usernameId int32) ApiGetTieredCategoriesForUserRequest {
+	return ApiGetTieredCategoriesForUserRequest{
+		ApiService: a,
+		ctx: ctx,
+		token: token,
+		usernameId: usernameId,
+	}
+}
+
+// Execute executes the request
+//  @return CategoryResponse
+func (a *HeadlessAPIService) GetTieredCategoriesForUserExecute(r ApiGetTieredCategoriesForUserRequest) (*CategoryResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CategoryResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetTieredCategoriesForUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{token}/categories?usernameId={usernameId}&includePackages=1"
+	localVarPath = strings.Replace(localVarPath, "{"+"token"+"}", url.PathEscape(parameterValueToString(r.token, "token")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"usernameId"+"}", url.PathEscape(parameterValueToString(r.usernameId, "usernameId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2385,7 +2492,7 @@ type ApiUpdatePackageQuantityRequest struct {
 	ctx context.Context
 	ApiService *HeadlessAPIService
 	basketIdent string
-	packageId float32
+	packageId int32
 	updatePackageQuantityRequest *UpdatePackageQuantityRequest
 }
 
@@ -2408,7 +2515,7 @@ Sets the quantity of the given item in the basket.
  @param packageId The package identifier.
  @return ApiUpdatePackageQuantityRequest
 */
-func (a *HeadlessAPIService) UpdatePackageQuantity(ctx context.Context, basketIdent string, packageId float32) ApiUpdatePackageQuantityRequest {
+func (a *HeadlessAPIService) UpdatePackageQuantity(ctx context.Context, basketIdent string, packageId int32) ApiUpdatePackageQuantityRequest {
 	return ApiUpdatePackageQuantityRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2489,7 +2596,7 @@ type ApiUpdateTierRequest struct {
 	ctx context.Context
 	ApiService *HeadlessAPIService
 	token string
-	tierId string
+	tierId int32
 	updateTierRequest *UpdateTierRequest
 }
 
@@ -2498,21 +2605,21 @@ func (r ApiUpdateTierRequest) UpdateTierRequest(updateTierRequest UpdateTierRequ
 	return r
 }
 
-func (r ApiUpdateTierRequest) Execute() (*CMSPagesResponse, *http.Response, error) {
+func (r ApiUpdateTierRequest) Execute() (*UpdateTierResponse, *http.Response, error) {
 	return r.ApiService.UpdateTierExecute(r)
 }
 
 /*
-UpdateTier TODO
+UpdateTier Updates the given teir to the provided package.
 
-Updates a tier.
+Updates a tier to a new package.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param token The webstore identifier.
  @param tierId The tier identifier
  @return ApiUpdateTierRequest
 */
-func (a *HeadlessAPIService) UpdateTier(ctx context.Context, token string, tierId string) ApiUpdateTierRequest {
+func (a *HeadlessAPIService) UpdateTier(ctx context.Context, token string, tierId int32) ApiUpdateTierRequest {
 	return ApiUpdateTierRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2522,13 +2629,13 @@ func (a *HeadlessAPIService) UpdateTier(ctx context.Context, token string, tierI
 }
 
 // Execute executes the request
-//  @return CMSPagesResponse
-func (a *HeadlessAPIService) UpdateTierExecute(r ApiUpdateTierRequest) (*CMSPagesResponse, *http.Response, error) {
+//  @return UpdateTierResponse
+func (a *HeadlessAPIService) UpdateTierExecute(r ApiUpdateTierRequest) (*UpdateTierResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *CMSPagesResponse
+		localVarReturnValue  *UpdateTierResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.UpdateTier")

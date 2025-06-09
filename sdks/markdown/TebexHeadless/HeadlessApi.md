@@ -15,19 +15,20 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**getAllPackagesWithAuthedIP**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier |
 | [**getAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
 | [**getAllPackagesWithBasket**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier |
+| [**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket. |
 | [**getBasketById**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
 | [**getCMSPages**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
 | [**getCategoryById**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**getCategoryIncludingPackages**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**getPackageById**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
+| [**getTieredCategoriesForUser**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
 | [**getWebstoreById**](HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
 | [**removeBasketPackage**](HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
 | [**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
 | [**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
 | [**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
 | [**updatePackageQuantity**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
-| [**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO |
+| [**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package. |
 
 
 <a name="addBasketPackage"></a>
@@ -341,9 +342,9 @@ No authorization required
 
 <a name="getBasketAuthUrl"></a>
 # **getBasketAuthUrl**
-> BasketResponse getBasketAuthUrl(token, basketIdent, returnUrl)
+> List getBasketAuthUrl(token, basketIdent, returnUrl)
 
-Fetch a basket from a webstore by its identifier
+Get authentication links for a basket.
 
     Fetches a basket&#39;s auth URL.
 
@@ -357,7 +358,7 @@ Fetch a basket from a webstore by its identifier
 
 ### Return type
 
-[**BasketResponse**](../Models/BasketResponse.md)
+[**List**](../Models/BasketAuthResponse_inner.md)
 
 ### Authorization
 
@@ -492,7 +493,7 @@ Fetch a package from a webstore by its identifier
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **token** | **String**| The webstore identifier. | [default to null] |
-| **packageId** | **BigDecimal**| The package&#39;s ID. | [default to null] |
+| **packageId** | **Integer**| The package&#39;s ID. | [default to null] |
 
 ### Return type
 
@@ -501,6 +502,34 @@ Fetch a package from a webstore by its identifier
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+<a name="getTieredCategoriesForUser"></a>
+# **getTieredCategoriesForUser**
+> CategoryResponse getTieredCategoriesForUser(token, usernameId)
+
+Gets a store&#39;s categories including all package information with them.
+
+    Gets all categories from the webstore, returning active tier information for the given player.
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **token** | **String**| The webstore identifier. | [default to null] |
+| **usernameId** | **Integer**|  | [default to null] |
+
+### Return type
+
+[**CategoryResponse**](../Models/CategoryResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -660,7 +689,7 @@ Updates the quantity of the given package in the basket. The user must be logged
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
-| **packageId** | **BigDecimal**| The package identifier. | [default to null] |
+| **packageId** | **Integer**| The package identifier. | [default to null] |
 | **updatePackageQuantity\_request** | [**updatePackageQuantity_request**](../Models/updatePackageQuantity_request.md)|  | [optional] |
 
 ### Return type
@@ -678,27 +707,27 @@ No authorization required
 
 <a name="updateTier"></a>
 # **updateTier**
-> CMSPagesResponse updateTier(token, tierId, updateTier\_request)
+> UpdateTierResponse updateTier(token, tierId, updateTier\_request)
 
-TODO
+Updates the given teir to the provided package.
 
-    Updates a tier.
+    Updates a tier to a new package.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **token** | **String**| The webstore identifier. | [default to null] |
-| **tierId** | **String**| The tier identifier | [default to null] |
+| **tierId** | **Integer**| The tier identifier | [default to null] |
 | **updateTier\_request** | [**updateTier_request**](../Models/updateTier_request.md)|  | [optional] |
 
 ### Return type
 
-[**CMSPagesResponse**](../Models/CMSPagesResponse.md)
+[**UpdateTierResponse**](../Models/UpdateTierResponse.md)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

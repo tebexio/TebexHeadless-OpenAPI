@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **decimal** |  | [optional] 
+**Id** | **int** |  | [optional] 
 **CreatedAt** | **DateTime** |  | [optional] 
 **UpdatedAt** | **DateTime** |  | [optional] 
-**AccountId** | **decimal** |  | [optional] 
+**AccountId** | **int** |  | [optional] 
 **Title** | **string** |  | [optional] 
 **Slug** | **string** |  | [optional] 
 **Private** | **bool** |  | [optional] 

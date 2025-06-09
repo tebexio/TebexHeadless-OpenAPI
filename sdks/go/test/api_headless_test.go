@@ -263,9 +263,24 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		var token string
-		var packageId float32
+		var packageId int32
 
 		resp, httpRes, err := apiClient.HeadlessAPI.GetPackageById(context.Background(), token, packageId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test HeadlessAPIService GetTieredCategoriesForUser", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var token string
+		var usernameId int32
+
+		resp, httpRes, err := apiClient.HeadlessAPI.GetTieredCategoriesForUser(context.Background(), token, usernameId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -348,7 +363,7 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		var basketIdent string
-		var packageId float32
+		var packageId int32
 
 		httpRes, err := apiClient.HeadlessAPI.UpdatePackageQuantity(context.Background(), basketIdent, packageId).Execute()
 
@@ -362,7 +377,7 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		var token string
-		var tierId string
+		var tierId int32
 
 		resp, httpRes, err := apiClient.HeadlessAPI.UpdateTier(context.Background(), token, tierId).Execute()
 

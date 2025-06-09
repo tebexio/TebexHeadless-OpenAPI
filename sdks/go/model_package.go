@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
 
-API version: 1.0.0
+API version: 1.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -31,6 +31,8 @@ type Package struct {
 	SalesTax *float32 `json:"sales_tax,omitempty"`
 	TotalPrice *float32 `json:"total_price,omitempty"`
 	Currency *string `json:"currency,omitempty"`
+	// If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier.
+	ProratePrice NullableFloat32 `json:"prorate_price,omitempty"`
 	Discount *float32 `json:"discount,omitempty"`
 	DisableQuantity *bool `json:"disable_quantity,omitempty"`
 	DisableGifting *bool `json:"disable_gifting,omitempty"`
@@ -386,6 +388,48 @@ func (o *Package) SetCurrency(v string) {
 	o.Currency = &v
 }
 
+// GetProratePrice returns the ProratePrice field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Package) GetProratePrice() float32 {
+	if o == nil || IsNil(o.ProratePrice.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.ProratePrice.Get()
+}
+
+// GetProratePriceOk returns a tuple with the ProratePrice field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Package) GetProratePriceOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ProratePrice.Get(), o.ProratePrice.IsSet()
+}
+
+// HasProratePrice returns a boolean if a field has been set.
+func (o *Package) HasProratePrice() bool {
+	if o != nil && o.ProratePrice.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetProratePrice gets a reference to the given NullableFloat32 and assigns it to the ProratePrice field.
+func (o *Package) SetProratePrice(v float32) {
+	o.ProratePrice.Set(&v)
+}
+// SetProratePriceNil sets the value for ProratePrice to be an explicit nil
+func (o *Package) SetProratePriceNil() {
+	o.ProratePrice.Set(nil)
+}
+
+// UnsetProratePrice ensures that no value is present for ProratePrice, not even an explicit nil
+func (o *Package) UnsetProratePrice() {
+	o.ProratePrice.Unset()
+}
+
 // GetDiscount returns the Discount field value if set, zero value otherwise.
 func (o *Package) GetDiscount() float32 {
 	if o == nil || IsNil(o.Discount) {
@@ -627,6 +671,9 @@ func (o Package) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Currency) {
 		toSerialize["currency"] = o.Currency
+	}
+	if o.ProratePrice.IsSet() {
+		toSerialize["prorate_price"] = o.ProratePrice.Get()
 	}
 	if !IsNil(o.Discount) {
 		toSerialize["discount"] = o.Discount

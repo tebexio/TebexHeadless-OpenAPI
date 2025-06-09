@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **CompleteAutoRedirect** | Pointer to **bool** |  | [optional] 
 **Country** | Pointer to **string** | A two-character country code | [optional] 
 **Ip** | Pointer to **string** |  | [optional] 
-**UsernameId** | Pointer to **float32** |  | [optional] 
+**UsernameId** | Pointer to **int32** |  | [optional] 
 **BasePrice** | Pointer to **float32** |  | [optional] 
 **SalesTax** | Pointer to **float32** |  | [optional] 
 **TotalPrice** | Pointer to **float32** |  | [optional] 
@@ -402,20 +402,20 @@ HasIp returns a boolean if a field has been set.
 
 ### GetUsernameId
 
-`func (o *Basket) GetUsernameId() float32`
+`func (o *Basket) GetUsernameId() int32`
 
 GetUsernameId returns the UsernameId field if non-nil, zero value otherwise.
 
 ### GetUsernameIdOk
 
-`func (o *Basket) GetUsernameIdOk() (*float32, bool)`
+`func (o *Basket) GetUsernameIdOk() (*int32, bool)`
 
 GetUsernameIdOk returns a tuple with the UsernameId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsernameId
 
-`func (o *Basket) SetUsernameId(v float32)`
+`func (o *Basket) SetUsernameId(v int32)`
 
 SetUsernameId sets UsernameId field to given value.
 

@@ -16,7 +16,7 @@
 | **complete\_auto\_redirect** | **Boolean** |  | [optional] [default to null] |
 | **country** | **String** | A two-character country code | [optional] [default to null] |
 | **ip** | **String** |  | [optional] [default to null] |
-| **username\_id** | **BigDecimal** |  | [optional] [default to null] |
+| **username\_id** | **Integer** |  | [optional] [default to null] |
 | **base\_price** | **Float** |  | [optional] [default to null] |
 | **sales\_tax** | **Float** |  | [optional] [default to null] |
 | **total\_price** | **Float** |  | [optional] [default to null] |

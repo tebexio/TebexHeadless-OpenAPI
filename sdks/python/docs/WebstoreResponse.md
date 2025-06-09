@@ -6,7 +6,7 @@ Wrapped webstore information in a \"data\" object.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**WebstoreResponseData**](WebstoreResponseData.md) |  | [optional] 
+**data** | [**Webstore**](.md) |  | [optional] 
 
 ## Example
 

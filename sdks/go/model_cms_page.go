@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
 
-API version: 1.0.0
+API version: 1.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -21,10 +21,10 @@ var _ MappedNullable = &CMSPage{}
 
 // CMSPage struct for CMSPage
 type CMSPage struct {
-	Id *float32 `json:"id,omitempty"`
+	Id *int32 `json:"id,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	AccountId *float32 `json:"account_id,omitempty"`
+	AccountId *int32 `json:"account_id,omitempty"`
 	Title *string `json:"title,omitempty"`
 	Slug *string `json:"slug,omitempty"`
 	Private *bool `json:"private,omitempty"`
@@ -52,9 +52,9 @@ func NewCMSPageWithDefaults() *CMSPage {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *CMSPage) GetId() float32 {
+func (o *CMSPage) GetId() int32 {
 	if o == nil || IsNil(o.Id) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Id
@@ -62,7 +62,7 @@ func (o *CMSPage) GetId() float32 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CMSPage) GetIdOk() (*float32, bool) {
+func (o *CMSPage) GetIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -78,8 +78,8 @@ func (o *CMSPage) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given float32 and assigns it to the Id field.
-func (o *CMSPage) SetId(v float32) {
+// SetId gets a reference to the given int32 and assigns it to the Id field.
+func (o *CMSPage) SetId(v int32) {
 	o.Id = &v
 }
 
@@ -148,9 +148,9 @@ func (o *CMSPage) SetUpdatedAt(v time.Time) {
 }
 
 // GetAccountId returns the AccountId field value if set, zero value otherwise.
-func (o *CMSPage) GetAccountId() float32 {
+func (o *CMSPage) GetAccountId() int32 {
 	if o == nil || IsNil(o.AccountId) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.AccountId
@@ -158,7 +158,7 @@ func (o *CMSPage) GetAccountId() float32 {
 
 // GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CMSPage) GetAccountIdOk() (*float32, bool) {
+func (o *CMSPage) GetAccountIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.AccountId) {
 		return nil, false
 	}
@@ -174,8 +174,8 @@ func (o *CMSPage) HasAccountId() bool {
 	return false
 }
 
-// SetAccountId gets a reference to the given float32 and assigns it to the AccountId field.
-func (o *CMSPage) SetAccountId(v float32) {
+// SetAccountId gets a reference to the given int32 and assigns it to the AccountId field.
+func (o *CMSPage) SetAccountId(v int32) {
 	o.AccountId = &v
 }
 

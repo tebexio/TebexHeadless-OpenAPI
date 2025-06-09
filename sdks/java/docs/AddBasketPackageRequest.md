@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**packageId** | **String** |  |  [optional] |
-|**quantity** | **BigDecimal** |  |  [optional] |
+|**quantity** | **Integer** |  |  [optional] |
 
 
 

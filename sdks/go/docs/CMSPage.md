@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **float32** |  | [optional] 
+**Id** | Pointer to **int32** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
-**AccountId** | Pointer to **float32** |  | [optional] 
+**AccountId** | Pointer to **int32** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Slug** | Pointer to **string** |  | [optional] 
 **Private** | Pointer to **bool** |  | [optional] 
@@ -37,20 +37,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetId
 
-`func (o *CMSPage) GetId() float32`
+`func (o *CMSPage) GetId() int32`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *CMSPage) GetIdOk() (*float32, bool)`
+`func (o *CMSPage) GetIdOk() (*int32, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *CMSPage) SetId(v float32)`
+`func (o *CMSPage) SetId(v int32)`
 
 SetId sets Id field to given value.
 
@@ -112,20 +112,20 @@ HasUpdatedAt returns a boolean if a field has been set.
 
 ### GetAccountId
 
-`func (o *CMSPage) GetAccountId() float32`
+`func (o *CMSPage) GetAccountId() int32`
 
 GetAccountId returns the AccountId field if non-nil, zero value otherwise.
 
 ### GetAccountIdOk
 
-`func (o *CMSPage) GetAccountIdOk() (*float32, bool)`
+`func (o *CMSPage) GetAccountIdOk() (*int32, bool)`
 
 GetAccountIdOk returns a tuple with the AccountId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccountId
 
-`func (o *CMSPage) SetAccountId(v float32)`
+`func (o *CMSPage) SetAccountId(v int32)`
 
 SetAccountId sets AccountId field to given value.
 

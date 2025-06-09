@@ -15,19 +15,20 @@ All URIs are relative to *https://headless.tebex.io/api*
 | [**GetAllPackagesWithAuthedIP**](HeadlessApi.md#getallpackageswithauthedip) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier |
 | [**GetAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getallpackageswithauthedipandbasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
 | [**GetAllPackagesWithBasket**](HeadlessApi.md#getallpackageswithbasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**GetBasketAuthUrl**](HeadlessApi.md#getbasketauthurl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Fetch a basket from a webstore by its identifier |
+| [**GetBasketAuthUrl**](HeadlessApi.md#getbasketauthurl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket. |
 | [**GetBasketById**](HeadlessApi.md#getbasketbyid) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
 | [**GetCMSPages**](HeadlessApi.md#getcmspages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
 | [**GetCategoryById**](HeadlessApi.md#getcategorybyid) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
 | [**GetCategoryIncludingPackages**](HeadlessApi.md#getcategoryincludingpackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
 | [**GetPackageById**](HeadlessApi.md#getpackagebyid) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
+| [**GetTieredCategoriesForUser**](HeadlessApi.md#gettieredcategoriesforuser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
 | [**GetWebstoreById**](HeadlessApi.md#getwebstorebyid) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
 | [**RemoveBasketPackage**](HeadlessApi.md#removebasketpackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
 | [**RemoveCoupon**](HeadlessApi.md#removecoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
 | [**RemoveCreatorCode**](HeadlessApi.md#removecreatorcode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
 | [**RemoveGiftCard**](HeadlessApi.md#removegiftcard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
 | [**UpdatePackageQuantity**](HeadlessApi.md#updatepackagequantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
-| [**UpdateTier**](HeadlessApi.md#updatetier) | **PATCH** /accounts/{token}/tiers/{tierId} | TODO |
+| [**UpdateTier**](HeadlessApi.md#updatetier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package. |
 
 <a id="addbasketpackage"></a>
 # **AddBasketPackage**
@@ -1062,9 +1063,9 @@ No authorization required
 
 <a id="getbasketauthurl"></a>
 # **GetBasketAuthUrl**
-> BasketResponse GetBasketAuthUrl (string token, string basketIdent, string returnUrl)
+> List&lt;BasketAuthResponseInner&gt; GetBasketAuthUrl (string token, string basketIdent, string returnUrl)
 
-Fetch a basket from a webstore by its identifier
+Get authentication links for a basket.
 
 Fetches a basket's auth URL.
 
@@ -1091,8 +1092,8 @@ namespace Example
 
             try
             {
-                // Fetch a basket from a webstore by its identifier
-                BasketResponse result = apiInstance.GetBasketAuthUrl(token, basketIdent, returnUrl);
+                // Get authentication links for a basket.
+                List<BasketAuthResponseInner> result = apiInstance.GetBasketAuthUrl(token, basketIdent, returnUrl);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1112,8 +1113,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Fetch a basket from a webstore by its identifier
-    ApiResponse<BasketResponse> response = apiInstance.GetBasketAuthUrlWithHttpInfo(token, basketIdent, returnUrl);
+    // Get authentication links for a basket.
+    ApiResponse<List<BasketAuthResponseInner>> response = apiInstance.GetBasketAuthUrlWithHttpInfo(token, basketIdent, returnUrl);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1136,7 +1137,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**List&lt;BasketAuthResponseInner&gt;**](BasketAuthResponseInner.md)
 
 ### Authorization
 
@@ -1528,7 +1529,7 @@ No authorization required
 
 <a id="getpackagebyid"></a>
 # **GetPackageById**
-> PackageResponse GetPackageById (string token, decimal packageId)
+> PackageResponse GetPackageById (string token, int packageId)
 
 Fetch a package from a webstore by its identifier
 
@@ -1552,7 +1553,7 @@ namespace Example
             config.BasePath = "https://headless.tebex.io/api";
             var apiInstance = new HeadlessApi(config);
             var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
-            var packageId = 1272441812;  // decimal | The package's ID.
+            var packageId = 1272441812;  // int | The package's ID.
 
             try
             {
@@ -1596,7 +1597,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **token** | **string** | The webstore identifier. |  |
-| **packageId** | **decimal** | The package&#39;s ID. |  |
+| **packageId** | **int** | The package&#39;s ID. |  |
 
 ### Return type
 
@@ -1616,6 +1617,103 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response returns the package information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="gettieredcategoriesforuser"></a>
+# **GetTieredCategoriesForUser**
+> CategoryResponse GetTieredCategoriesForUser (string token, int usernameId)
+
+Gets a store's categories including all package information with them.
+
+Gets all categories from the webstore, returning active tier information for the given player.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetTieredCategoriesForUserExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api";
+            // Configure HTTP basic authorization: basicAuth
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
+            var apiInstance = new HeadlessApi(config);
+            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
+            var usernameId = 76561198042467022;  // int | 
+
+            try
+            {
+                // Gets a store's categories including all package information with them.
+                CategoryResponse result = apiInstance.GetTieredCategoriesForUser(token, usernameId);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetTieredCategoriesForUser: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetTieredCategoriesForUserWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets a store's categories including all package information with them.
+    ApiResponse<CategoryResponse> response = apiInstance.GetTieredCategoriesForUserWithHttpInfo(token, usernameId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetTieredCategoriesForUserWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **token** | **string** | The webstore identifier. |  |
+| **usernameId** | **int** |  |  |
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns a list of category information. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2078,7 +2176,7 @@ No authorization required
 
 <a id="updatepackagequantity"></a>
 # **UpdatePackageQuantity**
-> void UpdatePackageQuantity (string basketIdent, decimal packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = null)
+> void UpdatePackageQuantity (string basketIdent, int packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = null)
 
 Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
 
@@ -2102,7 +2200,7 @@ namespace Example
             config.BasePath = "https://headless.tebex.io/api";
             var apiInstance = new HeadlessApi(config);
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
-            var packageId = 6276316;  // decimal | The package identifier.
+            var packageId = 6276316;  // int | The package identifier.
             var updatePackageQuantityRequest = new UpdatePackageQuantityRequest?(); // UpdatePackageQuantityRequest? |  (optional) 
 
             try
@@ -2143,7 +2241,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **basketIdent** | **string** | The basket identifier. |  |
-| **packageId** | **decimal** | The package identifier. |  |
+| **packageId** | **int** | The package identifier. |  |
 | **updatePackageQuantityRequest** | [**UpdatePackageQuantityRequest?**](UpdatePackageQuantityRequest?.md) |  | [optional]  |
 
 ### Return type
@@ -2170,11 +2268,11 @@ No authorization required
 
 <a id="updatetier"></a>
 # **UpdateTier**
-> CMSPagesResponse UpdateTier (string token, string tierId, UpdateTierRequest? updateTierRequest = null)
+> UpdateTierResponse UpdateTier (string token, int tierId, UpdateTierRequest? updateTierRequest = null)
 
-TODO
+Updates the given teir to the provided package.
 
-Updates a tier.
+Updates a tier to a new package.
 
 ### Example
 ```csharp
@@ -2192,15 +2290,19 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://headless.tebex.io/api";
+            // Configure HTTP basic authorization: basicAuth
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new HeadlessApi(config);
             var token = some-uuid;  // string | The webstore identifier.
-            var tierId = 6276316;  // string | The tier identifier
+            var tierId = 6276316;  // int | The tier identifier
             var updateTierRequest = new UpdateTierRequest?(); // UpdateTierRequest? |  (optional) 
 
             try
             {
-                // TODO
-                CMSPagesResponse result = apiInstance.UpdateTier(token, tierId, updateTierRequest);
+                // Updates the given teir to the provided package.
+                UpdateTierResponse result = apiInstance.UpdateTier(token, tierId, updateTierRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2220,8 +2322,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // TODO
-    ApiResponse<CMSPagesResponse> response = apiInstance.UpdateTierWithHttpInfo(token, tierId, updateTierRequest);
+    // Updates the given teir to the provided package.
+    ApiResponse<UpdateTierResponse> response = apiInstance.UpdateTierWithHttpInfo(token, tierId, updateTierRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2239,16 +2341,16 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **token** | **string** | The webstore identifier. |  |
-| **tierId** | **string** | The tier identifier |  |
+| **tierId** | **int** | The tier identifier |  |
 | **updateTierRequest** | [**UpdateTierRequest?**](UpdateTierRequest?.md) |  | [optional]  |
 
 ### Return type
 
-[**CMSPagesResponse**](CMSPagesResponse.md)
+[**UpdateTierResponse**](UpdateTierResponse.md)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

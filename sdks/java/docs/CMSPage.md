@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **BigDecimal** |  |  [optional] |
+|**id** | **Integer** |  |  [optional] |
 |**createdAt** | **OffsetDateTime** |  |  [optional] |
 |**updatedAt** | **OffsetDateTime** |  |  [optional] |
-|**accountId** | **BigDecimal** |  |  [optional] |
+|**accountId** | **Integer** |  |  [optional] |
 |**title** | **String** |  |  [optional] |
 |**slug** | **String** |  |  [optional] |
 |**_private** | **Boolean** |  |  [optional] |

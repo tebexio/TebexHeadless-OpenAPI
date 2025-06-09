@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **package_id** | **str** |  | [optional] 
-**quantity** | **float** |  | [optional] 
+**quantity** | **int** |  | [optional] 
 
 ## Example
 
