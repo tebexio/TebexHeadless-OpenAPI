@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: Tebex Headless API
   description: |-
@@ -9,7 +9,7 @@ info:
   license:
     name: MIT
     url: https://opensource.org/license/mit
-  version: 1.1.0
+  version: 1.2.0
 servers:
   - url: https://headless.tebex.io/api
 tags:
@@ -28,8 +28,8 @@ paths:
           schema:
             type: string
             example: some-uuid
-          required: true
           description: The webstore identifier.
+          required: true
       description: |- 
           Gets the webstore associated with the provided identifier.
       responses:
@@ -829,7 +829,7 @@ paths:
       operationId: updateTier
       security:
         - basicAuth: []
-      summary: Updates the given teir to the provided package.
+      summary: Updates the given tier to the provided package.
       parameters:
         - in: path
           name: token
@@ -846,7 +846,7 @@ paths:
             example: 6276316
           description: The tier identifier
       description: |-
-        Updates a tier to a new package.
+        Updates a tier to a new package. A recurring payment updated webhook is sent when an update is successful.
       requestBody:
         content:
           application/json:
@@ -864,6 +864,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UpdateTierResponse"
+  /accounts/{token}/sidebar:
+    get:
+      tags:
+      - Headless
+      operationId: getSidebar
+      summary: Retrieves the available sidebar modules.
+      parameters:
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+            example: some-uuid
+          description: The webstore identifier.
+      description: |-
+        Retrieves the available sidebar modules configured for the store.
+      responses:
+        '200':
+          description: 
+            Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModulesResponse"
 components:
   securitySchemes:
     basicAuth:
@@ -1028,7 +1052,6 @@ components:
       type: object
       properties:
         data:
-          type: object
           $ref: '#/components/schemas/Basket'
     Basket:
       type: object
@@ -1151,7 +1174,7 @@ components:
           description: True if this is a tiered category
           example: false
         active_tier:
-          description: If this is a teired category and the usernameId is provided, this will be the active tier information for this category.
+          description: If this is a tiered category and the usernameId is provided, this will be the active tier information for this category.
           nullable: true
           $ref: "#/components/schemas/Tier"
         description:
@@ -1240,6 +1263,10 @@ components:
           nullable: true
           format: date-time
           example: null
+        media:
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageMedia'
         created_at:
           type: string
           format: date-time
@@ -1329,3 +1356,360 @@ components:
               example: Bronze
           description: The package this tier is downgrading to if a downgrade is pending.
           nullable: true
+    
+    PackageMedia:
+      properties:
+        type:
+          type: string
+          enum: [video, image]
+          example: image
+        name:
+          type: string
+          description: A file name for the media, if applicable.
+          example: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+          nullable: true
+        url:
+          type: string
+          description: The URL of the package media.
+          example: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+        featured:
+          type: boolean
+          description: True if this media should be featured more prominently than others.
+          example: false
+    
+    ModulesResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Module'
+
+    # Discriminated union over concrete module types
+    Module:
+      oneOf:
+        - $ref: '#/components/schemas/TopCustomerModule'
+        - $ref: '#/components/schemas/TextboxModule'
+        - $ref: '#/components/schemas/RecentPaymentsModule'
+        - $ref: '#/components/schemas/FeaturedPackageModule'
+        - $ref: '#/components/schemas/GiftcardBalanceModule'
+        - $ref: '#/components/schemas/ServerStatusModule'
+        - $ref: '#/components/schemas/PaymentGoalModule'
+        - $ref: '#/components/schemas/CommunityGoalModule'
+      discriminator:
+        propertyName: type
+        mapping:
+          top_customer: '#/components/schemas/TopCustomerModule'
+          textbox: '#/components/schemas/TextboxModule'
+          recent_payments: '#/components/schemas/RecentPaymentsModule'
+          featured_package: '#/components/schemas/FeaturedPackageModule'
+          giftcard_balance: '#/components/schemas/GiftcardBalanceModule'
+          server_status: '#/components/schemas/ServerStatusModule'
+          payment_goal: '#/components/schemas/PaymentGoalModule'
+          community_goal: '#/components/schemas/CommunityGoalModule'
+
+    TopCustomerModule:
+      allOf:
+        - $ref: '#/components/schemas/ModuleBase'
+        - type: object
+          properties:
+            type:
+              const: top_customer
+            data:
+              $ref: '#/components/schemas/TopCustomerData'
+          required: [data]
+
+    TopCustomerData:
+      type: object
+      required: [header, username, username_id]
+      properties:
+        header:
+          type: string
+          example: Top Customer
+        username:
+          type: string
+          example: Test
+        username_id:
+          type: string
+          description: User identifier.
+          example: d8d5a9237b2043d8883b1150148d6955
+        total:
+          type: number
+          description: Optional, present depending on module configuration.
+
+    TextboxModule:
+      allOf:
+        - $ref: '#/components/schemas/ModuleBase'
+        - type: object
+          properties:
+            type:
+              const: textbox
+            data:
+              $ref: '#/components/schemas/TextboxData'
+          required: [data]
+
+    TextboxData:
+      type: object
+      required: [header, text]
+      properties:
+        header:
+          type: string
+          example: Modules
+        text:
+          type: string
+          description: HTML supported.
+          example: >-
+            You can configure the sidebar of your webstore by going to <strong>Webstore</strong> &gt;
+            <strong>Design</strong> &gt; <strong>Modules</strong>.
+
+    ModuleBase:
+      type: object
+      required: [id, type, start_time, data]
+      properties:
+        id:
+          type: integer
+          format: int64
+        type:
+          type: string
+          description: Discriminator for module kind.
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type:
+            - 'null'
+            - string
+          format: date-time
+          description: Nullable; when null the module is ongoing.
+        data:
+          type: object
+          description: Type-specific payload.
+
+    RecentPaymentsModule:
+      allOf:
+        - $ref: '#/components/schemas/ModuleBase'
+        - type: object
+          properties:
+            type:
+              const: recent_payments
+            data:
+              $ref: '#/components/schemas/RecentPaymentsData'
+          required: [data]
+
+    RecentPaymentsData:
+      type: object
+      required: [header, payments]
+      properties:
+        header:
+          type: string
+          example: Recent Payments
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecentPayment'
+
+    RecentPayment:
+      type: object
+      required: [username, username_id, package]
+      properties:
+        username:
+          type: string
+          example: Test
+        username_id:
+          type: string
+          example: d8d5a9237b2043d8883b1150148d6955
+        package:
+          type: object
+          required: [name]
+          properties:
+            name:
+              type: string
+              example: Example Package
+        created_at:
+          type:
+            - 'null'
+            - string
+          format: date-time
+          description: Optional, present depending on module configuration.
+        price:
+          type:
+            - 'null'
+            - number
+          description: Optional, present depending on module configuration.
+        currency:
+          type:
+            - 'null'
+            - string
+          description: Optional, present depending on module configuration.
+          example: USD
+
+    FeaturedPackageModule:
+      allOf:
+        - $ref: '#/components/schemas/ModuleBase'
+        - type: object
+          properties:
+            type:
+              const: featured_package
+            data:
+              $ref: '#/components/schemas/FeaturedPackageData'
+          required: [data]
+
+    FeaturedPackageData:
+      type: object
+      required: [header, package]
+      properties:
+        header:
+          type: string
+          example: Featured Package
+        package:
+          $ref: '#/components/schemas/Package'
+
+    GiftcardBalanceModule:
+      allOf:
+        - $ref: '#/components/schemas/ModuleBase'
+        - type: object
+          properties:
+            type:
+              const: giftcard_balance
+            data:
+              $ref: '#/components/schemas/GiftcardBalanceData'
+          required: [data]
+
+    GiftcardBalanceData:
+      type: object
+      required: [header]
+      properties:
+        header:
+          type: string
+          example: Giftcard Balance
+
+    ServerStatusModule:
+      allOf:
+        - $ref: '#/components/schemas/ModuleBase'
+        - type: object
+          properties:
+            type:
+              const: server_status
+            data:
+              $ref: '#/components/schemas/ServerStatusData'
+          required: [data]
+
+    ServerStatusData:
+      type: object
+      required: [header, hostname, port, online, players]
+      properties:
+        header:
+          type: string
+          example: Server Status
+        hostname:
+          type: string
+          example: play.hypixel.net
+        port:
+          type: integer
+          example: 25565
+        online:
+          type: boolean
+        players:
+          description: Nullable object; null when server is offline.
+          oneOf:
+            - type: 'null'
+            - $ref: '#/components/schemas/Players'
+
+    Players:
+      type: object
+      required: [online, max]
+      properties:
+        online:
+          type: integer
+          example: 23735
+        max:
+          type: integer
+          example: 200000
+
+    PaymentGoalModule:
+      allOf:
+        - $ref: '#/components/schemas/ModuleBase'
+        - type: object
+          properties:
+            type:
+              const: payment_goal
+            data:
+              $ref: '#/components/schemas/PaymentGoalData'
+          required: [data]
+
+    PaymentGoalData:
+      type: object
+      required: [header, percentage, bar_style, bar_animated]
+      properties:
+        header:
+          type: string
+          example: Payment Goal
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 0
+        bar_style:
+          type: string
+          enum: [normal, striped]
+          example: striped
+        bar_animated:
+          type: boolean
+          example: true
+        total:
+          type:
+            - 'null'
+            - number
+          description: Optional, present depending on module configuration.
+        target:
+          type:
+            - 'null'
+            - number
+          description: Optional, present depending on module configuration.
+
+    CommunityGoalModule:
+      allOf:
+        - $ref: '#/components/schemas/ModuleBase'
+        - type: object
+          properties:
+            type:
+              const: community_goal
+            data:
+              $ref: '#/components/schemas/CommunityGoalData'
+          required: [data]
+
+    CommunityGoalData:
+      type: object
+      required: [header, bar_style, bar_animated, percentage]
+      properties:
+        header:
+          type: string
+          example: Community Goal
+        bar_style:
+          type: string
+          enum: [normal, striped]
+          example: normal
+        bar_animated:
+          type: boolean
+          example: true
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 100
+        total_payments:
+          type:
+            - 'null'
+            - number
+          description: Optional, present depending on module configuration.
+        target:
+          type:
+            - 'null'
+            - number
+          description: Optional, present depending on module configuration.
+        times_achieved:
+          type:
+            - 'null'
+            - integer
+          description: Optional, present depending on module configuration.
