@@ -260,7 +260,13 @@ paths:
       operationId: getCategory
       summary: Get specific category
       parameters:
-        - $ref: "#/components/parameters/basketIdent"
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: string
+            example: 127244343
+          description: The ID or slug of the category to fetch.
       description: |- 
           Gets information about a category and returns the packages in that category.
       responses:
@@ -695,6 +701,13 @@ paths:
       summary: Update package quantity
       parameters:
         - $ref: "#/components/parameters/basketIdent"
+        - in: path
+          name: packageId
+          schema:
+            type: string
+            example: 1272441812
+          required: true
+          description: The package's ID or slug.
       description: |- 
           Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.
       requestBody:
@@ -753,14 +766,6 @@ paths:
       - Headless
       operationId: getSidebar
       summary: Retrieves the available sidebar modules.
-      parameters:
-        - in: path
-          name: token
-          required: true
-          schema:
-            type: string
-            example: some-uuid
-          description: The webstore identifier.
       description: |-
         Retrieves the available sidebar modules configured for the store.
       responses:
