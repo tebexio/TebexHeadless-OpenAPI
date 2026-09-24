@@ -9,13 +9,13 @@ info:
   license:
     name: MIT
     url: https://opensource.org/license/mit
-  version: 2.0.0
+  version: 2.0.1
 servers:
   - url: https://headless.tebex.io/api/accounts/{token}
     description: Main API scoped to public token
     variables:
       token:
-        default: ""
+        default: "YOUR_PUBLIC_TOKEN"
         description: The store's public token
 tags:
   - name: Headless
@@ -260,7 +260,13 @@ paths:
       operationId: getCategory
       summary: Get specific category
       parameters:
-        - $ref: "#/components/parameters/basketIdent"
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: string
+            example: 127244343
+          description: The ID or slug of the category to fetch.
       description: |- 
           Gets information about a category and returns the packages in that category.
       responses:
@@ -270,7 +276,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryResponse'
+                $ref: '#/components/schemas/SingleCategoryResponse'
 
   /categories/{categoryId}?includePackages=1:
     get:
@@ -295,7 +301,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryResponse'
+                $ref: '#/components/schemas/SingleCategoryResponse'
 
   /categories/{categoryId}?includePackages=1&basketIdent={basketIdent}:
     get:
@@ -323,7 +329,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryResponse'
+                $ref: '#/components/schemas/SingleCategoryResponse'
 
   /packages/{packageId}:
     get:
@@ -350,7 +356,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PackageResponse'
+                $ref: '#/components/schemas/SinglePackageResponse'
   /packages:
     get:
       tags:
@@ -374,6 +380,8 @@ paths:
       tags:
       - Headless
       operationId: getAllPackagesWithAuthedIP
+      security:
+        - basicAuth: []
       summary: Get packages
       parameters:
         - in: path
@@ -420,6 +428,8 @@ paths:
       tags:
       - Headless
       operationId: getAllPackagesWithAuthedIPAndBasket
+      security:
+        - basicAuth: []
       summary: Get packages available for IP and basket
       parameters:
         - $ref: "#/components/parameters/basketIdent"
@@ -649,7 +659,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Basket'
+              $ref: '#/components/schemas/BasketResponse'
       '422':
         description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
   /{basketIdent}/packages/remove:
@@ -681,7 +691,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Basket'
+                $ref: '#/components/schemas/BasketResponse'
         '422':
           description: The provided request is invalid. The error response will include detail as to which parameter failed validation.
   /{basketIdent}/packages/{packageId}:
@@ -695,6 +705,13 @@ paths:
       summary: Update package quantity
       parameters:
         - $ref: "#/components/parameters/basketIdent"
+        - in: path
+          name: packageId
+          required: true
+          schema:
+            type: string
+            example: 6276316
+          description: The package identifier
       description: |- 
           Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.
       requestBody:
@@ -834,6 +851,14 @@ components:
           format: date-time
           description: The date and time when the store was created
           example: "2023-05-25T09:49:37+00:00"
+        supports_usernames:
+          type: boolean
+          example: true
+          description: True if the store's platform identifies customers by username.
+        supports_gifting:
+          type: boolean
+          example: false
+          description: True if packages can be gifted to another user.
     WebstoreResponse:
       type: object
       properties:
@@ -1052,6 +1077,11 @@ components:
           type: array
           items: 
             $ref: "#/components/schemas/Category"
+    SingleCategoryResponse:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/Category"
     Category:
       type: object
       properties:
@@ -1116,6 +1146,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Package'
+    SinglePackageResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Package'
     Package:
       type: object
       properties:
@@ -1203,6 +1238,15 @@ components:
           type: string
           format: date-time
           example: '2024-05-21T18:09:17+00:00'
+        ident:
+          type: string
+          example: pkg_3081120_7088903
+          description: The package's string identifier.
+        vip_status:
+          type: string
+          nullable: true
+          example: null
+          description: The package's VIP status. Only `null` has been observed so far, so the non-null type is unconfirmed.
     BasketPackage:
       type: object
       description: A package within an existing basket.
@@ -1248,6 +1292,10 @@ components:
           description: An array of payment destination objects describing how the purchase should be split between multiple wallets. **Only available with pre-agreement from Tebex.**
           items:
             $ref: '#/components/schemas/RevenueShare'
+        is_recurring:
+          type: boolean
+          example: false
+          description: Whether this package is a recurring (subscription) purchase.
     RevenueShare:
       type: object
       properties:
