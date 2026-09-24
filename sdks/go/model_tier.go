@@ -1,9 +1,9 @@
 /*
 Tebex Headless API
 
-The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
+The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 1.1.0
+API version: 2.0.1
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -34,7 +34,7 @@ type Tier struct {
 	// The date and time of the next payment for this tier.
 	NextPaymentDate *time.Time `json:"next_payment_date,omitempty"`
 	Status *TierStatus `json:"status,omitempty"`
-	PendingDowngradePackage NullableTierPendingDowngradePackage `json:"pending_downgrade_package,omitempty"`
+	PendingDowngradePackage *TierPendingDowngradePackage `json:"pending_downgrade_package,omitempty"`
 }
 
 // NewTier instantiates a new Tier object
@@ -310,46 +310,36 @@ func (o *Tier) SetStatus(v TierStatus) {
 	o.Status = &v
 }
 
-// GetPendingDowngradePackage returns the PendingDowngradePackage field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetPendingDowngradePackage returns the PendingDowngradePackage field value if set, zero value otherwise.
 func (o *Tier) GetPendingDowngradePackage() TierPendingDowngradePackage {
-	if o == nil || IsNil(o.PendingDowngradePackage.Get()) {
+	if o == nil || IsNil(o.PendingDowngradePackage) {
 		var ret TierPendingDowngradePackage
 		return ret
 	}
-	return *o.PendingDowngradePackage.Get()
+	return *o.PendingDowngradePackage
 }
 
 // GetPendingDowngradePackageOk returns a tuple with the PendingDowngradePackage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Tier) GetPendingDowngradePackageOk() (*TierPendingDowngradePackage, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.PendingDowngradePackage) {
 		return nil, false
 	}
-	return o.PendingDowngradePackage.Get(), o.PendingDowngradePackage.IsSet()
+	return o.PendingDowngradePackage, true
 }
 
 // HasPendingDowngradePackage returns a boolean if a field has been set.
 func (o *Tier) HasPendingDowngradePackage() bool {
-	if o != nil && o.PendingDowngradePackage.IsSet() {
+	if o != nil && !IsNil(o.PendingDowngradePackage) {
 		return true
 	}
 
 	return false
 }
 
-// SetPendingDowngradePackage gets a reference to the given NullableTierPendingDowngradePackage and assigns it to the PendingDowngradePackage field.
+// SetPendingDowngradePackage gets a reference to the given TierPendingDowngradePackage and assigns it to the PendingDowngradePackage field.
 func (o *Tier) SetPendingDowngradePackage(v TierPendingDowngradePackage) {
-	o.PendingDowngradePackage.Set(&v)
-}
-// SetPendingDowngradePackageNil sets the value for PendingDowngradePackage to be an explicit nil
-func (o *Tier) SetPendingDowngradePackageNil() {
-	o.PendingDowngradePackage.Set(nil)
-}
-
-// UnsetPendingDowngradePackage ensures that no value is present for PendingDowngradePackage, not even an explicit nil
-func (o *Tier) UnsetPendingDowngradePackage() {
-	o.PendingDowngradePackage.Unset()
+	o.PendingDowngradePackage = &v
 }
 
 func (o Tier) MarshalJSON() ([]byte, error) {
@@ -386,8 +376,8 @@ func (o Tier) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.PendingDowngradePackage.IsSet() {
-		toSerialize["pending_downgrade_package"] = o.PendingDowngradePackage.Get()
+	if !IsNil(o.PendingDowngradePackage) {
+		toSerialize["pending_downgrade_package"] = o.PendingDowngradePackage
 	}
 	return toSerialize, nil
 }

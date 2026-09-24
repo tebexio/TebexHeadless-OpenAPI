@@ -1,9 +1,9 @@
 /*
 Tebex Headless API
 
-The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
+The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 1.1.0
+API version: 2.0.1
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &Coupon{}
 
 // Coupon struct for Coupon
 type Coupon struct {
-	CouponCode *string `json:"coupon_code,omitempty"`
+	Code *string `json:"code,omitempty"`
 }
 
 // NewCoupon instantiates a new Coupon object
@@ -40,36 +40,36 @@ func NewCouponWithDefaults() *Coupon {
 	return &this
 }
 
-// GetCouponCode returns the CouponCode field value if set, zero value otherwise.
-func (o *Coupon) GetCouponCode() string {
-	if o == nil || IsNil(o.CouponCode) {
+// GetCode returns the Code field value if set, zero value otherwise.
+func (o *Coupon) GetCode() string {
+	if o == nil || IsNil(o.Code) {
 		var ret string
 		return ret
 	}
-	return *o.CouponCode
+	return *o.Code
 }
 
-// GetCouponCodeOk returns a tuple with the CouponCode field value if set, nil otherwise
+// GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Coupon) GetCouponCodeOk() (*string, bool) {
-	if o == nil || IsNil(o.CouponCode) {
+func (o *Coupon) GetCodeOk() (*string, bool) {
+	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
-	return o.CouponCode, true
+	return o.Code, true
 }
 
-// HasCouponCode returns a boolean if a field has been set.
-func (o *Coupon) HasCouponCode() bool {
-	if o != nil && !IsNil(o.CouponCode) {
+// HasCode returns a boolean if a field has been set.
+func (o *Coupon) HasCode() bool {
+	if o != nil && !IsNil(o.Code) {
 		return true
 	}
 
 	return false
 }
 
-// SetCouponCode gets a reference to the given string and assigns it to the CouponCode field.
-func (o *Coupon) SetCouponCode(v string) {
-	o.CouponCode = &v
+// SetCode gets a reference to the given string and assigns it to the Code field.
+func (o *Coupon) SetCode(v string) {
+	o.Code = &v
 }
 
 func (o Coupon) MarshalJSON() ([]byte, error) {
@@ -82,8 +82,8 @@ func (o Coupon) MarshalJSON() ([]byte, error) {
 
 func (o Coupon) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.CouponCode) {
-		toSerialize["coupon_code"] = o.CouponCode
+	if !IsNil(o.Code) {
+		toSerialize["code"] = o.Code
 	}
 	return toSerialize, nil
 }

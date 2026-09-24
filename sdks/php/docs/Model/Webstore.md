@@ -13,6 +13,9 @@ Name | Type | Description | Notes
 **logo** | **string** | URL of the store&#39;s logo | [optional]
 **platform_type** | **string** | Platform type for the store | [optional]
 **platform_type_id** | **string** |  | [optional]
+**disabled** | **bool** | True if the store is disabled. | [optional]
 **created_at** | **\DateTime** | The date and time when the store was created | [optional]
+**supports_usernames** | **bool** | True if the store&#39;s platform identifies customers by username. | [optional]
+**supports_gifting** | **bool** | True if packages can be gifted to another user. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

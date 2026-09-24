@@ -5,8 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**package_id** | **str** |  | [optional] 
-**quantity** | **int** |  | [optional] 
+**package_id** | **str** |  | 
+**quantity** | **int** |  | 
+**dynamic** | **bool** | Set to &#x60;true&#x60; when adding a package that belongs to a dynamic category. When omitted, the API acts as if a normal package ID was provided. | [optional] 
 
 ## Example
 

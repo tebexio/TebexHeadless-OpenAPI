@@ -1,83 +1,55 @@
 # HeadlessApi
 
-All URIs are relative to *https://headless.tebex.io/api*
+All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**addBasketPackage**](HeadlessApi.md#addBasketPackage) | **POST** /baskets/{basketIdent}/packages | Add a package to a basket |
-| [**applyCoupon**](HeadlessApi.md#applyCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons | Apply a coupon to a basket. |
-| [**applyCreatorCode**](HeadlessApi.md#applyCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes | Apply a creator code to a basket. |
-| [**applyGiftCard**](HeadlessApi.md#applyGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards | Apply a gift card to a basket. |
-| [**createBasket**](HeadlessApi.md#createBasket) | **POST** /accounts/{token}/baskets | Create a new basket |
-| [**getAllCategories**](HeadlessApi.md#getAllCategories) | **GET** /accounts/{token}/categories | Gets all categories available in the webstore. |
-| [**getAllCategoriesIncludingPackages**](HeadlessApi.md#getAllCategoriesIncludingPackages) | **GET** /accounts/{token}/categories?includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
-| [**getAllPackages**](HeadlessApi.md#getAllPackages) | **GET** /accounts/{token}/packages | Fetch all packages from a webstore |
-| [**getAllPackagesWithAuthedIP**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier |
-| [**getAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**getAllPackagesWithBasket**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket. |
-| [**getBasketById**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
-| [**getCMSPages**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
-| [**getCategoryById**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
-| [**getCategoryIncludingPackages**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
-| [**getPackageById**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
-| [**getTieredCategoriesForUser**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
-| [**getWebstoreById**](HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
-| [**removeBasketPackage**](HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
-| [**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
-| [**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
-| [**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
-| [**updatePackageQuantity**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
-| [**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package. |
+| [**applyCoupon**](HeadlessApi.md#applyCoupon) | **POST** /baskets/{basketIdent}/coupons | Apply a coupon |
+| [**applyCreatorCode**](HeadlessApi.md#applyCreatorCode) | **POST** /baskets/{basketIdent}/creator-codes | Apply a creator code |
+| [**applyGiftCard**](HeadlessApi.md#applyGiftCard) | **POST** /baskets/{basketIdent}/giftcards | Apply a gift card |
+| [**createBasket**](HeadlessApi.md#createBasket) | **POST** /baskets | Create a new basket |
+| [**createDynamicPackage**](HeadlessApi.md#createDynamicPackage) | **PUT** /baskets/{basketIdent}/dynamic-packages | Add packages to a dynamic category for a basket. |
+| [**getAllPackages**](HeadlessApi.md#getAllPackages) | **GET** /packages | Get all packages |
+| [**getAllPackagesWithAuthedIP**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /packages?ipAddress&#x3D;{ipAddress} | Get packages |
+| [**getAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Get packages available for IP and basket |
+| [**getBasket**](HeadlessApi.md#getBasket) | **GET** /baskets/{basketIdent} | Get a basket |
+| [**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get auth links for basket |
+| [**getCategories**](HeadlessApi.md#getCategories) | **GET** /categories | Get all categories |
+| [**getCategoriesIncludePackages**](HeadlessApi.md#getCategoriesIncludePackages) | **GET** /categories?includePackages&#x3D;1 | Gets all categories and packages |
+| [**getCategory**](HeadlessApi.md#getCategory) | **GET** /categories/{categoryId} | Get specific category |
+| [**getCategoryIncludeDynamicPackages**](HeadlessApi.md#getCategoryIncludeDynamicPackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket. |
+| [**getCategoryIncludePackages**](HeadlessApi.md#getCategoryIncludePackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages |
+| [**getCustomPages**](HeadlessApi.md#getCustomPages) | **GET** /pages | Get custom pages defined for the webstore. |
+| [**getDynamicCategories**](HeadlessApi.md#getDynamicCategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories |
+| [**getPackage**](HeadlessApi.md#getPackage) | **GET** /packages/{packageId} | Get package |
+| [**getPackagesForBasket**](HeadlessApi.md#getPackagesForBasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket |
+| [**getSidebar**](HeadlessApi.md#getSidebar) | **GET** /sidebar | Retrieves the available sidebar modules. |
+| [**getUserTieredCategories**](HeadlessApi.md#getUserTieredCategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories |
+| [**getWebstore**](HeadlessApi.md#getWebstore) | **GET** / | Get the webstore&#39;s information |
+| [**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
+| [**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /baskets/{basketIdent}/creator-codes/remove | Removes the creator code from the basket. |
+| [**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
+| [**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /tiers/{tierId} | Update user&#39;s tier to a new package |
 
-
-<a name="addBasketPackage"></a>
-# **addBasketPackage**
-> Basket addBasketPackage(basketIdent, addBasketPackage\_request)
-
-Add a package to a basket
-
-    Add a package with the given ID to the basket.
-
-### Parameters
-
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **basketIdent** | **String**| The basket identifier. | [default to null] |
-| **addBasketPackage\_request** | [**addBasketPackage_request**](../Models/addBasketPackage_request.md)|  | [optional] |
-
-### Return type
-
-[**Basket**](../Models/Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
 
 <a name="applyCoupon"></a>
 # **applyCoupon**
-> BasketResponse applyCoupon(token, basketIdent, Coupon)
+> applyCoupon_200_response applyCoupon(basketIdent, ApplyCouponRequest)
 
-Apply a coupon to a basket.
+Apply a coupon
 
-    Applies a creator code to a basket.
+    Applies a coupon to a basket.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
-| **Coupon** | [**Coupon**](../Models/Coupon.md)| Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional] |
+| **ApplyCouponRequest** | [**ApplyCouponRequest**](../Models/ApplyCouponRequest.md)| Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional] |
 
 ### Return type
 
-[**BasketResponse**](../Models/BasketResponse.md)
+[**applyCoupon_200_response**](../Models/applyCoupon_200_response.md)
 
 ### Authorization
 
@@ -90,9 +62,9 @@ No authorization required
 
 <a name="applyCreatorCode"></a>
 # **applyCreatorCode**
-> BasketResponse applyCreatorCode(token, basketIdent, applyCreatorCode\_request)
+> applyCreatorCode_200_response applyCreatorCode(basketIdent, applyCreatorCode\_request)
 
-Apply a creator code to a basket.
+Apply a creator code
 
     Applies a creator code to a basket.
 
@@ -100,13 +72,12 @@ Apply a creator code to a basket.
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
 | **applyCreatorCode\_request** | [**applyCreatorCode_request**](../Models/applyCreatorCode_request.md)| Provide a &#x60;creator_code&#x60; to apply to the basket. | [optional] |
 
 ### Return type
 
-[**BasketResponse**](../Models/BasketResponse.md)
+[**applyCreatorCode_200_response**](../Models/applyCreatorCode_200_response.md)
 
 ### Authorization
 
@@ -119,23 +90,22 @@ No authorization required
 
 <a name="applyGiftCard"></a>
 # **applyGiftCard**
-> BasketResponse applyGiftCard(token, basketIdent, GiftCard)
+> applyGiftCard_200_response applyGiftCard(basketIdent, GiftCard)
 
-Apply a gift card to a basket.
+Apply a gift card
 
-    Applies a creator code to a basket.
+    Applies a gift card to the basket.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
 | **GiftCard** | [**GiftCard**](../Models/GiftCard.md)| Provide a &#x60;card_number&#x60; to apply to the basket. | [optional] |
 
 ### Return type
 
-[**BasketResponse**](../Models/BasketResponse.md)
+[**applyGiftCard_200_response**](../Models/applyGiftCard_200_response.md)
 
 ### Authorization
 
@@ -148,7 +118,7 @@ No authorization required
 
 <a name="createBasket"></a>
 # **createBasket**
-> BasketResponse createBasket(token, createBasket\_request)
+> BasketResponse createBasket(createBasket\_request)
 
 Create a new basket
 
@@ -158,7 +128,6 @@ Create a new basket
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **createBasket\_request** | [**createBasket_request**](../Models/createBasket_request.md)|  | [optional] |
 
 ### Return type
@@ -174,23 +143,24 @@ No authorization required
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-<a name="getAllCategories"></a>
-# **getAllCategories**
-> CategoryResponse getAllCategories(token)
+<a name="createDynamicPackage"></a>
+# **createDynamicPackage**
+> DynamicPackagesResponse createDynamicPackage(basketIdent, DynamicPackagesRequest)
 
-Gets all categories available in the webstore.
+Add packages to a dynamic category for a basket.
 
-    Gets all categories from a webstore. This does not include package information. To include package information, add &#x60;?includePackages&#x3D;1&#x60; to the URL.
+    Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type &#x60;dynamic&#x60;, and are typically populated in response to a &#x60;basket.authenticated&#x60; webhook.  Once created, the packages can be fetched using the category endpoints with both &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; provided.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
+| **basketIdent** | **String**| The basket identifier. | [default to null] |
+| **DynamicPackagesRequest** | [**DynamicPackagesRequest**](../Models/DynamicPackagesRequest.md)|  | [optional] |
 
 ### Return type
 
-[**CategoryResponse**](../Models/CategoryResponse.md)
+[**DynamicPackagesResponse**](../Models/DynamicPackagesResponse.md)
 
 ### Authorization
 
@@ -198,49 +168,19 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-<a name="getAllCategoriesIncludingPackages"></a>
-# **getAllCategoriesIncludingPackages**
-> CategoryResponse getAllCategoriesIncludingPackages(token)
-
-Gets a store&#39;s categories including all package information with them.
-
-    Gets all categories from a webstore including packages.
-
-### Parameters
-
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
-
-### Return type
-
-[**CategoryResponse**](../Models/CategoryResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 <a name="getAllPackages"></a>
 # **getAllPackages**
-> PackageResponse getAllPackages(token)
+> PackageResponse getAllPackages()
 
-Fetch all packages from a webstore
+Get all packages
 
-    Gets all packages from a webstore.
+    Gets all packages from a webstore.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; to fetch dynamic packages.
 
 ### Parameters
-
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -257,9 +197,9 @@ No authorization required
 
 <a name="getAllPackagesWithAuthedIP"></a>
 # **getAllPackagesWithAuthedIP**
-> PackageResponse getAllPackagesWithAuthedIP(token, ipAddress)
+> PackageResponse getAllPackagesWithAuthedIP(ipAddress)
 
-Fetch a package from a webstore by its identifier
+Get packages
 
     Gets all packages from a webstore.
 
@@ -267,8 +207,7 @@ Fetch a package from a webstore by its identifier
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
-| **ipAddress** | **String**| An IP address can be provided with authenticated requests. | [default to null] |
+| **ipAddress** | **String**| An IP address can be provided with authenticated requests | [default to null] |
 
 ### Return type
 
@@ -276,7 +215,7 @@ Fetch a package from a webstore by its identifier
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -285,9 +224,9 @@ No authorization required
 
 <a name="getAllPackagesWithAuthedIPAndBasket"></a>
 # **getAllPackagesWithAuthedIPAndBasket**
-> PackageResponse getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress)
+> PackageResponse getAllPackagesWithAuthedIPAndBasket(basketIdent, ipAddress)
 
-Fetch a package from a webstore by its identifier
+Get packages available for IP and basket
 
     Gets all packages from a webstore.
 
@@ -295,7 +234,6 @@ Fetch a package from a webstore by its identifier
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
 | **ipAddress** | **String**| An IP address can be provided with authenticated requests. | [default to null] |
 
@@ -305,31 +243,30 @@ Fetch a package from a webstore by its identifier
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="getAllPackagesWithBasket"></a>
-# **getAllPackagesWithBasket**
-> PackageResponse getAllPackagesWithBasket(token, basketIdent)
+<a name="getBasket"></a>
+# **getBasket**
+> BasketResponse getBasket(basketIdent)
 
-Fetch a package from a webstore by its identifier
+Get a basket
 
-    Gets all packages from a webstore.
+    Gets a basket associated with the provided identifier.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
 
 ### Return type
 
-[**PackageResponse**](../Models/PackageResponse.md)
+[**BasketResponse**](../Models/BasketResponse.md)
 
 ### Authorization
 
@@ -342,17 +279,16 @@ No authorization required
 
 <a name="getBasketAuthUrl"></a>
 # **getBasketAuthUrl**
-> List getBasketAuthUrl(token, basketIdent, returnUrl)
+> List getBasketAuthUrl(basketIdent, returnUrl)
 
-Get authentication links for a basket.
+Get auth links for basket
 
-    Fetches a basket&#39;s auth URL.
+    Fetches a basket&#39;s auth URL. The player should be directed here in order for them to authorize their account. When complete, they will be returned to the provided &#x60;returnUrl&#x60; and the basket will be authorized from that moment onwards.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
 | **returnUrl** | **String**| The URL you would like to redirect the user to after successful basket authentication. | [default to null] |
 
@@ -369,24 +305,20 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="getBasketById"></a>
-# **getBasketById**
-> BasketResponse getBasketById(token, basketIdent)
+<a name="getCategories"></a>
+# **getCategories**
+> CategoryResponse getCategories()
 
-Fetch a basket from a webstore by its identifier
+Get all categories
 
-    Gets a basket associated with the provided identifier.
+    Gets all categories from a webstore. This does not include package information. To include package information, add &#x60;?includePackages&#x3D;1&#x60; to the URL.
 
 ### Parameters
-
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
-| **basketIdent** | **String**| The basket identifier. | [default to null] |
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**BasketResponse**](../Models/BasketResponse.md)
+[**CategoryResponse**](../Models/CategoryResponse.md)
 
 ### Authorization
 
@@ -397,19 +329,122 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="getCMSPages"></a>
-# **getCMSPages**
-> CMSPagesResponse getCMSPages(token)
+<a name="getCategoriesIncludePackages"></a>
+# **getCategoriesIncludePackages**
+> CategoryResponse getCategoriesIncludePackages()
 
-Fetch the custom pages associated with the store.
+Gets all categories and packages
 
-    Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+    Gets all categories from a webstore including packages.
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CategoryResponse**](../Models/CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+<a name="getCategory"></a>
+# **getCategory**
+> SingleCategoryResponse getCategory(categoryId)
+
+Get specific category
+
+    Gets information about a category and returns the packages in that category.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
+| **categoryId** | **String**| The ID or slug of the category to fetch. | [default to null] |
+
+### Return type
+
+[**SingleCategoryResponse**](../Models/SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+<a name="getCategoryIncludeDynamicPackages"></a>
+# **getCategoryIncludeDynamicPackages**
+> SingleCategoryResponse getCategoryIncludeDynamicPackages(categoryId, basketIdent)
+
+Gets a specific category including packages, populating a dynamic category for the given basket.
+
+    Gets information about a category and returns the packages in that category. When the category is dynamic and &#x60;basketIdent&#x60; is provided, the category is populated with the packages associated with that basket.  If a basket identifier is not provided, a dynamic category will be empty as the basket is required to relate packages to the category.
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **categoryId** | **String**| The ID or slug of the category to fetch. | [default to null] |
+| **basketIdent** | **String**| The basket identifier. | [default to null] |
+
+### Return type
+
+[**SingleCategoryResponse**](../Models/SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+<a name="getCategoryIncludePackages"></a>
+# **getCategoryIncludePackages**
+> SingleCategoryResponse getCategoryIncludePackages(categoryId)
+
+Get a category with all packages
+
+    Gets information about a category and returns the packages in that category.
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **categoryId** | **String**| The ID or slug of the category to fetch. | [default to null] |
+
+### Return type
+
+[**SingleCategoryResponse**](../Models/SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+<a name="getCustomPages"></a>
+# **getCustomPages**
+> CMSPagesResponse getCustomPages()
+
+Get custom pages defined for the webstore.
+
+    Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+
+### Parameters
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -424,20 +459,19 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="getCategoryById"></a>
-# **getCategoryById**
-> CategoryResponse getCategoryById(token, categoryId)
+<a name="getDynamicCategories"></a>
+# **getDynamicCategories**
+> CategoryResponse getDynamicCategories(basketIdent)
 
-Gets information about a specific category
+Get Dynamic Categories
 
-    Gets information about a category and returns the packages in that category.
+    Gets all categories from a webstore including packages. When &#x60;basketIdent&#x60; is provided, dynamic categories are populated with the packages associated with that basket.  If a basket identifier is not provided, dynamic categories will be empty as the basket is required to relate packages to the category.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
-| **categoryId** | **String**| The ID of the category to fetch. | [default to null] |
+| **basketIdent** | **String**| The basket identifier. | [default to null] |
 
 ### Return type
 
@@ -452,24 +486,23 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="getCategoryIncludingPackages"></a>
-# **getCategoryIncludingPackages**
-> CategoryResponse getCategoryIncludingPackages(token, categoryId)
+<a name="getPackage"></a>
+# **getPackage**
+> SinglePackageResponse getPackage(packageId)
 
-Gets information about a specific category, including all the packages in the category
+Get package
 
-    Gets information about a category and returns the packages in that category.
+    Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; to fetch dynamic packages.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
-| **categoryId** | **String**| The ID of the category to fetch. | [default to null] |
+| **packageId** | **String**| The package&#39;s ID or slug. | [default to null] |
 
 ### Return type
 
-[**CategoryResponse**](../Models/CategoryResponse.md)
+[**SinglePackageResponse**](../Models/SinglePackageResponse.md)
 
 ### Authorization
 
@@ -480,20 +513,19 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="getPackageById"></a>
-# **getPackageById**
-> PackageResponse getPackageById(token, packageId)
+<a name="getPackagesForBasket"></a>
+# **getPackagesForBasket**
+> PackageResponse getPackagesForBasket(basketIdent)
 
-Fetch a package from a webstore by its identifier
+Get packages available for basket
 
-    Gets a package from a webstore by ID.
+    Gets all packages available to the provided basket.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
-| **packageId** | **Integer**| The package&#39;s ID. | [default to null] |
+| **basketIdent** | **String**| The basket identifier. | [default to null] |
 
 ### Return type
 
@@ -508,11 +540,38 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="getTieredCategoriesForUser"></a>
-# **getTieredCategoriesForUser**
-> CategoryResponse getTieredCategoriesForUser(token, usernameId)
+<a name="getSidebar"></a>
+# **getSidebar**
+> ModulesResponse getSidebar(token)
 
-Gets a store&#39;s categories including all package information with them.
+Retrieves the available sidebar modules.
+
+    Retrieves the available sidebar modules configured for the store.
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **token** | **String**| The webstore identifier. | [default to null] |
+
+### Return type
+
+[**ModulesResponse**](../Models/ModulesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+<a name="getUserTieredCategories"></a>
+# **getUserTieredCategories**
+> CategoryResponse getUserTieredCategories(usernameId)
+
+Get user&#39;s tiered categories
 
     Gets all categories from the webstore, returning active tier information for the given player.
 
@@ -520,7 +579,6 @@ Gets a store&#39;s categories including all package information with them.
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **usernameId** | **Integer**|  | [default to null] |
 
 ### Return type
@@ -536,19 +594,16 @@ Gets a store&#39;s categories including all package information with them.
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="getWebstoreById"></a>
-# **getWebstoreById**
-> WebstoreResponse getWebstoreById(token)
+<a name="getWebstore"></a>
+# **getWebstore**
+> WebstoreResponse getWebstore()
 
-Fetch a webstore by its identifier
+Get the webstore&#39;s information
 
-    Gets the webstore associated with the provided identifier.
+    Gets the webstore associated with the provided token
 
 ### Parameters
-
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -563,37 +618,9 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="removeBasketPackage"></a>
-# **removeBasketPackage**
-> Basket removeBasketPackage(basketIdent, removeBasketPackage\_request)
-
-Remove a package from a basket
-
-    Remove the given package ID from the basket.
-
-### Parameters
-
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **basketIdent** | **String**| The basket identifier. | [default to null] |
-| **removeBasketPackage\_request** | [**removeBasketPackage_request**](../Models/removeBasketPackage_request.md)|  | [optional] |
-
-### Return type
-
-[**Basket**](../Models/Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
 <a name="removeCoupon"></a>
 # **removeCoupon**
-> removeCoupon(token, basketIdent)
+> removeCoupon(basketIdent, ApplyCouponRequest)
 
 Remove a coupon from the basket.
 
@@ -603,8 +630,8 @@ Remove a coupon from the basket.
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
+| **ApplyCouponRequest** | [**ApplyCouponRequest**](../Models/ApplyCouponRequest.md)| Provide a &#x60;coupon_code&#x60; to remove from the basket. | [optional] |
 
 ### Return type
 
@@ -616,22 +643,21 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: Not defined
 
 <a name="removeCreatorCode"></a>
 # **removeCreatorCode**
-> removeCreatorCode(token, basketIdent)
+> removeCreatorCode(basketIdent)
 
-Remove a creator code from the basket.
+Removes the creator code from the basket.
 
-    Applies a creator code to a basket.
+    Removes the creator code from the basket.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
 
 ### Return type
@@ -649,7 +675,7 @@ No authorization required
 
 <a name="removeGiftCard"></a>
 # **removeGiftCard**
-> removeGiftCard(token, basketIdent, removeGiftCard\_request)
+> removeGiftCard(basketIdent, removeGiftCard\_request)
 
 Remove a gift card from the basket.
 
@@ -659,7 +685,6 @@ Remove a gift card from the basket.
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
 | **removeGiftCard\_request** | [**removeGiftCard_request**](../Models/removeGiftCard_request.md)| Provide the &#x60;card_number&#x60; to remove from the basket. | [optional] |
 
@@ -676,48 +701,18 @@ No authorization required
 - **Content-Type**: application/json
 - **Accept**: Not defined
 
-<a name="updatePackageQuantity"></a>
-# **updatePackageQuantity**
-> updatePackageQuantity(basketIdent, packageId, updatePackageQuantity\_request)
-
-Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-
-    Sets the quantity of the given item in the basket.
-
-### Parameters
-
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **basketIdent** | **String**| The basket identifier. | [default to null] |
-| **packageId** | **Integer**| The package identifier. | [default to null] |
-| **updatePackageQuantity\_request** | [**updatePackageQuantity_request**](../Models/updatePackageQuantity_request.md)|  | [optional] |
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
 <a name="updateTier"></a>
 # **updateTier**
-> UpdateTierResponse updateTier(token, tierId, updateTier\_request)
+> UpdateTierResponse updateTier(tierId, updateTier\_request)
 
-Updates the given teir to the provided package.
+Update user&#39;s tier to a new package
 
-    Updates a tier to a new package.
+    Updates a tier to a new package. A recurring payment updated webhook is sent when an update is successful.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | [default to null] |
 | **tierId** | **Integer**| The tier identifier | [default to null] |
 | **updateTier\_request** | [**updateTier_request**](../Models/updateTier_request.md)|  | [optional] |
 

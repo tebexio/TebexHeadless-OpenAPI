@@ -1,9 +1,9 @@
 /*
 Tebex Headless API
 
-The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
+The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 1.1.0
+API version: 2.0.1
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -24,7 +24,7 @@ type Package struct {
 	Id *int32 `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Description *string `json:"description,omitempty"`
-	Image NullableString `json:"image,omitempty"`
+	Image *string `json:"image,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Category *PackageCategory `json:"category,omitempty"`
 	BasePrice *float32 `json:"base_price,omitempty"`
@@ -32,13 +32,24 @@ type Package struct {
 	TotalPrice *float32 `json:"total_price,omitempty"`
 	Currency *string `json:"currency,omitempty"`
 	// If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier.
-	ProratePrice NullableFloat32 `json:"prorate_price,omitempty"`
+	ProratePrice *float32 `json:"prorate_price,omitempty"`
 	Discount *float32 `json:"discount,omitempty"`
 	DisableQuantity *bool `json:"disable_quantity,omitempty"`
 	DisableGifting *bool `json:"disable_gifting,omitempty"`
-	ExpirationDate NullableTime `json:"expiration_date,omitempty"`
+	ExpirationDate *time.Time `json:"expiration_date,omitempty"`
+	Media []PackageMedia `json:"media,omitempty"`
+	Order *int32 `json:"order,omitempty"`
+	Slug *string `json:"slug,omitempty"`
+	UserLimit *int32 `json:"user_limit,omitempty"`
+	CreatorMetaData map[string]interface{} `json:"creator_meta_data,omitempty"`
+	Options []string `json:"options,omitempty"`
+	Variables []string `json:"variables,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	// The package's string identifier.
+	Ident *string `json:"ident,omitempty"`
+	// The package's VIP status. Only `null` has been observed so far, so the non-null type is unconfirmed.
+	VipStatus *string `json:"vip_status,omitempty"`
 }
 
 // NewPackage instantiates a new Package object
@@ -154,46 +165,36 @@ func (o *Package) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetImage returns the Image field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetImage returns the Image field value if set, zero value otherwise.
 func (o *Package) GetImage() string {
-	if o == nil || IsNil(o.Image.Get()) {
+	if o == nil || IsNil(o.Image) {
 		var ret string
 		return ret
 	}
-	return *o.Image.Get()
+	return *o.Image
 }
 
 // GetImageOk returns a tuple with the Image field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Package) GetImageOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Image) {
 		return nil, false
 	}
-	return o.Image.Get(), o.Image.IsSet()
+	return o.Image, true
 }
 
 // HasImage returns a boolean if a field has been set.
 func (o *Package) HasImage() bool {
-	if o != nil && o.Image.IsSet() {
+	if o != nil && !IsNil(o.Image) {
 		return true
 	}
 
 	return false
 }
 
-// SetImage gets a reference to the given NullableString and assigns it to the Image field.
+// SetImage gets a reference to the given string and assigns it to the Image field.
 func (o *Package) SetImage(v string) {
-	o.Image.Set(&v)
-}
-// SetImageNil sets the value for Image to be an explicit nil
-func (o *Package) SetImageNil() {
-	o.Image.Set(nil)
-}
-
-// UnsetImage ensures that no value is present for Image, not even an explicit nil
-func (o *Package) UnsetImage() {
-	o.Image.Unset()
+	o.Image = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -388,46 +389,36 @@ func (o *Package) SetCurrency(v string) {
 	o.Currency = &v
 }
 
-// GetProratePrice returns the ProratePrice field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetProratePrice returns the ProratePrice field value if set, zero value otherwise.
 func (o *Package) GetProratePrice() float32 {
-	if o == nil || IsNil(o.ProratePrice.Get()) {
+	if o == nil || IsNil(o.ProratePrice) {
 		var ret float32
 		return ret
 	}
-	return *o.ProratePrice.Get()
+	return *o.ProratePrice
 }
 
 // GetProratePriceOk returns a tuple with the ProratePrice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Package) GetProratePriceOk() (*float32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ProratePrice) {
 		return nil, false
 	}
-	return o.ProratePrice.Get(), o.ProratePrice.IsSet()
+	return o.ProratePrice, true
 }
 
 // HasProratePrice returns a boolean if a field has been set.
 func (o *Package) HasProratePrice() bool {
-	if o != nil && o.ProratePrice.IsSet() {
+	if o != nil && !IsNil(o.ProratePrice) {
 		return true
 	}
 
 	return false
 }
 
-// SetProratePrice gets a reference to the given NullableFloat32 and assigns it to the ProratePrice field.
+// SetProratePrice gets a reference to the given float32 and assigns it to the ProratePrice field.
 func (o *Package) SetProratePrice(v float32) {
-	o.ProratePrice.Set(&v)
-}
-// SetProratePriceNil sets the value for ProratePrice to be an explicit nil
-func (o *Package) SetProratePriceNil() {
-	o.ProratePrice.Set(nil)
-}
-
-// UnsetProratePrice ensures that no value is present for ProratePrice, not even an explicit nil
-func (o *Package) UnsetProratePrice() {
-	o.ProratePrice.Unset()
+	o.ProratePrice = &v
 }
 
 // GetDiscount returns the Discount field value if set, zero value otherwise.
@@ -526,46 +517,260 @@ func (o *Package) SetDisableGifting(v bool) {
 	o.DisableGifting = &v
 }
 
-// GetExpirationDate returns the ExpirationDate field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetExpirationDate returns the ExpirationDate field value if set, zero value otherwise.
 func (o *Package) GetExpirationDate() time.Time {
-	if o == nil || IsNil(o.ExpirationDate.Get()) {
+	if o == nil || IsNil(o.ExpirationDate) {
 		var ret time.Time
 		return ret
 	}
-	return *o.ExpirationDate.Get()
+	return *o.ExpirationDate
 }
 
 // GetExpirationDateOk returns a tuple with the ExpirationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Package) GetExpirationDateOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ExpirationDate) {
 		return nil, false
 	}
-	return o.ExpirationDate.Get(), o.ExpirationDate.IsSet()
+	return o.ExpirationDate, true
 }
 
 // HasExpirationDate returns a boolean if a field has been set.
 func (o *Package) HasExpirationDate() bool {
-	if o != nil && o.ExpirationDate.IsSet() {
+	if o != nil && !IsNil(o.ExpirationDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetExpirationDate gets a reference to the given NullableTime and assigns it to the ExpirationDate field.
+// SetExpirationDate gets a reference to the given time.Time and assigns it to the ExpirationDate field.
 func (o *Package) SetExpirationDate(v time.Time) {
-	o.ExpirationDate.Set(&v)
-}
-// SetExpirationDateNil sets the value for ExpirationDate to be an explicit nil
-func (o *Package) SetExpirationDateNil() {
-	o.ExpirationDate.Set(nil)
+	o.ExpirationDate = &v
 }
 
-// UnsetExpirationDate ensures that no value is present for ExpirationDate, not even an explicit nil
-func (o *Package) UnsetExpirationDate() {
-	o.ExpirationDate.Unset()
+// GetMedia returns the Media field value if set, zero value otherwise.
+func (o *Package) GetMedia() []PackageMedia {
+	if o == nil || IsNil(o.Media) {
+		var ret []PackageMedia
+		return ret
+	}
+	return o.Media
+}
+
+// GetMediaOk returns a tuple with the Media field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Package) GetMediaOk() ([]PackageMedia, bool) {
+	if o == nil || IsNil(o.Media) {
+		return nil, false
+	}
+	return o.Media, true
+}
+
+// HasMedia returns a boolean if a field has been set.
+func (o *Package) HasMedia() bool {
+	if o != nil && !IsNil(o.Media) {
+		return true
+	}
+
+	return false
+}
+
+// SetMedia gets a reference to the given []PackageMedia and assigns it to the Media field.
+func (o *Package) SetMedia(v []PackageMedia) {
+	o.Media = v
+}
+
+// GetOrder returns the Order field value if set, zero value otherwise.
+func (o *Package) GetOrder() int32 {
+	if o == nil || IsNil(o.Order) {
+		var ret int32
+		return ret
+	}
+	return *o.Order
+}
+
+// GetOrderOk returns a tuple with the Order field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Package) GetOrderOk() (*int32, bool) {
+	if o == nil || IsNil(o.Order) {
+		return nil, false
+	}
+	return o.Order, true
+}
+
+// HasOrder returns a boolean if a field has been set.
+func (o *Package) HasOrder() bool {
+	if o != nil && !IsNil(o.Order) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrder gets a reference to the given int32 and assigns it to the Order field.
+func (o *Package) SetOrder(v int32) {
+	o.Order = &v
+}
+
+// GetSlug returns the Slug field value if set, zero value otherwise.
+func (o *Package) GetSlug() string {
+	if o == nil || IsNil(o.Slug) {
+		var ret string
+		return ret
+	}
+	return *o.Slug
+}
+
+// GetSlugOk returns a tuple with the Slug field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Package) GetSlugOk() (*string, bool) {
+	if o == nil || IsNil(o.Slug) {
+		return nil, false
+	}
+	return o.Slug, true
+}
+
+// HasSlug returns a boolean if a field has been set.
+func (o *Package) HasSlug() bool {
+	if o != nil && !IsNil(o.Slug) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlug gets a reference to the given string and assigns it to the Slug field.
+func (o *Package) SetSlug(v string) {
+	o.Slug = &v
+}
+
+// GetUserLimit returns the UserLimit field value if set, zero value otherwise.
+func (o *Package) GetUserLimit() int32 {
+	if o == nil || IsNil(o.UserLimit) {
+		var ret int32
+		return ret
+	}
+	return *o.UserLimit
+}
+
+// GetUserLimitOk returns a tuple with the UserLimit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Package) GetUserLimitOk() (*int32, bool) {
+	if o == nil || IsNil(o.UserLimit) {
+		return nil, false
+	}
+	return o.UserLimit, true
+}
+
+// HasUserLimit returns a boolean if a field has been set.
+func (o *Package) HasUserLimit() bool {
+	if o != nil && !IsNil(o.UserLimit) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserLimit gets a reference to the given int32 and assigns it to the UserLimit field.
+func (o *Package) SetUserLimit(v int32) {
+	o.UserLimit = &v
+}
+
+// GetCreatorMetaData returns the CreatorMetaData field value if set, zero value otherwise.
+func (o *Package) GetCreatorMetaData() map[string]interface{} {
+	if o == nil || IsNil(o.CreatorMetaData) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.CreatorMetaData
+}
+
+// GetCreatorMetaDataOk returns a tuple with the CreatorMetaData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Package) GetCreatorMetaDataOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.CreatorMetaData) {
+		return map[string]interface{}{}, false
+	}
+	return o.CreatorMetaData, true
+}
+
+// HasCreatorMetaData returns a boolean if a field has been set.
+func (o *Package) HasCreatorMetaData() bool {
+	if o != nil && !IsNil(o.CreatorMetaData) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatorMetaData gets a reference to the given map[string]interface{} and assigns it to the CreatorMetaData field.
+func (o *Package) SetCreatorMetaData(v map[string]interface{}) {
+	o.CreatorMetaData = v
+}
+
+// GetOptions returns the Options field value if set, zero value otherwise.
+func (o *Package) GetOptions() []string {
+	if o == nil || IsNil(o.Options) {
+		var ret []string
+		return ret
+	}
+	return o.Options
+}
+
+// GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Package) GetOptionsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Options) {
+		return nil, false
+	}
+	return o.Options, true
+}
+
+// HasOptions returns a boolean if a field has been set.
+func (o *Package) HasOptions() bool {
+	if o != nil && !IsNil(o.Options) {
+		return true
+	}
+
+	return false
+}
+
+// SetOptions gets a reference to the given []string and assigns it to the Options field.
+func (o *Package) SetOptions(v []string) {
+	o.Options = v
+}
+
+// GetVariables returns the Variables field value if set, zero value otherwise.
+func (o *Package) GetVariables() []string {
+	if o == nil || IsNil(o.Variables) {
+		var ret []string
+		return ret
+	}
+	return o.Variables
+}
+
+// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Package) GetVariablesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Variables) {
+		return nil, false
+	}
+	return o.Variables, true
+}
+
+// HasVariables returns a boolean if a field has been set.
+func (o *Package) HasVariables() bool {
+	if o != nil && !IsNil(o.Variables) {
+		return true
+	}
+
+	return false
+}
+
+// SetVariables gets a reference to the given []string and assigns it to the Variables field.
+func (o *Package) SetVariables(v []string) {
+	o.Variables = v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -632,6 +837,70 @@ func (o *Package) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
+// GetIdent returns the Ident field value if set, zero value otherwise.
+func (o *Package) GetIdent() string {
+	if o == nil || IsNil(o.Ident) {
+		var ret string
+		return ret
+	}
+	return *o.Ident
+}
+
+// GetIdentOk returns a tuple with the Ident field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Package) GetIdentOk() (*string, bool) {
+	if o == nil || IsNil(o.Ident) {
+		return nil, false
+	}
+	return o.Ident, true
+}
+
+// HasIdent returns a boolean if a field has been set.
+func (o *Package) HasIdent() bool {
+	if o != nil && !IsNil(o.Ident) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdent gets a reference to the given string and assigns it to the Ident field.
+func (o *Package) SetIdent(v string) {
+	o.Ident = &v
+}
+
+// GetVipStatus returns the VipStatus field value if set, zero value otherwise.
+func (o *Package) GetVipStatus() string {
+	if o == nil || IsNil(o.VipStatus) {
+		var ret string
+		return ret
+	}
+	return *o.VipStatus
+}
+
+// GetVipStatusOk returns a tuple with the VipStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Package) GetVipStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.VipStatus) {
+		return nil, false
+	}
+	return o.VipStatus, true
+}
+
+// HasVipStatus returns a boolean if a field has been set.
+func (o *Package) HasVipStatus() bool {
+	if o != nil && !IsNil(o.VipStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetVipStatus gets a reference to the given string and assigns it to the VipStatus field.
+func (o *Package) SetVipStatus(v string) {
+	o.VipStatus = &v
+}
+
 func (o Package) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -651,8 +920,8 @@ func (o Package) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Image.IsSet() {
-		toSerialize["image"] = o.Image.Get()
+	if !IsNil(o.Image) {
+		toSerialize["image"] = o.Image
 	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
@@ -672,8 +941,8 @@ func (o Package) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Currency) {
 		toSerialize["currency"] = o.Currency
 	}
-	if o.ProratePrice.IsSet() {
-		toSerialize["prorate_price"] = o.ProratePrice.Get()
+	if !IsNil(o.ProratePrice) {
+		toSerialize["prorate_price"] = o.ProratePrice
 	}
 	if !IsNil(o.Discount) {
 		toSerialize["discount"] = o.Discount
@@ -684,14 +953,41 @@ func (o Package) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DisableGifting) {
 		toSerialize["disable_gifting"] = o.DisableGifting
 	}
-	if o.ExpirationDate.IsSet() {
-		toSerialize["expiration_date"] = o.ExpirationDate.Get()
+	if !IsNil(o.ExpirationDate) {
+		toSerialize["expiration_date"] = o.ExpirationDate
+	}
+	if !IsNil(o.Media) {
+		toSerialize["media"] = o.Media
+	}
+	if !IsNil(o.Order) {
+		toSerialize["order"] = o.Order
+	}
+	if !IsNil(o.Slug) {
+		toSerialize["slug"] = o.Slug
+	}
+	if !IsNil(o.UserLimit) {
+		toSerialize["user_limit"] = o.UserLimit
+	}
+	if !IsNil(o.CreatorMetaData) {
+		toSerialize["creator_meta_data"] = o.CreatorMetaData
+	}
+	if !IsNil(o.Options) {
+		toSerialize["options"] = o.Options
+	}
+	if !IsNil(o.Variables) {
+		toSerialize["variables"] = o.Variables
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if !IsNil(o.Ident) {
+		toSerialize["ident"] = o.Ident
+	}
+	if !IsNil(o.VipStatus) {
+		toSerialize["vip_status"] = o.VipStatus
 	}
 	return toSerialize, nil
 }

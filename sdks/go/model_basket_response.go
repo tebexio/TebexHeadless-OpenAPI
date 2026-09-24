@@ -1,9 +1,9 @@
 /*
 Tebex Headless API
 
-The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
+The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 1.1.0
+API version: 2.0.1
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &BasketResponse{}
 
 // BasketResponse struct for BasketResponse
 type BasketResponse struct {
-	Data Basket `json:"data,omitempty"`
+	Data *Basket `json:"data,omitempty"`
 }
 
 // NewBasketResponse instantiates a new BasketResponse object
@@ -46,14 +46,14 @@ func (o *BasketResponse) GetData() Basket {
 		var ret Basket
 		return ret
 	}
-	return o.Data
+	return *o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BasketResponse) GetDataOk() (Basket, bool) {
+func (o *BasketResponse) GetDataOk() (*Basket, bool) {
 	if o == nil || IsNil(o.Data) {
-		return Basket{}, false
+		return nil, false
 	}
 	return o.Data, true
 }
@@ -69,7 +69,7 @@ func (o *BasketResponse) HasData() bool {
 
 // SetData gets a reference to the given Basket and assigns it to the Data field.
 func (o *BasketResponse) SetData(v Basket) {
-	o.Data = v
+	o.Data = &v
 }
 
 func (o BasketResponse) MarshalJSON() ([]byte, error) {

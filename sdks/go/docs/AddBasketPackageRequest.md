@@ -4,14 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PackageId** | Pointer to **string** |  | [optional] 
-**Quantity** | Pointer to **int32** |  | [optional] 
+**PackageId** | **string** |  | 
+**Quantity** | **int32** |  | 
+**Dynamic** | Pointer to **bool** | Set to &#x60;true&#x60; when adding a package that belongs to a dynamic category. When omitted, the API acts as if a normal package ID was provided. | [optional] 
 
 ## Methods
 
 ### NewAddBasketPackageRequest
 
-`func NewAddBasketPackageRequest() *AddBasketPackageRequest`
+`func NewAddBasketPackageRequest(packageId string, quantity int32, ) *AddBasketPackageRequest`
 
 NewAddBasketPackageRequest instantiates a new AddBasketPackageRequest object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetPackageId sets PackageId field to given value.
 
-### HasPackageId
-
-`func (o *AddBasketPackageRequest) HasPackageId() bool`
-
-HasPackageId returns a boolean if a field has been set.
 
 ### GetQuantity
 
@@ -70,11 +66,31 @@ and a boolean to check if the value has been set.
 
 SetQuantity sets Quantity field to given value.
 
-### HasQuantity
 
-`func (o *AddBasketPackageRequest) HasQuantity() bool`
+### GetDynamic
 
-HasQuantity returns a boolean if a field has been set.
+`func (o *AddBasketPackageRequest) GetDynamic() bool`
+
+GetDynamic returns the Dynamic field if non-nil, zero value otherwise.
+
+### GetDynamicOk
+
+`func (o *AddBasketPackageRequest) GetDynamicOk() (*bool, bool)`
+
+GetDynamicOk returns a tuple with the Dynamic field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDynamic
+
+`func (o *AddBasketPackageRequest) SetDynamic(v bool)`
+
+SetDynamic sets Dynamic field to given value.
+
+### HasDynamic
+
+`func (o *AddBasketPackageRequest) HasDynamic() bool`
+
+HasDynamic returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

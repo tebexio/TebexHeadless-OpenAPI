@@ -1,3 +1,5 @@
+export * from './basketsApi';
+import { BasketsApi } from './basketsApi';
 export * from './headlessApi';
 import { HeadlessApi } from './headlessApi';
 import * as http from 'http';
@@ -11,4 +13,4 @@ export class HttpError extends Error {
 
 export { RequestFile } from '../model/models';
 
-export const APIS = [HeadlessApi];
+export const APIS = [BasketsApi, HeadlessApi];

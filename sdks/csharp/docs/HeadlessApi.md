@@ -1,136 +1,43 @@
 # TebexHeadless.TebexHeadless.HeadlessApi
 
-All URIs are relative to *https://headless.tebex.io/api*
+All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN*
 
 | Method | HTTP request | Description |
 |--------|--------------|-------------|
-| [**AddBasketPackage**](HeadlessApi.md#addbasketpackage) | **POST** /baskets/{basketIdent}/packages | Add a package to a basket |
-| [**ApplyCoupon**](HeadlessApi.md#applycoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons | Apply a coupon to a basket. |
-| [**ApplyCreatorCode**](HeadlessApi.md#applycreatorcode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes | Apply a creator code to a basket. |
-| [**ApplyGiftCard**](HeadlessApi.md#applygiftcard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards | Apply a gift card to a basket. |
-| [**CreateBasket**](HeadlessApi.md#createbasket) | **POST** /accounts/{token}/baskets | Create a new basket |
-| [**GetAllCategories**](HeadlessApi.md#getallcategories) | **GET** /accounts/{token}/categories | Gets all categories available in the webstore. |
-| [**GetAllCategoriesIncludingPackages**](HeadlessApi.md#getallcategoriesincludingpackages) | **GET** /accounts/{token}/categories?includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
-| [**GetAllPackages**](HeadlessApi.md#getallpackages) | **GET** /accounts/{token}/packages | Fetch all packages from a webstore |
-| [**GetAllPackagesWithAuthedIP**](HeadlessApi.md#getallpackageswithauthedip) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier |
-| [**GetAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getallpackageswithauthedipandbasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**GetAllPackagesWithBasket**](HeadlessApi.md#getallpackageswithbasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**GetBasketAuthUrl**](HeadlessApi.md#getbasketauthurl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket. |
-| [**GetBasketById**](HeadlessApi.md#getbasketbyid) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
-| [**GetCMSPages**](HeadlessApi.md#getcmspages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
-| [**GetCategoryById**](HeadlessApi.md#getcategorybyid) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
-| [**GetCategoryIncludingPackages**](HeadlessApi.md#getcategoryincludingpackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
-| [**GetPackageById**](HeadlessApi.md#getpackagebyid) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
-| [**GetTieredCategoriesForUser**](HeadlessApi.md#gettieredcategoriesforuser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
-| [**GetWebstoreById**](HeadlessApi.md#getwebstorebyid) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
-| [**RemoveBasketPackage**](HeadlessApi.md#removebasketpackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
-| [**RemoveCoupon**](HeadlessApi.md#removecoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
-| [**RemoveCreatorCode**](HeadlessApi.md#removecreatorcode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
-| [**RemoveGiftCard**](HeadlessApi.md#removegiftcard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
-| [**UpdatePackageQuantity**](HeadlessApi.md#updatepackagequantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
-| [**UpdateTier**](HeadlessApi.md#updatetier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package. |
-
-<a id="addbasketpackage"></a>
-# **AddBasketPackage**
-> Basket AddBasketPackage (string basketIdent, AddBasketPackageRequest? addBasketPackageRequest = null)
-
-Add a package to a basket
-
-Add a package with the given ID to the basket.
-
-### Example
-```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
-using TebexHeadless.TebexHeadless;
-using TebexHeadless.Client;
-using TebexHeadless.Model;
-
-namespace Example
-{
-    public class AddBasketPackageExample
-    {
-        public static void Main()
-        {
-            Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
-            var apiInstance = new HeadlessApi(config);
-            var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
-            var addBasketPackageRequest = new AddBasketPackageRequest?(); // AddBasketPackageRequest? |  (optional) 
-
-            try
-            {
-                // Add a package to a basket
-                Basket result = apiInstance.AddBasketPackage(basketIdent, addBasketPackageRequest);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling HeadlessApi.AddBasketPackage: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
-        }
-    }
-}
-```
-
-#### Using the AddBasketPackageWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Add a package to a basket
-    ApiResponse<Basket> response = apiInstance.AddBasketPackageWithHttpInfo(basketIdent, addBasketPackageRequest);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling HeadlessApi.AddBasketPackageWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **basketIdent** | **string** | The basket identifier. |  |
-| **addBasketPackageRequest** | [**AddBasketPackageRequest?**](AddBasketPackageRequest?.md) |  | [optional]  |
-
-### Return type
-
-[**Basket**](Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response. |  -  |
-| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+| [**ApplyCoupon**](HeadlessApi.md#applycoupon) | **POST** /baskets/{basketIdent}/coupons | Apply a coupon |
+| [**ApplyCreatorCode**](HeadlessApi.md#applycreatorcode) | **POST** /baskets/{basketIdent}/creator-codes | Apply a creator code |
+| [**ApplyGiftCard**](HeadlessApi.md#applygiftcard) | **POST** /baskets/{basketIdent}/giftcards | Apply a gift card |
+| [**CreateBasket**](HeadlessApi.md#createbasket) | **POST** /baskets | Create a new basket |
+| [**CreateDynamicPackage**](HeadlessApi.md#createdynamicpackage) | **PUT** /baskets/{basketIdent}/dynamic-packages | Add packages to a dynamic category for a basket. |
+| [**GetAllPackages**](HeadlessApi.md#getallpackages) | **GET** /packages | Get all packages |
+| [**GetAllPackagesWithAuthedIP**](HeadlessApi.md#getallpackageswithauthedip) | **GET** /packages?ipAddress&#x3D;{ipAddress} | Get packages |
+| [**GetAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getallpackageswithauthedipandbasket) | **GET** /packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Get packages available for IP and basket |
+| [**GetBasket**](HeadlessApi.md#getbasket) | **GET** /baskets/{basketIdent} | Get a basket |
+| [**GetBasketAuthUrl**](HeadlessApi.md#getbasketauthurl) | **GET** /baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get auth links for basket |
+| [**GetCategories**](HeadlessApi.md#getcategories) | **GET** /categories | Get all categories |
+| [**GetCategoriesIncludePackages**](HeadlessApi.md#getcategoriesincludepackages) | **GET** /categories?includePackages&#x3D;1 | Gets all categories and packages |
+| [**GetCategory**](HeadlessApi.md#getcategory) | **GET** /categories/{categoryId} | Get specific category |
+| [**GetCategoryIncludeDynamicPackages**](HeadlessApi.md#getcategoryincludedynamicpackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket. |
+| [**GetCategoryIncludePackages**](HeadlessApi.md#getcategoryincludepackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages |
+| [**GetCustomPages**](HeadlessApi.md#getcustompages) | **GET** /pages | Get custom pages defined for the webstore. |
+| [**GetDynamicCategories**](HeadlessApi.md#getdynamiccategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories |
+| [**GetPackage**](HeadlessApi.md#getpackage) | **GET** /packages/{packageId} | Get package |
+| [**GetPackagesForBasket**](HeadlessApi.md#getpackagesforbasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket |
+| [**GetSidebar**](HeadlessApi.md#getsidebar) | **GET** /sidebar | Retrieves the available sidebar modules. |
+| [**GetUserTieredCategories**](HeadlessApi.md#getusertieredcategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories |
+| [**GetWebstore**](HeadlessApi.md#getwebstore) | **GET** / | Get the webstore&#39;s information |
+| [**RemoveCoupon**](HeadlessApi.md#removecoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
+| [**RemoveCreatorCode**](HeadlessApi.md#removecreatorcode) | **POST** /baskets/{basketIdent}/creator-codes/remove | Removes the creator code from the basket. |
+| [**RemoveGiftCard**](HeadlessApi.md#removegiftcard) | **POST** /baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
+| [**UpdateTier**](HeadlessApi.md#updatetier) | **PATCH** /tiers/{tierId} | Update user&#39;s tier to a new package |
 
 <a id="applycoupon"></a>
 # **ApplyCoupon**
-> BasketResponse ApplyCoupon (string token, string basketIdent, Coupon? coupon = null)
+> ApplyCoupon200Response ApplyCoupon (string basketIdent, ApplyCouponRequest? applyCouponRequest = null)
 
-Apply a coupon to a basket.
+Apply a coupon
 
-Applies a creator code to a basket.
+Applies a coupon to a basket.
 
 ### Example
 ```csharp
@@ -147,16 +54,15 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
-            var coupon = new Coupon?(); // Coupon? | Provide a `coupon_code` to apply to the basket. (optional) 
+            var applyCouponRequest = new ApplyCouponRequest?(); // ApplyCouponRequest? | Provide a `coupon_code` to apply to the basket. (optional) 
 
             try
             {
-                // Apply a coupon to a basket.
-                BasketResponse result = apiInstance.ApplyCoupon(token, basketIdent, coupon);
+                // Apply a coupon
+                ApplyCoupon200Response result = apiInstance.ApplyCoupon(basketIdent, applyCouponRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -176,8 +82,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Apply a coupon to a basket.
-    ApiResponse<BasketResponse> response = apiInstance.ApplyCouponWithHttpInfo(token, basketIdent, coupon);
+    // Apply a coupon
+    ApiResponse<ApplyCoupon200Response> response = apiInstance.ApplyCouponWithHttpInfo(basketIdent, applyCouponRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -194,13 +100,12 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
 | **basketIdent** | **string** | The basket identifier. |  |
-| **coupon** | [**Coupon?**](Coupon?.md) | Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional]  |
+| **applyCouponRequest** | [**ApplyCouponRequest?**](ApplyCouponRequest?.md) | Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional]  |
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyCoupon200Response**](ApplyCoupon200Response.md)
 
 ### Authorization
 
@@ -215,15 +120,15 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns the basket. |  -  |
+| **200** | Successful response returns a success message. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="applycreatorcode"></a>
 # **ApplyCreatorCode**
-> BasketResponse ApplyCreatorCode (string token, string basketIdent, ApplyCreatorCodeRequest? applyCreatorCodeRequest = null)
+> ApplyCreatorCode200Response ApplyCreatorCode (string basketIdent, ApplyCreatorCodeRequest? applyCreatorCodeRequest = null)
 
-Apply a creator code to a basket.
+Apply a creator code
 
 Applies a creator code to a basket.
 
@@ -242,16 +147,15 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
             var applyCreatorCodeRequest = new ApplyCreatorCodeRequest?(); // ApplyCreatorCodeRequest? | Provide a `creator_code` to apply to the basket. (optional) 
 
             try
             {
-                // Apply a creator code to a basket.
-                BasketResponse result = apiInstance.ApplyCreatorCode(token, basketIdent, applyCreatorCodeRequest);
+                // Apply a creator code
+                ApplyCreatorCode200Response result = apiInstance.ApplyCreatorCode(basketIdent, applyCreatorCodeRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -271,8 +175,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Apply a creator code to a basket.
-    ApiResponse<BasketResponse> response = apiInstance.ApplyCreatorCodeWithHttpInfo(token, basketIdent, applyCreatorCodeRequest);
+    // Apply a creator code
+    ApiResponse<ApplyCreatorCode200Response> response = apiInstance.ApplyCreatorCodeWithHttpInfo(basketIdent, applyCreatorCodeRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -289,13 +193,12 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
 | **basketIdent** | **string** | The basket identifier. |  |
 | **applyCreatorCodeRequest** | [**ApplyCreatorCodeRequest?**](ApplyCreatorCodeRequest?.md) | Provide a &#x60;creator_code&#x60; to apply to the basket. | [optional]  |
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyCreatorCode200Response**](ApplyCreatorCode200Response.md)
 
 ### Authorization
 
@@ -310,18 +213,18 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns the basket. |  -  |
+| **200** | Successful response returns a success object |  -  |
 | **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="applygiftcard"></a>
 # **ApplyGiftCard**
-> BasketResponse ApplyGiftCard (string token, string basketIdent, GiftCard? giftCard = null)
+> ApplyGiftCard200Response ApplyGiftCard (string basketIdent, GiftCard? giftCard = null)
 
-Apply a gift card to a basket.
+Apply a gift card
 
-Applies a creator code to a basket.
+Applies a gift card to the basket.
 
 ### Example
 ```csharp
@@ -338,16 +241,15 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
             var giftCard = new GiftCard?(); // GiftCard? | Provide a `card_number` to apply to the basket. (optional) 
 
             try
             {
-                // Apply a gift card to a basket.
-                BasketResponse result = apiInstance.ApplyGiftCard(token, basketIdent, giftCard);
+                // Apply a gift card
+                ApplyGiftCard200Response result = apiInstance.ApplyGiftCard(basketIdent, giftCard);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -367,8 +269,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Apply a gift card to a basket.
-    ApiResponse<BasketResponse> response = apiInstance.ApplyGiftCardWithHttpInfo(token, basketIdent, giftCard);
+    // Apply a gift card
+    ApiResponse<ApplyGiftCard200Response> response = apiInstance.ApplyGiftCardWithHttpInfo(basketIdent, giftCard);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -385,13 +287,12 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
 | **basketIdent** | **string** | The basket identifier. |  |
 | **giftCard** | [**GiftCard?**](GiftCard?.md) | Provide a &#x60;card_number&#x60; to apply to the basket. | [optional]  |
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyGiftCard200Response**](ApplyGiftCard200Response.md)
 
 ### Authorization
 
@@ -406,13 +307,13 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns the basket. |  -  |
+| **200** | Successful response returns a success message. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="createbasket"></a>
 # **CreateBasket**
-> BasketResponse CreateBasket (string token, CreateBasketRequest? createBasketRequest = null)
+> BasketResponse CreateBasket (CreateBasketRequest? createBasketRequest = null)
 
 Create a new basket
 
@@ -433,15 +334,14 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
             var createBasketRequest = new CreateBasketRequest?(); // CreateBasketRequest? |  (optional) 
 
             try
             {
                 // Create a new basket
-                BasketResponse result = apiInstance.CreateBasket(token, createBasketRequest);
+                BasketResponse result = apiInstance.CreateBasket(createBasketRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -462,7 +362,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Create a new basket
-    ApiResponse<BasketResponse> response = apiInstance.CreateBasketWithHttpInfo(token, createBasketRequest);
+    ApiResponse<BasketResponse> response = apiInstance.CreateBasketWithHttpInfo(createBasketRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -479,7 +379,6 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
 | **createBasketRequest** | [**CreateBasketRequest?**](CreateBasketRequest?.md) |  | [optional]  |
 
 ### Return type
@@ -504,104 +403,13 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getallcategories"></a>
-# **GetAllCategories**
-> CategoryResponse GetAllCategories (string token)
+<a id="createdynamicpackage"></a>
+# **CreateDynamicPackage**
+> DynamicPackagesResponse CreateDynamicPackage (string basketIdent, DynamicPackagesRequest? dynamicPackagesRequest = null)
 
-Gets all categories available in the webstore.
+Add packages to a dynamic category for a basket.
 
-Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL.
-
-### Example
-```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
-using TebexHeadless.TebexHeadless;
-using TebexHeadless.Client;
-using TebexHeadless.Model;
-
-namespace Example
-{
-    public class GetAllCategoriesExample
-    {
-        public static void Main()
-        {
-            Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
-            var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
-
-            try
-            {
-                // Gets all categories available in the webstore.
-                CategoryResponse result = apiInstance.GetAllCategories(token);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling HeadlessApi.GetAllCategories: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
-        }
-    }
-}
-```
-
-#### Using the GetAllCategoriesWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Gets all categories available in the webstore.
-    ApiResponse<CategoryResponse> response = apiInstance.GetAllCategoriesWithHttpInfo(token);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling HeadlessApi.GetAllCategoriesWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
-
-### Return type
-
-[**CategoryResponse**](CategoryResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response returns a list of category information. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="getallcategoriesincludingpackages"></a>
-# **GetAllCategoriesIncludingPackages**
-> CategoryResponse GetAllCategoriesIncludingPackages (string token)
-
-Gets a store's categories including all package information with them.
-
-Gets all categories from a webstore including packages.
+Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
 
 ### Example
 ```csharp
@@ -613,24 +421,25 @@ using TebexHeadless.Model;
 
 namespace Example
 {
-    public class GetAllCategoriesIncludingPackagesExample
+    public class CreateDynamicPackageExample
     {
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
+            var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
+            var dynamicPackagesRequest = new DynamicPackagesRequest?(); // DynamicPackagesRequest? |  (optional) 
 
             try
             {
-                // Gets a store's categories including all package information with them.
-                CategoryResponse result = apiInstance.GetAllCategoriesIncludingPackages(token);
+                // Add packages to a dynamic category for a basket.
+                DynamicPackagesResponse result = apiInstance.CreateDynamicPackage(basketIdent, dynamicPackagesRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling HeadlessApi.GetAllCategoriesIncludingPackages: " + e.Message);
+                Debug.Print("Exception when calling HeadlessApi.CreateDynamicPackage: " + e.Message);
                 Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -639,21 +448,21 @@ namespace Example
 }
 ```
 
-#### Using the GetAllCategoriesIncludingPackagesWithHttpInfo variant
+#### Using the CreateDynamicPackageWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Gets a store's categories including all package information with them.
-    ApiResponse<CategoryResponse> response = apiInstance.GetAllCategoriesIncludingPackagesWithHttpInfo(token);
+    // Add packages to a dynamic category for a basket.
+    ApiResponse<DynamicPackagesResponse> response = apiInstance.CreateDynamicPackageWithHttpInfo(basketIdent, dynamicPackagesRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling HeadlessApi.GetAllCategoriesIncludingPackagesWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling HeadlessApi.CreateDynamicPackageWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -663,11 +472,12 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
+| **basketIdent** | **string** | The basket identifier. |  |
+| **dynamicPackagesRequest** | [**DynamicPackagesRequest?**](DynamicPackagesRequest?.md) |  | [optional]  |
 
 ### Return type
 
-[**CategoryResponse**](CategoryResponse.md)
+[**DynamicPackagesResponse**](DynamicPackagesResponse.md)
 
 ### Authorization
 
@@ -675,24 +485,25 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns a list of category information. |  -  |
+| **200** | Successful response confirms the dynamic packages were created. |  -  |
+| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getallpackages"></a>
 # **GetAllPackages**
-> PackageResponse GetAllPackages (string token)
+> PackageResponse GetAllPackages ()
 
-Fetch all packages from a webstore
+Get all packages
 
-Gets all packages from a webstore.
+Gets all packages from a webstore.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
 
 ### Example
 ```csharp
@@ -709,14 +520,13 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
 
             try
             {
-                // Fetch all packages from a webstore
-                PackageResponse result = apiInstance.GetAllPackages(token);
+                // Get all packages
+                PackageResponse result = apiInstance.GetAllPackages();
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -736,8 +546,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Fetch all packages from a webstore
-    ApiResponse<PackageResponse> response = apiInstance.GetAllPackagesWithHttpInfo(token);
+    // Get all packages
+    ApiResponse<PackageResponse> response = apiInstance.GetAllPackagesWithHttpInfo();
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -751,11 +561,7 @@ catch (ApiException e)
 ```
 
 ### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
-
+This endpoint does not need any parameter.
 ### Return type
 
 [**PackageResponse**](PackageResponse.md)
@@ -779,9 +585,9 @@ No authorization required
 
 <a id="getallpackageswithauthedip"></a>
 # **GetAllPackagesWithAuthedIP**
-> PackageResponse GetAllPackagesWithAuthedIP (string token, string ipAddress)
+> PackageResponse GetAllPackagesWithAuthedIP (string ipAddress)
 
-Fetch a package from a webstore by its identifier
+Get packages
 
 Gets all packages from a webstore.
 
@@ -800,15 +606,18 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            // Configure HTTP basic authorization: basicAuth
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
-            var ipAddress = 127.0.0.1;  // string | An IP address can be provided with authenticated requests.
+            var ipAddress = 127.0.0.1;  // string | An IP address can be provided with authenticated requests
 
             try
             {
-                // Fetch a package from a webstore by its identifier
-                PackageResponse result = apiInstance.GetAllPackagesWithAuthedIP(token, ipAddress);
+                // Get packages
+                PackageResponse result = apiInstance.GetAllPackagesWithAuthedIP(ipAddress);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -828,8 +637,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Fetch a package from a webstore by its identifier
-    ApiResponse<PackageResponse> response = apiInstance.GetAllPackagesWithAuthedIPWithHttpInfo(token, ipAddress);
+    // Get packages
+    ApiResponse<PackageResponse> response = apiInstance.GetAllPackagesWithAuthedIPWithHttpInfo(ipAddress);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -846,8 +655,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
-| **ipAddress** | **string** | An IP address can be provided with authenticated requests. |  |
+| **ipAddress** | **string** | An IP address can be provided with authenticated requests |  |
 
 ### Return type
 
@@ -855,7 +663,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -873,9 +681,9 @@ No authorization required
 
 <a id="getallpackageswithauthedipandbasket"></a>
 # **GetAllPackagesWithAuthedIPAndBasket**
-> PackageResponse GetAllPackagesWithAuthedIPAndBasket (string token, string basketIdent, string ipAddress)
+> PackageResponse GetAllPackagesWithAuthedIPAndBasket (string basketIdent, string ipAddress)
 
-Fetch a package from a webstore by its identifier
+Get packages available for IP and basket
 
 Gets all packages from a webstore.
 
@@ -894,16 +702,19 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            // Configure HTTP basic authorization: basicAuth
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
             var ipAddress = 127.0.0.1;  // string | An IP address can be provided with authenticated requests.
 
             try
             {
-                // Fetch a package from a webstore by its identifier
-                PackageResponse result = apiInstance.GetAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress);
+                // Get packages available for IP and basket
+                PackageResponse result = apiInstance.GetAllPackagesWithAuthedIPAndBasket(basketIdent, ipAddress);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -923,8 +734,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Fetch a package from a webstore by its identifier
-    ApiResponse<PackageResponse> response = apiInstance.GetAllPackagesWithAuthedIPAndBasketWithHttpInfo(token, basketIdent, ipAddress);
+    // Get packages available for IP and basket
+    ApiResponse<PackageResponse> response = apiInstance.GetAllPackagesWithAuthedIPAndBasketWithHttpInfo(basketIdent, ipAddress);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -941,7 +752,6 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
 | **basketIdent** | **string** | The basket identifier. |  |
 | **ipAddress** | **string** | An IP address can be provided with authenticated requests. |  |
 
@@ -951,7 +761,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -967,201 +777,11 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getallpackageswithbasket"></a>
-# **GetAllPackagesWithBasket**
-> PackageResponse GetAllPackagesWithBasket (string token, string basketIdent)
+<a id="getbasket"></a>
+# **GetBasket**
+> BasketResponse GetBasket (string basketIdent)
 
-Fetch a package from a webstore by its identifier
-
-Gets all packages from a webstore.
-
-### Example
-```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
-using TebexHeadless.TebexHeadless;
-using TebexHeadless.Client;
-using TebexHeadless.Model;
-
-namespace Example
-{
-    public class GetAllPackagesWithBasketExample
-    {
-        public static void Main()
-        {
-            Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
-            var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
-            var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
-
-            try
-            {
-                // Fetch a package from a webstore by its identifier
-                PackageResponse result = apiInstance.GetAllPackagesWithBasket(token, basketIdent);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling HeadlessApi.GetAllPackagesWithBasket: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
-        }
-    }
-}
-```
-
-#### Using the GetAllPackagesWithBasketWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Fetch a package from a webstore by its identifier
-    ApiResponse<PackageResponse> response = apiInstance.GetAllPackagesWithBasketWithHttpInfo(token, basketIdent);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling HeadlessApi.GetAllPackagesWithBasketWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
-| **basketIdent** | **string** | The basket identifier. |  |
-
-### Return type
-
-[**PackageResponse**](PackageResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response returns a list of package information. |  -  |
-| **422** | The provided request is invalid. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="getbasketauthurl"></a>
-# **GetBasketAuthUrl**
-> List&lt;BasketAuthResponseInner&gt; GetBasketAuthUrl (string token, string basketIdent, string returnUrl)
-
-Get authentication links for a basket.
-
-Fetches a basket's auth URL.
-
-### Example
-```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
-using TebexHeadless.TebexHeadless;
-using TebexHeadless.Client;
-using TebexHeadless.Model;
-
-namespace Example
-{
-    public class GetBasketAuthUrlExample
-    {
-        public static void Main()
-        {
-            Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
-            var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
-            var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
-            var returnUrl = https://example.tebex.io/;  // string | The URL you would like to redirect the user to after successful basket authentication.
-
-            try
-            {
-                // Get authentication links for a basket.
-                List<BasketAuthResponseInner> result = apiInstance.GetBasketAuthUrl(token, basketIdent, returnUrl);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling HeadlessApi.GetBasketAuthUrl: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
-        }
-    }
-}
-```
-
-#### Using the GetBasketAuthUrlWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Get authentication links for a basket.
-    ApiResponse<List<BasketAuthResponseInner>> response = apiInstance.GetBasketAuthUrlWithHttpInfo(token, basketIdent, returnUrl);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling HeadlessApi.GetBasketAuthUrlWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
-| **basketIdent** | **string** | The basket identifier. |  |
-| **returnUrl** | **string** | The URL you would like to redirect the user to after successful basket authentication. |  |
-
-### Return type
-
-[**List&lt;BasketAuthResponseInner&gt;**](BasketAuthResponseInner.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response returns the basket auth information. |  -  |
-| **422** | The provided webstore ID or basket ID is invalid. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="getbasketbyid"></a>
-# **GetBasketById**
-> BasketResponse GetBasketById (string token, string basketIdent)
-
-Fetch a basket from a webstore by its identifier
+Get a basket
 
 Gets a basket associated with the provided identifier.
 
@@ -1175,25 +795,24 @@ using TebexHeadless.Model;
 
 namespace Example
 {
-    public class GetBasketByIdExample
+    public class GetBasketExample
     {
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
 
             try
             {
-                // Fetch a basket from a webstore by its identifier
-                BasketResponse result = apiInstance.GetBasketById(token, basketIdent);
+                // Get a basket
+                BasketResponse result = apiInstance.GetBasket(basketIdent);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling HeadlessApi.GetBasketById: " + e.Message);
+                Debug.Print("Exception when calling HeadlessApi.GetBasket: " + e.Message);
                 Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -1202,21 +821,21 @@ namespace Example
 }
 ```
 
-#### Using the GetBasketByIdWithHttpInfo variant
+#### Using the GetBasketWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Fetch a basket from a webstore by its identifier
-    ApiResponse<BasketResponse> response = apiInstance.GetBasketByIdWithHttpInfo(token, basketIdent);
+    // Get a basket
+    ApiResponse<BasketResponse> response = apiInstance.GetBasketWithHttpInfo(basketIdent);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling HeadlessApi.GetBasketByIdWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling HeadlessApi.GetBasketWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -1226,7 +845,6 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
 | **basketIdent** | **string** | The basket identifier. |  |
 
 ### Return type
@@ -1250,11 +868,552 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getcmspages"></a>
-# **GetCMSPages**
-> CMSPagesResponse GetCMSPages (string token)
+<a id="getbasketauthurl"></a>
+# **GetBasketAuthUrl**
+> List&lt;BasketAuthResponseInner&gt; GetBasketAuthUrl (string basketIdent, string returnUrl)
 
-Fetch the custom pages associated with the store.
+Get auth links for basket
+
+Fetches a basket's auth URL. The player should be directed here in order for them to authorize their account. When complete, they will be returned to the provided `returnUrl` and the basket will be authorized from that moment onwards.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetBasketAuthUrlExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            var apiInstance = new HeadlessApi(config);
+            var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
+            var returnUrl = https://example.tebex.io/;  // string | The URL you would like to redirect the user to after successful basket authentication.
+
+            try
+            {
+                // Get auth links for basket
+                List<BasketAuthResponseInner> result = apiInstance.GetBasketAuthUrl(basketIdent, returnUrl);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetBasketAuthUrl: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetBasketAuthUrlWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get auth links for basket
+    ApiResponse<List<BasketAuthResponseInner>> response = apiInstance.GetBasketAuthUrlWithHttpInfo(basketIdent, returnUrl);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetBasketAuthUrlWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **basketIdent** | **string** | The basket identifier. |  |
+| **returnUrl** | **string** | The URL you would like to redirect the user to after successful basket authentication. |  |
+
+### Return type
+
+[**List&lt;BasketAuthResponseInner&gt;**](BasketAuthResponseInner.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the auth provider options and URLs of the sign-in link. |  -  |
+| **422** | The provided webstore ID or basket ID is invalid. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getcategories"></a>
+# **GetCategories**
+> CategoryResponse GetCategories ()
+
+Get all categories
+
+Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetCategoriesExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            var apiInstance = new HeadlessApi(config);
+
+            try
+            {
+                // Get all categories
+                CategoryResponse result = apiInstance.GetCategories();
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetCategories: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetCategoriesWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get all categories
+    ApiResponse<CategoryResponse> response = apiInstance.GetCategoriesWithHttpInfo();
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetCategoriesWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns a list of category information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getcategoriesincludepackages"></a>
+# **GetCategoriesIncludePackages**
+> CategoryResponse GetCategoriesIncludePackages ()
+
+Gets all categories and packages
+
+Gets all categories from a webstore including packages.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetCategoriesIncludePackagesExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            var apiInstance = new HeadlessApi(config);
+
+            try
+            {
+                // Gets all categories and packages
+                CategoryResponse result = apiInstance.GetCategoriesIncludePackages();
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetCategoriesIncludePackages: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetCategoriesIncludePackagesWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets all categories and packages
+    ApiResponse<CategoryResponse> response = apiInstance.GetCategoriesIncludePackagesWithHttpInfo();
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetCategoriesIncludePackagesWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns a list of category information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getcategory"></a>
+# **GetCategory**
+> SingleCategoryResponse GetCategory (string categoryId)
+
+Get specific category
+
+Gets information about a category and returns the packages in that category.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetCategoryExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            var apiInstance = new HeadlessApi(config);
+            var categoryId = 127244343;  // string | The ID or slug of the category to fetch.
+
+            try
+            {
+                // Get specific category
+                SingleCategoryResponse result = apiInstance.GetCategory(categoryId);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetCategory: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetCategoryWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get specific category
+    ApiResponse<SingleCategoryResponse> response = apiInstance.GetCategoryWithHttpInfo(categoryId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetCategoryWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **categoryId** | **string** | The ID or slug of the category to fetch. |  |
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the category without package information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getcategoryincludedynamicpackages"></a>
+# **GetCategoryIncludeDynamicPackages**
+> SingleCategoryResponse GetCategoryIncludeDynamicPackages (string categoryId, string basketIdent)
+
+Gets a specific category including packages, populating a dynamic category for the given basket.
+
+Gets information about a category and returns the packages in that category. When the category is dynamic and `basketIdent` is provided, the category is populated with the packages associated with that basket.  If a basket identifier is not provided, a dynamic category will be empty as the basket is required to relate packages to the category.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetCategoryIncludeDynamicPackagesExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            var apiInstance = new HeadlessApi(config);
+            var categoryId = 1234;  // string | The ID or slug of the category to fetch.
+            var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
+
+            try
+            {
+                // Gets a specific category including packages, populating a dynamic category for the given basket.
+                SingleCategoryResponse result = apiInstance.GetCategoryIncludeDynamicPackages(categoryId, basketIdent);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetCategoryIncludeDynamicPackages: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetCategoryIncludeDynamicPackagesWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets a specific category including packages, populating a dynamic category for the given basket.
+    ApiResponse<SingleCategoryResponse> response = apiInstance.GetCategoryIncludeDynamicPackagesWithHttpInfo(categoryId, basketIdent);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetCategoryIncludeDynamicPackagesWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **categoryId** | **string** | The ID or slug of the category to fetch. |  |
+| **basketIdent** | **string** | The basket identifier. |  |
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the category with package information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getcategoryincludepackages"></a>
+# **GetCategoryIncludePackages**
+> SingleCategoryResponse GetCategoryIncludePackages (string categoryId)
+
+Get a category with all packages
+
+Gets information about a category and returns the packages in that category.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetCategoryIncludePackagesExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            var apiInstance = new HeadlessApi(config);
+            var categoryId = 127244343;  // string | The ID or slug of the category to fetch.
+
+            try
+            {
+                // Get a category with all packages
+                SingleCategoryResponse result = apiInstance.GetCategoryIncludePackages(categoryId);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetCategoryIncludePackages: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetCategoryIncludePackagesWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get a category with all packages
+    ApiResponse<SingleCategoryResponse> response = apiInstance.GetCategoryIncludePackagesWithHttpInfo(categoryId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetCategoryIncludePackagesWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **categoryId** | **string** | The ID or slug of the category to fetch. |  |
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the category with package information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getcustompages"></a>
+# **GetCustomPages**
+> CMSPagesResponse GetCustomPages ()
+
+Get custom pages defined for the webstore.
 
 Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.
 
@@ -1268,24 +1427,23 @@ using TebexHeadless.Model;
 
 namespace Example
 {
-    public class GetCMSPagesExample
+    public class GetCustomPagesExample
     {
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = some-uuid;  // string | The webstore identifier.
 
             try
             {
-                // Fetch the custom pages associated with the store.
-                CMSPagesResponse result = apiInstance.GetCMSPages(token);
+                // Get custom pages defined for the webstore.
+                CMSPagesResponse result = apiInstance.GetCustomPages();
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling HeadlessApi.GetCMSPages: " + e.Message);
+                Debug.Print("Exception when calling HeadlessApi.GetCustomPages: " + e.Message);
                 Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -1294,32 +1452,28 @@ namespace Example
 }
 ```
 
-#### Using the GetCMSPagesWithHttpInfo variant
+#### Using the GetCustomPagesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Fetch the custom pages associated with the store.
-    ApiResponse<CMSPagesResponse> response = apiInstance.GetCMSPagesWithHttpInfo(token);
+    // Get custom pages defined for the webstore.
+    ApiResponse<CMSPagesResponse> response = apiInstance.GetCustomPagesWithHttpInfo();
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling HeadlessApi.GetCMSPagesWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling HeadlessApi.GetCustomPagesWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
 ```
 
 ### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
-
+This endpoint does not need any parameter.
 ### Return type
 
 [**CMSPagesResponse**](CMSPagesResponse.md)
@@ -1341,13 +1495,13 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getcategorybyid"></a>
-# **GetCategoryById**
-> CategoryResponse GetCategoryById (string token, string categoryId)
+<a id="getdynamiccategories"></a>
+# **GetDynamicCategories**
+> CategoryResponse GetDynamicCategories (string basketIdent)
 
-Gets information about a specific category
+Get Dynamic Categories
 
-Gets information about a category and returns the packages in that category.
+Gets all categories from a webstore including packages. When `basketIdent` is provided, dynamic categories are populated with the packages associated with that basket.  If a basket identifier is not provided, dynamic categories will be empty as the basket is required to relate packages to the category.
 
 ### Example
 ```csharp
@@ -1359,25 +1513,24 @@ using TebexHeadless.Model;
 
 namespace Example
 {
-    public class GetCategoryByIdExample
+    public class GetDynamicCategoriesExample
     {
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
-            var categoryId = 127244343;  // string | The ID of the category to fetch.
+            var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
 
             try
             {
-                // Gets information about a specific category
-                CategoryResponse result = apiInstance.GetCategoryById(token, categoryId);
+                // Get Dynamic Categories
+                CategoryResponse result = apiInstance.GetDynamicCategories(basketIdent);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling HeadlessApi.GetCategoryById: " + e.Message);
+                Debug.Print("Exception when calling HeadlessApi.GetDynamicCategories: " + e.Message);
                 Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -1386,21 +1539,21 @@ namespace Example
 }
 ```
 
-#### Using the GetCategoryByIdWithHttpInfo variant
+#### Using the GetDynamicCategoriesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Gets information about a specific category
-    ApiResponse<CategoryResponse> response = apiInstance.GetCategoryByIdWithHttpInfo(token, categoryId);
+    // Get Dynamic Categories
+    ApiResponse<CategoryResponse> response = apiInstance.GetDynamicCategoriesWithHttpInfo(basketIdent);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling HeadlessApi.GetCategoryByIdWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling HeadlessApi.GetDynamicCategoriesWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -1410,8 +1563,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
-| **categoryId** | **string** | The ID of the category to fetch. |  |
+| **basketIdent** | **string** | The basket identifier. |  |
 
 ### Return type
 
@@ -1430,17 +1582,17 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns the category without package information. |  -  |
+| **200** | Successful response returns a list of category information. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getcategoryincludingpackages"></a>
-# **GetCategoryIncludingPackages**
-> CategoryResponse GetCategoryIncludingPackages (string token, string categoryId)
+<a id="getpackage"></a>
+# **GetPackage**
+> SinglePackageResponse GetPackage (string packageId)
 
-Gets information about a specific category, including all the packages in the category
+Get package
 
-Gets information about a category and returns the packages in that category.
+Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
 
 ### Example
 ```csharp
@@ -1452,25 +1604,24 @@ using TebexHeadless.Model;
 
 namespace Example
 {
-    public class GetCategoryIncludingPackagesExample
+    public class GetPackageExample
     {
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
-            var categoryId = 127244343;  // string | The ID of the category to fetch.
+            var packageId = 1272441812;  // string | The package's ID or slug.
 
             try
             {
-                // Gets information about a specific category, including all the packages in the category
-                CategoryResponse result = apiInstance.GetCategoryIncludingPackages(token, categoryId);
+                // Get package
+                SinglePackageResponse result = apiInstance.GetPackage(packageId);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling HeadlessApi.GetCategoryIncludingPackages: " + e.Message);
+                Debug.Print("Exception when calling HeadlessApi.GetPackage: " + e.Message);
                 Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -1479,21 +1630,21 @@ namespace Example
 }
 ```
 
-#### Using the GetCategoryIncludingPackagesWithHttpInfo variant
+#### Using the GetPackageWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Gets information about a specific category, including all the packages in the category
-    ApiResponse<CategoryResponse> response = apiInstance.GetCategoryIncludingPackagesWithHttpInfo(token, categoryId);
+    // Get package
+    ApiResponse<SinglePackageResponse> response = apiInstance.GetPackageWithHttpInfo(packageId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling HeadlessApi.GetCategoryIncludingPackagesWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling HeadlessApi.GetPackageWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -1503,105 +1654,11 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
-| **categoryId** | **string** | The ID of the category to fetch. |  |
+| **packageId** | **string** | The package&#39;s ID or slug. |  |
 
 ### Return type
 
-[**CategoryResponse**](CategoryResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response returns the category with package information. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="getpackagebyid"></a>
-# **GetPackageById**
-> PackageResponse GetPackageById (string token, int packageId)
-
-Fetch a package from a webstore by its identifier
-
-Gets a package from a webstore by ID.
-
-### Example
-```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
-using TebexHeadless.TebexHeadless;
-using TebexHeadless.Client;
-using TebexHeadless.Model;
-
-namespace Example
-{
-    public class GetPackageByIdExample
-    {
-        public static void Main()
-        {
-            Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
-            var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
-            var packageId = 1272441812;  // int | The package's ID.
-
-            try
-            {
-                // Fetch a package from a webstore by its identifier
-                PackageResponse result = apiInstance.GetPackageById(token, packageId);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling HeadlessApi.GetPackageById: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
-        }
-    }
-}
-```
-
-#### Using the GetPackageByIdWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Fetch a package from a webstore by its identifier
-    ApiResponse<PackageResponse> response = apiInstance.GetPackageByIdWithHttpInfo(token, packageId);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling HeadlessApi.GetPackageByIdWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
-| **packageId** | **int** | The package&#39;s ID. |  |
-
-### Return type
-
-[**PackageResponse**](PackageResponse.md)
+[**SinglePackageResponse**](SinglePackageResponse.md)
 
 ### Authorization
 
@@ -1620,11 +1677,194 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="gettieredcategoriesforuser"></a>
-# **GetTieredCategoriesForUser**
-> CategoryResponse GetTieredCategoriesForUser (string token, int usernameId)
+<a id="getpackagesforbasket"></a>
+# **GetPackagesForBasket**
+> PackageResponse GetPackagesForBasket (string basketIdent)
 
-Gets a store's categories including all package information with them.
+Get packages available for basket
+
+Gets all packages available to the provided basket.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetPackagesForBasketExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            var apiInstance = new HeadlessApi(config);
+            var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
+
+            try
+            {
+                // Get packages available for basket
+                PackageResponse result = apiInstance.GetPackagesForBasket(basketIdent);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetPackagesForBasket: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetPackagesForBasketWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get packages available for basket
+    ApiResponse<PackageResponse> response = apiInstance.GetPackagesForBasketWithHttpInfo(basketIdent);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetPackagesForBasketWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **basketIdent** | **string** | The basket identifier. |  |
+
+### Return type
+
+[**PackageResponse**](PackageResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns a list of package information. |  -  |
+| **422** | The provided request is invalid. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getsidebar"></a>
+# **GetSidebar**
+> ModulesResponse GetSidebar (string token)
+
+Retrieves the available sidebar modules.
+
+Retrieves the available sidebar modules configured for the store.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetSidebarExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            var apiInstance = new HeadlessApi(config);
+            var token = some-uuid;  // string | The webstore identifier.
+
+            try
+            {
+                // Retrieves the available sidebar modules.
+                ModulesResponse result = apiInstance.GetSidebar(token);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetSidebar: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetSidebarWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Retrieves the available sidebar modules.
+    ApiResponse<ModulesResponse> response = apiInstance.GetSidebarWithHttpInfo(token);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetSidebarWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **token** | **string** | The webstore identifier. |  |
+
+### Return type
+
+[**ModulesResponse**](ModulesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getusertieredcategories"></a>
+# **GetUserTieredCategories**
+> CategoryResponse GetUserTieredCategories (int usernameId)
+
+Get user's tiered categories
 
 Gets all categories from the webstore, returning active tier information for the given player.
 
@@ -1638,29 +1878,28 @@ using TebexHeadless.Model;
 
 namespace Example
 {
-    public class GetTieredCategoriesForUserExample
+    public class GetUserTieredCategoriesExample
     {
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             // Configure HTTP basic authorization: basicAuth
             config.Username = "YOUR_USERNAME";
             config.Password = "YOUR_PASSWORD";
 
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
             var usernameId = 76561198042467022;  // int | 
 
             try
             {
-                // Gets a store's categories including all package information with them.
-                CategoryResponse result = apiInstance.GetTieredCategoriesForUser(token, usernameId);
+                // Get user's tiered categories
+                CategoryResponse result = apiInstance.GetUserTieredCategories(usernameId);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling HeadlessApi.GetTieredCategoriesForUser: " + e.Message);
+                Debug.Print("Exception when calling HeadlessApi.GetUserTieredCategories: " + e.Message);
                 Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -1669,21 +1908,21 @@ namespace Example
 }
 ```
 
-#### Using the GetTieredCategoriesForUserWithHttpInfo variant
+#### Using the GetUserTieredCategoriesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Gets a store's categories including all package information with them.
-    ApiResponse<CategoryResponse> response = apiInstance.GetTieredCategoriesForUserWithHttpInfo(token, usernameId);
+    // Get user's tiered categories
+    ApiResponse<CategoryResponse> response = apiInstance.GetUserTieredCategoriesWithHttpInfo(usernameId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling HeadlessApi.GetTieredCategoriesForUserWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling HeadlessApi.GetUserTieredCategoriesWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -1693,7 +1932,6 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
 | **usernameId** | **int** |  |  |
 
 ### Return type
@@ -1717,13 +1955,13 @@ catch (ApiException e)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getwebstorebyid"></a>
-# **GetWebstoreById**
-> WebstoreResponse GetWebstoreById (string token)
+<a id="getwebstore"></a>
+# **GetWebstore**
+> WebstoreResponse GetWebstore ()
 
-Fetch a webstore by its identifier
+Get the webstore's information
 
-Gets the webstore associated with the provided identifier.
+Gets the webstore associated with the provided token
 
 ### Example
 ```csharp
@@ -1735,24 +1973,23 @@ using TebexHeadless.Model;
 
 namespace Example
 {
-    public class GetWebstoreByIdExample
+    public class GetWebstoreExample
     {
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = some-uuid;  // string | The webstore identifier.
 
             try
             {
-                // Fetch a webstore by its identifier
-                WebstoreResponse result = apiInstance.GetWebstoreById(token);
+                // Get the webstore's information
+                WebstoreResponse result = apiInstance.GetWebstore();
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling HeadlessApi.GetWebstoreById: " + e.Message);
+                Debug.Print("Exception when calling HeadlessApi.GetWebstore: " + e.Message);
                 Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -1761,32 +1998,28 @@ namespace Example
 }
 ```
 
-#### Using the GetWebstoreByIdWithHttpInfo variant
+#### Using the GetWebstoreWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Fetch a webstore by its identifier
-    ApiResponse<WebstoreResponse> response = apiInstance.GetWebstoreByIdWithHttpInfo(token);
+    // Get the webstore's information
+    ApiResponse<WebstoreResponse> response = apiInstance.GetWebstoreWithHttpInfo();
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling HeadlessApi.GetWebstoreByIdWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling HeadlessApi.GetWebstoreWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
 ```
 
 ### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
-
+This endpoint does not need any parameter.
 ### Return type
 
 [**WebstoreResponse**](WebstoreResponse.md)
@@ -1808,103 +2041,9 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="removebasketpackage"></a>
-# **RemoveBasketPackage**
-> Basket RemoveBasketPackage (string basketIdent, RemoveBasketPackageRequest? removeBasketPackageRequest = null)
-
-Remove a package from a basket
-
-Remove the given package ID from the basket.
-
-### Example
-```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
-using TebexHeadless.TebexHeadless;
-using TebexHeadless.Client;
-using TebexHeadless.Model;
-
-namespace Example
-{
-    public class RemoveBasketPackageExample
-    {
-        public static void Main()
-        {
-            Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
-            var apiInstance = new HeadlessApi(config);
-            var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
-            var removeBasketPackageRequest = new RemoveBasketPackageRequest?(); // RemoveBasketPackageRequest? |  (optional) 
-
-            try
-            {
-                // Remove a package from a basket
-                Basket result = apiInstance.RemoveBasketPackage(basketIdent, removeBasketPackageRequest);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling HeadlessApi.RemoveBasketPackage: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
-        }
-    }
-}
-```
-
-#### Using the RemoveBasketPackageWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Remove a package from a basket
-    ApiResponse<Basket> response = apiInstance.RemoveBasketPackageWithHttpInfo(basketIdent, removeBasketPackageRequest);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling HeadlessApi.RemoveBasketPackageWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **basketIdent** | **string** | The basket identifier. |  |
-| **removeBasketPackageRequest** | [**RemoveBasketPackageRequest?**](RemoveBasketPackageRequest?.md) |  | [optional]  |
-
-### Return type
-
-[**Basket**](Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response returns the basket. |  -  |
-| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 <a id="removecoupon"></a>
 # **RemoveCoupon**
-> void RemoveCoupon (string token, string basketIdent)
+> void RemoveCoupon (string basketIdent, ApplyCouponRequest? applyCouponRequest = null)
 
 Remove a coupon from the basket.
 
@@ -1925,15 +2064,15 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
+            var applyCouponRequest = new ApplyCouponRequest?(); // ApplyCouponRequest? | Provide a `coupon_code` to remove from the basket. (optional) 
 
             try
             {
                 // Remove a coupon from the basket.
-                apiInstance.RemoveCoupon(token, basketIdent);
+                apiInstance.RemoveCoupon(basketIdent, applyCouponRequest);
             }
             catch (ApiException  e)
             {
@@ -1953,7 +2092,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Remove a coupon from the basket.
-    apiInstance.RemoveCouponWithHttpInfo(token, basketIdent);
+    apiInstance.RemoveCouponWithHttpInfo(basketIdent, applyCouponRequest);
 }
 catch (ApiException e)
 {
@@ -1967,8 +2106,8 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
 | **basketIdent** | **string** | The basket identifier. |  |
+| **applyCouponRequest** | [**ApplyCouponRequest?**](ApplyCouponRequest?.md) | Provide a &#x60;coupon_code&#x60; to remove from the basket. | [optional]  |
 
 ### Return type
 
@@ -1980,7 +2119,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: Not defined
 
 
@@ -1994,11 +2133,11 @@ No authorization required
 
 <a id="removecreatorcode"></a>
 # **RemoveCreatorCode**
-> void RemoveCreatorCode (string token, string basketIdent)
+> void RemoveCreatorCode (string basketIdent)
 
-Remove a creator code from the basket.
+Removes the creator code from the basket.
 
-Applies a creator code to a basket.
+Removes the creator code from the basket.
 
 ### Example
 ```csharp
@@ -2015,15 +2154,14 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
 
             try
             {
-                // Remove a creator code from the basket.
-                apiInstance.RemoveCreatorCode(token, basketIdent);
+                // Removes the creator code from the basket.
+                apiInstance.RemoveCreatorCode(basketIdent);
             }
             catch (ApiException  e)
             {
@@ -2042,8 +2180,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Remove a creator code from the basket.
-    apiInstance.RemoveCreatorCodeWithHttpInfo(token, basketIdent);
+    // Removes the creator code from the basket.
+    apiInstance.RemoveCreatorCodeWithHttpInfo(basketIdent);
 }
 catch (ApiException e)
 {
@@ -2057,7 +2195,6 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
 | **basketIdent** | **string** | The basket identifier. |  |
 
 ### Return type
@@ -2084,7 +2221,7 @@ No authorization required
 
 <a id="removegiftcard"></a>
 # **RemoveGiftCard**
-> void RemoveGiftCard (string token, string basketIdent, RemoveGiftCardRequest? removeGiftCardRequest = null)
+> void RemoveGiftCard (string basketIdent, RemoveGiftCardRequest? removeGiftCardRequest = null)
 
 Remove a gift card from the basket.
 
@@ -2105,16 +2242,15 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb;  // string | The webstore identifier.
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
             var removeGiftCardRequest = new RemoveGiftCardRequest?(); // RemoveGiftCardRequest? | Provide the `card_number` to remove from the basket. (optional) 
 
             try
             {
                 // Remove a gift card from the basket.
-                apiInstance.RemoveGiftCard(token, basketIdent, removeGiftCardRequest);
+                apiInstance.RemoveGiftCard(basketIdent, removeGiftCardRequest);
             }
             catch (ApiException  e)
             {
@@ -2134,7 +2270,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Remove a gift card from the basket.
-    apiInstance.RemoveGiftCardWithHttpInfo(token, basketIdent, removeGiftCardRequest);
+    apiInstance.RemoveGiftCardWithHttpInfo(basketIdent, removeGiftCardRequest);
 }
 catch (ApiException e)
 {
@@ -2148,7 +2284,6 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
 | **basketIdent** | **string** | The basket identifier. |  |
 | **removeGiftCardRequest** | [**RemoveGiftCardRequest?**](RemoveGiftCardRequest?.md) | Provide the &#x60;card_number&#x60; to remove from the basket. | [optional]  |
 
@@ -2174,105 +2309,13 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="updatepackagequantity"></a>
-# **UpdatePackageQuantity**
-> void UpdatePackageQuantity (string basketIdent, int packageId, UpdatePackageQuantityRequest? updatePackageQuantityRequest = null)
-
-Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-
-Sets the quantity of the given item in the basket.
-
-### Example
-```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
-using TebexHeadless.TebexHeadless;
-using TebexHeadless.Client;
-using TebexHeadless.Model;
-
-namespace Example
-{
-    public class UpdatePackageQuantityExample
-    {
-        public static void Main()
-        {
-            Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
-            var apiInstance = new HeadlessApi(config);
-            var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
-            var packageId = 6276316;  // int | The package identifier.
-            var updatePackageQuantityRequest = new UpdatePackageQuantityRequest?(); // UpdatePackageQuantityRequest? |  (optional) 
-
-            try
-            {
-                // Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-                apiInstance.UpdatePackageQuantity(basketIdent, packageId, updatePackageQuantityRequest);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling HeadlessApi.UpdatePackageQuantity: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
-        }
-    }
-}
-```
-
-#### Using the UpdatePackageQuantityWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-    apiInstance.UpdatePackageQuantityWithHttpInfo(basketIdent, packageId, updatePackageQuantityRequest);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling HeadlessApi.UpdatePackageQuantityWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **basketIdent** | **string** | The basket identifier. |  |
-| **packageId** | **int** | The package identifier. |  |
-| **updatePackageQuantityRequest** | [**UpdatePackageQuantityRequest?**](UpdatePackageQuantityRequest?.md) |  | [optional]  |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response. |  -  |
-| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 <a id="updatetier"></a>
 # **UpdateTier**
-> UpdateTierResponse UpdateTier (string token, int tierId, UpdateTierRequest? updateTierRequest = null)
+> UpdateTierResponse UpdateTier (int tierId, UpdateTierRequest? updateTierRequest = null)
 
-Updates the given teir to the provided package.
+Update user's tier to a new package
 
-Updates a tier to a new package.
+Updates a tier to a new package. A recurring payment updated webhook is sent when an update is successful.
 
 ### Example
 ```csharp
@@ -2289,20 +2332,19 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://headless.tebex.io/api";
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             // Configure HTTP basic authorization: basicAuth
             config.Username = "YOUR_USERNAME";
             config.Password = "YOUR_PASSWORD";
 
             var apiInstance = new HeadlessApi(config);
-            var token = some-uuid;  // string | The webstore identifier.
             var tierId = 6276316;  // int | The tier identifier
             var updateTierRequest = new UpdateTierRequest?(); // UpdateTierRequest? |  (optional) 
 
             try
             {
-                // Updates the given teir to the provided package.
-                UpdateTierResponse result = apiInstance.UpdateTier(token, tierId, updateTierRequest);
+                // Update user's tier to a new package
+                UpdateTierResponse result = apiInstance.UpdateTier(tierId, updateTierRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2322,8 +2364,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Updates the given teir to the provided package.
-    ApiResponse<UpdateTierResponse> response = apiInstance.UpdateTierWithHttpInfo(token, tierId, updateTierRequest);
+    // Update user's tier to a new package
+    ApiResponse<UpdateTierResponse> response = apiInstance.UpdateTierWithHttpInfo(tierId, updateTierRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2340,7 +2382,6 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **token** | **string** | The webstore identifier. |  |
 | **tierId** | **int** | The tier identifier |  |
 | **updateTierRequest** | [**UpdateTierRequest?**](UpdateTierRequest?.md) |  | [optional]  |
 

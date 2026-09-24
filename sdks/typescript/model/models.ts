@@ -1,29 +1,62 @@
 import localVarRequest from 'request';
 
 export * from './addBasketPackageRequest';
+export * from './applyCoupon200Response';
+export * from './applyCouponRequest';
+export * from './applyCreatorCode200Response';
 export * from './applyCreatorCodeRequest';
+export * from './applyGiftCard200Response';
 export * from './basket';
 export * from './basketAuthResponseInner';
 export * from './basketLinks';
 export * from './basketPackage';
+export * from './basketPackageInBasket';
 export * from './basketResponse';
 export * from './cMSPage';
 export * from './cMSPagesResponse';
 export * from './category';
 export * from './categoryResponse';
+export * from './communityGoalData';
+export * from './communityGoalModule';
 export * from './coupon';
 export * from './createBasketRequest';
+export * from './dynamicPackageInput';
+export * from './dynamicPackagesRequest';
+export * from './dynamicPackagesResponse';
 export * from './errorResponse';
+export * from './featuredPackageData';
+export * from './featuredPackageModule';
 export * from './giftCard';
+export * from './giftcardBalanceData';
+export * from './giftcardBalanceModule';
+export * from './module';
+export * from './moduleBase';
+export * from './modulesResponse';
 export * from './package';
 export * from './packageCategory';
+export * from './packageMedia';
 export * from './packageResponse';
+export * from './paymentGoalData';
+export * from './paymentGoalModule';
+export * from './players';
+export * from './recentPayment';
+export * from './recentPaymentPackage';
+export * from './recentPaymentsData';
+export * from './recentPaymentsModule';
 export * from './removeBasketPackageRequest';
 export * from './removeGiftCardRequest';
 export * from './revenueShare';
+export * from './serverStatusData';
+export * from './serverStatusModule';
+export * from './singleCategoryResponse';
+export * from './singlePackageResponse';
+export * from './textboxData';
+export * from './textboxModule';
 export * from './tier';
 export * from './tierPendingDowngradePackage';
 export * from './tierStatus';
+export * from './topCustomerData';
+export * from './topCustomerModule';
 export * from './updatePackageQuantityRequest';
 export * from './updateTierRequest';
 export * from './updateTierResponse';
@@ -44,29 +77,62 @@ export type RequestFile = string | Buffer | fs.ReadStream | RequestDetailedFile;
 
 
 import { AddBasketPackageRequest } from './addBasketPackageRequest';
+import { ApplyCoupon200Response } from './applyCoupon200Response';
+import { ApplyCouponRequest } from './applyCouponRequest';
+import { ApplyCreatorCode200Response } from './applyCreatorCode200Response';
 import { ApplyCreatorCodeRequest } from './applyCreatorCodeRequest';
+import { ApplyGiftCard200Response } from './applyGiftCard200Response';
 import { Basket } from './basket';
 import { BasketAuthResponseInner } from './basketAuthResponseInner';
 import { BasketLinks } from './basketLinks';
 import { BasketPackage } from './basketPackage';
+import { BasketPackageInBasket } from './basketPackageInBasket';
 import { BasketResponse } from './basketResponse';
 import { CMSPage } from './cMSPage';
 import { CMSPagesResponse } from './cMSPagesResponse';
 import { Category } from './category';
 import { CategoryResponse } from './categoryResponse';
+import { CommunityGoalData } from './communityGoalData';
+import { CommunityGoalModule } from './communityGoalModule';
 import { Coupon } from './coupon';
 import { CreateBasketRequest } from './createBasketRequest';
+import { DynamicPackageInput } from './dynamicPackageInput';
+import { DynamicPackagesRequest } from './dynamicPackagesRequest';
+import { DynamicPackagesResponse } from './dynamicPackagesResponse';
 import { ErrorResponse } from './errorResponse';
+import { FeaturedPackageData } from './featuredPackageData';
+import { FeaturedPackageModule } from './featuredPackageModule';
 import { GiftCard } from './giftCard';
+import { GiftcardBalanceData } from './giftcardBalanceData';
+import { GiftcardBalanceModule } from './giftcardBalanceModule';
+import { Module } from './module';
+import { ModuleBase } from './moduleBase';
+import { ModulesResponse } from './modulesResponse';
 import { Package } from './package';
 import { PackageCategory } from './packageCategory';
+import { PackageMedia } from './packageMedia';
 import { PackageResponse } from './packageResponse';
+import { PaymentGoalData } from './paymentGoalData';
+import { PaymentGoalModule } from './paymentGoalModule';
+import { Players } from './players';
+import { RecentPayment } from './recentPayment';
+import { RecentPaymentPackage } from './recentPaymentPackage';
+import { RecentPaymentsData } from './recentPaymentsData';
+import { RecentPaymentsModule } from './recentPaymentsModule';
 import { RemoveBasketPackageRequest } from './removeBasketPackageRequest';
 import { RemoveGiftCardRequest } from './removeGiftCardRequest';
 import { RevenueShare } from './revenueShare';
+import { ServerStatusData } from './serverStatusData';
+import { ServerStatusModule } from './serverStatusModule';
+import { SingleCategoryResponse } from './singleCategoryResponse';
+import { SinglePackageResponse } from './singlePackageResponse';
+import { TextboxData } from './textboxData';
+import { TextboxModule } from './textboxModule';
 import { Tier } from './tier';
 import { TierPendingDowngradePackage } from './tierPendingDowngradePackage';
 import { TierStatus } from './tierStatus';
+import { TopCustomerData } from './topCustomerData';
+import { TopCustomerModule } from './topCustomerModule';
 import { UpdatePackageQuantityRequest } from './updatePackageQuantityRequest';
 import { UpdateTierRequest } from './updateTierRequest';
 import { UpdateTierResponse } from './updateTierResponse';
@@ -88,33 +154,69 @@ let primitives = [
 let enumsMap: {[index: string]: any} = {
         "BasketPackage.TypeEnum": BasketPackage.TypeEnum,
         "Category.DisplayTypeEnum": Category.DisplayTypeEnum,
+        "CommunityGoalData.BarStyleEnum": CommunityGoalData.BarStyleEnum,
+        "PackageMedia.TypeEnum": PackageMedia.TypeEnum,
+        "PaymentGoalData.BarStyleEnum": PaymentGoalData.BarStyleEnum,
 }
 
 let typeMap: {[index: string]: any} = {
     "AddBasketPackageRequest": AddBasketPackageRequest,
+    "ApplyCoupon200Response": ApplyCoupon200Response,
+    "ApplyCouponRequest": ApplyCouponRequest,
+    "ApplyCreatorCode200Response": ApplyCreatorCode200Response,
     "ApplyCreatorCodeRequest": ApplyCreatorCodeRequest,
+    "ApplyGiftCard200Response": ApplyGiftCard200Response,
     "Basket": Basket,
     "BasketAuthResponseInner": BasketAuthResponseInner,
     "BasketLinks": BasketLinks,
     "BasketPackage": BasketPackage,
+    "BasketPackageInBasket": BasketPackageInBasket,
     "BasketResponse": BasketResponse,
     "CMSPage": CMSPage,
     "CMSPagesResponse": CMSPagesResponse,
     "Category": Category,
     "CategoryResponse": CategoryResponse,
+    "CommunityGoalData": CommunityGoalData,
+    "CommunityGoalModule": CommunityGoalModule,
     "Coupon": Coupon,
     "CreateBasketRequest": CreateBasketRequest,
+    "DynamicPackageInput": DynamicPackageInput,
+    "DynamicPackagesRequest": DynamicPackagesRequest,
+    "DynamicPackagesResponse": DynamicPackagesResponse,
     "ErrorResponse": ErrorResponse,
+    "FeaturedPackageData": FeaturedPackageData,
+    "FeaturedPackageModule": FeaturedPackageModule,
     "GiftCard": GiftCard,
+    "GiftcardBalanceData": GiftcardBalanceData,
+    "GiftcardBalanceModule": GiftcardBalanceModule,
+    "Module": Module,
+    "ModuleBase": ModuleBase,
+    "ModulesResponse": ModulesResponse,
     "Package": Package,
     "PackageCategory": PackageCategory,
+    "PackageMedia": PackageMedia,
     "PackageResponse": PackageResponse,
+    "PaymentGoalData": PaymentGoalData,
+    "PaymentGoalModule": PaymentGoalModule,
+    "Players": Players,
+    "RecentPayment": RecentPayment,
+    "RecentPaymentPackage": RecentPaymentPackage,
+    "RecentPaymentsData": RecentPaymentsData,
+    "RecentPaymentsModule": RecentPaymentsModule,
     "RemoveBasketPackageRequest": RemoveBasketPackageRequest,
     "RemoveGiftCardRequest": RemoveGiftCardRequest,
     "RevenueShare": RevenueShare,
+    "ServerStatusData": ServerStatusData,
+    "ServerStatusModule": ServerStatusModule,
+    "SingleCategoryResponse": SingleCategoryResponse,
+    "SinglePackageResponse": SinglePackageResponse,
+    "TextboxData": TextboxData,
+    "TextboxModule": TextboxModule,
     "Tier": Tier,
     "TierPendingDowngradePackage": TierPendingDowngradePackage,
     "TierStatus": TierStatus,
+    "TopCustomerData": TopCustomerData,
+    "TopCustomerModule": TopCustomerModule,
     "UpdatePackageQuantityRequest": UpdatePackageQuantityRequest,
     "UpdateTierRequest": UpdateTierRequest,
     "UpdateTierResponse": UpdateTierResponse,

@@ -1,37 +1,34 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   contact:
     email: tebex-integrations@overwolf.com
   description: "The headless API is designed for implementing your own store frontend\
     \ with the data of your store. You are able to call the Headless API directly\
-    \ from a web browser (such as within an SPA), or from a backend server, such as\
-    \ for in-game GUIs."
+    \ from a web browser (such as within an SPA), from a backend server, or in-game\
+    \ GUIs."
   license:
     name: MIT
     url: https://opensource.org/license/mit
   termsOfService: https://tebex.io/terms-creator-agreement
   title: Tebex Headless API
-  version: 1.1.0
+  version: 2.0.1
 servers:
-- url: https://headless.tebex.io/api
+- description: Main API scoped to public token
+  url: "https://headless.tebex.io/api/accounts/{token}"
+  variables:
+    token:
+      default: YOUR_PUBLIC_TOKEN
+      description: The store's public token
 tags:
-- description: Endpoints which interact with a basket requiring the basket ID
+- description: Main API scoped to public token
   name: Headless
+- description: Endpoints requiring only a basket ident with no token
+  name: Baskets
 paths:
-  /accounts/{token}:
+  /:
     get:
-      description: Gets the webstore associated with the provided identifier.
-      operationId: getWebstoreById
-      parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: some-uuid
-          type: string
-        style: simple
+      description: Gets the webstore associated with the provided token
+      operationId: getWebstore
       responses:
         "200":
           content:
@@ -39,24 +36,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/WebstoreResponse'
           description: Successful response returns the webstore's information.
-      summary: Fetch a webstore by its identifier
+      summary: Get the webstore's information
       tags:
       - Headless
-  /accounts/{token}/pages:
+  /pages:
     get:
       description: Gets a list of custom pages associated with the webstore. These
         contain a `content` variable with the HTML content of the page.
-      operationId: getCMSPages
-      parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: some-uuid
-          type: string
-        style: simple
+      operationId: getCustomPages
       responses:
         "200":
           content:
@@ -64,32 +51,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/CMSPagesResponse'
           description: Successful response returns the webstore's pages.
-      summary: Fetch the custom pages associated with the store.
+      summary: Get custom pages defined for the webstore.
       tags:
       - Headless
-  /accounts/{token}/baskets/{basketIdent}:
+  /baskets/{basketIdent}:
     get:
       description: Gets a basket associated with the provided identifier.
-      operationId: getBasketById
+      operationId: getBasket
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
       responses:
         "200":
           content:
@@ -97,23 +67,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/BasketResponse'
           description: Successful response returns the basket information.
-      summary: Fetch a basket from a webstore by its identifier
+      summary: Get a basket
       tags:
       - Headless
-  /accounts/{token}/baskets:
+  /baskets:
     post:
       description: Creates a new basket for use during checkout.
       operationId: createBasket
-      parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
       requestBody:
         content:
           application/json:
@@ -131,29 +91,14 @@ paths:
       summary: Create a new basket
       tags:
       - Headless
-  /accounts/{token}/baskets/{basketIdent}/auth?returnUrl={returnUrl}:
+  /baskets/{basketIdent}/auth?returnUrl={returnUrl}:
     get:
-      description: Fetches a basket's auth URL.
+      description: |-
+        Fetches a basket's auth URL. The player should be directed here in order for them to authorize their account.
+        When complete, they will be returned to the provided `returnUrl` and the basket will be authorized from that moment onwards.
       operationId: getBasketAuthUrl
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
       - description: The URL you would like to redirect the user to after successful
           basket authentication.
         explode: false
@@ -170,28 +115,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BasketAuthResponse'
-          description: Successful response returns the basket auth information.
+          description: Successful response returns the auth provider options and URLs
+            of the sign-in link.
         "422":
           description: The provided webstore ID or basket ID is invalid.
-      summary: Get authentication links for a basket.
+      summary: Get auth links for basket
       tags:
       - Headless
-  /accounts/{token}/categories:
+  /baskets/{basketIdent}/dynamic-packages:
+    put:
+      description: |-
+        Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.
+
+        Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
+      operationId: createDynamicPackage
+      parameters:
+      - $ref: '#/components/parameters/basketIdent'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicPackagesRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicPackagesResponse'
+          description: Successful response confirms the dynamic packages were created.
+        "422":
+          description: The provided request is invalid. The error response will include
+            detail as to which parameter failed validation.
+      summary: Add packages to a dynamic category for a basket.
+      tags:
+      - Headless
+  /categories:
     get:
       description: "Gets all categories from a webstore. This does not include package\
         \ information. To include package information, add `?includePackages=1` to\
         \ the URL."
-      operationId: getAllCategories
-      parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
+      operationId: getCategories
       responses:
         "200":
           content:
@@ -199,23 +162,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
           description: Successful response returns a list of category information.
-      summary: Gets all categories available in the webstore.
+      summary: Get all categories
       tags:
       - Headless
-  /accounts/{token}/categories?includePackages=1:
+  /categories?includePackages=1:
     get:
       description: Gets all categories from a webstore including packages.
-      operationId: getAllCategoriesIncludingPackages
-      parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
+      operationId: getCategoriesIncludePackages
       responses:
         "200":
           content:
@@ -223,24 +176,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
           description: Successful response returns a list of category information.
-      summary: Gets a store's categories including all package information with them.
+      summary: Gets all categories and packages
       tags:
       - Headless
-  /accounts/{token}/categories?usernameId={usernameId}&includePackages=1:
+  /categories?usernameId={usernameId}&includePackages=1:
     get:
       description: "Gets all categories from the webstore, returning active tier information\
         \ for the given player."
-      operationId: getTieredCategoriesForUser
+      operationId: getUserTieredCategories
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
       - explode: false
         in: path
         name: usernameId
@@ -258,31 +202,41 @@ paths:
           description: Successful response returns a list of category information.
       security:
       - basicAuth: []
-      summary: Gets a store's categories including all package information with them.
+      summary: Get user's tiered categories
       tags:
       - Headless
-  /accounts/{token}/categories/{categoryId}:
+  /categories?includePackages=1&basketIdent={basketIdent}:
+    get:
+      description: |-
+        Gets all categories from a webstore including packages. When `basketIdent` is provided, dynamic categories are populated with the packages associated with that basket.
+
+        If a basket identifier is not provided, dynamic categories will be empty as the basket is required to relate packages to the category.
+      operationId: getDynamicCategories
+      parameters:
+      - $ref: '#/components/parameters/basketIdent'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+          description: Successful response returns a list of category information.
+      summary: Get Dynamic Categories
+      tags:
+      - Headless
+  /categories/{categoryId}:
     get:
       description: Gets information about a category and returns the packages in that
         category.
-      operationId: getCategoryById
+      operationId: getCategory
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The ID of the category to fetch.
+      - description: The ID or slug of the category to fetch.
         explode: false
         in: path
         name: categoryId
         required: true
         schema:
-          example: "127244343"
+          example: 127244343
           type: string
         style: simple
       responses:
@@ -290,33 +244,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryResponse'
+                $ref: '#/components/schemas/SingleCategoryResponse'
           description: Successful response returns the category without package information.
-      summary: Gets information about a specific category
+      summary: Get specific category
       tags:
       - Headless
-  /accounts/{token}/categories/{categoryId}?includePackages=1:
+  /categories/{categoryId}?includePackages=1:
     get:
       description: Gets information about a category and returns the packages in that
         category.
-      operationId: getCategoryIncludingPackages
+      operationId: getCategoryIncludePackages
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The ID of the category to fetch.
+      - description: The ID or slug of the category to fetch.
         explode: false
         in: path
         name: categoryId
         required: true
         schema:
-          example: "127244343"
+          example: 127244343
           type: string
         style: simple
       responses:
@@ -324,57 +269,55 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryResponse'
+                $ref: '#/components/schemas/SingleCategoryResponse'
           description: Successful response returns the category with package information.
-      summary: "Gets information about a specific category, including all the packages\
-        \ in the category"
+      summary: Get a category with all packages
       tags:
       - Headless
-  /accounts/{token}/packages/{packageId}:
+  /categories/{categoryId}?includePackages=1&basketIdent={basketIdent}:
     get:
-      description: Gets a package from a webstore by ID.
-      operationId: getPackageById
+      description: |-
+        Gets information about a category and returns the packages in that category. When the category is dynamic and `basketIdent` is provided, the category is populated with the packages associated with that basket.
+
+        If a basket identifier is not provided, a dynamic category will be empty as the basket is required to relate packages to the category.
+      operationId: getCategoryIncludeDynamicPackages
       parameters:
-      - description: The webstore identifier.
+      - description: The ID or slug of the category to fetch.
         explode: false
         in: path
-        name: token
+        name: categoryId
         required: true
         schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
+          example: 1234
           type: string
         style: simple
-      - description: The package's ID.
+      - $ref: '#/components/parameters/basketIdent'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCategoryResponse'
+          description: Successful response returns the category with package information.
+      summary: "Gets a specific category including packages, populating a dynamic\
+        \ category for the given basket."
+      tags:
+      - Headless
+  /packages/{packageId}:
+    get:
+      description: |-
+        Gets a package from a webstore by its ID or slug.
+
+        Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
+      operationId: getPackage
+      parameters:
+      - description: The package's ID or slug.
         explode: false
         in: path
         name: packageId
         required: true
         schema:
           example: 1272441812
-          type: integer
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PackageResponse'
-          description: Successful response returns the package information.
-      summary: Fetch a package from a webstore by its identifier
-      tags:
-      - Headless
-  /accounts/{token}/packages:
-    get:
-      description: Gets all packages from a webstore.
-      operationId: getAllPackages
-      parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
           type: string
         style: simple
       responses:
@@ -382,26 +325,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PackageResponse'
-          description: Successful response returns a list of package information.
-      summary: Fetch all packages from a webstore
+                $ref: '#/components/schemas/SinglePackageResponse'
+          description: Successful response returns the package information.
+      summary: Get package
       tags:
       - Headless
-  /accounts/{token}/packages?ipAddress={ipAddress}:
+  /packages:
+    get:
+      description: |-
+        Gets all packages from a webstore.
+
+        Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
+      operationId: getAllPackages
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageResponse'
+          description: Successful response returns a list of package information.
+      summary: Get all packages
+      tags:
+      - Headless
+  /packages?ipAddress={ipAddress}:
     get:
       description: Gets all packages from a webstore.
       operationId: getAllPackagesWithAuthedIP
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: An IP address can be provided with authenticated requests.
+      - description: An IP address can be provided with authenticated requests
         explode: false
         in: path
         name: ipAddress
@@ -419,32 +370,17 @@ paths:
           description: Successful response returns a list of package information.
         "422":
           description: The provided request is invalid.
-      summary: Fetch a package from a webstore by its identifier
+      security:
+      - basicAuth: []
+      summary: Get packages
       tags:
       - Headless
-  /accounts/{token}/packages?basketIdent={basketIdent}:
+  /packages?basketIdent={basketIdent}:
     get:
-      description: Gets all packages from a webstore.
-      operationId: getAllPackagesWithBasket
+      description: Gets all packages available to the provided basket.
+      operationId: getPackagesForBasket
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
       responses:
         "200":
           content:
@@ -454,32 +390,15 @@ paths:
           description: Successful response returns a list of package information.
         "422":
           description: The provided request is invalid.
-      summary: Fetch a package from a webstore by its identifier
+      summary: Get packages available for basket
       tags:
       - Headless
-  /accounts/{token}/packages?ipAddress={ipAddress}&basketIdent={basketIdent}:
+  /packages?ipAddress={ipAddress}&basketIdent={basketIdent}:
     get:
       description: Gets all packages from a webstore.
       operationId: getAllPackagesWithAuthedIPAndBasket
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
       - description: An IP address can be provided with authenticated requests.
         explode: false
         in: path
@@ -498,32 +417,17 @@ paths:
           description: Successful response returns a list of package information.
         "422":
           description: The provided request is invalid.
-      summary: Fetch a package from a webstore by its identifier
+      security:
+      - basicAuth: []
+      summary: Get packages available for IP and basket
       tags:
       - Headless
-  /accounts/{token}/baskets/{basketIdent}/creator-codes:
+  /baskets/{basketIdent}/creator-codes:
     post:
       description: Applies a creator code to a basket.
       operationId: applyCreatorCode
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
       requestBody:
         content:
           application/json:
@@ -535,69 +439,35 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BasketResponse'
-          description: Successful response returns the basket.
+                $ref: '#/components/schemas/applyCreatorCode_200_response'
+          description: Successful response returns a success object
         "422":
           description: The provided request is invalid. The error response will include
             detail as to which parameter failed validation.
-      summary: Apply a creator code to a basket.
+      summary: Apply a creator code
       tags:
       - Headless
-  /accounts/{token}/baskets/{basketIdent}/creator-codes/remove:
+  /baskets/{basketIdent}/creator-codes/remove:
     post:
-      description: Applies a creator code to a basket.
+      description: Removes the creator code from the basket.
       operationId: removeCreatorCode
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
       responses:
         "200":
           description: Creator code removed successfully.
         "422":
           description: The provided request is invalid. The error response will include
             detail as to which parameter failed validation.
-      summary: Remove a creator code from the basket.
+      summary: Removes the creator code from the basket.
       tags:
       - Headless
-  /accounts/{token}/baskets/{basketIdent}/giftcards:
+  /baskets/{basketIdent}/giftcards:
     post:
-      description: Applies a creator code to a basket.
+      description: Applies a gift card to the basket.
       operationId: applyGiftCard
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
       requestBody:
         content:
           application/json:
@@ -609,34 +479,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BasketResponse'
-          description: Successful response returns the basket.
-      summary: Apply a gift card to a basket.
+                $ref: '#/components/schemas/applyGiftCard_200_response'
+          description: Successful response returns a success message.
+      summary: Apply a gift card
       tags:
       - Headless
-  /accounts/{token}/baskets/{basketIdent}/giftcards/remove:
+  /baskets/{basketIdent}/giftcards/remove:
     post:
       description: Removes a gift card from the basket.
       operationId: removeGiftCard
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
       requestBody:
         content:
           application/json:
@@ -652,68 +505,40 @@ paths:
       summary: Remove a gift card from the basket.
       tags:
       - Headless
-  /accounts/{token}/baskets/{basketIdent}/coupons:
+  /baskets/{basketIdent}/coupons:
     post:
-      description: Applies a creator code to a basket.
+      description: Applies a coupon to a basket.
       operationId: applyCoupon
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Coupon'
+              $ref: '#/components/schemas/ApplyCouponRequest'
         description: Provide a `coupon_code` to apply to the basket.
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BasketResponse'
-          description: Successful response returns the basket.
-      summary: Apply a coupon to a basket.
+                $ref: '#/components/schemas/applyCoupon_200_response'
+          description: Successful response returns a success message.
+      summary: Apply a coupon
       tags:
       - Headless
-  /accounts/{token}/baskets/{basketIdent}/coupons/remove:
+  /baskets/{basketIdent}/coupons/remove:
     post:
       description: Removes a coupon code from a basket
       operationId: removeCoupon
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb
-          type: string
-        style: simple
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplyCouponRequest'
+        description: Provide a `coupon_code` to remove from the basket.
       responses:
         "200":
           description: Successful response.
@@ -723,20 +548,15 @@ paths:
       summary: Remove a coupon from the basket.
       tags:
       - Headless
-  /baskets/{basketIdent}/packages:
+  /{basketIdent}/packages:
     post:
-      description: Add a package with the given ID to the basket.
+      description: |-
+        Add a package with the given ID to the basket.
+
+        To add a package belonging to a dynamic category, set `dynamic` to `true`. Without this property the API will treat the request as a normal package ID.
       operationId: addBasketPackage
       parameters:
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
       requestBody:
         content:
           application/json:
@@ -747,28 +567,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Basket'
+                $ref: '#/components/schemas/BasketResponse'
           description: Successful response.
         "422":
           description: The provided request is invalid. The error response will include
             detail as to which parameter failed validation.
-      summary: Add a package to a basket
+      summary: Add package to basket
       tags:
-      - Headless
-  /baskets/{basketIdent}/packages/remove:
+      - Baskets
+    servers:
+    - description: "Basket-only API, account token not required"
+      url: https://headless.tebex.io/api/baskets
+  /{basketIdent}/packages/remove:
     post:
       description: Remove the given package ID from the basket.
       operationId: removeBasketPackage
       parameters:
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
+      - $ref: '#/components/parameters/basketIdent'
       requestBody:
         content:
           application/json:
@@ -779,36 +594,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Basket'
+                $ref: '#/components/schemas/BasketResponse'
           description: Successful response returns the basket.
         "422":
           description: The provided request is invalid. The error response will include
             detail as to which parameter failed validation.
       summary: Remove a package from a basket
       tags:
-      - Headless
-  /baskets/{basketIdent}/packages/{packageId}:
+      - Baskets
+    servers:
+    - description: "Basket-only API, account token not required"
+      url: https://headless.tebex.io/api/baskets
+  /{basketIdent}/packages/{packageId}:
     put:
-      description: Sets the quantity of the given item in the basket.
+      description: Sets the quantity of the given item in the basket. The user must
+        be logged in before the quantity can be changed.
       operationId: updatePackageQuantity
       parameters:
-      - description: The basket identifier.
-        explode: false
-        in: path
-        name: basketIdent
-        required: true
-        schema:
-          example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
-          type: string
-        style: simple
-      - description: The package identifier.
+      - $ref: '#/components/parameters/basketIdent'
+      - description: The package identifier
         explode: false
         in: path
         name: packageId
         required: true
         schema:
           example: 6276316
-          type: integer
+          type: string
         style: simple
       requestBody:
         content:
@@ -821,24 +632,18 @@ paths:
         "422":
           description: The provided request is invalid. The error response will include
             detail as to which parameter failed validation.
-      summary: Updates the quantity of the given package in the basket. The user must
-        be logged in before the quantity can be changed.
+      summary: Update package quantity
       tags:
-      - Headless
-  /accounts/{token}/tiers/{tierId}:
+      - Baskets
+    servers:
+    - description: "Basket-only API, account token not required"
+      url: https://headless.tebex.io/api/baskets
+  /tiers/{tierId}:
     patch:
-      description: Updates a tier to a new package.
+      description: Updates a tier to a new package. A recurring payment updated webhook
+        is sent when an update is successful.
       operationId: updateTier
       parameters:
-      - description: The webstore identifier.
-        explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          example: some-uuid
-          type: string
-        style: simple
       - description: The tier identifier
         explode: false
         in: path
@@ -862,22 +667,60 @@ paths:
           description: Successful response.
       security:
       - basicAuth: []
-      summary: Updates the given teir to the provided package.
+      summary: Update user's tier to a new package
+      tags:
+      - Headless
+  /sidebar:
+    get:
+      description: Retrieves the available sidebar modules configured for the store.
+      operationId: getSidebar
+      parameters:
+      - description: The webstore identifier.
+        explode: false
+        in: path
+        name: token
+        required: true
+        schema:
+          example: some-uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModulesResponse'
+          description: Successful response.
+      summary: Retrieves the available sidebar modules.
       tags:
       - Headless
 components:
+  parameters:
+    basketIdent:
+      description: The basket identifier.
+      explode: false
+      in: path
+      name: basketIdent
+      required: true
+      schema:
+        example: c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c
+        type: string
+      style: simple
   schemas:
     Webstore:
       example:
-        platform_type: "Minecraft: Java Edition"
-        webstore_url: https://example.tebex.io
-        name: Minecraft Store
+        supports_usernames: true
         description: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.\
           \ Mauris fermentum eget tellus et cursus. Pellentesque vel vehicula velit,\
           \ sit amet tincidunt diam. Aliquam sit amet fermentum lorem.</p>"
+        created_at: 2023-05-25T09:49:37+00:00
+        supports_gifting: false
+        platform_type: "Minecraft: Java Edition"
+        webstore_url: https://example.tebex.io
+        name: Minecraft Store
         logo: https://openapi-generator.tech
-        created_at: 2023-05-25T09:49:37Z
         currency: USD
+        disabled: false
         id: 1
         lang: en
         platform_type_id: minecraft
@@ -911,8 +754,8 @@ components:
         logo:
           description: URL of the store's logo
           format: uri
-          nullable: true
           type: string
+          nullable: true
         platform_type:
           description: Platform type for the store
           example: "Minecraft: Java Edition"
@@ -920,32 +763,45 @@ components:
         platform_type_id:
           example: minecraft
           type: string
+        disabled:
+          description: True if the store is disabled.
+          example: false
+          type: boolean
         created_at:
           description: The date and time when the store was created
-          example: 2023-05-25T09:49:37Z
+          example: 2023-05-25T09:49:37+00:00
           format: date-time
           type: string
-      type: object
+        supports_usernames:
+          description: True if the store's platform identifies customers by username.
+          example: true
+          type: boolean
+        supports_gifting:
+          description: True if packages can be gifted to another user.
+          example: false
+          type: boolean
     WebstoreResponse:
       description: Wrapped webstore information in a "data" object.
       example:
         data:
-          platform_type: "Minecraft: Java Edition"
-          webstore_url: https://example.tebex.io
-          name: Minecraft Store
+          supports_usernames: true
           description: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.\
             \ Mauris fermentum eget tellus et cursus. Pellentesque vel vehicula velit,\
             \ sit amet tincidunt diam. Aliquam sit amet fermentum lorem.</p>"
+          created_at: 2023-05-25T09:49:37+00:00
+          supports_gifting: false
+          platform_type: "Minecraft: Java Edition"
+          webstore_url: https://example.tebex.io
+          name: Minecraft Store
           logo: https://openapi-generator.tech
-          created_at: 2023-05-25T09:49:37Z
           currency: USD
+          disabled: false
           id: 1
           lang: en
           platform_type_id: minecraft
       properties:
         data:
           $ref: '#/components/schemas/Webstore'
-      type: object
     UpdateTierResponse:
       example:
         success: true
@@ -959,16 +815,15 @@ components:
           example: "Tier successfully upgraded, please allow a few moments for your\
             \ changes to take effect."
           type: string
-      type: object
     CMSPagesResponse:
       example:
         data:
         - sequence: false
           private: false
           account_id: 244
-          updated_at: 2023-11-13T20:59:54Z
+          updated_at: 2023-11-13T20:59:54.000000Z
           hidden: false
-          created_at: 2023-11-13T20:59:54Z
+          created_at: 2023-11-13T20:59:54.000000Z
           disabled: false
           id: 127
           title: About
@@ -984,9 +839,9 @@ components:
         - sequence: false
           private: false
           account_id: 244
-          updated_at: 2023-11-13T20:59:54Z
+          updated_at: 2023-11-13T20:59:54.000000Z
           hidden: false
-          created_at: 2023-11-13T20:59:54Z
+          created_at: 2023-11-13T20:59:54.000000Z
           disabled: false
           id: 127
           title: About
@@ -1004,15 +859,14 @@ components:
           items:
             $ref: '#/components/schemas/CMSPage'
           type: array
-      type: object
     CMSPage:
       example:
         sequence: false
         private: false
         account_id: 244
-        updated_at: 2023-11-13T20:59:54Z
+        updated_at: 2023-11-13T20:59:54.000000Z
         hidden: false
-        created_at: 2023-11-13T20:59:54Z
+        created_at: 2023-11-13T20:59:54.000000Z
         disabled: false
         id: 127
         title: About
@@ -1030,11 +884,11 @@ components:
           example: 127
           type: integer
         created_at:
-          example: 2023-11-13T20:59:54Z
+          example: 2023-11-13T20:59:54.000000Z
           format: date-time
           type: string
         updated_at:
-          example: 2023-11-13T20:59:54Z
+          example: 2023-11-13T20:59:54.000000Z
           format: date-time
           type: string
         account_id:
@@ -1068,15 +922,9 @@ components:
             <p>Make sure to take a look at our <a href="https://help.tebex.io" rel="noreferrer" target="_blank">knowledgebase</a>
             for helpful guides on getting started.</p>
           type: string
-      type: object
     ErrorResponse:
       properties:
-        type:
-          description: "A URI reference [RFC3986] that identifies the problem type.\
-            \  This specification encourages that, when dereferenced, it provide human-readable\
-            \ documentation for the problem type (e.g., using HTML [W3C.REC-html5-20141028]).\
-            \  When this member is not present, its value is assumed to be \"about:blank\"\
-            ."
+        type: {}
         title:
           description: "A short, human-readable summary of the problem type.  It SHOULD\
             \ NOT change from occurrence to occurrence of the problem, except for\
@@ -1084,8 +932,8 @@ components:
           example: Bad Request
           type: string
         status:
-          description: The HTTP status code generated by the origin server for the
-            occurrence of the problem.
+          description: The HTTP status code gen by the origin server for the occurrence
+            of the problem.
           example: 400
           type: integer
         detail:
@@ -1098,7 +946,6 @@ components:
             the problem. It may or may not yield further information if dereferenced
           example: /path/to/ref
           type: string
-      type: object
     GiftCard:
       example:
         card_number: 0127 0244 7210 1111
@@ -1106,15 +953,20 @@ components:
         card_number:
           example: 0127 0244 7210 1111
           type: string
-      type: object
-    Coupon:
+    ApplyCouponRequest:
       example:
         coupon_code: Academy10
       properties:
         coupon_code:
           example: Academy10
           type: string
-      type: object
+    Coupon:
+      example:
+        code: Academy10
+      properties:
+        code:
+          example: Academy10
+          type: string
     BasketAuthResponse:
       items:
         $ref: '#/components/schemas/BasketAuthResponse_inner'
@@ -1135,7 +987,7 @@ components:
             ref: 1234
           username_id: 127244
           packages:
-          - qty: 2
+          - image: https://tebex.io/path/to/image.png
             revenue_share:
             - amount: 0.5
               wallet_ref: some_wallet_reference
@@ -1143,8 +995,18 @@ components:
             - amount: 0.5
               wallet_ref: some_wallet_reference
               gateway_fee_percent: 50.0
+            name: 100 Coins
+            description: 100 coins added to your character
+            in_basket:
+              gift_username_id: gift_username_id
+              quantity: 2
+              price: 6.0274563
+              gift_username: gift_username
+            id: 0
             type: single
-          - qty: 2
+            slug: 100-coins
+            is_recurring: false
+          - image: https://tebex.io/path/to/image.png
             revenue_share:
             - amount: 0.5
               wallet_ref: some_wallet_reference
@@ -1152,18 +1014,28 @@ components:
             - amount: 0.5
               wallet_ref: some_wallet_reference
               gateway_fee_percent: 50.0
+            name: 100 Coins
+            description: 100 coins added to your character
+            in_basket:
+              gift_username_id: gift_username_id
+              quantity: 2
+              price: 6.0274563
+              gift_username: gift_username
+            id: 0
             type: single
+            slug: 100-coins
+            is_recurring: false
           complete_auto_redirect: false
           sales_tax: 0.11
           coupons:
-          - coupon_code: Academy10
-          - coupon_code: Academy10
+          - code: Academy10
+          - code: Academy10
           base_price: 1.27
           currency: USD
           links:
             payment: https://checkout.tebex.io/api/payments/tbx-12345
             checkout: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
-          id: "244127617"
+          id: 244127617
           complete: false
           cancel_url: https://tebex.io
           complete_url: complete_url
@@ -1172,7 +1044,6 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/Basket'
-      type: object
     Basket:
       example:
         creator_code: creator_code
@@ -1188,7 +1059,7 @@ components:
           ref: 1234
         username_id: 127244
         packages:
-        - qty: 2
+        - image: https://tebex.io/path/to/image.png
           revenue_share:
           - amount: 0.5
             wallet_ref: some_wallet_reference
@@ -1196,8 +1067,18 @@ components:
           - amount: 0.5
             wallet_ref: some_wallet_reference
             gateway_fee_percent: 50.0
+          name: 100 Coins
+          description: 100 coins added to your character
+          in_basket:
+            gift_username_id: gift_username_id
+            quantity: 2
+            price: 6.0274563
+            gift_username: gift_username
+          id: 0
           type: single
-        - qty: 2
+          slug: 100-coins
+          is_recurring: false
+        - image: https://tebex.io/path/to/image.png
           revenue_share:
           - amount: 0.5
             wallet_ref: some_wallet_reference
@@ -1205,18 +1086,28 @@ components:
           - amount: 0.5
             wallet_ref: some_wallet_reference
             gateway_fee_percent: 50.0
+          name: 100 Coins
+          description: 100 coins added to your character
+          in_basket:
+            gift_username_id: gift_username_id
+            quantity: 2
+            price: 6.0274563
+            gift_username: gift_username
+          id: 0
           type: single
+          slug: 100-coins
+          is_recurring: false
         complete_auto_redirect: false
         sales_tax: 0.11
         coupons:
-        - coupon_code: Academy10
-        - coupon_code: Academy10
+        - code: Academy10
+        - code: Academy10
         base_price: 1.27
         currency: USD
         links:
           payment: https://checkout.tebex.io/api/payments/tbx-12345
           checkout: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
-        id: "244127617"
+        id: 244127617
         complete: false
         cancel_url: https://tebex.io
         complete_url: complete_url
@@ -1224,7 +1115,7 @@ components:
         username: username
       properties:
         id:
-          example: "244127617"
+          example: 244127617
           type: string
         ident:
           example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
@@ -1234,11 +1125,11 @@ components:
           type: boolean
         email:
           example: support@tebex.io
-          nullable: true
           type: string
+          nullable: true
         username:
-          nullable: true
           type: string
+          nullable: true
           example: null
         coupons:
           items:
@@ -1256,8 +1147,8 @@ components:
           example: https://tebex.io
           type: string
         complete_url:
-          nullable: true
           type: string
+          nullable: true
           example: null
         complete_auto_redirect:
           example: false
@@ -1296,11 +1187,10 @@ components:
           example:
             foo: bar
             ref: 1234
-          nullable: true
           type: object
+          nullable: true
         links:
           $ref: '#/components/schemas/BasketLinks'
-      type: object
     BasketLinks:
       example:
         payment: https://checkout.tebex.io/api/payments/tbx-12345
@@ -1317,74 +1207,144 @@ components:
             \ has not been paid, and is the URL to send the customer to make payment"
           example: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
           type: string
-      type: object
     CategoryResponse:
       example:
         data:
         - display_type: list
           parent: "{}"
+          image_url: https://openapi-generator.tech
           name: Test
           tiered: false
           description: description
+          dynamic: false
           id: 2678660
           packages:
-          - image: image
-            prorate_price: 0.8008282
-            total_price: 5
+          - prorate_price: 0.8008282
             disable_quantity: false
+            ident: pkg_3081120_7088903
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
-            created_at: 2024-05-21T18:09:17Z
+            created_at: 2024-05-21T18:09:17+00:00
+            media:
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
             type: single
             expiration_date: 2000-01-23T04:56:07.000+00:00
-            sales_tax: 0
-            updated_at: 2024-05-21T18:09:17Z
-            name: test package 101
+            updated_at: 2024-05-21T18:09:17+00:00
             base_price: 5
+            options:
+            - options
+            - options
             currency: USD
             id: 6276316
+            slug: slug
+            order: 6
+            image: image
+            variables:
+            - variables
+            - variables
+            total_price: 5
+            creator_meta_data: "{}"
+            user_limit: 1
+            sales_tax: 0
+            name: test package 101
+            vip_status: vip_status
             category:
               name: Packages
               id: 2678660
-          - image: image
-            prorate_price: 0.8008282
-            total_price: 5
+          - prorate_price: 0.8008282
             disable_quantity: false
+            ident: pkg_3081120_7088903
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
-            created_at: 2024-05-21T18:09:17Z
+            created_at: 2024-05-21T18:09:17+00:00
+            media:
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
             type: single
             expiration_date: 2000-01-23T04:56:07.000+00:00
-            sales_tax: 0
-            updated_at: 2024-05-21T18:09:17Z
-            name: test package 101
+            updated_at: 2024-05-21T18:09:17+00:00
             base_price: 5
+            options:
+            - options
+            - options
             currency: USD
             id: 6276316
+            slug: slug
+            order: 6
+            image: image
+            variables:
+            - variables
+            - variables
+            total_price: 5
+            creator_meta_data: "{}"
+            user_limit: 1
+            sales_tax: 0
+            name: test package 101
+            vip_status: vip_status
             category:
               name: Packages
               id: 2678660
           slug: slug
           active_tier:
             package:
-              image: image
               prorate_price: 0.8008282
-              total_price: 5
               disable_quantity: false
+              ident: pkg_3081120_7088903
               description: <p>this is just a test. only a test. nothing more.</p>
               discount: 0
               disable_gifting: false
-              created_at: 2024-05-21T18:09:17Z
+              created_at: 2024-05-21T18:09:17+00:00
+              media:
+              - featured: false
+                name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                type: image
+                url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                primary: true
+              - featured: false
+                name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                type: image
+                url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                primary: true
               type: single
               expiration_date: 2000-01-23T04:56:07.000+00:00
-              sales_tax: 0
-              updated_at: 2024-05-21T18:09:17Z
-              name: test package 101
+              updated_at: 2024-05-21T18:09:17+00:00
               base_price: 5
+              options:
+              - options
+              - options
               currency: USD
               id: 6276316
+              slug: slug
+              order: 6
+              image: image
+              variables:
+              - variables
+              - variables
+              total_price: 5
+              creator_meta_data: "{}"
+              user_limit: 1
+              sales_tax: 0
+              name: test package 101
+              vip_status: vip_status
               category:
                 name: Packages
                 id: 2678660
@@ -1393,78 +1353,149 @@ components:
               name: Bronze
               id: 6834820
             username_id: username_id
-            created_at: 2025-05-14T13:48:56Z
+            created_at: 2025-05-14T13:48:56.000000Z
             active: true
             id: 40796
-            next_payment_date: 2025-06-14T13:48:56Z
+            next_payment_date: 2025-06-14T13:48:56+00:00
             status:
               description: Active
               id: 2
           order: 1
         - display_type: list
           parent: "{}"
+          image_url: https://openapi-generator.tech
           name: Test
           tiered: false
           description: description
+          dynamic: false
           id: 2678660
           packages:
-          - image: image
-            prorate_price: 0.8008282
-            total_price: 5
+          - prorate_price: 0.8008282
             disable_quantity: false
+            ident: pkg_3081120_7088903
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
-            created_at: 2024-05-21T18:09:17Z
+            created_at: 2024-05-21T18:09:17+00:00
+            media:
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
             type: single
             expiration_date: 2000-01-23T04:56:07.000+00:00
-            sales_tax: 0
-            updated_at: 2024-05-21T18:09:17Z
-            name: test package 101
+            updated_at: 2024-05-21T18:09:17+00:00
             base_price: 5
+            options:
+            - options
+            - options
             currency: USD
             id: 6276316
+            slug: slug
+            order: 6
+            image: image
+            variables:
+            - variables
+            - variables
+            total_price: 5
+            creator_meta_data: "{}"
+            user_limit: 1
+            sales_tax: 0
+            name: test package 101
+            vip_status: vip_status
             category:
               name: Packages
               id: 2678660
-          - image: image
-            prorate_price: 0.8008282
-            total_price: 5
+          - prorate_price: 0.8008282
             disable_quantity: false
+            ident: pkg_3081120_7088903
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
-            created_at: 2024-05-21T18:09:17Z
+            created_at: 2024-05-21T18:09:17+00:00
+            media:
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
             type: single
             expiration_date: 2000-01-23T04:56:07.000+00:00
-            sales_tax: 0
-            updated_at: 2024-05-21T18:09:17Z
-            name: test package 101
+            updated_at: 2024-05-21T18:09:17+00:00
             base_price: 5
+            options:
+            - options
+            - options
             currency: USD
             id: 6276316
+            slug: slug
+            order: 6
+            image: image
+            variables:
+            - variables
+            - variables
+            total_price: 5
+            creator_meta_data: "{}"
+            user_limit: 1
+            sales_tax: 0
+            name: test package 101
+            vip_status: vip_status
             category:
               name: Packages
               id: 2678660
           slug: slug
           active_tier:
             package:
-              image: image
               prorate_price: 0.8008282
-              total_price: 5
               disable_quantity: false
+              ident: pkg_3081120_7088903
               description: <p>this is just a test. only a test. nothing more.</p>
               discount: 0
               disable_gifting: false
-              created_at: 2024-05-21T18:09:17Z
+              created_at: 2024-05-21T18:09:17+00:00
+              media:
+              - featured: false
+                name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                type: image
+                url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                primary: true
+              - featured: false
+                name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                type: image
+                url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                primary: true
               type: single
               expiration_date: 2000-01-23T04:56:07.000+00:00
-              sales_tax: 0
-              updated_at: 2024-05-21T18:09:17Z
-              name: test package 101
+              updated_at: 2024-05-21T18:09:17+00:00
               base_price: 5
+              options:
+              - options
+              - options
               currency: USD
               id: 6276316
+              slug: slug
+              order: 6
+              image: image
+              variables:
+              - variables
+              - variables
+              total_price: 5
+              creator_meta_data: "{}"
+              user_limit: 1
+              sales_tax: 0
+              name: test package 101
+              vip_status: vip_status
               category:
                 name: Packages
                 id: 2678660
@@ -1473,10 +1504,10 @@ components:
               name: Bronze
               id: 6834820
             username_id: username_id
-            created_at: 2025-05-14T13:48:56Z
+            created_at: 2025-05-14T13:48:56.000000Z
             active: true
             id: 40796
-            next_payment_date: 2025-06-14T13:48:56Z
+            next_payment_date: 2025-06-14T13:48:56+00:00
             status:
               description: Active
               id: 2
@@ -1486,73 +1517,300 @@ components:
           items:
             $ref: '#/components/schemas/Category'
           type: array
-      type: object
+    SingleCategoryResponse:
+      example:
+        data:
+          display_type: list
+          parent: "{}"
+          image_url: https://openapi-generator.tech
+          name: Test
+          tiered: false
+          description: description
+          dynamic: false
+          id: 2678660
+          packages:
+          - prorate_price: 0.8008282
+            disable_quantity: false
+            ident: pkg_3081120_7088903
+            description: <p>this is just a test. only a test. nothing more.</p>
+            discount: 0
+            disable_gifting: false
+            created_at: 2024-05-21T18:09:17+00:00
+            media:
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
+            type: single
+            expiration_date: 2000-01-23T04:56:07.000+00:00
+            updated_at: 2024-05-21T18:09:17+00:00
+            base_price: 5
+            options:
+            - options
+            - options
+            currency: USD
+            id: 6276316
+            slug: slug
+            order: 6
+            image: image
+            variables:
+            - variables
+            - variables
+            total_price: 5
+            creator_meta_data: "{}"
+            user_limit: 1
+            sales_tax: 0
+            name: test package 101
+            vip_status: vip_status
+            category:
+              name: Packages
+              id: 2678660
+          - prorate_price: 0.8008282
+            disable_quantity: false
+            ident: pkg_3081120_7088903
+            description: <p>this is just a test. only a test. nothing more.</p>
+            discount: 0
+            disable_gifting: false
+            created_at: 2024-05-21T18:09:17+00:00
+            media:
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
+            type: single
+            expiration_date: 2000-01-23T04:56:07.000+00:00
+            updated_at: 2024-05-21T18:09:17+00:00
+            base_price: 5
+            options:
+            - options
+            - options
+            currency: USD
+            id: 6276316
+            slug: slug
+            order: 6
+            image: image
+            variables:
+            - variables
+            - variables
+            total_price: 5
+            creator_meta_data: "{}"
+            user_limit: 1
+            sales_tax: 0
+            name: test package 101
+            vip_status: vip_status
+            category:
+              name: Packages
+              id: 2678660
+          slug: slug
+          active_tier:
+            package:
+              prorate_price: 0.8008282
+              disable_quantity: false
+              ident: pkg_3081120_7088903
+              description: <p>this is just a test. only a test. nothing more.</p>
+              discount: 0
+              disable_gifting: false
+              created_at: 2024-05-21T18:09:17+00:00
+              media:
+              - featured: false
+                name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                type: image
+                url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                primary: true
+              - featured: false
+                name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                type: image
+                url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                primary: true
+              type: single
+              expiration_date: 2000-01-23T04:56:07.000+00:00
+              updated_at: 2024-05-21T18:09:17+00:00
+              base_price: 5
+              options:
+              - options
+              - options
+              currency: USD
+              id: 6276316
+              slug: slug
+              order: 6
+              image: image
+              variables:
+              - variables
+              - variables
+              total_price: 5
+              creator_meta_data: "{}"
+              user_limit: 1
+              sales_tax: 0
+              name: test package 101
+              vip_status: vip_status
+              category:
+                name: Packages
+                id: 2678660
+            recurring_payment_reference: tbx-r-757925142
+            pending_downgrade_package:
+              name: Bronze
+              id: 6834820
+            username_id: username_id
+            created_at: 2025-05-14T13:48:56.000000Z
+            active: true
+            id: 40796
+            next_payment_date: 2025-06-14T13:48:56+00:00
+            status:
+              description: Active
+              id: 2
+          order: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/Category'
     Category:
       example:
         display_type: list
         parent: "{}"
+        image_url: https://openapi-generator.tech
         name: Test
         tiered: false
         description: description
+        dynamic: false
         id: 2678660
         packages:
-        - image: image
-          prorate_price: 0.8008282
-          total_price: 5
+        - prorate_price: 0.8008282
           disable_quantity: false
+          ident: pkg_3081120_7088903
           description: <p>this is just a test. only a test. nothing more.</p>
           discount: 0
           disable_gifting: false
-          created_at: 2024-05-21T18:09:17Z
+          created_at: 2024-05-21T18:09:17+00:00
+          media:
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
           type: single
           expiration_date: 2000-01-23T04:56:07.000+00:00
-          sales_tax: 0
-          updated_at: 2024-05-21T18:09:17Z
-          name: test package 101
+          updated_at: 2024-05-21T18:09:17+00:00
           base_price: 5
+          options:
+          - options
+          - options
           currency: USD
           id: 6276316
+          slug: slug
+          order: 6
+          image: image
+          variables:
+          - variables
+          - variables
+          total_price: 5
+          creator_meta_data: "{}"
+          user_limit: 1
+          sales_tax: 0
+          name: test package 101
+          vip_status: vip_status
           category:
             name: Packages
             id: 2678660
-        - image: image
-          prorate_price: 0.8008282
-          total_price: 5
+        - prorate_price: 0.8008282
           disable_quantity: false
+          ident: pkg_3081120_7088903
           description: <p>this is just a test. only a test. nothing more.</p>
           discount: 0
           disable_gifting: false
-          created_at: 2024-05-21T18:09:17Z
+          created_at: 2024-05-21T18:09:17+00:00
+          media:
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
           type: single
           expiration_date: 2000-01-23T04:56:07.000+00:00
-          sales_tax: 0
-          updated_at: 2024-05-21T18:09:17Z
-          name: test package 101
+          updated_at: 2024-05-21T18:09:17+00:00
           base_price: 5
+          options:
+          - options
+          - options
           currency: USD
           id: 6276316
+          slug: slug
+          order: 6
+          image: image
+          variables:
+          - variables
+          - variables
+          total_price: 5
+          creator_meta_data: "{}"
+          user_limit: 1
+          sales_tax: 0
+          name: test package 101
+          vip_status: vip_status
           category:
             name: Packages
             id: 2678660
         slug: slug
         active_tier:
           package:
-            image: image
             prorate_price: 0.8008282
-            total_price: 5
             disable_quantity: false
+            ident: pkg_3081120_7088903
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
-            created_at: 2024-05-21T18:09:17Z
+            created_at: 2024-05-21T18:09:17+00:00
+            media:
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
+            - featured: false
+              name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              type: image
+              url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+              primary: true
             type: single
             expiration_date: 2000-01-23T04:56:07.000+00:00
-            sales_tax: 0
-            updated_at: 2024-05-21T18:09:17Z
-            name: test package 101
+            updated_at: 2024-05-21T18:09:17+00:00
             base_price: 5
+            options:
+            - options
+            - options
             currency: USD
             id: 6276316
+            slug: slug
+            order: 6
+            image: image
+            variables:
+            - variables
+            - variables
+            total_price: 5
+            creator_meta_data: "{}"
+            user_limit: 1
+            sales_tax: 0
+            name: test package 101
+            vip_status: vip_status
             category:
               name: Packages
               id: 2678660
@@ -1561,10 +1819,10 @@ components:
             name: Bronze
             id: 6834820
           username_id: username_id
-          created_at: 2025-05-14T13:48:56Z
+          created_at: 2025-05-14T13:48:56.000000Z
           active: true
           id: 40796
-          next_payment_date: 2025-06-14T13:48:56Z
+          next_payment_date: 2025-06-14T13:48:56+00:00
           status:
             description: Active
             id: 2
@@ -1579,13 +1837,13 @@ components:
           type: string
         slug:
           description: Short identifier slug for the category
-          nullable: true
           type: string
+          nullable: true
         parent:
           description: "Parent category, if applicable"
           format: Category
-          nullable: true
           type: object
+          nullable: true
         tiered:
           description: True if this is a tiered category
           example: false
@@ -1596,10 +1854,13 @@ components:
           description: HTML description of the category
           type: string
         packages:
+          description: "Packages within the category. For dynamic categories, packages\
+            \ use the `DynamicPackage` shape and are only populated when a `basketIdent`\
+            \ is provided."
           items:
             $ref: '#/components/schemas/Package'
-          nullable: true
           type: array
+          nullable: true
         order:
           description: The numeric order in which to display the category.
           example: 1
@@ -1610,45 +1871,102 @@ components:
           - list
           - grid
           type: string
-      type: object
+        image_url:
+          description: "URL of the category image, if set."
+          format: uri
+          type: string
+          nullable: true
+          example: null
+        dynamic:
+          description: "True if this is a dynamic category. Dynamic categories are\
+            \ populated with custom packages per-basket using the Add Dynamic Packages\
+            \ endpoint, and their packages can only be fetched by providing a `basketIdent`."
+          example: false
+          type: boolean
     PackageResponse:
       example:
         data:
-        - image: image
-          prorate_price: 0.8008282
-          total_price: 5
+        - prorate_price: 0.8008282
           disable_quantity: false
+          ident: pkg_3081120_7088903
           description: <p>this is just a test. only a test. nothing more.</p>
           discount: 0
           disable_gifting: false
-          created_at: 2024-05-21T18:09:17Z
+          created_at: 2024-05-21T18:09:17+00:00
+          media:
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
           type: single
           expiration_date: 2000-01-23T04:56:07.000+00:00
-          sales_tax: 0
-          updated_at: 2024-05-21T18:09:17Z
-          name: test package 101
+          updated_at: 2024-05-21T18:09:17+00:00
           base_price: 5
+          options:
+          - options
+          - options
           currency: USD
           id: 6276316
+          slug: slug
+          order: 6
+          image: image
+          variables:
+          - variables
+          - variables
+          total_price: 5
+          creator_meta_data: "{}"
+          user_limit: 1
+          sales_tax: 0
+          name: test package 101
+          vip_status: vip_status
           category:
             name: Packages
             id: 2678660
-        - image: image
-          prorate_price: 0.8008282
-          total_price: 5
+        - prorate_price: 0.8008282
           disable_quantity: false
+          ident: pkg_3081120_7088903
           description: <p>this is just a test. only a test. nothing more.</p>
           discount: 0
           disable_gifting: false
-          created_at: 2024-05-21T18:09:17Z
+          created_at: 2024-05-21T18:09:17+00:00
+          media:
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
           type: single
           expiration_date: 2000-01-23T04:56:07.000+00:00
-          sales_tax: 0
-          updated_at: 2024-05-21T18:09:17Z
-          name: test package 101
+          updated_at: 2024-05-21T18:09:17+00:00
           base_price: 5
+          options:
+          - options
+          - options
           currency: USD
           id: 6276316
+          slug: slug
+          order: 6
+          image: image
+          variables:
+          - variables
+          - variables
+          total_price: 5
+          creator_meta_data: "{}"
+          user_limit: 1
+          sales_tax: 0
+          name: test package 101
+          vip_status: vip_status
           category:
             name: Packages
             id: 2678660
@@ -1657,25 +1975,95 @@ components:
           items:
             $ref: '#/components/schemas/Package'
           type: array
-      type: object
+    SinglePackageResponse:
+      example:
+        data:
+          prorate_price: 0.8008282
+          disable_quantity: false
+          ident: pkg_3081120_7088903
+          description: <p>this is just a test. only a test. nothing more.</p>
+          discount: 0
+          disable_gifting: false
+          created_at: 2024-05-21T18:09:17+00:00
+          media:
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
+          type: single
+          expiration_date: 2000-01-23T04:56:07.000+00:00
+          updated_at: 2024-05-21T18:09:17+00:00
+          base_price: 5
+          options:
+          - options
+          - options
+          currency: USD
+          id: 6276316
+          slug: slug
+          order: 6
+          image: image
+          variables:
+          - variables
+          - variables
+          total_price: 5
+          creator_meta_data: "{}"
+          user_limit: 1
+          sales_tax: 0
+          name: test package 101
+          vip_status: vip_status
+          category:
+            name: Packages
+            id: 2678660
+      properties:
+        data:
+          $ref: '#/components/schemas/Package'
     Package:
       example:
-        image: image
         prorate_price: 0.8008282
-        total_price: 5
         disable_quantity: false
+        ident: pkg_3081120_7088903
         description: <p>this is just a test. only a test. nothing more.</p>
         discount: 0
         disable_gifting: false
-        created_at: 2024-05-21T18:09:17Z
+        created_at: 2024-05-21T18:09:17+00:00
+        media:
+        - featured: false
+          name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+          type: image
+          url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+          primary: true
+        - featured: false
+          name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+          type: image
+          url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+          primary: true
         type: single
         expiration_date: 2000-01-23T04:56:07.000+00:00
-        sales_tax: 0
-        updated_at: 2024-05-21T18:09:17Z
-        name: test package 101
+        updated_at: 2024-05-21T18:09:17+00:00
         base_price: 5
+        options:
+        - options
+        - options
         currency: USD
         id: 6276316
+        slug: slug
+        order: 6
+        image: image
+        variables:
+        - variables
+        - variables
+        total_price: 5
+        creator_meta_data: "{}"
+        user_limit: 1
+        sales_tax: 0
+        name: test package 101
+        vip_status: vip_status
         category:
           name: Packages
           id: 2678660
@@ -1690,8 +2078,8 @@ components:
           example: <p>this is just a test. only a test. nothing more.</p>
           type: string
         image:
-          nullable: true
           type: string
+          nullable: true
           example: null
         type:
           example: single
@@ -1717,8 +2105,8 @@ components:
           description: "If this package is part of a tiered category, this is the\
             \ difference on upgrade pricing from the current active tier."
           format: float
-          nullable: true
           type: number
+          nullable: true
         discount:
           example: 0
           format: float
@@ -1731,22 +2119,53 @@ components:
           type: boolean
         expiration_date:
           format: date-time
-          nullable: true
           type: string
+          nullable: true
           example: null
+        media:
+          items:
+            $ref: '#/components/schemas/PackageMedia'
+          type: array
+        order:
+          type: integer
+        slug:
+          type: string
+        user_limit:
+          type: integer
+        creator_meta_data:
+          type: object
+        options:
+          items:
+            description: TODO default missing array inner type to string
+            type: string
+          type: array
+        variables:
+          items:
+            description: TODO default missing array inner type to string
+            type: string
+          type: array
         created_at:
-          example: 2024-05-21T18:09:17Z
+          example: 2024-05-21T18:09:17+00:00
           format: date-time
           type: string
         updated_at:
-          example: 2024-05-21T18:09:17Z
+          example: 2024-05-21T18:09:17+00:00
           format: date-time
           type: string
-      type: object
+        ident:
+          description: The package's string identifier.
+          example: pkg_3081120_7088903
+          type: string
+        vip_status:
+          description: "The package's VIP status. Only `null` has been observed so\
+            \ far, so the non-null type is unconfirmed."
+          type: string
+          nullable: true
+          example: null
     BasketPackage:
       description: A package within an existing basket.
       example:
-        qty: 2
+        image: https://tebex.io/path/to/image.png
         revenue_share:
         - amount: 0.5
           wallet_ref: some_wallet_reference
@@ -1754,13 +2173,35 @@ components:
         - amount: 0.5
           wallet_ref: some_wallet_reference
           gateway_fee_percent: 50.0
+        name: 100 Coins
+        description: 100 coins added to your character
+        in_basket:
+          gift_username_id: gift_username_id
+          quantity: 2
+          price: 6.0274563
+          gift_username: gift_username
+        id: 0
         type: single
+        slug: 100-coins
+        is_recurring: false
       properties:
-        qty:
-          description: The quantity of `package` in this basket. This is not the total
-            quantity of overall items in the basket.
-          example: 2
+        id:
+          description: The package ID
           type: integer
+        description:
+          example: 100 coins added to your character
+          type: string
+        image:
+          example: https://tebex.io/path/to/image.png
+          type: string
+        name:
+          example: 100 Coins
+          type: string
+        slug:
+          example: 100-coins
+          type: string
+        in_basket:
+          $ref: '#/components/schemas/BasketPackage_in_basket'
         type:
           description: "The type of payment, either `single` for one-time payments\
             \ or `subscription`."
@@ -1776,7 +2217,10 @@ components:
           items:
             $ref: '#/components/schemas/RevenueShare'
           type: array
-      type: object
+        is_recurring:
+          description: Whether this package is a recurring (subscription) purchase.
+          example: false
+          type: boolean
     RevenueShare:
       example:
         amount: 0.5
@@ -1797,26 +2241,48 @@ components:
             This optional value can be anywhere between 0 - 100.
           example: 50.0
           type: number
-      type: object
     Tier:
       example:
         package:
-          image: image
           prorate_price: 0.8008282
-          total_price: 5
           disable_quantity: false
+          ident: pkg_3081120_7088903
           description: <p>this is just a test. only a test. nothing more.</p>
           discount: 0
           disable_gifting: false
-          created_at: 2024-05-21T18:09:17Z
+          created_at: 2024-05-21T18:09:17+00:00
+          media:
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
+          - featured: false
+            name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            type: image
+            url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+            primary: true
           type: single
           expiration_date: 2000-01-23T04:56:07.000+00:00
-          sales_tax: 0
-          updated_at: 2024-05-21T18:09:17Z
-          name: test package 101
+          updated_at: 2024-05-21T18:09:17+00:00
           base_price: 5
+          options:
+          - options
+          - options
           currency: USD
           id: 6276316
+          slug: slug
+          order: 6
+          image: image
+          variables:
+          - variables
+          - variables
+          total_price: 5
+          creator_meta_data: "{}"
+          user_limit: 1
+          sales_tax: 0
+          name: test package 101
+          vip_status: vip_status
           category:
             name: Packages
             id: 2678660
@@ -1825,10 +2291,10 @@ components:
           name: Bronze
           id: 6834820
         username_id: username_id
-        created_at: 2025-05-14T13:48:56Z
+        created_at: 2025-05-14T13:48:56.000000Z
         active: true
         id: 40796
-        next_payment_date: 2025-06-14T13:48:56Z
+        next_payment_date: 2025-06-14T13:48:56+00:00
         status:
           description: Active
           id: 2
@@ -1838,7 +2304,7 @@ components:
           type: integer
         created_at:
           description: The date and time when the tier became active
-          example: 2025-05-14T13:48:56Z
+          example: 2025-05-14T13:48:56.000000Z
           format: date-time
           type: string
         username_id:
@@ -1857,14 +2323,483 @@ components:
           type: string
         next_payment_date:
           description: The date and time of the next payment for this tier.
-          example: 2025-06-14T13:48:56Z
+          example: 2025-06-14T13:48:56+00:00
           format: date-time
           type: string
         status:
           $ref: '#/components/schemas/Tier_status'
         pending_downgrade_package:
           $ref: '#/components/schemas/Tier_pending_downgrade_package'
-      type: object
+    PackageMedia:
+      example:
+        featured: false
+        name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+        type: image
+        url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+        primary: true
+      properties:
+        type:
+          enum:
+          - video
+          - image
+          example: image
+          type: string
+        name:
+          description: "A file name for the media, if applicable."
+          example: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+          type: string
+          nullable: true
+        url:
+          description: The URL of the package media.
+          example: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+          type: string
+        featured:
+          description: True if this media should be featured more prominently than
+            others.
+          example: false
+          type: boolean
+        primary:
+          description: True if this is the primary media for the package.
+          example: true
+          type: boolean
+    DynamicPackagesRequest:
+      example:
+        category_id: 1234
+        packages:
+        - price: 10.0
+          image_url: image.url/imageurl
+          custom:
+            custom-field-1: custom-value-1
+            custom-field-2: custom-value-2
+            custom-field-3: custom-value-3
+          name: Package Name 1
+          description: This is the description
+          slug: package-name-1
+        - price: 10.0
+          image_url: image.url/imageurl
+          custom:
+            custom-field-1: custom-value-1
+            custom-field-2: custom-value-2
+            custom-field-3: custom-value-3
+          name: Package Name 1
+          description: This is the description
+          slug: package-name-1
+        username: TestUser
+      properties:
+        username:
+          description: The username of the authenticated customer the packages are
+            being created for.
+          example: TestUser
+          type: string
+        category_id:
+          description: The ID of the dynamic category to populate.
+          example: 1234
+          type: integer
+        packages:
+          items:
+            $ref: '#/components/schemas/DynamicPackageInput'
+          type: array
+      required:
+      - category_id
+      - packages
+      - username
+    DynamicPackageInput:
+      description: A custom package to add to a dynamic category.
+      example:
+        price: 10.0
+        image_url: image.url/imageurl
+        custom:
+          custom-field-1: custom-value-1
+          custom-field-2: custom-value-2
+          custom-field-3: custom-value-3
+        name: Package Name 1
+        description: This is the description
+        slug: package-name-1
+      properties:
+        name:
+          example: Package Name 1
+          type: string
+        price:
+          example: 10.0
+          format: float
+          type: number
+        slug:
+          example: package-name-1
+          type: string
+        description:
+          example: This is the description
+          type: string
+        image_url:
+          example: image.url/imageurl
+          type: string
+        custom:
+          additionalProperties:
+            type: string
+          description: Arbitrary custom key/value data to associate with the package.
+          example:
+            custom-field-1: custom-value-1
+            custom-field-2: custom-value-2
+            custom-field-3: custom-value-3
+      required:
+      - name
+      - price
+      - slug
+    DynamicPackagesResponse:
+      example:
+        message: Dynamic packages created successfully.
+      properties:
+        message:
+          example: Dynamic packages created successfully.
+          type: string
+    ModulesResponse:
+      example:
+        data:
+        - start_time: 2000-01-23T04:56:07.000+00:00
+          data:
+            total: 6.027456183070403
+            username_id: d8d5a9237b2043d8883b1150148d6955
+            header: Top Customer
+            username: Test
+          end_time: 2000-01-23T04:56:07.000+00:00
+          id: 0
+          type: ""
+        - start_time: 2000-01-23T04:56:07.000+00:00
+          data:
+            total: 6.027456183070403
+            username_id: d8d5a9237b2043d8883b1150148d6955
+            header: Top Customer
+            username: Test
+          end_time: 2000-01-23T04:56:07.000+00:00
+          id: 0
+          type: ""
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Module'
+          type: array
+      required:
+      - data
+    Module:
+      discriminator:
+        mapping:
+          top_customer: '#/components/schemas/TopCustomerModule'
+          textbox: '#/components/schemas/TextboxModule'
+          recent_payments: '#/components/schemas/RecentPaymentsModule'
+          featured_package: '#/components/schemas/FeaturedPackageModule'
+          giftcard_balance: '#/components/schemas/GiftcardBalanceModule'
+          server_status: '#/components/schemas/ServerStatusModule'
+          payment_goal: '#/components/schemas/PaymentGoalModule'
+          community_goal: '#/components/schemas/CommunityGoalModule'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/TopCustomerModule'
+      - $ref: '#/components/schemas/TextboxModule'
+      - $ref: '#/components/schemas/RecentPaymentsModule'
+      - $ref: '#/components/schemas/FeaturedPackageModule'
+      - $ref: '#/components/schemas/GiftcardBalanceModule'
+      - $ref: '#/components/schemas/ServerStatusModule'
+      - $ref: '#/components/schemas/PaymentGoalModule'
+      - $ref: '#/components/schemas/CommunityGoalModule'
+    TopCustomerModule:
+      allOf:
+      - $ref: '#/components/schemas/ModuleBase'
+      - properties:
+          type: {}
+          data:
+            $ref: '#/components/schemas/TopCustomerData'
+        required:
+        - data
+      example:
+        start_time: 2000-01-23T04:56:07.000+00:00
+        data:
+          total: 6.027456183070403
+          username_id: d8d5a9237b2043d8883b1150148d6955
+          header: Top Customer
+          username: Test
+        end_time: 2000-01-23T04:56:07.000+00:00
+        id: 0
+        type: ""
+    TopCustomerData:
+      example:
+        total: 6.027456183070403
+        username_id: d8d5a9237b2043d8883b1150148d6955
+        header: Top Customer
+        username: Test
+      properties:
+        header:
+          example: Top Customer
+          type: string
+        username:
+          example: Test
+          type: string
+        username_id:
+          description: User identifier.
+          example: d8d5a9237b2043d8883b1150148d6955
+          type: string
+        total:
+          description: "Optional, present depending on module configuration."
+          type: number
+      required:
+      - header
+      - username
+      - username_id
+    TextboxModule:
+      allOf:
+      - $ref: '#/components/schemas/ModuleBase'
+      - properties:
+          type: {}
+          data:
+            $ref: '#/components/schemas/TextboxData'
+        required:
+        - data
+    TextboxData:
+      properties:
+        header:
+          example: Modules
+          type: string
+        text:
+          description: HTML supported.
+          example: You can configure the sidebar of your webstore by going to <strong>Webstore</strong>
+            &gt; <strong>Design</strong> &gt; <strong>Modules</strong>.
+          type: string
+      required:
+      - header
+      - text
+    ModuleBase:
+      properties:
+        id:
+          format: int64
+          type: integer
+        type:
+          description: Discriminator for module kind.
+          type: string
+        start_time:
+          format: date-time
+          type: string
+        end_time:
+          description: Nullable; when null the module is ongoing.
+          format: date-time
+          nullable: true
+          type: string
+        data:
+          description: Type-specific payload.
+          type: object
+      required:
+      - data
+      - id
+      - start_time
+      - type
+    RecentPaymentsModule:
+      allOf:
+      - $ref: '#/components/schemas/ModuleBase'
+      - properties:
+          type: {}
+          data:
+            $ref: '#/components/schemas/RecentPaymentsData'
+        required:
+        - data
+    RecentPaymentsData:
+      properties:
+        header:
+          example: Recent Payments
+          type: string
+        payments:
+          items:
+            $ref: '#/components/schemas/RecentPayment'
+          type: array
+      required:
+      - header
+      - payments
+    RecentPayment:
+      properties:
+        username:
+          example: Test
+          type: string
+        username_id:
+          example: d8d5a9237b2043d8883b1150148d6955
+          type: string
+        package:
+          $ref: '#/components/schemas/RecentPayment_package'
+        created_at:
+          description: "Optional, present depending on module configuration."
+          format: date-time
+          nullable: true
+          type: string
+        price:
+          description: "Optional, present depending on module configuration."
+          nullable: true
+          type: number
+        currency:
+          description: "Optional, present depending on module configuration."
+          example: USD
+          nullable: true
+          type: string
+      required:
+      - package
+      - username
+      - username_id
+    FeaturedPackageModule:
+      allOf:
+      - $ref: '#/components/schemas/ModuleBase'
+      - properties:
+          type: {}
+          data:
+            $ref: '#/components/schemas/FeaturedPackageData'
+        required:
+        - data
+    FeaturedPackageData:
+      properties:
+        header:
+          example: Featured Package
+          type: string
+        package:
+          $ref: '#/components/schemas/Package'
+      required:
+      - header
+      - package
+    GiftcardBalanceModule:
+      allOf:
+      - $ref: '#/components/schemas/ModuleBase'
+      - properties:
+          type: {}
+          data:
+            $ref: '#/components/schemas/GiftcardBalanceData'
+        required:
+        - data
+    GiftcardBalanceData:
+      properties:
+        header:
+          example: Giftcard Balance
+          type: string
+      required:
+      - header
+    ServerStatusModule:
+      allOf:
+      - $ref: '#/components/schemas/ModuleBase'
+      - properties:
+          type: {}
+          data:
+            $ref: '#/components/schemas/ServerStatusData'
+        required:
+        - data
+    ServerStatusData:
+      properties:
+        header:
+          example: Server Status
+          type: string
+        hostname:
+          example: play.hypixel.net
+          type: string
+        port:
+          example: 25565
+          type: integer
+        online:
+          type: boolean
+        players:
+          $ref: '#/components/schemas/Players'
+      required:
+      - header
+      - hostname
+      - online
+      - players
+      - port
+    Players:
+      properties:
+        online:
+          example: 23735
+          type: integer
+        max:
+          example: 200000
+          type: integer
+      required:
+      - max
+      - online
+    PaymentGoalModule:
+      allOf:
+      - $ref: '#/components/schemas/ModuleBase'
+      - properties:
+          type: {}
+          data:
+            $ref: '#/components/schemas/PaymentGoalData'
+        required:
+        - data
+    PaymentGoalData:
+      properties:
+        header:
+          example: Payment Goal
+          type: string
+        percentage:
+          example: 0
+          maximum: 100
+          minimum: 0
+          type: number
+        bar_style:
+          enum:
+          - normal
+          - striped
+          example: striped
+          type: string
+        bar_animated:
+          example: true
+          type: boolean
+        total:
+          description: "Optional, present depending on module configuration."
+          nullable: true
+          type: number
+        target:
+          description: "Optional, present depending on module configuration."
+          nullable: true
+          type: number
+      required:
+      - bar_animated
+      - bar_style
+      - header
+      - percentage
+    CommunityGoalModule:
+      allOf:
+      - $ref: '#/components/schemas/ModuleBase'
+      - properties:
+          type: {}
+          data:
+            $ref: '#/components/schemas/CommunityGoalData'
+        required:
+        - data
+    CommunityGoalData:
+      properties:
+        header:
+          example: Community Goal
+          type: string
+        bar_style:
+          enum:
+          - normal
+          - striped
+          example: normal
+          type: string
+        bar_animated:
+          example: true
+          type: boolean
+        percentage:
+          example: 100
+          maximum: 100
+          minimum: 0
+          type: number
+        total_payments:
+          description: "Optional, present depending on module configuration."
+          nullable: true
+          type: number
+        target:
+          description: "Optional, present depending on module configuration."
+          nullable: true
+          type: number
+        times_achieved:
+          description: "Optional, present depending on module configuration."
+          nullable: true
+          type: integer
+      required:
+      - bar_animated
+      - bar_style
+      - header
+      - percentage
     createBasket_request:
       properties:
         complete_url:
@@ -1887,46 +2822,82 @@ components:
             relevant complete/cancel URL
           example: true
           type: boolean
-      type: object
     applyCreatorCode_request:
       properties:
         creator_code:
           example: Academy10
           type: string
-      type: object
+    applyCreatorCode_200_response:
+      example:
+        success: true
+        message: Creator code applied successfully
+      properties:
+        success:
+          example: true
+          type: boolean
+        message:
+          example: Creator code applied successfully
+          type: string
+    applyGiftCard_200_response:
+      example:
+        success: true
+        message: Gift card applied successfully
+      properties:
+        success:
+          example: true
+          type: boolean
+        message:
+          example: Gift card applied successfully
+          type: string
     removeGiftCard_request:
+      example:
+        card_number: 0127 0244 7210 1111
       properties:
         card_number:
           example: 0127 0244 7210 1111
           type: string
-      type: object
+    applyCoupon_200_response:
+      example:
+        success: true
+        message: Coupon applied successfully
+      properties:
+        success:
+          example: true
+          type: boolean
+        message:
+          example: Coupon applied successfully
+          type: string
     addBasketPackage_request:
       properties:
         package_id:
-          example: "6276316"
+          example: 6276316
           type: string
         quantity:
           example: 1
           type: integer
-      type: object
+        dynamic:
+          description: "Set to `true` when adding a package that belongs to a dynamic\
+            \ category. When omitted, the API acts as if a normal package ID was provided."
+          example: false
+          type: boolean
+      required:
+      - package_id
+      - quantity
     removeBasketPackage_request:
       properties:
         package_id:
-          example: "6276316"
+          example: 6276316
           type: string
-      type: object
     updatePackageQuantity_request:
       properties:
         quantity:
           example: 1
           type: integer
-      type: object
     updateTier_request:
       properties:
         package_id:
           example: 6834822
           type: integer
-      type: object
     BasketAuthResponse_inner:
       example:
         name: FiveM
@@ -1938,7 +2909,6 @@ components:
         url:
           example: https://ident.tebex.io/
           type: string
-      type: object
     Package_category:
       example:
         name: Packages
@@ -1950,7 +2920,27 @@ components:
         name:
           example: Packages
           type: string
-      type: object
+    BasketPackage_in_basket:
+      example:
+        gift_username_id: gift_username_id
+        quantity: 2
+        price: 6.0274563
+        gift_username: gift_username
+      properties:
+        quantity:
+          description: The quantity of `package` in this basket. This is not the total
+            quantity of overall items in the basket.
+          example: 2
+          type: integer
+        price:
+          format: float
+          type: number
+        gift_username_id:
+          description: The username id of the user this package is gifted to
+          type: string
+        gift_username:
+          description: The username of the user this package is gifted to.
+          type: string
     Tier_status:
       example:
         description: Active
@@ -1962,13 +2952,11 @@ components:
         description:
           example: Active
           type: string
-      type: object
     Tier_pending_downgrade_package:
       description: The package this tier is downgrading to if a downgrade is pending.
       example:
         name: Bronze
         id: 6834820
-      nullable: true
       properties:
         id:
           example: 6834820
@@ -1976,7 +2964,14 @@ components:
         name:
           example: Bronze
           type: string
-      type: object
+      nullable: true
+    RecentPayment_package:
+      properties:
+        name:
+          example: Example Package
+          type: string
+      required:
+      - name
   securitySchemes:
     basicAuth:
       scheme: basic

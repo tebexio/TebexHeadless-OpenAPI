@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CouponCode** | Pointer to **string** |  | [optional] 
+**Code** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -25,30 +25,30 @@ NewCouponWithDefaults instantiates a new Coupon object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetCouponCode
+### GetCode
 
-`func (o *Coupon) GetCouponCode() string`
+`func (o *Coupon) GetCode() string`
 
-GetCouponCode returns the CouponCode field if non-nil, zero value otherwise.
+GetCode returns the Code field if non-nil, zero value otherwise.
 
-### GetCouponCodeOk
+### GetCodeOk
 
-`func (o *Coupon) GetCouponCodeOk() (*string, bool)`
+`func (o *Coupon) GetCodeOk() (*string, bool)`
 
-GetCouponCodeOk returns a tuple with the CouponCode field if it's non-nil, zero value otherwise
+GetCodeOk returns a tuple with the Code field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCouponCode
+### SetCode
 
-`func (o *Coupon) SetCouponCode(v string)`
+`func (o *Coupon) SetCode(v string)`
 
-SetCouponCode sets CouponCode field to given value.
+SetCode sets Code field to given value.
 
-### HasCouponCode
+### HasCode
 
-`func (o *Coupon) HasCouponCode() bool`
+`func (o *Coupon) HasCode() bool`
 
-HasCouponCode returns a boolean if a field has been set.
+HasCode returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

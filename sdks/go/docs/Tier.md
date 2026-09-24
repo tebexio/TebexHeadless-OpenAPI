@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **RecurringPaymentReference** | Pointer to **string** | The ID of the recurring payment this tier is attached to. | [optional] 
 **NextPaymentDate** | Pointer to **time.Time** | The date and time of the next payment for this tier. | [optional] 
 **Status** | Pointer to [**TierStatus**](TierStatus.md) |  | [optional] 
-**PendingDowngradePackage** | Pointer to [**NullableTierPendingDowngradePackage**](TierPendingDowngradePackage.md) |  | [optional] 
+**PendingDowngradePackage** | Pointer to [**TierPendingDowngradePackage**](TierPendingDowngradePackage.md) |  | [optional] 
 
 ## Methods
 
@@ -258,16 +258,6 @@ SetPendingDowngradePackage sets PendingDowngradePackage field to given value.
 
 HasPendingDowngradePackage returns a boolean if a field has been set.
 
-### SetPendingDowngradePackageNil
-
-`func (o *Tier) SetPendingDowngradePackageNil(b bool)`
-
- SetPendingDowngradePackageNil sets the value for PendingDowngradePackage to be an explicit nil
-
-### UnsetPendingDowngradePackage
-`func (o *Tier) UnsetPendingDowngradePackage()`
-
-UnsetPendingDowngradePackage ensures that no value is present for PendingDowngradePackage, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

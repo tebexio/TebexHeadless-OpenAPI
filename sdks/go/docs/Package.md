@@ -7,20 +7,29 @@ Name | Type | Description | Notes
 **Id** | Pointer to **int32** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**Image** | Pointer to **NullableString** |  | [optional] 
+**Image** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 **Category** | Pointer to [**PackageCategory**](PackageCategory.md) |  | [optional] 
 **BasePrice** | Pointer to **float32** |  | [optional] 
 **SalesTax** | Pointer to **float32** |  | [optional] 
 **TotalPrice** | Pointer to **float32** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
-**ProratePrice** | Pointer to **NullableFloat32** | If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier. | [optional] 
+**ProratePrice** | Pointer to **float32** | If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier. | [optional] 
 **Discount** | Pointer to **float32** |  | [optional] 
 **DisableQuantity** | Pointer to **bool** |  | [optional] 
 **DisableGifting** | Pointer to **bool** |  | [optional] 
-**ExpirationDate** | Pointer to **NullableTime** |  | [optional] 
+**ExpirationDate** | Pointer to **time.Time** |  | [optional] 
+**Media** | Pointer to [**[]PackageMedia**](PackageMedia.md) |  | [optional] 
+**Order** | Pointer to **int32** |  | [optional] 
+**Slug** | Pointer to **string** |  | [optional] 
+**UserLimit** | Pointer to **int32** |  | [optional] 
+**CreatorMetaData** | Pointer to **map[string]interface{}** |  | [optional] 
+**Options** | Pointer to **[]string** |  | [optional] 
+**Variables** | Pointer to **[]string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
+**Ident** | Pointer to **string** | The package&#39;s string identifier. | [optional] 
+**VipStatus** | Pointer to **string** | The package&#39;s VIP status. Only &#x60;null&#x60; has been observed so far, so the non-null type is unconfirmed. | [optional] 
 
 ## Methods
 
@@ -141,16 +150,6 @@ SetImage sets Image field to given value.
 
 HasImage returns a boolean if a field has been set.
 
-### SetImageNil
-
-`func (o *Package) SetImageNil(b bool)`
-
- SetImageNil sets the value for Image to be an explicit nil
-
-### UnsetImage
-`func (o *Package) UnsetImage()`
-
-UnsetImage ensures that no value is present for Image, not even an explicit nil
 ### GetType
 
 `func (o *Package) GetType() string`
@@ -326,16 +325,6 @@ SetProratePrice sets ProratePrice field to given value.
 
 HasProratePrice returns a boolean if a field has been set.
 
-### SetProratePriceNil
-
-`func (o *Package) SetProratePriceNil(b bool)`
-
- SetProratePriceNil sets the value for ProratePrice to be an explicit nil
-
-### UnsetProratePrice
-`func (o *Package) UnsetProratePrice()`
-
-UnsetProratePrice ensures that no value is present for ProratePrice, not even an explicit nil
 ### GetDiscount
 
 `func (o *Package) GetDiscount() float32`
@@ -436,16 +425,181 @@ SetExpirationDate sets ExpirationDate field to given value.
 
 HasExpirationDate returns a boolean if a field has been set.
 
-### SetExpirationDateNil
+### GetMedia
 
-`func (o *Package) SetExpirationDateNil(b bool)`
+`func (o *Package) GetMedia() []PackageMedia`
 
- SetExpirationDateNil sets the value for ExpirationDate to be an explicit nil
+GetMedia returns the Media field if non-nil, zero value otherwise.
 
-### UnsetExpirationDate
-`func (o *Package) UnsetExpirationDate()`
+### GetMediaOk
 
-UnsetExpirationDate ensures that no value is present for ExpirationDate, not even an explicit nil
+`func (o *Package) GetMediaOk() (*[]PackageMedia, bool)`
+
+GetMediaOk returns a tuple with the Media field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMedia
+
+`func (o *Package) SetMedia(v []PackageMedia)`
+
+SetMedia sets Media field to given value.
+
+### HasMedia
+
+`func (o *Package) HasMedia() bool`
+
+HasMedia returns a boolean if a field has been set.
+
+### GetOrder
+
+`func (o *Package) GetOrder() int32`
+
+GetOrder returns the Order field if non-nil, zero value otherwise.
+
+### GetOrderOk
+
+`func (o *Package) GetOrderOk() (*int32, bool)`
+
+GetOrderOk returns a tuple with the Order field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrder
+
+`func (o *Package) SetOrder(v int32)`
+
+SetOrder sets Order field to given value.
+
+### HasOrder
+
+`func (o *Package) HasOrder() bool`
+
+HasOrder returns a boolean if a field has been set.
+
+### GetSlug
+
+`func (o *Package) GetSlug() string`
+
+GetSlug returns the Slug field if non-nil, zero value otherwise.
+
+### GetSlugOk
+
+`func (o *Package) GetSlugOk() (*string, bool)`
+
+GetSlugOk returns a tuple with the Slug field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSlug
+
+`func (o *Package) SetSlug(v string)`
+
+SetSlug sets Slug field to given value.
+
+### HasSlug
+
+`func (o *Package) HasSlug() bool`
+
+HasSlug returns a boolean if a field has been set.
+
+### GetUserLimit
+
+`func (o *Package) GetUserLimit() int32`
+
+GetUserLimit returns the UserLimit field if non-nil, zero value otherwise.
+
+### GetUserLimitOk
+
+`func (o *Package) GetUserLimitOk() (*int32, bool)`
+
+GetUserLimitOk returns a tuple with the UserLimit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserLimit
+
+`func (o *Package) SetUserLimit(v int32)`
+
+SetUserLimit sets UserLimit field to given value.
+
+### HasUserLimit
+
+`func (o *Package) HasUserLimit() bool`
+
+HasUserLimit returns a boolean if a field has been set.
+
+### GetCreatorMetaData
+
+`func (o *Package) GetCreatorMetaData() map[string]interface{}`
+
+GetCreatorMetaData returns the CreatorMetaData field if non-nil, zero value otherwise.
+
+### GetCreatorMetaDataOk
+
+`func (o *Package) GetCreatorMetaDataOk() (*map[string]interface{}, bool)`
+
+GetCreatorMetaDataOk returns a tuple with the CreatorMetaData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatorMetaData
+
+`func (o *Package) SetCreatorMetaData(v map[string]interface{})`
+
+SetCreatorMetaData sets CreatorMetaData field to given value.
+
+### HasCreatorMetaData
+
+`func (o *Package) HasCreatorMetaData() bool`
+
+HasCreatorMetaData returns a boolean if a field has been set.
+
+### GetOptions
+
+`func (o *Package) GetOptions() []string`
+
+GetOptions returns the Options field if non-nil, zero value otherwise.
+
+### GetOptionsOk
+
+`func (o *Package) GetOptionsOk() (*[]string, bool)`
+
+GetOptionsOk returns a tuple with the Options field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOptions
+
+`func (o *Package) SetOptions(v []string)`
+
+SetOptions sets Options field to given value.
+
+### HasOptions
+
+`func (o *Package) HasOptions() bool`
+
+HasOptions returns a boolean if a field has been set.
+
+### GetVariables
+
+`func (o *Package) GetVariables() []string`
+
+GetVariables returns the Variables field if non-nil, zero value otherwise.
+
+### GetVariablesOk
+
+`func (o *Package) GetVariablesOk() (*[]string, bool)`
+
+GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVariables
+
+`func (o *Package) SetVariables(v []string)`
+
+SetVariables sets Variables field to given value.
+
+### HasVariables
+
+`func (o *Package) HasVariables() bool`
+
+HasVariables returns a boolean if a field has been set.
+
 ### GetCreatedAt
 
 `func (o *Package) GetCreatedAt() time.Time`
@@ -495,6 +649,56 @@ SetUpdatedAt sets UpdatedAt field to given value.
 `func (o *Package) HasUpdatedAt() bool`
 
 HasUpdatedAt returns a boolean if a field has been set.
+
+### GetIdent
+
+`func (o *Package) GetIdent() string`
+
+GetIdent returns the Ident field if non-nil, zero value otherwise.
+
+### GetIdentOk
+
+`func (o *Package) GetIdentOk() (*string, bool)`
+
+GetIdentOk returns a tuple with the Ident field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIdent
+
+`func (o *Package) SetIdent(v string)`
+
+SetIdent sets Ident field to given value.
+
+### HasIdent
+
+`func (o *Package) HasIdent() bool`
+
+HasIdent returns a boolean if a field has been set.
+
+### GetVipStatus
+
+`func (o *Package) GetVipStatus() string`
+
+GetVipStatus returns the VipStatus field if non-nil, zero value otherwise.
+
+### GetVipStatusOk
+
+`func (o *Package) GetVipStatusOk() (*string, bool)`
+
+GetVipStatusOk returns a tuple with the VipStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVipStatus
+
+`func (o *Package) SetVipStatus(v string)`
+
+SetVipStatus sets VipStatus field to given value.
+
+### HasVipStatus
+
+`func (o *Package) HasVipStatus() bool`
+
+HasVipStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

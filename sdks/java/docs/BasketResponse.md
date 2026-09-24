@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**data** | **Basket** |  |  [optional] |
+|**data** | [**Basket**](Basket.md) |  |  [optional] |
 
 
 

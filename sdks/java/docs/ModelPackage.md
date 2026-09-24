@@ -22,8 +22,17 @@
 |**disableQuantity** | **Boolean** |  |  [optional] |
 |**disableGifting** | **Boolean** |  |  [optional] |
 |**expirationDate** | **OffsetDateTime** |  |  [optional] |
+|**media** | [**List&lt;PackageMedia&gt;**](PackageMedia.md) |  |  [optional] |
+|**order** | **Integer** |  |  [optional] |
+|**slug** | **String** |  |  [optional] |
+|**userLimit** | **Integer** |  |  [optional] |
+|**creatorMetaData** | **Object** |  |  [optional] |
+|**options** | **List&lt;String&gt;** |  |  [optional] |
+|**variables** | **List&lt;String&gt;** |  |  [optional] |
 |**createdAt** | **OffsetDateTime** |  |  [optional] |
 |**updatedAt** | **OffsetDateTime** |  |  [optional] |
+|**ident** | **String** | The package&#39;s string identifier. |  [optional] |
+|**vipStatus** | **String** | The package&#39;s VIP status. Only &#x60;null&#x60; has been observed so far, so the non-null type is unconfirmed. |  [optional] |
 
 
 

@@ -1,9 +1,9 @@
 /*
 Tebex Headless API
 
-The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
+The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 1.1.0
+API version: 2.0.1
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -23,14 +23,14 @@ type Basket struct {
 	Id *string `json:"id,omitempty"`
 	Ident *string `json:"ident,omitempty"`
 	Complete *bool `json:"complete,omitempty"`
-	Email NullableString `json:"email,omitempty"`
-	Username NullableString `json:"username,omitempty"`
+	Email *string `json:"email,omitempty"`
+	Username *string `json:"username,omitempty"`
 	Coupons []Coupon `json:"coupons,omitempty"`
 	Giftcards []GiftCard `json:"giftcards,omitempty"`
 	// The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
 	CreatorCode *string `json:"creator_code,omitempty"`
 	CancelUrl *string `json:"cancel_url,omitempty"`
-	CompleteUrl NullableString `json:"complete_url,omitempty"`
+	CompleteUrl *string `json:"complete_url,omitempty"`
 	CompleteAutoRedirect *bool `json:"complete_auto_redirect,omitempty"`
 	// A two-character country code
 	Country *string `json:"country,omitempty"`
@@ -159,88 +159,68 @@ func (o *Basket) SetComplete(v bool) {
 	o.Complete = &v
 }
 
-// GetEmail returns the Email field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetEmail returns the Email field value if set, zero value otherwise.
 func (o *Basket) GetEmail() string {
-	if o == nil || IsNil(o.Email.Get()) {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
-	return *o.Email.Get()
+	return *o.Email
 }
 
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Basket) GetEmailOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
-	return o.Email.Get(), o.Email.IsSet()
+	return o.Email, true
 }
 
 // HasEmail returns a boolean if a field has been set.
 func (o *Basket) HasEmail() bool {
-	if o != nil && o.Email.IsSet() {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
 	return false
 }
 
-// SetEmail gets a reference to the given NullableString and assigns it to the Email field.
+// SetEmail gets a reference to the given string and assigns it to the Email field.
 func (o *Basket) SetEmail(v string) {
-	o.Email.Set(&v)
-}
-// SetEmailNil sets the value for Email to be an explicit nil
-func (o *Basket) SetEmailNil() {
-	o.Email.Set(nil)
+	o.Email = &v
 }
 
-// UnsetEmail ensures that no value is present for Email, not even an explicit nil
-func (o *Basket) UnsetEmail() {
-	o.Email.Unset()
-}
-
-// GetUsername returns the Username field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetUsername returns the Username field value if set, zero value otherwise.
 func (o *Basket) GetUsername() string {
-	if o == nil || IsNil(o.Username.Get()) {
+	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
 	}
-	return *o.Username.Get()
+	return *o.Username
 }
 
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Basket) GetUsernameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
-	return o.Username.Get(), o.Username.IsSet()
+	return o.Username, true
 }
 
 // HasUsername returns a boolean if a field has been set.
 func (o *Basket) HasUsername() bool {
-	if o != nil && o.Username.IsSet() {
+	if o != nil && !IsNil(o.Username) {
 		return true
 	}
 
 	return false
 }
 
-// SetUsername gets a reference to the given NullableString and assigns it to the Username field.
+// SetUsername gets a reference to the given string and assigns it to the Username field.
 func (o *Basket) SetUsername(v string) {
-	o.Username.Set(&v)
-}
-// SetUsernameNil sets the value for Username to be an explicit nil
-func (o *Basket) SetUsernameNil() {
-	o.Username.Set(nil)
-}
-
-// UnsetUsername ensures that no value is present for Username, not even an explicit nil
-func (o *Basket) UnsetUsername() {
-	o.Username.Unset()
+	o.Username = &v
 }
 
 // GetCoupons returns the Coupons field value if set, zero value otherwise.
@@ -371,46 +351,36 @@ func (o *Basket) SetCancelUrl(v string) {
 	o.CancelUrl = &v
 }
 
-// GetCompleteUrl returns the CompleteUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetCompleteUrl returns the CompleteUrl field value if set, zero value otherwise.
 func (o *Basket) GetCompleteUrl() string {
-	if o == nil || IsNil(o.CompleteUrl.Get()) {
+	if o == nil || IsNil(o.CompleteUrl) {
 		var ret string
 		return ret
 	}
-	return *o.CompleteUrl.Get()
+	return *o.CompleteUrl
 }
 
 // GetCompleteUrlOk returns a tuple with the CompleteUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Basket) GetCompleteUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CompleteUrl) {
 		return nil, false
 	}
-	return o.CompleteUrl.Get(), o.CompleteUrl.IsSet()
+	return o.CompleteUrl, true
 }
 
 // HasCompleteUrl returns a boolean if a field has been set.
 func (o *Basket) HasCompleteUrl() bool {
-	if o != nil && o.CompleteUrl.IsSet() {
+	if o != nil && !IsNil(o.CompleteUrl) {
 		return true
 	}
 
 	return false
 }
 
-// SetCompleteUrl gets a reference to the given NullableString and assigns it to the CompleteUrl field.
+// SetCompleteUrl gets a reference to the given string and assigns it to the CompleteUrl field.
 func (o *Basket) SetCompleteUrl(v string) {
-	o.CompleteUrl.Set(&v)
-}
-// SetCompleteUrlNil sets the value for CompleteUrl to be an explicit nil
-func (o *Basket) SetCompleteUrlNil() {
-	o.CompleteUrl.Set(nil)
-}
-
-// UnsetCompleteUrl ensures that no value is present for CompleteUrl, not even an explicit nil
-func (o *Basket) UnsetCompleteUrl() {
-	o.CompleteUrl.Unset()
+	o.CompleteUrl = &v
 }
 
 // GetCompleteAutoRedirect returns the CompleteAutoRedirect field value if set, zero value otherwise.
@@ -701,9 +671,9 @@ func (o *Basket) SetPackages(v []BasketPackage) {
 	o.Packages = v
 }
 
-// GetCustom returns the Custom field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetCustom returns the Custom field value if set, zero value otherwise.
 func (o *Basket) GetCustom() map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.Custom) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -712,7 +682,6 @@ func (o *Basket) GetCustom() map[string]interface{} {
 
 // GetCustomOk returns a tuple with the Custom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Basket) GetCustomOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Custom) {
 		return map[string]interface{}{}, false
@@ -785,11 +754,11 @@ func (o Basket) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Complete) {
 		toSerialize["complete"] = o.Complete
 	}
-	if o.Email.IsSet() {
-		toSerialize["email"] = o.Email.Get()
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
 	}
-	if o.Username.IsSet() {
-		toSerialize["username"] = o.Username.Get()
+	if !IsNil(o.Username) {
+		toSerialize["username"] = o.Username
 	}
 	if !IsNil(o.Coupons) {
 		toSerialize["coupons"] = o.Coupons
@@ -803,8 +772,8 @@ func (o Basket) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CancelUrl) {
 		toSerialize["cancel_url"] = o.CancelUrl
 	}
-	if o.CompleteUrl.IsSet() {
-		toSerialize["complete_url"] = o.CompleteUrl.Get()
+	if !IsNil(o.CompleteUrl) {
+		toSerialize["complete_url"] = o.CompleteUrl
 	}
 	if !IsNil(o.CompleteAutoRedirect) {
 		toSerialize["complete_auto_redirect"] = o.CompleteAutoRedirect
@@ -833,7 +802,7 @@ func (o Basket) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Packages) {
 		toSerialize["packages"] = o.Packages
 	}
-	if o.Custom != nil {
+	if !IsNil(o.Custom) {
 		toSerialize["custom"] = o.Custom
 	}
 	if !IsNil(o.Links) {

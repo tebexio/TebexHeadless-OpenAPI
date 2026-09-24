@@ -22,28 +22,13 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test HeadlessAPIService AddBasketPackage", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var basketIdent string
-
-		resp, httpRes, err := apiClient.HeadlessAPI.AddBasketPackage(context.Background(), basketIdent).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test HeadlessAPIService ApplyCoupon", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
 		var basketIdent string
 
-		resp, httpRes, err := apiClient.HeadlessAPI.ApplyCoupon(context.Background(), token, basketIdent).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.ApplyCoupon(context.Background(), basketIdent).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -55,10 +40,9 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
 		var basketIdent string
 
-		resp, httpRes, err := apiClient.HeadlessAPI.ApplyCreatorCode(context.Background(), token, basketIdent).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.ApplyCreatorCode(context.Background(), basketIdent).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -70,10 +54,9 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
 		var basketIdent string
 
-		resp, httpRes, err := apiClient.HeadlessAPI.ApplyGiftCard(context.Background(), token, basketIdent).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.ApplyGiftCard(context.Background(), basketIdent).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -85,9 +68,7 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
-
-		resp, httpRes, err := apiClient.HeadlessAPI.CreateBasket(context.Background(), token).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.CreateBasket(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -95,27 +76,13 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test HeadlessAPIService GetAllCategories", func(t *testing.T) {
+	t.Run("Test HeadlessAPIService CreateDynamicPackage", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
+		var basketIdent string
 
-		resp, httpRes, err := apiClient.HeadlessAPI.GetAllCategories(context.Background(), token).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test HeadlessAPIService GetAllCategoriesIncludingPackages", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var token string
-
-		resp, httpRes, err := apiClient.HeadlessAPI.GetAllCategoriesIncludingPackages(context.Background(), token).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.CreateDynamicPackage(context.Background(), basketIdent).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -127,9 +94,7 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
-
-		resp, httpRes, err := apiClient.HeadlessAPI.GetAllPackages(context.Background(), token).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.GetAllPackages(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -141,10 +106,9 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
 		var ipAddress string
 
-		resp, httpRes, err := apiClient.HeadlessAPI.GetAllPackagesWithAuthedIP(context.Background(), token, ipAddress).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.GetAllPackagesWithAuthedIP(context.Background(), ipAddress).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -156,11 +120,10 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
 		var basketIdent string
 		var ipAddress string
 
-		resp, httpRes, err := apiClient.HeadlessAPI.GetAllPackagesWithAuthedIPAndBasket(context.Background(), token, basketIdent, ipAddress).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.GetAllPackagesWithAuthedIPAndBasket(context.Background(), basketIdent, ipAddress).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -168,14 +131,13 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test HeadlessAPIService GetAllPackagesWithBasket", func(t *testing.T) {
+	t.Run("Test HeadlessAPIService GetBasket", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
 		var basketIdent string
 
-		resp, httpRes, err := apiClient.HeadlessAPI.GetAllPackagesWithBasket(context.Background(), token, basketIdent).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.GetBasket(context.Background(), basketIdent).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -187,11 +149,10 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
 		var basketIdent string
 		var returnUrl string
 
-		resp, httpRes, err := apiClient.HeadlessAPI.GetBasketAuthUrl(context.Background(), token, basketIdent, returnUrl).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.GetBasketAuthUrl(context.Background(), basketIdent, returnUrl).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -199,14 +160,52 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test HeadlessAPIService GetBasketById", func(t *testing.T) {
+	t.Run("Test HeadlessAPIService GetCategories", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
+		resp, httpRes, err := apiClient.HeadlessAPI.GetCategories(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test HeadlessAPIService GetCategoriesIncludePackages", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.HeadlessAPI.GetCategoriesIncludePackages(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test HeadlessAPIService GetCategory", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var categoryId string
+
+		resp, httpRes, err := apiClient.HeadlessAPI.GetCategory(context.Background(), categoryId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test HeadlessAPIService GetCategoryIncludeDynamicPackages", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var categoryId string
 		var basketIdent string
 
-		resp, httpRes, err := apiClient.HeadlessAPI.GetBasketById(context.Background(), token, basketIdent).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.GetCategoryIncludeDynamicPackages(context.Background(), categoryId, basketIdent).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -214,28 +213,13 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test HeadlessAPIService GetCMSPages", func(t *testing.T) {
+	t.Run("Test HeadlessAPIService GetCategoryIncludePackages", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
-
-		resp, httpRes, err := apiClient.HeadlessAPI.GetCMSPages(context.Background(), token).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test HeadlessAPIService GetCategoryById", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var token string
 		var categoryId string
 
-		resp, httpRes, err := apiClient.HeadlessAPI.GetCategoryById(context.Background(), token, categoryId).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.GetCategoryIncludePackages(context.Background(), categoryId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -243,14 +227,11 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test HeadlessAPIService GetCategoryIncludingPackages", func(t *testing.T) {
+	t.Run("Test HeadlessAPIService GetCustomPages", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
-		var categoryId string
-
-		resp, httpRes, err := apiClient.HeadlessAPI.GetCategoryIncludingPackages(context.Background(), token, categoryId).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.GetCustomPages(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -258,14 +239,13 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test HeadlessAPIService GetPackageById", func(t *testing.T) {
+	t.Run("Test HeadlessAPIService GetDynamicCategories", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
-		var packageId int32
+		var basketIdent string
 
-		resp, httpRes, err := apiClient.HeadlessAPI.GetPackageById(context.Background(), token, packageId).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.GetDynamicCategories(context.Background(), basketIdent).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -273,14 +253,55 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test HeadlessAPIService GetTieredCategoriesForUser", func(t *testing.T) {
+	t.Run("Test HeadlessAPIService GetPackage", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var packageId string
+
+		resp, httpRes, err := apiClient.HeadlessAPI.GetPackage(context.Background(), packageId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test HeadlessAPIService GetPackagesForBasket", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var basketIdent string
+
+		resp, httpRes, err := apiClient.HeadlessAPI.GetPackagesForBasket(context.Background(), basketIdent).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test HeadlessAPIService GetSidebar", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var token string
+
+		resp, httpRes, err := apiClient.HeadlessAPI.GetSidebar(context.Background(), token).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test HeadlessAPIService GetUserTieredCategories", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
 		var usernameId int32
 
-		resp, httpRes, err := apiClient.HeadlessAPI.GetTieredCategoriesForUser(context.Background(), token, usernameId).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.GetUserTieredCategories(context.Background(), usernameId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -288,27 +309,11 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test HeadlessAPIService GetWebstoreById", func(t *testing.T) {
+	t.Run("Test HeadlessAPIService GetWebstore", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
-
-		resp, httpRes, err := apiClient.HeadlessAPI.GetWebstoreById(context.Background(), token).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test HeadlessAPIService RemoveBasketPackage", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var basketIdent string
-
-		resp, httpRes, err := apiClient.HeadlessAPI.RemoveBasketPackage(context.Background(), basketIdent).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.GetWebstore(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -320,10 +325,9 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
 		var basketIdent string
 
-		httpRes, err := apiClient.HeadlessAPI.RemoveCoupon(context.Background(), token, basketIdent).Execute()
+		httpRes, err := apiClient.HeadlessAPI.RemoveCoupon(context.Background(), basketIdent).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
@@ -334,10 +338,9 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
 		var basketIdent string
 
-		httpRes, err := apiClient.HeadlessAPI.RemoveCreatorCode(context.Background(), token, basketIdent).Execute()
+		httpRes, err := apiClient.HeadlessAPI.RemoveCreatorCode(context.Background(), basketIdent).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
@@ -348,24 +351,9 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
 		var basketIdent string
 
-		httpRes, err := apiClient.HeadlessAPI.RemoveGiftCard(context.Background(), token, basketIdent).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test HeadlessAPIService UpdatePackageQuantity", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var basketIdent string
-		var packageId int32
-
-		httpRes, err := apiClient.HeadlessAPI.UpdatePackageQuantity(context.Background(), basketIdent, packageId).Execute()
+		httpRes, err := apiClient.HeadlessAPI.RemoveGiftCard(context.Background(), basketIdent).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
@@ -376,10 +364,9 @@ func Test_TebexHeadless_HeadlessAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var token string
 		var tierId int32
 
-		resp, httpRes, err := apiClient.HeadlessAPI.UpdateTier(context.Background(), token, tierId).Execute()
+		resp, httpRes, err := apiClient.HeadlessAPI.UpdateTier(context.Background(), tierId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

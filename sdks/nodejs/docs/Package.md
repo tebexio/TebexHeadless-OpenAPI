@@ -19,7 +19,16 @@ Name | Type | Description | Notes
 **disableQuantity** | **Boolean** |  | [optional] 
 **disableGifting** | **Boolean** |  | [optional] 
 **expirationDate** | **Date** |  | [optional] 
+**media** | [**[PackageMedia]**](PackageMedia.md) |  | [optional] 
+**order** | **Number** |  | [optional] 
+**slug** | **String** |  | [optional] 
+**userLimit** | **Number** |  | [optional] 
+**creatorMetaData** | **Object** |  | [optional] 
+**options** | **[String]** |  | [optional] 
+**variables** | **[String]** |  | [optional] 
 **createdAt** | **Date** |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
+**ident** | **String** | The package&#39;s string identifier. | [optional] 
+**vipStatus** | **String** | The package&#39;s VIP status. Only &#x60;null&#x60; has been observed so far, so the non-null type is unconfirmed. | [optional] 
 
 

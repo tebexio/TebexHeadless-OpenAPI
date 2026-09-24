@@ -1,9 +1,9 @@
 /*
 Tebex Headless API
 
-The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
+The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 1.1.0
+API version: 2.0.1
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -33,12 +33,18 @@ type Webstore struct {
 	// Language of the store
 	Lang *string `json:"lang,omitempty"`
 	// URL of the store's logo
-	Logo NullableString `json:"logo,omitempty"`
+	Logo *string `json:"logo,omitempty"`
 	// Platform type for the store
 	PlatformType *string `json:"platform_type,omitempty"`
 	PlatformTypeId *string `json:"platform_type_id,omitempty"`
+	// True if the store is disabled.
+	Disabled *bool `json:"disabled,omitempty"`
 	// The date and time when the store was created
 	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// True if the store's platform identifies customers by username.
+	SupportsUsernames *bool `json:"supports_usernames,omitempty"`
+	// True if packages can be gifted to another user.
+	SupportsGifting *bool `json:"supports_gifting,omitempty"`
 }
 
 // NewWebstore instantiates a new Webstore object
@@ -250,46 +256,36 @@ func (o *Webstore) SetLang(v string) {
 	o.Lang = &v
 }
 
-// GetLogo returns the Logo field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *Webstore) GetLogo() string {
-	if o == nil || IsNil(o.Logo.Get()) {
+	if o == nil || IsNil(o.Logo) {
 		var ret string
 		return ret
 	}
-	return *o.Logo.Get()
+	return *o.Logo
 }
 
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Webstore) GetLogoOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
-	return o.Logo.Get(), o.Logo.IsSet()
+	return o.Logo, true
 }
 
 // HasLogo returns a boolean if a field has been set.
 func (o *Webstore) HasLogo() bool {
-	if o != nil && o.Logo.IsSet() {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
 	return false
 }
 
-// SetLogo gets a reference to the given NullableString and assigns it to the Logo field.
+// SetLogo gets a reference to the given string and assigns it to the Logo field.
 func (o *Webstore) SetLogo(v string) {
-	o.Logo.Set(&v)
-}
-// SetLogoNil sets the value for Logo to be an explicit nil
-func (o *Webstore) SetLogoNil() {
-	o.Logo.Set(nil)
-}
-
-// UnsetLogo ensures that no value is present for Logo, not even an explicit nil
-func (o *Webstore) UnsetLogo() {
-	o.Logo.Unset()
+	o.Logo = &v
 }
 
 // GetPlatformType returns the PlatformType field value if set, zero value otherwise.
@@ -356,6 +352,38 @@ func (o *Webstore) SetPlatformTypeId(v string) {
 	o.PlatformTypeId = &v
 }
 
+// GetDisabled returns the Disabled field value if set, zero value otherwise.
+func (o *Webstore) GetDisabled() bool {
+	if o == nil || IsNil(o.Disabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Disabled
+}
+
+// GetDisabledOk returns a tuple with the Disabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Webstore) GetDisabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Disabled) {
+		return nil, false
+	}
+	return o.Disabled, true
+}
+
+// HasDisabled returns a boolean if a field has been set.
+func (o *Webstore) HasDisabled() bool {
+	if o != nil && !IsNil(o.Disabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisabled gets a reference to the given bool and assigns it to the Disabled field.
+func (o *Webstore) SetDisabled(v bool) {
+	o.Disabled = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Webstore) GetCreatedAt() time.Time {
 	if o == nil || IsNil(o.CreatedAt) {
@@ -388,6 +416,70 @@ func (o *Webstore) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
+// GetSupportsUsernames returns the SupportsUsernames field value if set, zero value otherwise.
+func (o *Webstore) GetSupportsUsernames() bool {
+	if o == nil || IsNil(o.SupportsUsernames) {
+		var ret bool
+		return ret
+	}
+	return *o.SupportsUsernames
+}
+
+// GetSupportsUsernamesOk returns a tuple with the SupportsUsernames field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Webstore) GetSupportsUsernamesOk() (*bool, bool) {
+	if o == nil || IsNil(o.SupportsUsernames) {
+		return nil, false
+	}
+	return o.SupportsUsernames, true
+}
+
+// HasSupportsUsernames returns a boolean if a field has been set.
+func (o *Webstore) HasSupportsUsernames() bool {
+	if o != nil && !IsNil(o.SupportsUsernames) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupportsUsernames gets a reference to the given bool and assigns it to the SupportsUsernames field.
+func (o *Webstore) SetSupportsUsernames(v bool) {
+	o.SupportsUsernames = &v
+}
+
+// GetSupportsGifting returns the SupportsGifting field value if set, zero value otherwise.
+func (o *Webstore) GetSupportsGifting() bool {
+	if o == nil || IsNil(o.SupportsGifting) {
+		var ret bool
+		return ret
+	}
+	return *o.SupportsGifting
+}
+
+// GetSupportsGiftingOk returns a tuple with the SupportsGifting field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Webstore) GetSupportsGiftingOk() (*bool, bool) {
+	if o == nil || IsNil(o.SupportsGifting) {
+		return nil, false
+	}
+	return o.SupportsGifting, true
+}
+
+// HasSupportsGifting returns a boolean if a field has been set.
+func (o *Webstore) HasSupportsGifting() bool {
+	if o != nil && !IsNil(o.SupportsGifting) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupportsGifting gets a reference to the given bool and assigns it to the SupportsGifting field.
+func (o *Webstore) SetSupportsGifting(v bool) {
+	o.SupportsGifting = &v
+}
+
 func (o Webstore) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -416,8 +508,8 @@ func (o Webstore) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Lang) {
 		toSerialize["lang"] = o.Lang
 	}
-	if o.Logo.IsSet() {
-		toSerialize["logo"] = o.Logo.Get()
+	if !IsNil(o.Logo) {
+		toSerialize["logo"] = o.Logo
 	}
 	if !IsNil(o.PlatformType) {
 		toSerialize["platform_type"] = o.PlatformType
@@ -425,8 +517,17 @@ func (o Webstore) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PlatformTypeId) {
 		toSerialize["platform_type_id"] = o.PlatformTypeId
 	}
+	if !IsNil(o.Disabled) {
+		toSerialize["disabled"] = o.Disabled
+	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.SupportsUsernames) {
+		toSerialize["supports_usernames"] = o.SupportsUsernames
+	}
+	if !IsNil(o.SupportsGifting) {
+		toSerialize["supports_gifting"] = o.SupportsGifting
 	}
 	return toSerialize, nil
 }

@@ -13,6 +13,9 @@ Name | Type | Description | Notes
 **logo** | **String** | URL of the store&#39;s logo | [optional] 
 **platformType** | **String** | Platform type for the store | [optional] 
 **platformTypeId** | **String** |  | [optional] 
+**disabled** | **Boolean** | True if the store is disabled. | [optional] 
 **createdAt** | **Date** | The date and time when the store was created | [optional] 
+**supportsUsernames** | **Boolean** | True if the store&#39;s platform identifies customers by username. | [optional] 
+**supportsGifting** | **Boolean** | True if packages can be gifted to another user. | [optional] 
 
 
