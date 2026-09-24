@@ -1,108 +1,44 @@
 # HeadlessApi
 
-All URIs are relative to *https://headless.tebex.io/api*
+All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**addBasketPackage**](HeadlessApi.md#addBasketPackage) | **POST** /baskets/{basketIdent}/packages | Add a package to a basket |
-| [**applyCoupon**](HeadlessApi.md#applyCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons | Apply a coupon to a basket. |
-| [**applyCreatorCode**](HeadlessApi.md#applyCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes | Apply a creator code to a basket. |
-| [**applyGiftCard**](HeadlessApi.md#applyGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards | Apply a gift card to a basket. |
-| [**createBasket**](HeadlessApi.md#createBasket) | **POST** /accounts/{token}/baskets | Create a new basket |
-| [**getAllCategories**](HeadlessApi.md#getAllCategories) | **GET** /accounts/{token}/categories | Gets all categories available in the webstore. |
-| [**getAllCategoriesIncludingPackages**](HeadlessApi.md#getAllCategoriesIncludingPackages) | **GET** /accounts/{token}/categories?includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
-| [**getAllPackages**](HeadlessApi.md#getAllPackages) | **GET** /accounts/{token}/packages | Fetch all packages from a webstore |
-| [**getAllPackagesWithAuthedIP**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier |
-| [**getAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**getAllPackagesWithBasket**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket. |
-| [**getBasketById**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
-| [**getCMSPages**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
-| [**getCategoryById**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
-| [**getCategoryIncludingPackages**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
-| [**getPackageById**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
-| [**getTieredCategoriesForUser**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
-| [**getWebstoreById**](HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
-| [**removeBasketPackage**](HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
-| [**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
-| [**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
-| [**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
-| [**updatePackageQuantity**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
-| [**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package. |
+| [**applyCoupon**](HeadlessApi.md#applyCoupon) | **POST** /baskets/{basketIdent}/coupons | Apply a coupon |
+| [**applyCreatorCode**](HeadlessApi.md#applyCreatorCode) | **POST** /baskets/{basketIdent}/creator-codes | Apply a creator code |
+| [**applyGiftCard**](HeadlessApi.md#applyGiftCard) | **POST** /baskets/{basketIdent}/giftcards | Apply a gift card |
+| [**createBasket**](HeadlessApi.md#createBasket) | **POST** /baskets | Create a new basket |
+| [**createDynamicPackage**](HeadlessApi.md#createDynamicPackage) | **PUT** /baskets/{basketIdent}/dynamic-packages | Add packages to a dynamic category for a basket. |
+| [**getAllPackages**](HeadlessApi.md#getAllPackages) | **GET** /packages | Get all packages |
+| [**getAllPackagesWithAuthedIP**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /packages?ipAddress&#x3D;{ipAddress} | Get packages |
+| [**getAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Get packages available for IP and basket |
+| [**getBasket**](HeadlessApi.md#getBasket) | **GET** /baskets/{basketIdent} | Get a basket |
+| [**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get auth links for basket |
+| [**getCategories**](HeadlessApi.md#getCategories) | **GET** /categories | Get all categories |
+| [**getCategoriesIncludePackages**](HeadlessApi.md#getCategoriesIncludePackages) | **GET** /categories?includePackages&#x3D;1 | Gets all categories and packages |
+| [**getCategory**](HeadlessApi.md#getCategory) | **GET** /categories/{categoryId} | Get specific category |
+| [**getCategoryIncludeDynamicPackages**](HeadlessApi.md#getCategoryIncludeDynamicPackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket. |
+| [**getCategoryIncludePackages**](HeadlessApi.md#getCategoryIncludePackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages |
+| [**getCustomPages**](HeadlessApi.md#getCustomPages) | **GET** /pages | Get custom pages defined for the webstore. |
+| [**getDynamicCategories**](HeadlessApi.md#getDynamicCategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories |
+| [**getPackage**](HeadlessApi.md#getPackage) | **GET** /packages/{packageId} | Get package |
+| [**getPackagesForBasket**](HeadlessApi.md#getPackagesForBasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket |
+| [**getSidebar**](HeadlessApi.md#getSidebar) | **GET** /sidebar | Retrieves the available sidebar modules. |
+| [**getUserTieredCategories**](HeadlessApi.md#getUserTieredCategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories |
+| [**getWebstore**](HeadlessApi.md#getWebstore) | **GET** / | Get the webstore&#39;s information |
+| [**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
+| [**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /baskets/{basketIdent}/creator-codes/remove | Removes the creator code from the basket. |
+| [**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
+| [**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /tiers/{tierId} | Update user&#39;s tier to a new package |
 
-
-<a id="addBasketPackage"></a>
-# **addBasketPackage**
-> Basket addBasketPackage(basketIdent, addBasketPackageRequest)
-
-Add a package to a basket
-
-Add a package with the given ID to the basket.
-
-### Example
-```java
-// Import classes:
-import TebexHeadless.ApiClient;
-import TebexHeadless.ApiException;
-import TebexHeadless.Configuration;
-import TebexHeadless.models.*;
-import TebexHeadless.HeadlessApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
-
-    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-    AddBasketPackageRequest addBasketPackageRequest = new AddBasketPackageRequest(); // AddBasketPackageRequest | 
-    try {
-      Basket result = apiInstance.addBasketPackage(basketIdent, addBasketPackageRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#addBasketPackage");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **basketIdent** | **String**| The basket identifier. | |
-| **addBasketPackageRequest** | [**AddBasketPackageRequest**](AddBasketPackageRequest.md)|  | [optional] |
-
-### Return type
-
-[**Basket**](Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response. |  -  |
-| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
 
 <a id="applyCoupon"></a>
 # **applyCoupon**
-> BasketResponse applyCoupon(token, basketIdent, coupon)
+> ApplyCoupon200Response applyCoupon(basketIdent, applyCouponRequest)
 
-Apply a coupon to a basket.
+Apply a coupon
 
-Applies a creator code to a basket.
+Applies a coupon to a basket.
 
 ### Example
 ```java
@@ -116,14 +52,13 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-    Coupon coupon = new Coupon(); // Coupon | Provide a `coupon_code` to apply to the basket.
+    ApplyCouponRequest applyCouponRequest = new ApplyCouponRequest(); // ApplyCouponRequest | Provide a `coupon_code` to apply to the basket.
     try {
-      BasketResponse result = apiInstance.applyCoupon(token, basketIdent, coupon);
+      ApplyCoupon200Response result = apiInstance.applyCoupon(basketIdent, applyCouponRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#applyCoupon");
@@ -140,13 +75,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
 | **basketIdent** | **String**| The basket identifier. | |
-| **coupon** | [**Coupon**](Coupon.md)| Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional] |
+| **applyCouponRequest** | [**ApplyCouponRequest**](ApplyCouponRequest.md)| Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional] |
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyCoupon200Response**](ApplyCoupon200Response.md)
 
 ### Authorization
 
@@ -160,13 +94,13 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns the basket. |  -  |
+| **200** | Successful response returns a success message. |  -  |
 
 <a id="applyCreatorCode"></a>
 # **applyCreatorCode**
-> BasketResponse applyCreatorCode(token, basketIdent, applyCreatorCodeRequest)
+> ApplyCreatorCode200Response applyCreatorCode(basketIdent, applyCreatorCodeRequest)
 
-Apply a creator code to a basket.
+Apply a creator code
 
 Applies a creator code to a basket.
 
@@ -182,14 +116,13 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
     ApplyCreatorCodeRequest applyCreatorCodeRequest = new ApplyCreatorCodeRequest(); // ApplyCreatorCodeRequest | Provide a `creator_code` to apply to the basket.
     try {
-      BasketResponse result = apiInstance.applyCreatorCode(token, basketIdent, applyCreatorCodeRequest);
+      ApplyCreatorCode200Response result = apiInstance.applyCreatorCode(basketIdent, applyCreatorCodeRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#applyCreatorCode");
@@ -206,13 +139,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
 | **basketIdent** | **String**| The basket identifier. | |
 | **applyCreatorCodeRequest** | [**ApplyCreatorCodeRequest**](ApplyCreatorCodeRequest.md)| Provide a &#x60;creator_code&#x60; to apply to the basket. | [optional] |
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyCreatorCode200Response**](ApplyCreatorCode200Response.md)
 
 ### Authorization
 
@@ -226,16 +158,16 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns the basket. |  -  |
+| **200** | Successful response returns a success object |  -  |
 | **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
 
 <a id="applyGiftCard"></a>
 # **applyGiftCard**
-> BasketResponse applyGiftCard(token, basketIdent, giftCard)
+> ApplyGiftCard200Response applyGiftCard(basketIdent, giftCard)
 
-Apply a gift card to a basket.
+Apply a gift card
 
-Applies a creator code to a basket.
+Applies a gift card to the basket.
 
 ### Example
 ```java
@@ -249,14 +181,13 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
     GiftCard giftCard = new GiftCard(); // GiftCard | Provide a `card_number` to apply to the basket.
     try {
-      BasketResponse result = apiInstance.applyGiftCard(token, basketIdent, giftCard);
+      ApplyGiftCard200Response result = apiInstance.applyGiftCard(basketIdent, giftCard);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#applyGiftCard");
@@ -273,13 +204,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
 | **basketIdent** | **String**| The basket identifier. | |
 | **giftCard** | [**GiftCard**](GiftCard.md)| Provide a &#x60;card_number&#x60; to apply to the basket. | [optional] |
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyGiftCard200Response**](ApplyGiftCard200Response.md)
 
 ### Authorization
 
@@ -293,11 +223,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns the basket. |  -  |
+| **200** | Successful response returns a success message. |  -  |
 
 <a id="createBasket"></a>
 # **createBasket**
-> BasketResponse createBasket(token, createBasketRequest)
+> BasketResponse createBasket(createBasketRequest)
 
 Create a new basket
 
@@ -315,13 +245,12 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     CreateBasketRequest createBasketRequest = new CreateBasketRequest(); // CreateBasketRequest | 
     try {
-      BasketResponse result = apiInstance.createBasket(token, createBasketRequest);
+      BasketResponse result = apiInstance.createBasket(createBasketRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#createBasket");
@@ -338,7 +267,6 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
 | **createBasketRequest** | [**CreateBasketRequest**](CreateBasketRequest.md)|  | [optional] |
 
 ### Return type
@@ -360,75 +288,13 @@ No authorization required
 | **200** | Successful response returns the basket information. |  -  |
 | **422** | The provided webstore ID is invalid. |  -  |
 
-<a id="getAllCategories"></a>
-# **getAllCategories**
-> CategoryResponse getAllCategories(token)
+<a id="createDynamicPackage"></a>
+# **createDynamicPackage**
+> DynamicPackagesResponse createDynamicPackage(basketIdent, dynamicPackagesRequest)
 
-Gets all categories available in the webstore.
+Add packages to a dynamic category for a basket.
 
-Gets all categories from a webstore. This does not include package information. To include package information, add &#x60;?includePackages&#x3D;1&#x60; to the URL.
-
-### Example
-```java
-// Import classes:
-import TebexHeadless.ApiClient;
-import TebexHeadless.ApiException;
-import TebexHeadless.Configuration;
-import TebexHeadless.models.*;
-import TebexHeadless.HeadlessApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
-
-    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-    try {
-      CategoryResponse result = apiInstance.getAllCategories(token);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#getAllCategories");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
-
-### Return type
-
-[**CategoryResponse**](CategoryResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response returns a list of category information. |  -  |
-
-<a id="getAllCategoriesIncludingPackages"></a>
-# **getAllCategoriesIncludingPackages**
-> CategoryResponse getAllCategoriesIncludingPackages(token)
-
-Gets a store&#39;s categories including all package information with them.
-
-Gets all categories from a webstore including packages.
+Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type &#x60;dynamic&#x60;, and are typically populated in response to a &#x60;basket.authenticated&#x60; webhook.  Once created, the packages can be fetched using the category endpoints with both &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; provided.
 
 ### Example
 ```java
@@ -442,15 +308,16 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
+    String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
+    DynamicPackagesRequest dynamicPackagesRequest = new DynamicPackagesRequest(); // DynamicPackagesRequest | 
     try {
-      CategoryResponse result = apiInstance.getAllCategoriesIncludingPackages(token);
+      DynamicPackagesResponse result = apiInstance.createDynamicPackage(basketIdent, dynamicPackagesRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#getAllCategoriesIncludingPackages");
+      System.err.println("Exception when calling HeadlessApi#createDynamicPackage");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -464,11 +331,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
+| **basketIdent** | **String**| The basket identifier. | |
+| **dynamicPackagesRequest** | [**DynamicPackagesRequest**](DynamicPackagesRequest.md)|  | [optional] |
 
 ### Return type
 
-[**CategoryResponse**](CategoryResponse.md)
+[**DynamicPackagesResponse**](DynamicPackagesResponse.md)
 
 ### Authorization
 
@@ -476,21 +344,22 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns a list of category information. |  -  |
+| **200** | Successful response confirms the dynamic packages were created. |  -  |
+| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
 
 <a id="getAllPackages"></a>
 # **getAllPackages**
-> PackageResponse getAllPackages(token)
+> PackageResponse getAllPackages()
 
-Fetch all packages from a webstore
+Get all packages
 
-Gets all packages from a webstore.
+Gets all packages from a webstore.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; to fetch dynamic packages.
 
 ### Example
 ```java
@@ -504,12 +373,11 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     try {
-      PackageResponse result = apiInstance.getAllPackages(token);
+      PackageResponse result = apiInstance.getAllPackages();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#getAllPackages");
@@ -523,10 +391,7 @@ public class Example {
 ```
 
 ### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -548,9 +413,9 @@ No authorization required
 
 <a id="getAllPackagesWithAuthedIP"></a>
 # **getAllPackagesWithAuthedIP**
-> PackageResponse getAllPackagesWithAuthedIP(token, ipAddress)
+> PackageResponse getAllPackagesWithAuthedIP(ipAddress)
 
-Fetch a package from a webstore by its identifier
+Get packages
 
 Gets all packages from a webstore.
 
@@ -560,19 +425,24 @@ Gets all packages from a webstore.
 import TebexHeadless.ApiClient;
 import TebexHeadless.ApiException;
 import TebexHeadless.Configuration;
+import TebexHeadless.auth.*;
 import TebexHeadless.models.*;
 import TebexHeadless.HeadlessApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+    
+    // Configure HTTP basic authorization: basicAuth
+    HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+    basicAuth.setUsername("YOUR USERNAME");
+    basicAuth.setPassword("YOUR PASSWORD");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-    String ipAddress = "127.0.0.1"; // String | An IP address can be provided with authenticated requests.
+    String ipAddress = "127.0.0.1"; // String | An IP address can be provided with authenticated requests
     try {
-      PackageResponse result = apiInstance.getAllPackagesWithAuthedIP(token, ipAddress);
+      PackageResponse result = apiInstance.getAllPackagesWithAuthedIP(ipAddress);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#getAllPackagesWithAuthedIP");
@@ -589,8 +459,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
-| **ipAddress** | **String**| An IP address can be provided with authenticated requests. | |
+| **ipAddress** | **String**| An IP address can be provided with authenticated requests | |
 
 ### Return type
 
@@ -598,7 +467,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -613,9 +482,9 @@ No authorization required
 
 <a id="getAllPackagesWithAuthedIPAndBasket"></a>
 # **getAllPackagesWithAuthedIPAndBasket**
-> PackageResponse getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress)
+> PackageResponse getAllPackagesWithAuthedIPAndBasket(basketIdent, ipAddress)
 
-Fetch a package from a webstore by its identifier
+Get packages available for IP and basket
 
 Gets all packages from a webstore.
 
@@ -625,20 +494,25 @@ Gets all packages from a webstore.
 import TebexHeadless.ApiClient;
 import TebexHeadless.ApiException;
 import TebexHeadless.Configuration;
+import TebexHeadless.auth.*;
 import TebexHeadless.models.*;
 import TebexHeadless.HeadlessApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+    
+    // Configure HTTP basic authorization: basicAuth
+    HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+    basicAuth.setUsername("YOUR USERNAME");
+    basicAuth.setPassword("YOUR PASSWORD");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
     String ipAddress = "127.0.0.1"; // String | An IP address can be provided with authenticated requests.
     try {
-      PackageResponse result = apiInstance.getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress);
+      PackageResponse result = apiInstance.getAllPackagesWithAuthedIPAndBasket(basketIdent, ipAddress);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#getAllPackagesWithAuthedIPAndBasket");
@@ -655,7 +529,6 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
 | **basketIdent** | **String**| The basket identifier. | |
 | **ipAddress** | **String**| An IP address can be provided with authenticated requests. | |
 
@@ -665,7 +538,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -678,143 +551,11 @@ No authorization required
 | **200** | Successful response returns a list of package information. |  -  |
 | **422** | The provided request is invalid. |  -  |
 
-<a id="getAllPackagesWithBasket"></a>
-# **getAllPackagesWithBasket**
-> PackageResponse getAllPackagesWithBasket(token, basketIdent)
+<a id="getBasket"></a>
+# **getBasket**
+> BasketResponse getBasket(basketIdent)
 
-Fetch a package from a webstore by its identifier
-
-Gets all packages from a webstore.
-
-### Example
-```java
-// Import classes:
-import TebexHeadless.ApiClient;
-import TebexHeadless.ApiException;
-import TebexHeadless.Configuration;
-import TebexHeadless.models.*;
-import TebexHeadless.HeadlessApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
-
-    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-    String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-    try {
-      PackageResponse result = apiInstance.getAllPackagesWithBasket(token, basketIdent);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#getAllPackagesWithBasket");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
-| **basketIdent** | **String**| The basket identifier. | |
-
-### Return type
-
-[**PackageResponse**](PackageResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response returns a list of package information. |  -  |
-| **422** | The provided request is invalid. |  -  |
-
-<a id="getBasketAuthUrl"></a>
-# **getBasketAuthUrl**
-> List&lt;BasketAuthResponseInner&gt; getBasketAuthUrl(token, basketIdent, returnUrl)
-
-Get authentication links for a basket.
-
-Fetches a basket&#39;s auth URL.
-
-### Example
-```java
-// Import classes:
-import TebexHeadless.ApiClient;
-import TebexHeadless.ApiException;
-import TebexHeadless.Configuration;
-import TebexHeadless.models.*;
-import TebexHeadless.HeadlessApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
-
-    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-    String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-    String returnUrl = "https://example.tebex.io/"; // String | The URL you would like to redirect the user to after successful basket authentication.
-    try {
-      List<BasketAuthResponseInner> result = apiInstance.getBasketAuthUrl(token, basketIdent, returnUrl);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#getBasketAuthUrl");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
-| **basketIdent** | **String**| The basket identifier. | |
-| **returnUrl** | **String**| The URL you would like to redirect the user to after successful basket authentication. | |
-
-### Return type
-
-[**List&lt;BasketAuthResponseInner&gt;**](BasketAuthResponseInner.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response returns the basket auth information. |  -  |
-| **422** | The provided webstore ID or basket ID is invalid. |  -  |
-
-<a id="getBasketById"></a>
-# **getBasketById**
-> BasketResponse getBasketById(token, basketIdent)
-
-Fetch a basket from a webstore by its identifier
+Get a basket
 
 Gets a basket associated with the provided identifier.
 
@@ -830,16 +571,15 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
     try {
-      BasketResponse result = apiInstance.getBasketById(token, basketIdent);
+      BasketResponse result = apiInstance.getBasket(basketIdent);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#getBasketById");
+      System.err.println("Exception when calling HeadlessApi#getBasket");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -853,7 +593,6 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
 | **basketIdent** | **String**| The basket identifier. | |
 
 ### Return type
@@ -874,11 +613,380 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Successful response returns the basket information. |  -  |
 
-<a id="getCMSPages"></a>
-# **getCMSPages**
-> CMSPagesResponse getCMSPages(token)
+<a id="getBasketAuthUrl"></a>
+# **getBasketAuthUrl**
+> List&lt;BasketAuthResponseInner&gt; getBasketAuthUrl(basketIdent, returnUrl)
 
-Fetch the custom pages associated with the store.
+Get auth links for basket
+
+Fetches a basket&#39;s auth URL. The player should be directed here in order for them to authorize their account. When complete, they will be returned to the provided &#x60;returnUrl&#x60; and the basket will be authorized from that moment onwards.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
+    String returnUrl = "https://example.tebex.io/"; // String | The URL you would like to redirect the user to after successful basket authentication.
+    try {
+      List<BasketAuthResponseInner> result = apiInstance.getBasketAuthUrl(basketIdent, returnUrl);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getBasketAuthUrl");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **basketIdent** | **String**| The basket identifier. | |
+| **returnUrl** | **String**| The URL you would like to redirect the user to after successful basket authentication. | |
+
+### Return type
+
+[**List&lt;BasketAuthResponseInner&gt;**](BasketAuthResponseInner.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the auth provider options and URLs of the sign-in link. |  -  |
+| **422** | The provided webstore ID or basket ID is invalid. |  -  |
+
+<a id="getCategories"></a>
+# **getCategories**
+> CategoryResponse getCategories()
+
+Get all categories
+
+Gets all categories from a webstore. This does not include package information. To include package information, add &#x60;?includePackages&#x3D;1&#x60; to the URL.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    try {
+      CategoryResponse result = apiInstance.getCategories();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getCategories");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns a list of category information. |  -  |
+
+<a id="getCategoriesIncludePackages"></a>
+# **getCategoriesIncludePackages**
+> CategoryResponse getCategoriesIncludePackages()
+
+Gets all categories and packages
+
+Gets all categories from a webstore including packages.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    try {
+      CategoryResponse result = apiInstance.getCategoriesIncludePackages();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getCategoriesIncludePackages");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns a list of category information. |  -  |
+
+<a id="getCategory"></a>
+# **getCategory**
+> SingleCategoryResponse getCategory(categoryId)
+
+Get specific category
+
+Gets information about a category and returns the packages in that category.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    String categoryId = "127244343"; // String | The ID or slug of the category to fetch.
+    try {
+      SingleCategoryResponse result = apiInstance.getCategory(categoryId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getCategory");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **categoryId** | **String**| The ID or slug of the category to fetch. | |
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the category without package information. |  -  |
+
+<a id="getCategoryIncludeDynamicPackages"></a>
+# **getCategoryIncludeDynamicPackages**
+> SingleCategoryResponse getCategoryIncludeDynamicPackages(categoryId, basketIdent)
+
+Gets a specific category including packages, populating a dynamic category for the given basket.
+
+Gets information about a category and returns the packages in that category. When the category is dynamic and &#x60;basketIdent&#x60; is provided, the category is populated with the packages associated with that basket.  If a basket identifier is not provided, a dynamic category will be empty as the basket is required to relate packages to the category.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    String categoryId = "1234"; // String | The ID or slug of the category to fetch.
+    String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
+    try {
+      SingleCategoryResponse result = apiInstance.getCategoryIncludeDynamicPackages(categoryId, basketIdent);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getCategoryIncludeDynamicPackages");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **categoryId** | **String**| The ID or slug of the category to fetch. | |
+| **basketIdent** | **String**| The basket identifier. | |
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the category with package information. |  -  |
+
+<a id="getCategoryIncludePackages"></a>
+# **getCategoryIncludePackages**
+> SingleCategoryResponse getCategoryIncludePackages(categoryId)
+
+Get a category with all packages
+
+Gets information about a category and returns the packages in that category.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    String categoryId = "127244343"; // String | The ID or slug of the category to fetch.
+    try {
+      SingleCategoryResponse result = apiInstance.getCategoryIncludePackages(categoryId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getCategoryIncludePackages");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **categoryId** | **String**| The ID or slug of the category to fetch. | |
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the category with package information. |  -  |
+
+<a id="getCustomPages"></a>
+# **getCustomPages**
+> CMSPagesResponse getCustomPages()
+
+Get custom pages defined for the webstore.
 
 Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
 
@@ -894,15 +1002,14 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "some-uuid"; // String | The webstore identifier.
     try {
-      CMSPagesResponse result = apiInstance.getCMSPages(token);
+      CMSPagesResponse result = apiInstance.getCustomPages();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#getCMSPages");
+      System.err.println("Exception when calling HeadlessApi#getCustomPages");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -913,10 +1020,7 @@ public class Example {
 ```
 
 ### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -936,13 +1040,13 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Successful response returns the webstore&#39;s pages. |  -  |
 
-<a id="getCategoryById"></a>
-# **getCategoryById**
-> CategoryResponse getCategoryById(token, categoryId)
+<a id="getDynamicCategories"></a>
+# **getDynamicCategories**
+> CategoryResponse getDynamicCategories(basketIdent)
 
-Gets information about a specific category
+Get Dynamic Categories
 
-Gets information about a category and returns the packages in that category.
+Gets all categories from a webstore including packages. When &#x60;basketIdent&#x60; is provided, dynamic categories are populated with the packages associated with that basket.  If a basket identifier is not provided, dynamic categories will be empty as the basket is required to relate packages to the category.
 
 ### Example
 ```java
@@ -956,16 +1060,15 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-    String categoryId = "127244343"; // String | The ID of the category to fetch.
+    String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
     try {
-      CategoryResponse result = apiInstance.getCategoryById(token, categoryId);
+      CategoryResponse result = apiInstance.getDynamicCategories(basketIdent);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#getCategoryById");
+      System.err.println("Exception when calling HeadlessApi#getDynamicCategories");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -979,8 +1082,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
-| **categoryId** | **String**| The ID of the category to fetch. | |
+| **basketIdent** | **String**| The basket identifier. | |
 
 ### Return type
 
@@ -998,15 +1100,15 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns the category without package information. |  -  |
+| **200** | Successful response returns a list of category information. |  -  |
 
-<a id="getCategoryIncludingPackages"></a>
-# **getCategoryIncludingPackages**
-> CategoryResponse getCategoryIncludingPackages(token, categoryId)
+<a id="getPackage"></a>
+# **getPackage**
+> SinglePackageResponse getPackage(packageId)
 
-Gets information about a specific category, including all the packages in the category
+Get package
 
-Gets information about a category and returns the packages in that category.
+Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; to fetch dynamic packages.
 
 ### Example
 ```java
@@ -1020,16 +1122,15 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-    String categoryId = "127244343"; // String | The ID of the category to fetch.
+    String packageId = "1272441812"; // String | The package's ID or slug.
     try {
-      CategoryResponse result = apiInstance.getCategoryIncludingPackages(token, categoryId);
+      SinglePackageResponse result = apiInstance.getPackage(packageId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#getCategoryIncludingPackages");
+      System.err.println("Exception when calling HeadlessApi#getPackage");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1043,12 +1144,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
-| **categoryId** | **String**| The ID of the category to fetch. | |
+| **packageId** | **String**| The package&#39;s ID or slug. | |
 
 ### Return type
 
-[**CategoryResponse**](CategoryResponse.md)
+[**SinglePackageResponse**](SinglePackageResponse.md)
 
 ### Authorization
 
@@ -1062,15 +1162,15 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns the category with package information. |  -  |
+| **200** | Successful response returns the package information. |  -  |
 
-<a id="getPackageById"></a>
-# **getPackageById**
-> PackageResponse getPackageById(token, packageId)
+<a id="getPackagesForBasket"></a>
+# **getPackagesForBasket**
+> PackageResponse getPackagesForBasket(basketIdent)
 
-Fetch a package from a webstore by its identifier
+Get packages available for basket
 
-Gets a package from a webstore by ID.
+Gets all packages available to the provided basket.
 
 ### Example
 ```java
@@ -1084,16 +1184,15 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-    Integer packageId = 1272441812; // Integer | The package's ID.
+    String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
     try {
-      PackageResponse result = apiInstance.getPackageById(token, packageId);
+      PackageResponse result = apiInstance.getPackagesForBasket(basketIdent);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#getPackageById");
+      System.err.println("Exception when calling HeadlessApi#getPackagesForBasket");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1107,8 +1206,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
-| **packageId** | **Integer**| The package&#39;s ID. | |
+| **basketIdent** | **String**| The basket identifier. | |
 
 ### Return type
 
@@ -1126,13 +1224,76 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response returns the package information. |  -  |
+| **200** | Successful response returns a list of package information. |  -  |
+| **422** | The provided request is invalid. |  -  |
 
-<a id="getTieredCategoriesForUser"></a>
-# **getTieredCategoriesForUser**
-> CategoryResponse getTieredCategoriesForUser(token, usernameId)
+<a id="getSidebar"></a>
+# **getSidebar**
+> ModulesResponse getSidebar(token)
 
-Gets a store&#39;s categories including all package information with them.
+Retrieves the available sidebar modules.
+
+Retrieves the available sidebar modules configured for the store.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    String token = "some-uuid"; // String | The webstore identifier.
+    try {
+      ModulesResponse result = apiInstance.getSidebar(token);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getSidebar");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **token** | **String**| The webstore identifier. | |
+
+### Return type
+
+[**ModulesResponse**](ModulesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response. |  -  |
+
+<a id="getUserTieredCategories"></a>
+# **getUserTieredCategories**
+> CategoryResponse getUserTieredCategories(usernameId)
+
+Get user&#39;s tiered categories
 
 Gets all categories from the webstore, returning active tier information for the given player.
 
@@ -1149,7 +1310,7 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
     
     // Configure HTTP basic authorization: basicAuth
     HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
@@ -1157,13 +1318,12 @@ public class Example {
     basicAuth.setPassword("YOUR PASSWORD");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     Integer usernameId = 76561198042467022; // Integer | 
     try {
-      CategoryResponse result = apiInstance.getTieredCategoriesForUser(token, usernameId);
+      CategoryResponse result = apiInstance.getUserTieredCategories(usernameId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#getTieredCategoriesForUser");
+      System.err.println("Exception when calling HeadlessApi#getUserTieredCategories");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1177,7 +1337,6 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
 | **usernameId** | **Integer**|  | |
 
 ### Return type
@@ -1198,13 +1357,13 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful response returns a list of category information. |  -  |
 
-<a id="getWebstoreById"></a>
-# **getWebstoreById**
-> WebstoreResponse getWebstoreById(token)
+<a id="getWebstore"></a>
+# **getWebstore**
+> WebstoreResponse getWebstore()
 
-Fetch a webstore by its identifier
+Get the webstore&#39;s information
 
-Gets the webstore associated with the provided identifier.
+Gets the webstore associated with the provided token
 
 ### Example
 ```java
@@ -1218,15 +1377,14 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "some-uuid"; // String | The webstore identifier.
     try {
-      WebstoreResponse result = apiInstance.getWebstoreById(token);
+      WebstoreResponse result = apiInstance.getWebstore();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#getWebstoreById");
+      System.err.println("Exception when calling HeadlessApi#getWebstore");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1237,10 +1395,7 @@ public class Example {
 ```
 
 ### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -1260,74 +1415,9 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Successful response returns the webstore&#39;s information. |  -  |
 
-<a id="removeBasketPackage"></a>
-# **removeBasketPackage**
-> Basket removeBasketPackage(basketIdent, removeBasketPackageRequest)
-
-Remove a package from a basket
-
-Remove the given package ID from the basket.
-
-### Example
-```java
-// Import classes:
-import TebexHeadless.ApiClient;
-import TebexHeadless.ApiException;
-import TebexHeadless.Configuration;
-import TebexHeadless.models.*;
-import TebexHeadless.HeadlessApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
-
-    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-    RemoveBasketPackageRequest removeBasketPackageRequest = new RemoveBasketPackageRequest(); // RemoveBasketPackageRequest | 
-    try {
-      Basket result = apiInstance.removeBasketPackage(basketIdent, removeBasketPackageRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#removeBasketPackage");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **basketIdent** | **String**| The basket identifier. | |
-| **removeBasketPackageRequest** | [**RemoveBasketPackageRequest**](RemoveBasketPackageRequest.md)|  | [optional] |
-
-### Return type
-
-[**Basket**](Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response returns the basket. |  -  |
-| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
-
 <a id="removeCoupon"></a>
 # **removeCoupon**
-> removeCoupon(token, basketIdent)
+> removeCoupon(basketIdent, applyCouponRequest)
 
 Remove a coupon from the basket.
 
@@ -1345,13 +1435,13 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
+    ApplyCouponRequest applyCouponRequest = new ApplyCouponRequest(); // ApplyCouponRequest | Provide a `coupon_code` to remove from the basket.
     try {
-      apiInstance.removeCoupon(token, basketIdent);
+      apiInstance.removeCoupon(basketIdent, applyCouponRequest);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#removeCoupon");
       System.err.println("Status code: " + e.getCode());
@@ -1367,8 +1457,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
 | **basketIdent** | **String**| The basket identifier. | |
+| **applyCouponRequest** | [**ApplyCouponRequest**](ApplyCouponRequest.md)| Provide a &#x60;coupon_code&#x60; to remove from the basket. | [optional] |
 
 ### Return type
 
@@ -1380,7 +1470,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: Not defined
 
 ### HTTP response details
@@ -1391,11 +1481,11 @@ No authorization required
 
 <a id="removeCreatorCode"></a>
 # **removeCreatorCode**
-> removeCreatorCode(token, basketIdent)
+> removeCreatorCode(basketIdent)
 
-Remove a creator code from the basket.
+Removes the creator code from the basket.
 
-Applies a creator code to a basket.
+Removes the creator code from the basket.
 
 ### Example
 ```java
@@ -1409,13 +1499,12 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
     try {
-      apiInstance.removeCreatorCode(token, basketIdent);
+      apiInstance.removeCreatorCode(basketIdent);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#removeCreatorCode");
       System.err.println("Status code: " + e.getCode());
@@ -1431,7 +1520,6 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
 | **basketIdent** | **String**| The basket identifier. | |
 
 ### Return type
@@ -1455,7 +1543,7 @@ No authorization required
 
 <a id="removeGiftCard"></a>
 # **removeGiftCard**
-> removeGiftCard(token, basketIdent, removeGiftCardRequest)
+> removeGiftCard(basketIdent, removeGiftCardRequest)
 
 Remove a gift card from the basket.
 
@@ -1473,14 +1561,13 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
     RemoveGiftCardRequest removeGiftCardRequest = new RemoveGiftCardRequest(); // RemoveGiftCardRequest | Provide the `card_number` to remove from the basket.
     try {
-      apiInstance.removeGiftCard(token, basketIdent, removeGiftCardRequest);
+      apiInstance.removeGiftCard(basketIdent, removeGiftCardRequest);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#removeGiftCard");
       System.err.println("Status code: " + e.getCode());
@@ -1496,7 +1583,6 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
 | **basketIdent** | **String**| The basket identifier. | |
 | **removeGiftCardRequest** | [**RemoveGiftCardRequest**](RemoveGiftCardRequest.md)| Provide the &#x60;card_number&#x60; to remove from the basket. | [optional] |
 
@@ -1519,79 +1605,13 @@ No authorization required
 | **200** | Gift card removed successfully. |  -  |
 | **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
 
-<a id="updatePackageQuantity"></a>
-# **updatePackageQuantity**
-> updatePackageQuantity(basketIdent, packageId, updatePackageQuantityRequest)
-
-Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-
-Sets the quantity of the given item in the basket.
-
-### Example
-```java
-// Import classes:
-import TebexHeadless.ApiClient;
-import TebexHeadless.ApiException;
-import TebexHeadless.Configuration;
-import TebexHeadless.models.*;
-import TebexHeadless.HeadlessApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
-
-    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-    Integer packageId = 6276316; // Integer | The package identifier.
-    UpdatePackageQuantityRequest updatePackageQuantityRequest = new UpdatePackageQuantityRequest(); // UpdatePackageQuantityRequest | 
-    try {
-      apiInstance.updatePackageQuantity(basketIdent, packageId, updatePackageQuantityRequest);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling HeadlessApi#updatePackageQuantity");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **basketIdent** | **String**| The basket identifier. | |
-| **packageId** | **Integer**| The package identifier. | |
-| **updatePackageQuantityRequest** | [**UpdatePackageQuantityRequest**](UpdatePackageQuantityRequest.md)|  | [optional] |
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful response. |  -  |
-| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
-
 <a id="updateTier"></a>
 # **updateTier**
-> UpdateTierResponse updateTier(token, tierId, updateTierRequest)
+> UpdateTierResponse updateTier(tierId, updateTierRequest)
 
-Updates the given teir to the provided package.
+Update user&#39;s tier to a new package
 
-Updates a tier to a new package.
+Updates a tier to a new package. A recurring payment updated webhook is sent when an update is successful.
 
 ### Example
 ```java
@@ -1606,7 +1626,7 @@ import TebexHeadless.HeadlessApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://headless.tebex.io/api");
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
     
     // Configure HTTP basic authorization: basicAuth
     HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
@@ -1614,11 +1634,10 @@ public class Example {
     basicAuth.setPassword("YOUR PASSWORD");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String token = "some-uuid"; // String | The webstore identifier.
     Integer tierId = 6276316; // Integer | The tier identifier
     UpdateTierRequest updateTierRequest = new UpdateTierRequest(); // UpdateTierRequest | 
     try {
-      UpdateTierResponse result = apiInstance.updateTier(token, tierId, updateTierRequest);
+      UpdateTierResponse result = apiInstance.updateTier(tierId, updateTierRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling HeadlessApi#updateTier");
@@ -1635,7 +1654,6 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **token** | **String**| The webstore identifier. | |
 | **tierId** | **Integer**| The tier identifier | |
 | **updateTierRequest** | [**UpdateTierRequest**](UpdateTierRequest.md)|  | [optional] |
 

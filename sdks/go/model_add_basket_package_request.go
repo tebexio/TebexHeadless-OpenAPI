@@ -1,9 +1,9 @@
 /*
 Tebex Headless API
 
-The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
+The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 1.1.0
+API version: 2.0.1
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -13,6 +13,8 @@ package TebexHeadless
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the AddBasketPackageRequest type satisfies the MappedNullable interface at compile time
@@ -20,16 +22,22 @@ var _ MappedNullable = &AddBasketPackageRequest{}
 
 // AddBasketPackageRequest struct for AddBasketPackageRequest
 type AddBasketPackageRequest struct {
-	PackageId *string `json:"package_id,omitempty"`
-	Quantity *int32 `json:"quantity,omitempty"`
+	PackageId string `json:"package_id"`
+	Quantity int32 `json:"quantity"`
+	// Set to `true` when adding a package that belongs to a dynamic category. When omitted, the API acts as if a normal package ID was provided.
+	Dynamic *bool `json:"dynamic,omitempty"`
 }
+
+type _AddBasketPackageRequest AddBasketPackageRequest
 
 // NewAddBasketPackageRequest instantiates a new AddBasketPackageRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAddBasketPackageRequest() *AddBasketPackageRequest {
+func NewAddBasketPackageRequest(packageId string, quantity int32) *AddBasketPackageRequest {
 	this := AddBasketPackageRequest{}
+	this.PackageId = packageId
+	this.Quantity = quantity
 	return &this
 }
 
@@ -41,68 +49,84 @@ func NewAddBasketPackageRequestWithDefaults() *AddBasketPackageRequest {
 	return &this
 }
 
-// GetPackageId returns the PackageId field value if set, zero value otherwise.
+// GetPackageId returns the PackageId field value
 func (o *AddBasketPackageRequest) GetPackageId() string {
-	if o == nil || IsNil(o.PackageId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.PackageId
+
+	return o.PackageId
 }
 
-// GetPackageIdOk returns a tuple with the PackageId field value if set, nil otherwise
+// GetPackageIdOk returns a tuple with the PackageId field value
 // and a boolean to check if the value has been set.
 func (o *AddBasketPackageRequest) GetPackageIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PackageId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PackageId, true
+	return &o.PackageId, true
 }
 
-// HasPackageId returns a boolean if a field has been set.
-func (o *AddBasketPackageRequest) HasPackageId() bool {
-	if o != nil && !IsNil(o.PackageId) {
-		return true
-	}
-
-	return false
-}
-
-// SetPackageId gets a reference to the given string and assigns it to the PackageId field.
+// SetPackageId sets field value
 func (o *AddBasketPackageRequest) SetPackageId(v string) {
-	o.PackageId = &v
+	o.PackageId = v
 }
 
-// GetQuantity returns the Quantity field value if set, zero value otherwise.
+// GetQuantity returns the Quantity field value
 func (o *AddBasketPackageRequest) GetQuantity() int32 {
-	if o == nil || IsNil(o.Quantity) {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Quantity
+
+	return o.Quantity
 }
 
-// GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
+// GetQuantityOk returns a tuple with the Quantity field value
 // and a boolean to check if the value has been set.
 func (o *AddBasketPackageRequest) GetQuantityOk() (*int32, bool) {
-	if o == nil || IsNil(o.Quantity) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Quantity, true
+	return &o.Quantity, true
 }
 
-// HasQuantity returns a boolean if a field has been set.
-func (o *AddBasketPackageRequest) HasQuantity() bool {
-	if o != nil && !IsNil(o.Quantity) {
+// SetQuantity sets field value
+func (o *AddBasketPackageRequest) SetQuantity(v int32) {
+	o.Quantity = v
+}
+
+// GetDynamic returns the Dynamic field value if set, zero value otherwise.
+func (o *AddBasketPackageRequest) GetDynamic() bool {
+	if o == nil || IsNil(o.Dynamic) {
+		var ret bool
+		return ret
+	}
+	return *o.Dynamic
+}
+
+// GetDynamicOk returns a tuple with the Dynamic field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AddBasketPackageRequest) GetDynamicOk() (*bool, bool) {
+	if o == nil || IsNil(o.Dynamic) {
+		return nil, false
+	}
+	return o.Dynamic, true
+}
+
+// HasDynamic returns a boolean if a field has been set.
+func (o *AddBasketPackageRequest) HasDynamic() bool {
+	if o != nil && !IsNil(o.Dynamic) {
 		return true
 	}
 
 	return false
 }
 
-// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
-func (o *AddBasketPackageRequest) SetQuantity(v int32) {
-	o.Quantity = &v
+// SetDynamic gets a reference to the given bool and assigns it to the Dynamic field.
+func (o *AddBasketPackageRequest) SetDynamic(v bool) {
+	o.Dynamic = &v
 }
 
 func (o AddBasketPackageRequest) MarshalJSON() ([]byte, error) {
@@ -115,13 +139,50 @@ func (o AddBasketPackageRequest) MarshalJSON() ([]byte, error) {
 
 func (o AddBasketPackageRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.PackageId) {
-		toSerialize["package_id"] = o.PackageId
-	}
-	if !IsNil(o.Quantity) {
-		toSerialize["quantity"] = o.Quantity
+	toSerialize["package_id"] = o.PackageId
+	toSerialize["quantity"] = o.Quantity
+	if !IsNil(o.Dynamic) {
+		toSerialize["dynamic"] = o.Dynamic
 	}
 	return toSerialize, nil
+}
+
+func (o *AddBasketPackageRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"package_id",
+		"quantity",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAddBasketPackageRequest := _AddBasketPackageRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAddBasketPackageRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AddBasketPackageRequest(varAddBasketPackageRequest)
+
+	return err
 }
 
 type NullableAddBasketPackageRequest struct {

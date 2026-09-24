@@ -1,0 +1,46 @@
+{
+  "auth": {
+    "username": "t66x-7cd928b1e9399909e6810edac6dc1fd1eefc57cb",
+    "password": "Qqw7B0JCRmbNMX0nkK7gMUymPECGriW7"
+  },
+  "variables": {
+    "token": "t66x-7cd928b1e9399909e6810edac6dc1fd1eefc57cb",
+    "returnUrl": "https://example.tebex.io",
+    "ipAddress": "127.0.0.1",
+    "packageId": "7262379",
+    "categoryId": "3219935",
+    "tierId": "1",
+    "usernameId": "1"
+  },
+  "order": [
+    "createBasket",
+    "getWebstore",
+    "getCustomPages",
+    "getCategories",
+    "getCategoriesIncludePackages",
+    "getCategory",
+    "getCategoryIncludePackages",
+    "getDynamicCategories",
+    "getCategoryIncludeDynamicPackages",
+    "getUserTieredCategories",
+    "getSidebar",
+    "getAllPackages",
+    "getPackage",
+    "getAllPackagesWithAuthedIP",
+    "getPackagesForBasket",
+    "getAllPackagesWithAuthedIPAndBasket",
+    "getBasket",
+    "getBasketAuthUrl",
+    "createDynamicPackage",
+    "addBasketPackage",
+    "updatePackageQuantity",
+    "applyCreatorCode",
+    "removeCreatorCode",
+    "applyGiftCard",
+    "removeGiftCard",
+    "applyCoupon",
+    "removeCoupon",
+    "removeBasketPackage",
+    "updateTier"
+  ]
+}

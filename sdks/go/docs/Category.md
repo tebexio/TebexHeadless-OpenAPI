@@ -6,14 +6,16 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **int32** |  | [optional] 
 **Name** | Pointer to **string** | User-friendly name of the category | [optional] 
-**Slug** | Pointer to **NullableString** | Short identifier slug for the category | [optional] 
+**Slug** | Pointer to **string** | Short identifier slug for the category | [optional] 
 **Parent** | Pointer to **map[string]interface{}** | Parent category, if applicable | [optional] 
 **Tiered** | Pointer to **bool** | True if this is a tiered category | [optional] 
-**ActiveTier** | Pointer to [**Tier**](Tier.md) |  | [optional] 
+**ActiveTier** | Pointer to [**Tier**](Tier.md) | If this is a tiered category and the usernameId is provided, this will be the active tier information for this category. | [optional] 
 **Description** | Pointer to **string** | HTML description of the category | [optional] 
-**Packages** | Pointer to [**[]Package**](Package.md) |  | [optional] 
+**Packages** | Pointer to [**[]Package**](Package.md) | Packages within the category. For dynamic categories, packages use the &#x60;DynamicPackage&#x60; shape and are only populated when a &#x60;basketIdent&#x60; is provided. | [optional] 
 **Order** | Pointer to **int32** | The numeric order in which to display the category. | [optional] 
 **DisplayType** | Pointer to **string** | How the category should be displayed | [optional] 
+**ImageUrl** | Pointer to **string** | URL of the category image, if set. | [optional] 
+**Dynamic** | Pointer to **bool** | True if this is a dynamic category. Dynamic categories are populated with custom packages per-basket using the Add Dynamic Packages endpoint, and their packages can only be fetched by providing a &#x60;basketIdent&#x60;. | [optional] 
 
 ## Methods
 
@@ -109,16 +111,6 @@ SetSlug sets Slug field to given value.
 
 HasSlug returns a boolean if a field has been set.
 
-### SetSlugNil
-
-`func (o *Category) SetSlugNil(b bool)`
-
- SetSlugNil sets the value for Slug to be an explicit nil
-
-### UnsetSlug
-`func (o *Category) UnsetSlug()`
-
-UnsetSlug ensures that no value is present for Slug, not even an explicit nil
 ### GetParent
 
 `func (o *Category) GetParent() map[string]interface{}`
@@ -144,16 +136,6 @@ SetParent sets Parent field to given value.
 
 HasParent returns a boolean if a field has been set.
 
-### SetParentNil
-
-`func (o *Category) SetParentNil(b bool)`
-
- SetParentNil sets the value for Parent to be an explicit nil
-
-### UnsetParent
-`func (o *Category) UnsetParent()`
-
-UnsetParent ensures that no value is present for Parent, not even an explicit nil
 ### GetTiered
 
 `func (o *Category) GetTiered() bool`
@@ -254,16 +236,6 @@ SetPackages sets Packages field to given value.
 
 HasPackages returns a boolean if a field has been set.
 
-### SetPackagesNil
-
-`func (o *Category) SetPackagesNil(b bool)`
-
- SetPackagesNil sets the value for Packages to be an explicit nil
-
-### UnsetPackages
-`func (o *Category) UnsetPackages()`
-
-UnsetPackages ensures that no value is present for Packages, not even an explicit nil
 ### GetOrder
 
 `func (o *Category) GetOrder() int32`
@@ -313,6 +285,56 @@ SetDisplayType sets DisplayType field to given value.
 `func (o *Category) HasDisplayType() bool`
 
 HasDisplayType returns a boolean if a field has been set.
+
+### GetImageUrl
+
+`func (o *Category) GetImageUrl() string`
+
+GetImageUrl returns the ImageUrl field if non-nil, zero value otherwise.
+
+### GetImageUrlOk
+
+`func (o *Category) GetImageUrlOk() (*string, bool)`
+
+GetImageUrlOk returns a tuple with the ImageUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImageUrl
+
+`func (o *Category) SetImageUrl(v string)`
+
+SetImageUrl sets ImageUrl field to given value.
+
+### HasImageUrl
+
+`func (o *Category) HasImageUrl() bool`
+
+HasImageUrl returns a boolean if a field has been set.
+
+### GetDynamic
+
+`func (o *Category) GetDynamic() bool`
+
+GetDynamic returns the Dynamic field if non-nil, zero value otherwise.
+
+### GetDynamicOk
+
+`func (o *Category) GetDynamicOk() (*bool, bool)`
+
+GetDynamicOk returns a tuple with the Dynamic field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDynamic
+
+`func (o *Category) SetDynamic(v bool)`
+
+SetDynamic sets Dynamic field to given value.
+
+### HasDynamic
+
+`func (o *Category) HasDynamic() bool`
+
+HasDynamic returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

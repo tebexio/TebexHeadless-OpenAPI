@@ -1,93 +1,45 @@
 # TebexHeadlessApi.HeadlessApi
 
-All URIs are relative to *https://headless.tebex.io/api*
+All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addBasketPackage**](HeadlessApi.md#addBasketPackage) | **POST** /baskets/{basketIdent}/packages | Add a package to a basket
-[**applyCoupon**](HeadlessApi.md#applyCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons | Apply a coupon to a basket.
-[**applyCreatorCode**](HeadlessApi.md#applyCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes | Apply a creator code to a basket.
-[**applyGiftCard**](HeadlessApi.md#applyGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards | Apply a gift card to a basket.
-[**createBasket**](HeadlessApi.md#createBasket) | **POST** /accounts/{token}/baskets | Create a new basket
-[**getAllCategories**](HeadlessApi.md#getAllCategories) | **GET** /accounts/{token}/categories | Gets all categories available in the webstore.
-[**getAllCategoriesIncludingPackages**](HeadlessApi.md#getAllCategoriesIncludingPackages) | **GET** /accounts/{token}/categories?includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
-[**getAllPackages**](HeadlessApi.md#getAllPackages) | **GET** /accounts/{token}/packages | Fetch all packages from a webstore
-[**getAllPackagesWithAuthedIP**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier
-[**getAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
-[**getAllPackagesWithBasket**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
-[**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket.
-[**getBasketById**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
-[**getCMSPages**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
-[**getCategoryById**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
-[**getCategoryIncludingPackages**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
-[**getPackageById**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
-[**getTieredCategoriesForUser**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
-[**getWebstoreById**](HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier
-[**removeBasketPackage**](HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
-[**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
-[**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
-[**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
-[**updatePackageQuantity**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-[**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package.
+[**applyCoupon**](HeadlessApi.md#applyCoupon) | **POST** /baskets/{basketIdent}/coupons | Apply a coupon
+[**applyCreatorCode**](HeadlessApi.md#applyCreatorCode) | **POST** /baskets/{basketIdent}/creator-codes | Apply a creator code
+[**applyGiftCard**](HeadlessApi.md#applyGiftCard) | **POST** /baskets/{basketIdent}/giftcards | Apply a gift card
+[**createBasket**](HeadlessApi.md#createBasket) | **POST** /baskets | Create a new basket
+[**createDynamicPackage**](HeadlessApi.md#createDynamicPackage) | **PUT** /baskets/{basketIdent}/dynamic-packages | Add packages to a dynamic category for a basket.
+[**getAllPackages**](HeadlessApi.md#getAllPackages) | **GET** /packages | Get all packages
+[**getAllPackagesWithAuthedIP**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /packages?ipAddress&#x3D;{ipAddress} | Get packages
+[**getAllPackagesWithAuthedIPAndBasket**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Get packages available for IP and basket
+[**getBasket**](HeadlessApi.md#getBasket) | **GET** /baskets/{basketIdent} | Get a basket
+[**getBasketAuthUrl**](HeadlessApi.md#getBasketAuthUrl) | **GET** /baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get auth links for basket
+[**getCategories**](HeadlessApi.md#getCategories) | **GET** /categories | Get all categories
+[**getCategoriesIncludePackages**](HeadlessApi.md#getCategoriesIncludePackages) | **GET** /categories?includePackages&#x3D;1 | Gets all categories and packages
+[**getCategory**](HeadlessApi.md#getCategory) | **GET** /categories/{categoryId} | Get specific category
+[**getCategoryIncludeDynamicPackages**](HeadlessApi.md#getCategoryIncludeDynamicPackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket.
+[**getCategoryIncludePackages**](HeadlessApi.md#getCategoryIncludePackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages
+[**getCustomPages**](HeadlessApi.md#getCustomPages) | **GET** /pages | Get custom pages defined for the webstore.
+[**getDynamicCategories**](HeadlessApi.md#getDynamicCategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories
+[**getPackage**](HeadlessApi.md#getPackage) | **GET** /packages/{packageId} | Get package
+[**getPackagesForBasket**](HeadlessApi.md#getPackagesForBasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket
+[**getSidebar**](HeadlessApi.md#getSidebar) | **GET** /sidebar | Retrieves the available sidebar modules.
+[**getUserTieredCategories**](HeadlessApi.md#getUserTieredCategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories
+[**getWebstore**](HeadlessApi.md#getWebstore) | **GET** / | Get the webstore&#39;s information
+[**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
+[**removeCreatorCode**](HeadlessApi.md#removeCreatorCode) | **POST** /baskets/{basketIdent}/creator-codes/remove | Removes the creator code from the basket.
+[**removeGiftCard**](HeadlessApi.md#removeGiftCard) | **POST** /baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
+[**updateTier**](HeadlessApi.md#updateTier) | **PATCH** /tiers/{tierId} | Update user&#39;s tier to a new package
 
-
-
-## addBasketPackage
-
-> Basket addBasketPackage(basketIdent, opts)
-
-Add a package to a basket
-
-Add a package with the given ID to the basket.
-
-### Example
-
-```javascript
-import TebexHeadlessApi from 'tebex_headless_api';
-
-let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-let opts = {
-  'addBasketPackageRequest': new TebexHeadlessApi.AddBasketPackageRequest() // AddBasketPackageRequest | 
-};
-apiInstance.addBasketPackage(basketIdent, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **basketIdent** | **String**| The basket identifier. | 
- **addBasketPackageRequest** | [**AddBasketPackageRequest**](AddBasketPackageRequest.md)|  | [optional] 
-
-### Return type
-
-[**Basket**](Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
 
 
 ## applyCoupon
 
-> BasketResponse applyCoupon(token, basketIdent, opts)
+> ApplyCoupon200Response applyCoupon(basketIdent, opts)
 
-Apply a coupon to a basket.
+Apply a coupon
 
-Applies a creator code to a basket.
+Applies a coupon to a basket.
 
 ### Example
 
@@ -95,12 +47,11 @@ Applies a creator code to a basket.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
 let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
 let opts = {
-  'coupon': new TebexHeadlessApi.Coupon() // Coupon | Provide a `coupon_code` to apply to the basket.
+  'applyCouponRequest': new TebexHeadlessApi.ApplyCouponRequest() // ApplyCouponRequest | Provide a `coupon_code` to apply to the basket.
 };
-apiInstance.applyCoupon(token, basketIdent, opts, (error, data, response) => {
+apiInstance.applyCoupon(basketIdent, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -114,13 +65,12 @@ apiInstance.applyCoupon(token, basketIdent, opts, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
  **basketIdent** | **String**| The basket identifier. | 
- **coupon** | [**Coupon**](Coupon.md)| Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional] 
+ **applyCouponRequest** | [**ApplyCouponRequest**](ApplyCouponRequest.md)| Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional] 
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyCoupon200Response**](ApplyCoupon200Response.md)
 
 ### Authorization
 
@@ -134,9 +84,9 @@ No authorization required
 
 ## applyCreatorCode
 
-> BasketResponse applyCreatorCode(token, basketIdent, opts)
+> ApplyCreatorCode200Response applyCreatorCode(basketIdent, opts)
 
-Apply a creator code to a basket.
+Apply a creator code
 
 Applies a creator code to a basket.
 
@@ -146,12 +96,11 @@ Applies a creator code to a basket.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
 let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
 let opts = {
   'applyCreatorCodeRequest': new TebexHeadlessApi.ApplyCreatorCodeRequest() // ApplyCreatorCodeRequest | Provide a `creator_code` to apply to the basket.
 };
-apiInstance.applyCreatorCode(token, basketIdent, opts, (error, data, response) => {
+apiInstance.applyCreatorCode(basketIdent, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -165,13 +114,12 @@ apiInstance.applyCreatorCode(token, basketIdent, opts, (error, data, response) =
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
  **basketIdent** | **String**| The basket identifier. | 
  **applyCreatorCodeRequest** | [**ApplyCreatorCodeRequest**](ApplyCreatorCodeRequest.md)| Provide a &#x60;creator_code&#x60; to apply to the basket. | [optional] 
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyCreatorCode200Response**](ApplyCreatorCode200Response.md)
 
 ### Authorization
 
@@ -185,11 +133,11 @@ No authorization required
 
 ## applyGiftCard
 
-> BasketResponse applyGiftCard(token, basketIdent, opts)
+> ApplyGiftCard200Response applyGiftCard(basketIdent, opts)
 
-Apply a gift card to a basket.
+Apply a gift card
 
-Applies a creator code to a basket.
+Applies a gift card to the basket.
 
 ### Example
 
@@ -197,12 +145,11 @@ Applies a creator code to a basket.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
 let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
 let opts = {
   'giftCard': new TebexHeadlessApi.GiftCard() // GiftCard | Provide a `card_number` to apply to the basket.
 };
-apiInstance.applyGiftCard(token, basketIdent, opts, (error, data, response) => {
+apiInstance.applyGiftCard(basketIdent, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -216,13 +163,12 @@ apiInstance.applyGiftCard(token, basketIdent, opts, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
  **basketIdent** | **String**| The basket identifier. | 
  **giftCard** | [**GiftCard**](GiftCard.md)| Provide a &#x60;card_number&#x60; to apply to the basket. | [optional] 
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyGiftCard200Response**](ApplyGiftCard200Response.md)
 
 ### Authorization
 
@@ -236,7 +182,7 @@ No authorization required
 
 ## createBasket
 
-> BasketResponse createBasket(token, opts)
+> BasketResponse createBasket(opts)
 
 Create a new basket
 
@@ -248,11 +194,10 @@ Creates a new basket for use during checkout.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
 let opts = {
   'createBasketRequest': new TebexHeadlessApi.CreateBasketRequest() // CreateBasketRequest | 
 };
-apiInstance.createBasket(token, opts, (error, data, response) => {
+apiInstance.createBasket(opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -266,7 +211,6 @@ apiInstance.createBasket(token, opts, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
  **createBasketRequest** | [**CreateBasketRequest**](CreateBasketRequest.md)|  | [optional] 
 
 ### Return type
@@ -283,13 +227,13 @@ No authorization required
 - **Accept**: application/json
 
 
-## getAllCategories
+## createDynamicPackage
 
-> CategoryResponse getAllCategories(token)
+> DynamicPackagesResponse createDynamicPackage(basketIdent, opts)
 
-Gets all categories available in the webstore.
+Add packages to a dynamic category for a basket.
 
-Gets all categories from a webstore. This does not include package information. To include package information, add &#x60;?includePackages&#x3D;1&#x60; to the URL.
+Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type &#x60;dynamic&#x60;, and are typically populated in response to a &#x60;basket.authenticated&#x60; webhook.  Once created, the packages can be fetched using the category endpoints with both &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; provided.
 
 ### Example
 
@@ -297,8 +241,11 @@ Gets all categories from a webstore. This does not include package information. 
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-apiInstance.getAllCategories(token, (error, data, response) => {
+let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
+let opts = {
+  'dynamicPackagesRequest': new TebexHeadlessApi.DynamicPackagesRequest() // DynamicPackagesRequest | 
+};
+apiInstance.createDynamicPackage(basketIdent, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -312,11 +259,12 @@ apiInstance.getAllCategories(token, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
+ **basketIdent** | **String**| The basket identifier. | 
+ **dynamicPackagesRequest** | [**DynamicPackagesRequest**](DynamicPackagesRequest.md)|  | [optional] 
 
 ### Return type
 
-[**CategoryResponse**](CategoryResponse.md)
+[**DynamicPackagesResponse**](DynamicPackagesResponse.md)
 
 ### Authorization
 
@@ -324,62 +272,17 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## getAllCategoriesIncludingPackages
-
-> CategoryResponse getAllCategoriesIncludingPackages(token)
-
-Gets a store&#39;s categories including all package information with them.
-
-Gets all categories from a webstore including packages.
-
-### Example
-
-```javascript
-import TebexHeadlessApi from 'tebex_headless_api';
-
-let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-apiInstance.getAllCategoriesIncludingPackages(token, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
-
-### Return type
-
-[**CategoryResponse**](CategoryResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## getAllPackages
 
-> PackageResponse getAllPackages(token)
+> PackageResponse getAllPackages()
 
-Fetch all packages from a webstore
+Get all packages
 
-Gets all packages from a webstore.
+Gets all packages from a webstore.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; to fetch dynamic packages.
 
 ### Example
 
@@ -387,8 +290,7 @@ Gets all packages from a webstore.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-apiInstance.getAllPackages(token, (error, data, response) => {
+apiInstance.getAllPackages((error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -399,10 +301,7 @@ apiInstance.getAllPackages(token, (error, data, response) => {
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -420,9 +319,9 @@ No authorization required
 
 ## getAllPackagesWithAuthedIP
 
-> PackageResponse getAllPackagesWithAuthedIP(token, ipAddress)
+> PackageResponse getAllPackagesWithAuthedIP(ipAddress)
 
-Fetch a package from a webstore by its identifier
+Get packages
 
 Gets all packages from a webstore.
 
@@ -430,11 +329,15 @@ Gets all packages from a webstore.
 
 ```javascript
 import TebexHeadlessApi from 'tebex_headless_api';
+let defaultClient = TebexHeadlessApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-let ipAddress = "127.0.0.1"; // String | An IP address can be provided with authenticated requests.
-apiInstance.getAllPackagesWithAuthedIP(token, ipAddress, (error, data, response) => {
+let ipAddress = "127.0.0.1"; // String | An IP address can be provided with authenticated requests
+apiInstance.getAllPackagesWithAuthedIP(ipAddress, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -448,8 +351,7 @@ apiInstance.getAllPackagesWithAuthedIP(token, ipAddress, (error, data, response)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
- **ipAddress** | **String**| An IP address can be provided with authenticated requests. | 
+ **ipAddress** | **String**| An IP address can be provided with authenticated requests | 
 
 ### Return type
 
@@ -457,7 +359,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -467,9 +369,9 @@ No authorization required
 
 ## getAllPackagesWithAuthedIPAndBasket
 
-> PackageResponse getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress)
+> PackageResponse getAllPackagesWithAuthedIPAndBasket(basketIdent, ipAddress)
 
-Fetch a package from a webstore by its identifier
+Get packages available for IP and basket
 
 Gets all packages from a webstore.
 
@@ -477,12 +379,16 @@ Gets all packages from a webstore.
 
 ```javascript
 import TebexHeadlessApi from 'tebex_headless_api';
+let defaultClient = TebexHeadlessApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
 let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
 let ipAddress = "127.0.0.1"; // String | An IP address can be provided with authenticated requests.
-apiInstance.getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress, (error, data, response) => {
+apiInstance.getAllPackagesWithAuthedIPAndBasket(basketIdent, ipAddress, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -496,7 +402,6 @@ apiInstance.getAllPackagesWithAuthedIPAndBasket(token, basketIdent, ipAddress, (
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
  **basketIdent** | **String**| The basket identifier. | 
  **ipAddress** | **String**| An IP address can be provided with authenticated requests. | 
 
@@ -506,7 +411,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -514,13 +419,13 @@ No authorization required
 - **Accept**: application/json
 
 
-## getAllPackagesWithBasket
+## getBasket
 
-> PackageResponse getAllPackagesWithBasket(token, basketIdent)
+> BasketResponse getBasket(basketIdent)
 
-Fetch a package from a webstore by its identifier
+Get a basket
 
-Gets all packages from a webstore.
+Gets a basket associated with the provided identifier.
 
 ### Example
 
@@ -528,9 +433,8 @@ Gets all packages from a webstore.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
 let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-apiInstance.getAllPackagesWithBasket(token, basketIdent, (error, data, response) => {
+apiInstance.getBasket(basketIdent, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -544,12 +448,11 @@ apiInstance.getAllPackagesWithBasket(token, basketIdent, (error, data, response)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
  **basketIdent** | **String**| The basket identifier. | 
 
 ### Return type
 
-[**PackageResponse**](PackageResponse.md)
+[**BasketResponse**](BasketResponse.md)
 
 ### Authorization
 
@@ -563,11 +466,11 @@ No authorization required
 
 ## getBasketAuthUrl
 
-> [BasketAuthResponseInner] getBasketAuthUrl(token, basketIdent, returnUrl)
+> [BasketAuthResponseInner] getBasketAuthUrl(basketIdent, returnUrl)
 
-Get authentication links for a basket.
+Get auth links for basket
 
-Fetches a basket&#39;s auth URL.
+Fetches a basket&#39;s auth URL. The player should be directed here in order for them to authorize their account. When complete, they will be returned to the provided &#x60;returnUrl&#x60; and the basket will be authorized from that moment onwards.
 
 ### Example
 
@@ -575,10 +478,9 @@ Fetches a basket&#39;s auth URL.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
 let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
 let returnUrl = "https://example.tebex.io/"; // String | The URL you would like to redirect the user to after successful basket authentication.
-apiInstance.getBasketAuthUrl(token, basketIdent, returnUrl, (error, data, response) => {
+apiInstance.getBasketAuthUrl(basketIdent, returnUrl, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -592,7 +494,6 @@ apiInstance.getBasketAuthUrl(token, basketIdent, returnUrl, (error, data, respon
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
  **basketIdent** | **String**| The basket identifier. | 
  **returnUrl** | **String**| The URL you would like to redirect the user to after successful basket authentication. | 
 
@@ -610,13 +511,13 @@ No authorization required
 - **Accept**: application/json
 
 
-## getBasketById
+## getCategories
 
-> BasketResponse getBasketById(token, basketIdent)
+> CategoryResponse getCategories()
 
-Fetch a basket from a webstore by its identifier
+Get all categories
 
-Gets a basket associated with the provided identifier.
+Gets all categories from a webstore. This does not include package information. To include package information, add &#x60;?includePackages&#x3D;1&#x60; to the URL.
 
 ### Example
 
@@ -624,9 +525,7 @@ Gets a basket associated with the provided identifier.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-apiInstance.getBasketById(token, basketIdent, (error, data, response) => {
+apiInstance.getCategories((error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -637,15 +536,11 @@ apiInstance.getBasketById(token, basketIdent, (error, data, response) => {
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
- **basketIdent** | **String**| The basket identifier. | 
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**CategoryResponse**](CategoryResponse.md)
 
 ### Authorization
 
@@ -657,13 +552,13 @@ No authorization required
 - **Accept**: application/json
 
 
-## getCMSPages
+## getCategoriesIncludePackages
 
-> CMSPagesResponse getCMSPages(token)
+> CategoryResponse getCategoriesIncludePackages()
 
-Fetch the custom pages associated with the store.
+Gets all categories and packages
 
-Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+Gets all categories from a webstore including packages.
 
 ### Example
 
@@ -671,8 +566,49 @@ Gets a list of custom pages associated with the webstore. These contain a &#x60;
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "some-uuid"; // String | The webstore identifier.
-apiInstance.getCMSPages(token, (error, data, response) => {
+apiInstance.getCategoriesIncludePackages((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## getCategory
+
+> SingleCategoryResponse getCategory(categoryId)
+
+Get specific category
+
+Gets information about a category and returns the packages in that category.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+let categoryId = "127244343"; // String | The ID or slug of the category to fetch.
+apiInstance.getCategory(categoryId, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -686,7 +622,140 @@ apiInstance.getCMSPages(token, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
+ **categoryId** | **String**| The ID or slug of the category to fetch. | 
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## getCategoryIncludeDynamicPackages
+
+> SingleCategoryResponse getCategoryIncludeDynamicPackages(categoryId, basketIdent)
+
+Gets a specific category including packages, populating a dynamic category for the given basket.
+
+Gets information about a category and returns the packages in that category. When the category is dynamic and &#x60;basketIdent&#x60; is provided, the category is populated with the packages associated with that basket.  If a basket identifier is not provided, a dynamic category will be empty as the basket is required to relate packages to the category.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+let categoryId = "1234"; // String | The ID or slug of the category to fetch.
+let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
+apiInstance.getCategoryIncludeDynamicPackages(categoryId, basketIdent, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **categoryId** | **String**| The ID or slug of the category to fetch. | 
+ **basketIdent** | **String**| The basket identifier. | 
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## getCategoryIncludePackages
+
+> SingleCategoryResponse getCategoryIncludePackages(categoryId)
+
+Get a category with all packages
+
+Gets information about a category and returns the packages in that category.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+let categoryId = "127244343"; // String | The ID or slug of the category to fetch.
+apiInstance.getCategoryIncludePackages(categoryId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **categoryId** | **String**| The ID or slug of the category to fetch. | 
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## getCustomPages
+
+> CMSPagesResponse getCustomPages()
+
+Get custom pages defined for the webstore.
+
+Gets a list of custom pages associated with the webstore. These contain a &#x60;content&#x60; variable with the HTML content of the page.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+apiInstance.getCustomPages((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -702,13 +771,13 @@ No authorization required
 - **Accept**: application/json
 
 
-## getCategoryById
+## getDynamicCategories
 
-> CategoryResponse getCategoryById(token, categoryId)
+> CategoryResponse getDynamicCategories(basketIdent)
 
-Gets information about a specific category
+Get Dynamic Categories
 
-Gets information about a category and returns the packages in that category.
+Gets all categories from a webstore including packages. When &#x60;basketIdent&#x60; is provided, dynamic categories are populated with the packages associated with that basket.  If a basket identifier is not provided, dynamic categories will be empty as the basket is required to relate packages to the category.
 
 ### Example
 
@@ -716,9 +785,8 @@ Gets information about a category and returns the packages in that category.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-let categoryId = "127244343"; // String | The ID of the category to fetch.
-apiInstance.getCategoryById(token, categoryId, (error, data, response) => {
+let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
+apiInstance.getDynamicCategories(basketIdent, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -732,8 +800,7 @@ apiInstance.getCategoryById(token, categoryId, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
- **categoryId** | **String**| The ID of the category to fetch. | 
+ **basketIdent** | **String**| The basket identifier. | 
 
 ### Return type
 
@@ -749,13 +816,13 @@ No authorization required
 - **Accept**: application/json
 
 
-## getCategoryIncludingPackages
+## getPackage
 
-> CategoryResponse getCategoryIncludingPackages(token, categoryId)
+> SinglePackageResponse getPackage(packageId)
 
-Gets information about a specific category, including all the packages in the category
+Get package
 
-Gets information about a category and returns the packages in that category.
+Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; to fetch dynamic packages.
 
 ### Example
 
@@ -763,9 +830,8 @@ Gets information about a category and returns the packages in that category.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-let categoryId = "127244343"; // String | The ID of the category to fetch.
-apiInstance.getCategoryIncludingPackages(token, categoryId, (error, data, response) => {
+let packageId = "1272441812"; // String | The package's ID or slug.
+apiInstance.getPackage(packageId, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -779,12 +845,11 @@ apiInstance.getCategoryIncludingPackages(token, categoryId, (error, data, respon
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
- **categoryId** | **String**| The ID of the category to fetch. | 
+ **packageId** | **String**| The package&#39;s ID or slug. | 
 
 ### Return type
 
-[**CategoryResponse**](CategoryResponse.md)
+[**SinglePackageResponse**](SinglePackageResponse.md)
 
 ### Authorization
 
@@ -796,13 +861,13 @@ No authorization required
 - **Accept**: application/json
 
 
-## getPackageById
+## getPackagesForBasket
 
-> PackageResponse getPackageById(token, packageId)
+> PackageResponse getPackagesForBasket(basketIdent)
 
-Fetch a package from a webstore by its identifier
+Get packages available for basket
 
-Gets a package from a webstore by ID.
+Gets all packages available to the provided basket.
 
 ### Example
 
@@ -810,9 +875,8 @@ Gets a package from a webstore by ID.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-let packageId = 1272441812; // Number | The package's ID.
-apiInstance.getPackageById(token, packageId, (error, data, response) => {
+let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
+apiInstance.getPackagesForBasket(basketIdent, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -826,8 +890,7 @@ apiInstance.getPackageById(token, packageId, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
- **packageId** | **Number**| The package&#39;s ID. | 
+ **basketIdent** | **String**| The basket identifier. | 
 
 ### Return type
 
@@ -843,28 +906,22 @@ No authorization required
 - **Accept**: application/json
 
 
-## getTieredCategoriesForUser
+## getSidebar
 
-> CategoryResponse getTieredCategoriesForUser(token, usernameId)
+> ModulesResponse getSidebar(token)
 
-Gets a store&#39;s categories including all package information with them.
+Retrieves the available sidebar modules.
 
-Gets all categories from the webstore, returning active tier information for the given player.
+Retrieves the available sidebar modules configured for the store.
 
 ### Example
 
 ```javascript
 import TebexHeadlessApi from 'tebex_headless_api';
-let defaultClient = TebexHeadlessApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
-let usernameId = 76561198042467022; // Number | 
-apiInstance.getTieredCategoriesForUser(token, usernameId, (error, data, response) => {
+let token = "some-uuid"; // String | The webstore identifier.
+apiInstance.getSidebar(token, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -879,6 +936,55 @@ apiInstance.getTieredCategoriesForUser(token, usernameId, (error, data, response
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **String**| The webstore identifier. | 
+
+### Return type
+
+[**ModulesResponse**](ModulesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## getUserTieredCategories
+
+> CategoryResponse getUserTieredCategories(usernameId)
+
+Get user&#39;s tiered categories
+
+Gets all categories from the webstore, returning active tier information for the given player.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+let defaultClient = TebexHeadlessApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+let usernameId = 76561198042467022; // Number | 
+apiInstance.getUserTieredCategories(usernameId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **usernameId** | **Number**|  | 
 
 ### Return type
@@ -895,13 +1001,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## getWebstoreById
+## getWebstore
 
-> WebstoreResponse getWebstoreById(token)
+> WebstoreResponse getWebstore()
 
-Fetch a webstore by its identifier
+Get the webstore&#39;s information
 
-Gets the webstore associated with the provided identifier.
+Gets the webstore associated with the provided token
 
 ### Example
 
@@ -909,8 +1015,7 @@ Gets the webstore associated with the provided identifier.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "some-uuid"; // String | The webstore identifier.
-apiInstance.getWebstoreById(token, (error, data, response) => {
+apiInstance.getWebstore((error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -921,10 +1026,7 @@ apiInstance.getWebstoreById(token, (error, data, response) => {
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -940,58 +1042,9 @@ No authorization required
 - **Accept**: application/json
 
 
-## removeBasketPackage
-
-> Basket removeBasketPackage(basketIdent, opts)
-
-Remove a package from a basket
-
-Remove the given package ID from the basket.
-
-### Example
-
-```javascript
-import TebexHeadlessApi from 'tebex_headless_api';
-
-let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-let opts = {
-  'removeBasketPackageRequest': new TebexHeadlessApi.RemoveBasketPackageRequest() // RemoveBasketPackageRequest | 
-};
-apiInstance.removeBasketPackage(basketIdent, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **basketIdent** | **String**| The basket identifier. | 
- **removeBasketPackageRequest** | [**RemoveBasketPackageRequest**](RemoveBasketPackageRequest.md)|  | [optional] 
-
-### Return type
-
-[**Basket**](Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
 ## removeCoupon
 
-> removeCoupon(token, basketIdent)
+> removeCoupon(basketIdent, opts)
 
 Remove a coupon from the basket.
 
@@ -1003,9 +1056,11 @@ Removes a coupon code from a basket
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
 let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-apiInstance.removeCoupon(token, basketIdent, (error, data, response) => {
+let opts = {
+  'applyCouponRequest': new TebexHeadlessApi.ApplyCouponRequest() // ApplyCouponRequest | Provide a `coupon_code` to remove from the basket.
+};
+apiInstance.removeCoupon(basketIdent, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -1019,8 +1074,8 @@ apiInstance.removeCoupon(token, basketIdent, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
  **basketIdent** | **String**| The basket identifier. | 
+ **applyCouponRequest** | [**ApplyCouponRequest**](ApplyCouponRequest.md)| Provide a &#x60;coupon_code&#x60; to remove from the basket. | [optional] 
 
 ### Return type
 
@@ -1032,17 +1087,17 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: Not defined
 
 
 ## removeCreatorCode
 
-> removeCreatorCode(token, basketIdent)
+> removeCreatorCode(basketIdent)
 
-Remove a creator code from the basket.
+Removes the creator code from the basket.
 
-Applies a creator code to a basket.
+Removes the creator code from the basket.
 
 ### Example
 
@@ -1050,9 +1105,8 @@ Applies a creator code to a basket.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
 let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-apiInstance.removeCreatorCode(token, basketIdent, (error, data, response) => {
+apiInstance.removeCreatorCode(basketIdent, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -1066,7 +1120,6 @@ apiInstance.removeCreatorCode(token, basketIdent, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
  **basketIdent** | **String**| The basket identifier. | 
 
 ### Return type
@@ -1085,7 +1138,7 @@ No authorization required
 
 ## removeGiftCard
 
-> removeGiftCard(token, basketIdent, opts)
+> removeGiftCard(basketIdent, opts)
 
 Remove a gift card from the basket.
 
@@ -1097,12 +1150,11 @@ Removes a gift card from the basket.
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb"; // String | The webstore identifier.
 let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
 let opts = {
   'removeGiftCardRequest': new TebexHeadlessApi.RemoveGiftCardRequest() // RemoveGiftCardRequest | Provide the `card_number` to remove from the basket.
 };
-apiInstance.removeGiftCard(token, basketIdent, opts, (error, data, response) => {
+apiInstance.removeGiftCard(basketIdent, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -1116,7 +1168,6 @@ apiInstance.removeGiftCard(token, basketIdent, opts, (error, data, response) => 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
  **basketIdent** | **String**| The basket identifier. | 
  **removeGiftCardRequest** | [**RemoveGiftCardRequest**](RemoveGiftCardRequest.md)| Provide the &#x60;card_number&#x60; to remove from the basket. | [optional] 
 
@@ -1134,64 +1185,13 @@ No authorization required
 - **Accept**: Not defined
 
 
-## updatePackageQuantity
-
-> updatePackageQuantity(basketIdent, packageId, opts)
-
-Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-
-Sets the quantity of the given item in the basket.
-
-### Example
-
-```javascript
-import TebexHeadlessApi from 'tebex_headless_api';
-
-let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-let packageId = 6276316; // Number | The package identifier.
-let opts = {
-  'updatePackageQuantityRequest': new TebexHeadlessApi.UpdatePackageQuantityRequest() // UpdatePackageQuantityRequest | 
-};
-apiInstance.updatePackageQuantity(basketIdent, packageId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **basketIdent** | **String**| The basket identifier. | 
- **packageId** | **Number**| The package identifier. | 
- **updatePackageQuantityRequest** | [**UpdatePackageQuantityRequest**](UpdatePackageQuantityRequest.md)|  | [optional] 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-
 ## updateTier
 
-> UpdateTierResponse updateTier(token, tierId, opts)
+> UpdateTierResponse updateTier(tierId, opts)
 
-Updates the given teir to the provided package.
+Update user&#39;s tier to a new package
 
-Updates a tier to a new package.
+Updates a tier to a new package. A recurring payment updated webhook is sent when an update is successful.
 
 ### Example
 
@@ -1204,12 +1204,11 @@ basicAuth.username = 'YOUR USERNAME';
 basicAuth.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let token = "some-uuid"; // String | The webstore identifier.
 let tierId = 6276316; // Number | The tier identifier
 let opts = {
   'updateTierRequest': new TebexHeadlessApi.UpdateTierRequest() // UpdateTierRequest | 
 };
-apiInstance.updateTier(token, tierId, opts, (error, data, response) => {
+apiInstance.updateTier(tierId, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -1223,7 +1222,6 @@ apiInstance.updateTier(token, tierId, opts, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **String**| The webstore identifier. | 
  **tierId** | **Number**| The tier identifier | 
  **updateTierRequest** | [**UpdateTierRequest**](UpdateTierRequest.md)|  | [optional] 
 

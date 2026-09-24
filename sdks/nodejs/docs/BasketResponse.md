@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**Basket**](.md) |  | [optional] 
+**data** | [**Basket**](Basket.md) |  | [optional] 
 
 

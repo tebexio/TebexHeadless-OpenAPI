@@ -1,114 +1,43 @@
 # TebexHeadless\HeadlessAPI
 
-All URIs are relative to *https://headless.tebex.io/api*
+All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddBasketPackage**](HeadlessAPI.md#AddBasketPackage) | **Post** /baskets/{basketIdent}/packages | Add a package to a basket
-[**ApplyCoupon**](HeadlessAPI.md#ApplyCoupon) | **Post** /accounts/{token}/baskets/{basketIdent}/coupons | Apply a coupon to a basket.
-[**ApplyCreatorCode**](HeadlessAPI.md#ApplyCreatorCode) | **Post** /accounts/{token}/baskets/{basketIdent}/creator-codes | Apply a creator code to a basket.
-[**ApplyGiftCard**](HeadlessAPI.md#ApplyGiftCard) | **Post** /accounts/{token}/baskets/{basketIdent}/giftcards | Apply a gift card to a basket.
-[**CreateBasket**](HeadlessAPI.md#CreateBasket) | **Post** /accounts/{token}/baskets | Create a new basket
-[**GetAllCategories**](HeadlessAPI.md#GetAllCategories) | **Get** /accounts/{token}/categories | Gets all categories available in the webstore.
-[**GetAllCategoriesIncludingPackages**](HeadlessAPI.md#GetAllCategoriesIncludingPackages) | **Get** /accounts/{token}/categories?includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
-[**GetAllPackages**](HeadlessAPI.md#GetAllPackages) | **Get** /accounts/{token}/packages | Fetch all packages from a webstore
-[**GetAllPackagesWithAuthedIP**](HeadlessAPI.md#GetAllPackagesWithAuthedIP) | **Get** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier
-[**GetAllPackagesWithAuthedIPAndBasket**](HeadlessAPI.md#GetAllPackagesWithAuthedIPAndBasket) | **Get** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
-[**GetAllPackagesWithBasket**](HeadlessAPI.md#GetAllPackagesWithBasket) | **Get** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
-[**GetBasketAuthUrl**](HeadlessAPI.md#GetBasketAuthUrl) | **Get** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket.
-[**GetBasketById**](HeadlessAPI.md#GetBasketById) | **Get** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
-[**GetCMSPages**](HeadlessAPI.md#GetCMSPages) | **Get** /accounts/{token}/pages | Fetch the custom pages associated with the store.
-[**GetCategoryById**](HeadlessAPI.md#GetCategoryById) | **Get** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
-[**GetCategoryIncludingPackages**](HeadlessAPI.md#GetCategoryIncludingPackages) | **Get** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
-[**GetPackageById**](HeadlessAPI.md#GetPackageById) | **Get** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
-[**GetTieredCategoriesForUser**](HeadlessAPI.md#GetTieredCategoriesForUser) | **Get** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
-[**GetWebstoreById**](HeadlessAPI.md#GetWebstoreById) | **Get** /accounts/{token} | Fetch a webstore by its identifier
-[**RemoveBasketPackage**](HeadlessAPI.md#RemoveBasketPackage) | **Post** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
-[**RemoveCoupon**](HeadlessAPI.md#RemoveCoupon) | **Post** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
-[**RemoveCreatorCode**](HeadlessAPI.md#RemoveCreatorCode) | **Post** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
-[**RemoveGiftCard**](HeadlessAPI.md#RemoveGiftCard) | **Post** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
-[**UpdatePackageQuantity**](HeadlessAPI.md#UpdatePackageQuantity) | **Put** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-[**UpdateTier**](HeadlessAPI.md#UpdateTier) | **Patch** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package.
+[**ApplyCoupon**](HeadlessAPI.md#ApplyCoupon) | **Post** /baskets/{basketIdent}/coupons | Apply a coupon
+[**ApplyCreatorCode**](HeadlessAPI.md#ApplyCreatorCode) | **Post** /baskets/{basketIdent}/creator-codes | Apply a creator code
+[**ApplyGiftCard**](HeadlessAPI.md#ApplyGiftCard) | **Post** /baskets/{basketIdent}/giftcards | Apply a gift card
+[**CreateBasket**](HeadlessAPI.md#CreateBasket) | **Post** /baskets | Create a new basket
+[**CreateDynamicPackage**](HeadlessAPI.md#CreateDynamicPackage) | **Put** /baskets/{basketIdent}/dynamic-packages | Add packages to a dynamic category for a basket.
+[**GetAllPackages**](HeadlessAPI.md#GetAllPackages) | **Get** /packages | Get all packages
+[**GetAllPackagesWithAuthedIP**](HeadlessAPI.md#GetAllPackagesWithAuthedIP) | **Get** /packages?ipAddress&#x3D;{ipAddress} | Get packages
+[**GetAllPackagesWithAuthedIPAndBasket**](HeadlessAPI.md#GetAllPackagesWithAuthedIPAndBasket) | **Get** /packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Get packages available for IP and basket
+[**GetBasket**](HeadlessAPI.md#GetBasket) | **Get** /baskets/{basketIdent} | Get a basket
+[**GetBasketAuthUrl**](HeadlessAPI.md#GetBasketAuthUrl) | **Get** /baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get auth links for basket
+[**GetCategories**](HeadlessAPI.md#GetCategories) | **Get** /categories | Get all categories
+[**GetCategoriesIncludePackages**](HeadlessAPI.md#GetCategoriesIncludePackages) | **Get** /categories?includePackages&#x3D;1 | Gets all categories and packages
+[**GetCategory**](HeadlessAPI.md#GetCategory) | **Get** /categories/{categoryId} | Get specific category
+[**GetCategoryIncludeDynamicPackages**](HeadlessAPI.md#GetCategoryIncludeDynamicPackages) | **Get** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket.
+[**GetCategoryIncludePackages**](HeadlessAPI.md#GetCategoryIncludePackages) | **Get** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages
+[**GetCustomPages**](HeadlessAPI.md#GetCustomPages) | **Get** /pages | Get custom pages defined for the webstore.
+[**GetDynamicCategories**](HeadlessAPI.md#GetDynamicCategories) | **Get** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories
+[**GetPackage**](HeadlessAPI.md#GetPackage) | **Get** /packages/{packageId} | Get package
+[**GetPackagesForBasket**](HeadlessAPI.md#GetPackagesForBasket) | **Get** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket
+[**GetSidebar**](HeadlessAPI.md#GetSidebar) | **Get** /sidebar | Retrieves the available sidebar modules.
+[**GetUserTieredCategories**](HeadlessAPI.md#GetUserTieredCategories) | **Get** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories
+[**GetWebstore**](HeadlessAPI.md#GetWebstore) | **Get** / | Get the webstore&#39;s information
+[**RemoveCoupon**](HeadlessAPI.md#RemoveCoupon) | **Post** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
+[**RemoveCreatorCode**](HeadlessAPI.md#RemoveCreatorCode) | **Post** /baskets/{basketIdent}/creator-codes/remove | Removes the creator code from the basket.
+[**RemoveGiftCard**](HeadlessAPI.md#RemoveGiftCard) | **Post** /baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
+[**UpdateTier**](HeadlessAPI.md#UpdateTier) | **Patch** /tiers/{tierId} | Update user&#39;s tier to a new package
 
-
-
-## AddBasketPackage
-
-> Basket AddBasketPackage(ctx, basketIdent).AddBasketPackageRequest(addBasketPackageRequest).Execute()
-
-Add a package to a basket
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
-)
-
-func main() {
-	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
-	addBasketPackageRequest := *openapiclient.NewAddBasketPackageRequest() // AddBasketPackageRequest |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.AddBasketPackage(context.Background(), basketIdent).AddBasketPackageRequest(addBasketPackageRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.AddBasketPackage``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AddBasketPackage`: Basket
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.AddBasketPackage`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**basketIdent** | **string** | The basket identifier. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAddBasketPackageRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **addBasketPackageRequest** | [**AddBasketPackageRequest**](AddBasketPackageRequest.md) |  | 
-
-### Return type
-
-[**Basket**](Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## ApplyCoupon
 
-> BasketResponse ApplyCoupon(ctx, token, basketIdent).Coupon(coupon).Execute()
+> ApplyCoupon200Response ApplyCoupon(ctx, basketIdent).ApplyCouponRequest(applyCouponRequest).Execute()
 
-Apply a coupon to a basket.
+Apply a coupon
 
 
 
@@ -125,18 +54,17 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
-	coupon := *openapiclient.NewCoupon() // Coupon | Provide a `coupon_code` to apply to the basket. (optional)
+	applyCouponRequest := *openapiclient.NewApplyCouponRequest() // ApplyCouponRequest | Provide a `coupon_code` to apply to the basket. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.ApplyCoupon(context.Background(), token, basketIdent).Coupon(coupon).Execute()
+	resp, r, err := apiClient.HeadlessAPI.ApplyCoupon(context.Background(), basketIdent).ApplyCouponRequest(applyCouponRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.ApplyCoupon``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ApplyCoupon`: BasketResponse
+	// response from `ApplyCoupon`: ApplyCoupon200Response
 	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.ApplyCoupon`: %v\n", resp)
 }
 ```
@@ -147,7 +75,6 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
 **basketIdent** | **string** | The basket identifier. | 
 
 ### Other Parameters
@@ -158,12 +85,11 @@ Other parameters are passed through a pointer to a apiApplyCouponRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
- **coupon** | [**Coupon**](Coupon.md) | Provide a &#x60;coupon_code&#x60; to apply to the basket. | 
+ **applyCouponRequest** | [**ApplyCouponRequest**](ApplyCouponRequest.md) | Provide a &#x60;coupon_code&#x60; to apply to the basket. | 
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyCoupon200Response**](ApplyCoupon200Response.md)
 
 ### Authorization
 
@@ -181,9 +107,9 @@ No authorization required
 
 ## ApplyCreatorCode
 
-> BasketResponse ApplyCreatorCode(ctx, token, basketIdent).ApplyCreatorCodeRequest(applyCreatorCodeRequest).Execute()
+> ApplyCreatorCode200Response ApplyCreatorCode(ctx, basketIdent).ApplyCreatorCodeRequest(applyCreatorCodeRequest).Execute()
 
-Apply a creator code to a basket.
+Apply a creator code
 
 
 
@@ -200,18 +126,17 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
 	applyCreatorCodeRequest := *openapiclient.NewApplyCreatorCodeRequest() // ApplyCreatorCodeRequest | Provide a `creator_code` to apply to the basket. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.ApplyCreatorCode(context.Background(), token, basketIdent).ApplyCreatorCodeRequest(applyCreatorCodeRequest).Execute()
+	resp, r, err := apiClient.HeadlessAPI.ApplyCreatorCode(context.Background(), basketIdent).ApplyCreatorCodeRequest(applyCreatorCodeRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.ApplyCreatorCode``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ApplyCreatorCode`: BasketResponse
+	// response from `ApplyCreatorCode`: ApplyCreatorCode200Response
 	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.ApplyCreatorCode`: %v\n", resp)
 }
 ```
@@ -222,7 +147,6 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
 **basketIdent** | **string** | The basket identifier. | 
 
 ### Other Parameters
@@ -233,12 +157,11 @@ Other parameters are passed through a pointer to a apiApplyCreatorCodeRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
  **applyCreatorCodeRequest** | [**ApplyCreatorCodeRequest**](ApplyCreatorCodeRequest.md) | Provide a &#x60;creator_code&#x60; to apply to the basket. | 
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyCreatorCode200Response**](ApplyCreatorCode200Response.md)
 
 ### Authorization
 
@@ -256,9 +179,9 @@ No authorization required
 
 ## ApplyGiftCard
 
-> BasketResponse ApplyGiftCard(ctx, token, basketIdent).GiftCard(giftCard).Execute()
+> ApplyGiftCard200Response ApplyGiftCard(ctx, basketIdent).GiftCard(giftCard).Execute()
 
-Apply a gift card to a basket.
+Apply a gift card
 
 
 
@@ -275,18 +198,17 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
 	giftCard := *openapiclient.NewGiftCard() // GiftCard | Provide a `card_number` to apply to the basket. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.ApplyGiftCard(context.Background(), token, basketIdent).GiftCard(giftCard).Execute()
+	resp, r, err := apiClient.HeadlessAPI.ApplyGiftCard(context.Background(), basketIdent).GiftCard(giftCard).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.ApplyGiftCard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ApplyGiftCard`: BasketResponse
+	// response from `ApplyGiftCard`: ApplyGiftCard200Response
 	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.ApplyGiftCard`: %v\n", resp)
 }
 ```
@@ -297,7 +219,6 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
 **basketIdent** | **string** | The basket identifier. | 
 
 ### Other Parameters
@@ -308,12 +229,11 @@ Other parameters are passed through a pointer to a apiApplyGiftCardRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
  **giftCard** | [**GiftCard**](GiftCard.md) | Provide a &#x60;card_number&#x60; to apply to the basket. | 
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyGiftCard200Response**](ApplyGiftCard200Response.md)
 
 ### Authorization
 
@@ -331,7 +251,7 @@ No authorization required
 
 ## CreateBasket
 
-> BasketResponse CreateBasket(ctx, token).CreateBasketRequest(createBasketRequest).Execute()
+> BasketResponse CreateBasket(ctx).CreateBasketRequest(createBasketRequest).Execute()
 
 Create a new basket
 
@@ -350,12 +270,11 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
 	createBasketRequest := *openapiclient.NewCreateBasketRequest() // CreateBasketRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.CreateBasket(context.Background(), token).CreateBasketRequest(createBasketRequest).Execute()
+	resp, r, err := apiClient.HeadlessAPI.CreateBasket(context.Background()).CreateBasketRequest(createBasketRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.CreateBasket``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -368,10 +287,6 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
 
 ### Other Parameters
 
@@ -380,7 +295,6 @@ Other parameters are passed through a pointer to a apiCreateBasketRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **createBasketRequest** | [**CreateBasketRequest**](CreateBasketRequest.md) |  | 
 
 ### Return type
@@ -401,81 +315,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetAllCategories
+## CreateDynamicPackage
 
-> CategoryResponse GetAllCategories(ctx, token).Execute()
+> DynamicPackagesResponse CreateDynamicPackage(ctx, basketIdent).DynamicPackagesRequest(dynamicPackagesRequest).Execute()
 
-Gets all categories available in the webstore.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
-)
-
-func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetAllCategories(context.Background(), token).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetAllCategories``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetAllCategories`: CategoryResponse
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetAllCategories`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetAllCategoriesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**CategoryResponse**](CategoryResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetAllCategoriesIncludingPackages
-
-> CategoryResponse GetAllCategoriesIncludingPackages(ctx, token).Execute()
-
-Gets a store's categories including all package information with them.
+Add packages to a dynamic category for a basket.
 
 
 
@@ -492,17 +336,18 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
+	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
+	dynamicPackagesRequest := *openapiclient.NewDynamicPackagesRequest("TestUser", int32(1234), []openapiclient.DynamicPackageInput{*openapiclient.NewDynamicPackageInput("Package Name 1", float32(10.0), "package-name-1")}) // DynamicPackagesRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetAllCategoriesIncludingPackages(context.Background(), token).Execute()
+	resp, r, err := apiClient.HeadlessAPI.CreateDynamicPackage(context.Background(), basketIdent).DynamicPackagesRequest(dynamicPackagesRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetAllCategoriesIncludingPackages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.CreateDynamicPackage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAllCategoriesIncludingPackages`: CategoryResponse
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetAllCategoriesIncludingPackages`: %v\n", resp)
+	// response from `CreateDynamicPackage`: DynamicPackagesResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.CreateDynamicPackage`: %v\n", resp)
 }
 ```
 
@@ -512,20 +357,21 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
+**basketIdent** | **string** | The basket identifier. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAllCategoriesIncludingPackagesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateDynamicPackageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **dynamicPackagesRequest** | [**DynamicPackagesRequest**](DynamicPackagesRequest.md) |  | 
 
 ### Return type
 
-[**CategoryResponse**](CategoryResponse.md)
+[**DynamicPackagesResponse**](DynamicPackagesResponse.md)
 
 ### Authorization
 
@@ -533,7 +379,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -543,9 +389,9 @@ No authorization required
 
 ## GetAllPackages
 
-> PackageResponse GetAllPackages(ctx, token).Execute()
+> PackageResponse GetAllPackages(ctx).Execute()
 
-Fetch all packages from a webstore
+Get all packages
 
 
 
@@ -562,11 +408,10 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetAllPackages(context.Background(), token).Execute()
+	resp, r, err := apiClient.HeadlessAPI.GetAllPackages(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetAllPackages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -578,19 +423,11 @@ func main() {
 
 ### Path Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetAllPackagesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
 
 
 ### Return type
@@ -613,9 +450,9 @@ No authorization required
 
 ## GetAllPackagesWithAuthedIP
 
-> PackageResponse GetAllPackagesWithAuthedIP(ctx, token, ipAddress).Execute()
+> PackageResponse GetAllPackagesWithAuthedIP(ctx, ipAddress).Execute()
 
-Fetch a package from a webstore by its identifier
+Get packages
 
 
 
@@ -632,12 +469,11 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
-	ipAddress := "127.0.0.1" // string | An IP address can be provided with authenticated requests.
+	ipAddress := "127.0.0.1" // string | An IP address can be provided with authenticated requests
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetAllPackagesWithAuthedIP(context.Background(), token, ipAddress).Execute()
+	resp, r, err := apiClient.HeadlessAPI.GetAllPackagesWithAuthedIP(context.Background(), ipAddress).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetAllPackagesWithAuthedIP``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -653,8 +489,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
-**ipAddress** | **string** | An IP address can be provided with authenticated requests. | 
+**ipAddress** | **string** | An IP address can be provided with authenticated requests | 
 
 ### Other Parameters
 
@@ -665,14 +500,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
-
 ### Return type
 
 [**PackageResponse**](PackageResponse.md)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -686,9 +520,9 @@ No authorization required
 
 ## GetAllPackagesWithAuthedIPAndBasket
 
-> PackageResponse GetAllPackagesWithAuthedIPAndBasket(ctx, token, basketIdent, ipAddress).Execute()
+> PackageResponse GetAllPackagesWithAuthedIPAndBasket(ctx, basketIdent, ipAddress).Execute()
 
-Fetch a package from a webstore by its identifier
+Get packages available for IP and basket
 
 
 
@@ -705,13 +539,12 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
 	ipAddress := "127.0.0.1" // string | An IP address can be provided with authenticated requests.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetAllPackagesWithAuthedIPAndBasket(context.Background(), token, basketIdent, ipAddress).Execute()
+	resp, r, err := apiClient.HeadlessAPI.GetAllPackagesWithAuthedIPAndBasket(context.Background(), basketIdent, ipAddress).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetAllPackagesWithAuthedIPAndBasket``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -727,7 +560,6 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
 **basketIdent** | **string** | The basket identifier. | 
 **ipAddress** | **string** | An IP address can be provided with authenticated requests. | 
 
@@ -741,14 +573,13 @@ Name | Type | Description  | Notes
 
 
 
-
 ### Return type
 
 [**PackageResponse**](PackageResponse.md)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -760,11 +591,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetAllPackagesWithBasket
+## GetBasket
 
-> PackageResponse GetAllPackagesWithBasket(ctx, token, basketIdent).Execute()
+> BasketResponse GetBasket(ctx, basketIdent).Execute()
 
-Fetch a package from a webstore by its identifier
+Get a basket
 
 
 
@@ -781,18 +612,17 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetAllPackagesWithBasket(context.Background(), token, basketIdent).Execute()
+	resp, r, err := apiClient.HeadlessAPI.GetBasket(context.Background(), basketIdent).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetAllPackagesWithBasket``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetBasket``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAllPackagesWithBasket`: PackageResponse
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetAllPackagesWithBasket`: %v\n", resp)
+	// response from `GetBasket`: BasketResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetBasket`: %v\n", resp)
 }
 ```
 
@@ -802,22 +632,20 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
 **basketIdent** | **string** | The basket identifier. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAllPackagesWithBasketRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBasketRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
-
 ### Return type
 
-[**PackageResponse**](PackageResponse.md)
+[**BasketResponse**](BasketResponse.md)
 
 ### Authorization
 
@@ -835,9 +663,9 @@ No authorization required
 
 ## GetBasketAuthUrl
 
-> []BasketAuthResponseInner GetBasketAuthUrl(ctx, token, basketIdent, returnUrl).Execute()
+> []BasketAuthResponseInner GetBasketAuthUrl(ctx, basketIdent, returnUrl).Execute()
 
-Get authentication links for a basket.
+Get auth links for basket
 
 
 
@@ -854,13 +682,12 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
 	returnUrl := "https://example.tebex.io/" // string | The URL you would like to redirect the user to after successful basket authentication.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetBasketAuthUrl(context.Background(), token, basketIdent, returnUrl).Execute()
+	resp, r, err := apiClient.HeadlessAPI.GetBasketAuthUrl(context.Background(), basketIdent, returnUrl).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetBasketAuthUrl``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -876,7 +703,6 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
 **basketIdent** | **string** | The basket identifier. | 
 **returnUrl** | **string** | The URL you would like to redirect the user to after successful basket authentication. | 
 
@@ -887,7 +713,6 @@ Other parameters are passed through a pointer to a apiGetBasketAuthUrlRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
 
 
@@ -909,11 +734,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetBasketById
+## GetCategories
 
-> BasketResponse GetBasketById(ctx, token, basketIdent).Execute()
+> CategoryResponse GetCategories(ctx).Execute()
 
-Fetch a basket from a webstore by its identifier
+Get all categories
 
 
 
@@ -930,43 +755,31 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
-	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetBasketById(context.Background(), token, basketIdent).Execute()
+	resp, r, err := apiClient.HeadlessAPI.GetCategories(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetBasketById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCategories``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBasketById`: BasketResponse
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetBasketById`: %v\n", resp)
+	// response from `GetCategories`: CategoryResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCategories`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
-**basketIdent** | **string** | The basket identifier. | 
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetBasketByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+Other parameters are passed through a pointer to a apiGetCategoriesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**CategoryResponse**](CategoryResponse.md)
 
 ### Authorization
 
@@ -982,11 +795,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetCMSPages
+## GetCategoriesIncludePackages
 
-> CMSPagesResponse GetCMSPages(ctx, token).Execute()
+> CategoryResponse GetCategoriesIncludePackages(ctx).Execute()
 
-Fetch the custom pages associated with the store.
+Gets all categories and packages
 
 
 
@@ -1003,17 +816,78 @@ import (
 )
 
 func main() {
-	token := "some-uuid" // string | The webstore identifier.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetCMSPages(context.Background(), token).Execute()
+	resp, r, err := apiClient.HeadlessAPI.GetCategoriesIncludePackages(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCMSPages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCategoriesIncludePackages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCMSPages`: CMSPagesResponse
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCMSPages`: %v\n", resp)
+	// response from `GetCategoriesIncludePackages`: CategoryResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCategoriesIncludePackages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCategoriesIncludePackagesRequest struct via the builder pattern
+
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCategory
+
+> SingleCategoryResponse GetCategory(ctx, categoryId).Execute()
+
+Get specific category
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	categoryId := "127244343" // string | The ID or slug of the category to fetch.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetCategory(context.Background(), categoryId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCategory``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCategory`: SingleCategoryResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCategory`: %v\n", resp)
 }
 ```
 
@@ -1023,15 +897,219 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
+**categoryId** | **string** | The ID or slug of the category to fetch. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCMSPagesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCategoryRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCategoryIncludeDynamicPackages
+
+> SingleCategoryResponse GetCategoryIncludeDynamicPackages(ctx, categoryId, basketIdent).Execute()
+
+Gets a specific category including packages, populating a dynamic category for the given basket.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	categoryId := "1234" // string | The ID or slug of the category to fetch.
+	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetCategoryIncludeDynamicPackages(context.Background(), categoryId, basketIdent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCategoryIncludeDynamicPackages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCategoryIncludeDynamicPackages`: SingleCategoryResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCategoryIncludeDynamicPackages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**categoryId** | **string** | The ID or slug of the category to fetch. | 
+**basketIdent** | **string** | The basket identifier. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCategoryIncludeDynamicPackagesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCategoryIncludePackages
+
+> SingleCategoryResponse GetCategoryIncludePackages(ctx, categoryId).Execute()
+
+Get a category with all packages
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	categoryId := "127244343" // string | The ID or slug of the category to fetch.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetCategoryIncludePackages(context.Background(), categoryId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCategoryIncludePackages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCategoryIncludePackages`: SingleCategoryResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCategoryIncludePackages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**categoryId** | **string** | The ID or slug of the category to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCategoryIncludePackagesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCustomPages
+
+> CMSPagesResponse GetCustomPages(ctx).Execute()
+
+Get custom pages defined for the webstore.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetCustomPages(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCustomPages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCustomPages`: CMSPagesResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCustomPages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCustomPagesRequest struct via the builder pattern
 
 
 ### Return type
@@ -1052,11 +1130,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetCategoryById
+## GetDynamicCategories
 
-> CategoryResponse GetCategoryById(ctx, token, categoryId).Execute()
+> CategoryResponse GetDynamicCategories(ctx, basketIdent).Execute()
 
-Gets information about a specific category
+Get Dynamic Categories
 
 
 
@@ -1073,18 +1151,17 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
-	categoryId := "127244343" // string | The ID of the category to fetch.
+	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetCategoryById(context.Background(), token, categoryId).Execute()
+	resp, r, err := apiClient.HeadlessAPI.GetDynamicCategories(context.Background(), basketIdent).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCategoryById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetDynamicCategories``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCategoryById`: CategoryResponse
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCategoryById`: %v\n", resp)
+	// response from `GetDynamicCategories`: CategoryResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetDynamicCategories`: %v\n", resp)
 }
 ```
 
@@ -1094,17 +1171,15 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
-**categoryId** | **string** | The ID of the category to fetch. | 
+**basketIdent** | **string** | The basket identifier. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCategoryByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDynamicCategoriesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -1125,11 +1200,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetCategoryIncludingPackages
+## GetPackage
 
-> CategoryResponse GetCategoryIncludingPackages(ctx, token, categoryId).Execute()
+> SinglePackageResponse GetPackage(ctx, packageId).Execute()
 
-Gets information about a specific category, including all the packages in the category
+Get package
 
 
 
@@ -1146,18 +1221,17 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
-	categoryId := "127244343" // string | The ID of the category to fetch.
+	packageId := "1272441812" // string | The package's ID or slug.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetCategoryIncludingPackages(context.Background(), token, categoryId).Execute()
+	resp, r, err := apiClient.HeadlessAPI.GetPackage(context.Background(), packageId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCategoryIncludingPackages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetPackage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCategoryIncludingPackages`: CategoryResponse
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCategoryIncludingPackages`: %v\n", resp)
+	// response from `GetPackage`: SinglePackageResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetPackage`: %v\n", resp)
 }
 ```
 
@@ -1167,22 +1241,20 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
-**categoryId** | **string** | The ID of the category to fetch. | 
+**packageId** | **string** | The package&#39;s ID or slug. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCategoryIncludingPackagesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPackageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
-
 ### Return type
 
-[**CategoryResponse**](CategoryResponse.md)
+[**SinglePackageResponse**](SinglePackageResponse.md)
 
 ### Authorization
 
@@ -1198,11 +1270,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetPackageById
+## GetPackagesForBasket
 
-> PackageResponse GetPackageById(ctx, token, packageId).Execute()
+> PackageResponse GetPackagesForBasket(ctx, basketIdent).Execute()
 
-Fetch a package from a webstore by its identifier
+Get packages available for basket
 
 
 
@@ -1219,18 +1291,17 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
-	packageId := int32(1272441812) // int32 | The package's ID.
+	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetPackageById(context.Background(), token, packageId).Execute()
+	resp, r, err := apiClient.HeadlessAPI.GetPackagesForBasket(context.Background(), basketIdent).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetPackageById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetPackagesForBasket``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPackageById`: PackageResponse
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetPackageById`: %v\n", resp)
+	// response from `GetPackagesForBasket`: PackageResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetPackagesForBasket`: %v\n", resp)
 }
 ```
 
@@ -1240,17 +1311,15 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
-**packageId** | **int32** | The package&#39;s ID. | 
+**basketIdent** | **string** | The basket identifier. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetPackageByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPackagesForBasketRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -1271,84 +1340,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetTieredCategoriesForUser
+## GetSidebar
 
-> CategoryResponse GetTieredCategoriesForUser(ctx, token, usernameId).Execute()
+> ModulesResponse GetSidebar(ctx, token).Execute()
 
-Gets a store's categories including all package information with them.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
-)
-
-func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
-	usernameId := int32(76561198042467022) // int32 | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetTieredCategoriesForUser(context.Background(), token, usernameId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetTieredCategoriesForUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetTieredCategoriesForUser`: CategoryResponse
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetTieredCategoriesForUser`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
-**usernameId** | **int32** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetTieredCategoriesForUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**CategoryResponse**](CategoryResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetWebstoreById
-
-> WebstoreResponse GetWebstoreById(ctx, token).Execute()
-
-Fetch a webstore by its identifier
+Retrieves the available sidebar modules.
 
 
 
@@ -1369,13 +1365,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.GetWebstoreById(context.Background(), token).Execute()
+	resp, r, err := apiClient.HeadlessAPI.GetSidebar(context.Background(), token).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetWebstoreById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetSidebar``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWebstoreById`: WebstoreResponse
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetWebstoreById`: %v\n", resp)
+	// response from `GetSidebar`: ModulesResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetSidebar`: %v\n", resp)
 }
 ```
 
@@ -1389,11 +1385,142 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetWebstoreByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetSidebarRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ModulesResponse**](ModulesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetUserTieredCategories
+
+> CategoryResponse GetUserTieredCategories(ctx, usernameId).Execute()
+
+Get user's tiered categories
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	usernameId := int32(76561198042467022) // int32 | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetUserTieredCategories(context.Background(), usernameId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetUserTieredCategories``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserTieredCategories`: CategoryResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetUserTieredCategories`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**usernameId** | **int32** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetUserTieredCategoriesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetWebstore
+
+> WebstoreResponse GetWebstore(ctx).Execute()
+
+Get the webstore's information
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetWebstore(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetWebstore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWebstore`: WebstoreResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetWebstore`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetWebstoreRequest struct via the builder pattern
 
 
 ### Return type
@@ -1414,81 +1541,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## RemoveBasketPackage
-
-> Basket RemoveBasketPackage(ctx, basketIdent).RemoveBasketPackageRequest(removeBasketPackageRequest).Execute()
-
-Remove a package from a basket
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
-)
-
-func main() {
-	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
-	removeBasketPackageRequest := *openapiclient.NewRemoveBasketPackageRequest() // RemoveBasketPackageRequest |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.RemoveBasketPackage(context.Background(), basketIdent).RemoveBasketPackageRequest(removeBasketPackageRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.RemoveBasketPackage``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `RemoveBasketPackage`: Basket
-	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.RemoveBasketPackage`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**basketIdent** | **string** | The basket identifier. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRemoveBasketPackageRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **removeBasketPackageRequest** | [**RemoveBasketPackageRequest**](RemoveBasketPackageRequest.md) |  | 
-
-### Return type
-
-[**Basket**](Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## RemoveCoupon
 
-> RemoveCoupon(ctx, token, basketIdent).Execute()
+> RemoveCoupon(ctx, basketIdent).ApplyCouponRequest(applyCouponRequest).Execute()
 
 Remove a coupon from the basket.
 
@@ -1507,12 +1562,12 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
+	applyCouponRequest := *openapiclient.NewApplyCouponRequest() // ApplyCouponRequest | Provide a `coupon_code` to remove from the basket. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.HeadlessAPI.RemoveCoupon(context.Background(), token, basketIdent).Execute()
+	r, err := apiClient.HeadlessAPI.RemoveCoupon(context.Background(), basketIdent).ApplyCouponRequest(applyCouponRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.RemoveCoupon``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1526,7 +1581,6 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
 **basketIdent** | **string** | The basket identifier. | 
 
 ### Other Parameters
@@ -1537,7 +1591,7 @@ Other parameters are passed through a pointer to a apiRemoveCouponRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
+ **applyCouponRequest** | [**ApplyCouponRequest**](ApplyCouponRequest.md) | Provide a &#x60;coupon_code&#x60; to remove from the basket. | 
 
 ### Return type
 
@@ -1549,7 +1603,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -1559,9 +1613,9 @@ No authorization required
 
 ## RemoveCreatorCode
 
-> RemoveCreatorCode(ctx, token, basketIdent).Execute()
+> RemoveCreatorCode(ctx, basketIdent).Execute()
 
-Remove a creator code from the basket.
+Removes the creator code from the basket.
 
 
 
@@ -1578,12 +1632,11 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.HeadlessAPI.RemoveCreatorCode(context.Background(), token, basketIdent).Execute()
+	r, err := apiClient.HeadlessAPI.RemoveCreatorCode(context.Background(), basketIdent).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.RemoveCreatorCode``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1597,7 +1650,6 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
 **basketIdent** | **string** | The basket identifier. | 
 
 ### Other Parameters
@@ -1607,7 +1659,6 @@ Other parameters are passed through a pointer to a apiRemoveCreatorCodeRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -1630,7 +1681,7 @@ No authorization required
 
 ## RemoveGiftCard
 
-> RemoveGiftCard(ctx, token, basketIdent).RemoveGiftCardRequest(removeGiftCardRequest).Execute()
+> RemoveGiftCard(ctx, basketIdent).RemoveGiftCardRequest(removeGiftCardRequest).Execute()
 
 Remove a gift card from the basket.
 
@@ -1649,13 +1700,12 @@ import (
 )
 
 func main() {
-	token := "t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb" // string | The webstore identifier.
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
 	removeGiftCardRequest := *openapiclient.NewRemoveGiftCardRequest() // RemoveGiftCardRequest | Provide the `card_number` to remove from the basket. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.HeadlessAPI.RemoveGiftCard(context.Background(), token, basketIdent).RemoveGiftCardRequest(removeGiftCardRequest).Execute()
+	r, err := apiClient.HeadlessAPI.RemoveGiftCard(context.Background(), basketIdent).RemoveGiftCardRequest(removeGiftCardRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.RemoveGiftCard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1669,7 +1719,6 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
 **basketIdent** | **string** | The basket identifier. | 
 
 ### Other Parameters
@@ -1679,7 +1728,6 @@ Other parameters are passed through a pointer to a apiRemoveGiftCardRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
  **removeGiftCardRequest** | [**RemoveGiftCardRequest**](RemoveGiftCardRequest.md) | Provide the &#x60;card_number&#x60; to remove from the basket. | 
 
@@ -1701,84 +1749,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## UpdatePackageQuantity
-
-> UpdatePackageQuantity(ctx, basketIdent, packageId).UpdatePackageQuantityRequest(updatePackageQuantityRequest).Execute()
-
-Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
-)
-
-func main() {
-	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
-	packageId := int32(6276316) // int32 | The package identifier.
-	updatePackageQuantityRequest := *openapiclient.NewUpdatePackageQuantityRequest() // UpdatePackageQuantityRequest |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.HeadlessAPI.UpdatePackageQuantity(context.Background(), basketIdent, packageId).UpdatePackageQuantityRequest(updatePackageQuantityRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.UpdatePackageQuantity``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**basketIdent** | **string** | The basket identifier. | 
-**packageId** | **int32** | The package identifier. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdatePackageQuantityRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **updatePackageQuantityRequest** | [**UpdatePackageQuantityRequest**](UpdatePackageQuantityRequest.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## UpdateTier
 
-> UpdateTierResponse UpdateTier(ctx, token, tierId).UpdateTierRequest(updateTierRequest).Execute()
+> UpdateTierResponse UpdateTier(ctx, tierId).UpdateTierRequest(updateTierRequest).Execute()
 
-Updates the given teir to the provided package.
+Update user's tier to a new package
 
 
 
@@ -1795,13 +1770,12 @@ import (
 )
 
 func main() {
-	token := "some-uuid" // string | The webstore identifier.
 	tierId := int32(6276316) // int32 | The tier identifier
 	updateTierRequest := *openapiclient.NewUpdateTierRequest() // UpdateTierRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HeadlessAPI.UpdateTier(context.Background(), token, tierId).UpdateTierRequest(updateTierRequest).Execute()
+	resp, r, err := apiClient.HeadlessAPI.UpdateTier(context.Background(), tierId).UpdateTierRequest(updateTierRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.UpdateTier``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1817,7 +1791,6 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** | The webstore identifier. | 
 **tierId** | **int32** | The tier identifier | 
 
 ### Other Parameters
@@ -1827,7 +1800,6 @@ Other parameters are passed through a pointer to a apiUpdateTierRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
  **updateTierRequest** | [**UpdateTierRequest**](UpdateTierRequest.md) |  | 
 

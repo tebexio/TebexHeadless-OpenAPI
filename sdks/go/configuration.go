@@ -1,9 +1,9 @@
 /*
 Tebex Headless API
 
-The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
+The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 1.1.0
+API version: 2.0.1
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -94,11 +94,35 @@ func NewConfiguration() *Configuration {
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
-				URL: "https://headless.tebex.io/api",
-				Description: "No description provided",
+				URL: "https://headless.tebex.io/api/accounts/{token}",
+				Description: "Main API scoped to public token",
+				Variables: map[string]ServerVariable{
+					"token": ServerVariable{
+						Description: "The store's public token",
+						DefaultValue: "YOUR_PUBLIC_TOKEN",
+					},
+				},
 			},
 		},
 		OperationServers: map[string]ServerConfigurations{
+			"BasketsAPIService.AddBasketPackage": {
+				{
+					URL: "https://headless.tebex.io/api/baskets",
+					Description: "Basket-only API, account token not required",
+				},
+			},
+			"BasketsAPIService.RemoveBasketPackage": {
+				{
+					URL: "https://headless.tebex.io/api/baskets",
+					Description: "Basket-only API, account token not required",
+				},
+			},
+			"BasketsAPIService.UpdatePackageQuantity": {
+				{
+					URL: "https://headless.tebex.io/api/baskets",
+					Description: "Basket-only API, account token not required",
+				},
+			},
 		},
 	}
 	return cfg

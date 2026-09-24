@@ -1,9 +1,9 @@
 /*
 Tebex Headless API
 
-The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
+The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 1.1.0
+API version: 2.0.1
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -24,19 +24,25 @@ type Category struct {
 	// User-friendly name of the category
 	Name *string `json:"name,omitempty"`
 	// Short identifier slug for the category
-	Slug NullableString `json:"slug,omitempty"`
+	Slug *string `json:"slug,omitempty"`
 	// Parent category, if applicable
 	Parent map[string]interface{} `json:"parent,omitempty"`
 	// True if this is a tiered category
 	Tiered *bool `json:"tiered,omitempty"`
+	// If this is a tiered category and the usernameId is provided, this will be the active tier information for this category.
 	ActiveTier *Tier `json:"active_tier,omitempty"`
 	// HTML description of the category
 	Description *string `json:"description,omitempty"`
+	// Packages within the category. For dynamic categories, packages use the `DynamicPackage` shape and are only populated when a `basketIdent` is provided.
 	Packages []Package `json:"packages,omitempty"`
 	// The numeric order in which to display the category.
 	Order *int32 `json:"order,omitempty"`
 	// How the category should be displayed
 	DisplayType *string `json:"display_type,omitempty"`
+	// URL of the category image, if set.
+	ImageUrl *string `json:"image_url,omitempty"`
+	// True if this is a dynamic category. Dynamic categories are populated with custom packages per-basket using the Add Dynamic Packages endpoint, and their packages can only be fetched by providing a `basketIdent`.
+	Dynamic *bool `json:"dynamic,omitempty"`
 }
 
 // NewCategory instantiates a new Category object
@@ -120,51 +126,41 @@ func (o *Category) SetName(v string) {
 	o.Name = &v
 }
 
-// GetSlug returns the Slug field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetSlug returns the Slug field value if set, zero value otherwise.
 func (o *Category) GetSlug() string {
-	if o == nil || IsNil(o.Slug.Get()) {
+	if o == nil || IsNil(o.Slug) {
 		var ret string
 		return ret
 	}
-	return *o.Slug.Get()
+	return *o.Slug
 }
 
 // GetSlugOk returns a tuple with the Slug field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Category) GetSlugOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Slug) {
 		return nil, false
 	}
-	return o.Slug.Get(), o.Slug.IsSet()
+	return o.Slug, true
 }
 
 // HasSlug returns a boolean if a field has been set.
 func (o *Category) HasSlug() bool {
-	if o != nil && o.Slug.IsSet() {
+	if o != nil && !IsNil(o.Slug) {
 		return true
 	}
 
 	return false
 }
 
-// SetSlug gets a reference to the given NullableString and assigns it to the Slug field.
+// SetSlug gets a reference to the given string and assigns it to the Slug field.
 func (o *Category) SetSlug(v string) {
-	o.Slug.Set(&v)
-}
-// SetSlugNil sets the value for Slug to be an explicit nil
-func (o *Category) SetSlugNil() {
-	o.Slug.Set(nil)
+	o.Slug = &v
 }
 
-// UnsetSlug ensures that no value is present for Slug, not even an explicit nil
-func (o *Category) UnsetSlug() {
-	o.Slug.Unset()
-}
-
-// GetParent returns the Parent field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetParent returns the Parent field value if set, zero value otherwise.
 func (o *Category) GetParent() map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.Parent) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -173,7 +169,6 @@ func (o *Category) GetParent() map[string]interface{} {
 
 // GetParentOk returns a tuple with the Parent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Category) GetParentOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Parent) {
 		return map[string]interface{}{}, false
@@ -291,9 +286,9 @@ func (o *Category) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetPackages returns the Packages field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetPackages returns the Packages field value if set, zero value otherwise.
 func (o *Category) GetPackages() []Package {
-	if o == nil {
+	if o == nil || IsNil(o.Packages) {
 		var ret []Package
 		return ret
 	}
@@ -302,7 +297,6 @@ func (o *Category) GetPackages() []Package {
 
 // GetPackagesOk returns a tuple with the Packages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Category) GetPackagesOk() ([]Package, bool) {
 	if o == nil || IsNil(o.Packages) {
 		return nil, false
@@ -388,6 +382,70 @@ func (o *Category) SetDisplayType(v string) {
 	o.DisplayType = &v
 }
 
+// GetImageUrl returns the ImageUrl field value if set, zero value otherwise.
+func (o *Category) GetImageUrl() string {
+	if o == nil || IsNil(o.ImageUrl) {
+		var ret string
+		return ret
+	}
+	return *o.ImageUrl
+}
+
+// GetImageUrlOk returns a tuple with the ImageUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Category) GetImageUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.ImageUrl) {
+		return nil, false
+	}
+	return o.ImageUrl, true
+}
+
+// HasImageUrl returns a boolean if a field has been set.
+func (o *Category) HasImageUrl() bool {
+	if o != nil && !IsNil(o.ImageUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetImageUrl gets a reference to the given string and assigns it to the ImageUrl field.
+func (o *Category) SetImageUrl(v string) {
+	o.ImageUrl = &v
+}
+
+// GetDynamic returns the Dynamic field value if set, zero value otherwise.
+func (o *Category) GetDynamic() bool {
+	if o == nil || IsNil(o.Dynamic) {
+		var ret bool
+		return ret
+	}
+	return *o.Dynamic
+}
+
+// GetDynamicOk returns a tuple with the Dynamic field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Category) GetDynamicOk() (*bool, bool) {
+	if o == nil || IsNil(o.Dynamic) {
+		return nil, false
+	}
+	return o.Dynamic, true
+}
+
+// HasDynamic returns a boolean if a field has been set.
+func (o *Category) HasDynamic() bool {
+	if o != nil && !IsNil(o.Dynamic) {
+		return true
+	}
+
+	return false
+}
+
+// SetDynamic gets a reference to the given bool and assigns it to the Dynamic field.
+func (o *Category) SetDynamic(v bool) {
+	o.Dynamic = &v
+}
+
 func (o Category) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -404,10 +462,10 @@ func (o Category) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Slug.IsSet() {
-		toSerialize["slug"] = o.Slug.Get()
+	if !IsNil(o.Slug) {
+		toSerialize["slug"] = o.Slug
 	}
-	if o.Parent != nil {
+	if !IsNil(o.Parent) {
 		toSerialize["parent"] = o.Parent
 	}
 	if !IsNil(o.Tiered) {
@@ -419,7 +477,7 @@ func (o Category) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Packages != nil {
+	if !IsNil(o.Packages) {
 		toSerialize["packages"] = o.Packages
 	}
 	if !IsNil(o.Order) {
@@ -427,6 +485,12 @@ func (o Category) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.DisplayType) {
 		toSerialize["display_type"] = o.DisplayType
+	}
+	if !IsNil(o.ImageUrl) {
+		toSerialize["image_url"] = o.ImageUrl
+	}
+	if !IsNil(o.Dynamic) {
+		toSerialize["dynamic"] = o.Dynamic
 	}
 	return toSerialize, nil
 }

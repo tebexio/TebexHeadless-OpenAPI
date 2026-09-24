@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**couponCode** | **String** |  | [optional] 
+**code** | **String** |  | [optional] 
 
 

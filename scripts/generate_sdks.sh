@@ -1,22 +1,49 @@
 #!/bin/bash
+set -euo pipefail
+
+# Run from this script's directory so relative paths and openapitools.json (version pin) resolve.
+cd "$(dirname "$0")"
+
+# Use the official scoped package. The unscoped "openapi-generator-cli" on npm is a
+# dependency-confusion placeholder that prints a warning and exits 0.
+# Override with OPENAPI_GENERATOR_CLI to use a different install.
+read -r -a GEN <<< "${OPENAPI_GENERATOR_CLI:-npx --yes @openapitools/openapi-generator-cli}"
+
+"${GEN[@]}" version
+
+# Validate before touching the existing SDKs.
+"${GEN[@]}" validate -i ../headless-api.yaml
 
 rm -rf ../sdks
 mkdir -p ../sdks
-openapi-generator-cli validate -i ../headless-api.yaml
 
 echo "Generating SDKs..."
-openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/python --api-package TebexHeadless --package-name TebexHeadless -g python &
-openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/php --api-package TebexHeadless --package-name TebexHeadless -g php --invoker-package TebexHeadless &
-openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/markdown --api-package TebexHeadless --package-name TebexHeadless -g markdown --invoker-package TebexHeadless &
-openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/java --api-package TebexHeadless --package-name TebexHeadless -g java --invoker-package TebexHeadless &
-openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/nodejs --api-package TebexHeadless --package-name TebexHeadless -g javascript --invoker-package TebexHeadless &
-openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/typescript --api-package TebexHeadless --package-name TebexHeadless -g typescript-node --invoker-package TebexHeadless &
-openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/go --api-package TebexHeadless --package-name TebexHeadless -g go --invoker-package TebexHeadless &
-openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/csharp --api-package TebexHeadless --package-name TebexHeadless -g csharp --invoker-package TebexHeadless &
-openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/openapi --api-package TebexHeadless --package-name TebexHeadless -g openapi --invoker-package TebexHeadless &
-#openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/headless-api.yaml --api-package TebexHeadless --package-name TebexHeadless -g headless-api.yaml --invoker-package TebexHeadless &
-openapi-generator-cli generate -i ../headless-api.yaml -o ../sdks/postman --api-package TebexHeadless --package-name TebexHeadless -g postman-collection --invoker-package TebexHeadless &
+generate() {
+  local name=$1 generator=$2
+  shift 2
+  "${GEN[@]}" generate -i ../headless-api.yaml -o "../sdks/$name" --api-package TebexHeadless --package-name TebexHeadless -g "$generator" "$@"
+}
 
-wait
+pids=()
+generate python python & pids+=($!)
+generate php php --invoker-package TebexHeadless & pids+=($!)
+generate markdown markdown --invoker-package TebexHeadless & pids+=($!)
+generate java java --invoker-package TebexHeadless & pids+=($!)
+generate nodejs javascript --invoker-package TebexHeadless & pids+=($!)
+generate typescript typescript-node --invoker-package TebexHeadless & pids+=($!)
+generate go go --invoker-package TebexHeadless & pids+=($!)
+generate csharp csharp --invoker-package TebexHeadless & pids+=($!)
+generate openapi openapi --invoker-package TebexHeadless & pids+=($!)
+generate postman postman-collection --invoker-package TebexHeadless & pids+=($!)
+
+failed=0
+for pid in "${pids[@]}"; do
+  wait "$pid" || failed=1
+done
+
 echo "---------------------"
+if [ "$failed" -ne 0 ]; then
+  echo "Generation FAILED for one or more SDKs."
+  exit 1
+fi
 echo "Generation completed."

@@ -1,103 +1,46 @@
 # TebexHeadless\HeadlessApi
 
-All URIs are relative to https://headless.tebex.io/api, except if the operation defines another base path.
+All URIs are relative to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**addBasketPackage()**](HeadlessApi.md#addBasketPackage) | **POST** /baskets/{basketIdent}/packages | Add a package to a basket |
-| [**applyCoupon()**](HeadlessApi.md#applyCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons | Apply a coupon to a basket. |
-| [**applyCreatorCode()**](HeadlessApi.md#applyCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes | Apply a creator code to a basket. |
-| [**applyGiftCard()**](HeadlessApi.md#applyGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards | Apply a gift card to a basket. |
-| [**createBasket()**](HeadlessApi.md#createBasket) | **POST** /accounts/{token}/baskets | Create a new basket |
-| [**getAllCategories()**](HeadlessApi.md#getAllCategories) | **GET** /accounts/{token}/categories | Gets all categories available in the webstore. |
-| [**getAllCategoriesIncludingPackages()**](HeadlessApi.md#getAllCategoriesIncludingPackages) | **GET** /accounts/{token}/categories?includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
-| [**getAllPackages()**](HeadlessApi.md#getAllPackages) | **GET** /accounts/{token}/packages | Fetch all packages from a webstore |
-| [**getAllPackagesWithAuthedIP()**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier |
-| [**getAllPackagesWithAuthedIPAndBasket()**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**getAllPackagesWithBasket()**](HeadlessApi.md#getAllPackagesWithBasket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier |
-| [**getBasketAuthUrl()**](HeadlessApi.md#getBasketAuthUrl) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket. |
-| [**getBasketById()**](HeadlessApi.md#getBasketById) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier |
-| [**getCMSPages()**](HeadlessApi.md#getCMSPages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store. |
-| [**getCategoryById()**](HeadlessApi.md#getCategoryById) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category |
-| [**getCategoryIncludingPackages()**](HeadlessApi.md#getCategoryIncludingPackages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category |
-| [**getPackageById()**](HeadlessApi.md#getPackageById) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier |
-| [**getTieredCategoriesForUser()**](HeadlessApi.md#getTieredCategoriesForUser) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them. |
-| [**getWebstoreById()**](HeadlessApi.md#getWebstoreById) | **GET** /accounts/{token} | Fetch a webstore by its identifier |
-| [**removeBasketPackage()**](HeadlessApi.md#removeBasketPackage) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket |
-| [**removeCoupon()**](HeadlessApi.md#removeCoupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
-| [**removeCreatorCode()**](HeadlessApi.md#removeCreatorCode) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket. |
-| [**removeGiftCard()**](HeadlessApi.md#removeGiftCard) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
-| [**updatePackageQuantity()**](HeadlessApi.md#updatePackageQuantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed. |
-| [**updateTier()**](HeadlessApi.md#updateTier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package. |
+| [**applyCoupon()**](HeadlessApi.md#applyCoupon) | **POST** /baskets/{basketIdent}/coupons | Apply a coupon |
+| [**applyCreatorCode()**](HeadlessApi.md#applyCreatorCode) | **POST** /baskets/{basketIdent}/creator-codes | Apply a creator code |
+| [**applyGiftCard()**](HeadlessApi.md#applyGiftCard) | **POST** /baskets/{basketIdent}/giftcards | Apply a gift card |
+| [**createBasket()**](HeadlessApi.md#createBasket) | **POST** /baskets | Create a new basket |
+| [**createDynamicPackage()**](HeadlessApi.md#createDynamicPackage) | **PUT** /baskets/{basketIdent}/dynamic-packages | Add packages to a dynamic category for a basket. |
+| [**getAllPackages()**](HeadlessApi.md#getAllPackages) | **GET** /packages | Get all packages |
+| [**getAllPackagesWithAuthedIP()**](HeadlessApi.md#getAllPackagesWithAuthedIP) | **GET** /packages?ipAddress&#x3D;{ipAddress} | Get packages |
+| [**getAllPackagesWithAuthedIPAndBasket()**](HeadlessApi.md#getAllPackagesWithAuthedIPAndBasket) | **GET** /packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Get packages available for IP and basket |
+| [**getBasket()**](HeadlessApi.md#getBasket) | **GET** /baskets/{basketIdent} | Get a basket |
+| [**getBasketAuthUrl()**](HeadlessApi.md#getBasketAuthUrl) | **GET** /baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get auth links for basket |
+| [**getCategories()**](HeadlessApi.md#getCategories) | **GET** /categories | Get all categories |
+| [**getCategoriesIncludePackages()**](HeadlessApi.md#getCategoriesIncludePackages) | **GET** /categories?includePackages&#x3D;1 | Gets all categories and packages |
+| [**getCategory()**](HeadlessApi.md#getCategory) | **GET** /categories/{categoryId} | Get specific category |
+| [**getCategoryIncludeDynamicPackages()**](HeadlessApi.md#getCategoryIncludeDynamicPackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket. |
+| [**getCategoryIncludePackages()**](HeadlessApi.md#getCategoryIncludePackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages |
+| [**getCustomPages()**](HeadlessApi.md#getCustomPages) | **GET** /pages | Get custom pages defined for the webstore. |
+| [**getDynamicCategories()**](HeadlessApi.md#getDynamicCategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories |
+| [**getPackage()**](HeadlessApi.md#getPackage) | **GET** /packages/{packageId} | Get package |
+| [**getPackagesForBasket()**](HeadlessApi.md#getPackagesForBasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket |
+| [**getSidebar()**](HeadlessApi.md#getSidebar) | **GET** /sidebar | Retrieves the available sidebar modules. |
+| [**getUserTieredCategories()**](HeadlessApi.md#getUserTieredCategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories |
+| [**getWebstore()**](HeadlessApi.md#getWebstore) | **GET** / | Get the webstore&#39;s information |
+| [**removeCoupon()**](HeadlessApi.md#removeCoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
+| [**removeCreatorCode()**](HeadlessApi.md#removeCreatorCode) | **POST** /baskets/{basketIdent}/creator-codes/remove | Removes the creator code from the basket. |
+| [**removeGiftCard()**](HeadlessApi.md#removeGiftCard) | **POST** /baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket. |
+| [**updateTier()**](HeadlessApi.md#updateTier) | **PATCH** /tiers/{tierId} | Update user&#39;s tier to a new package |
 
-
-## `addBasketPackage()`
-
-```php
-addBasketPackage($basket_ident, $add_basket_package_request): \TebexHeadless\Model\Basket
-```
-
-Add a package to a basket
-
-Add a package with the given ID to the basket.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new TebexHeadless\Api\HeadlessApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
-$add_basket_package_request = new \TebexHeadless\Model\AddBasketPackageRequest(); // \TebexHeadless\Model\AddBasketPackageRequest
-
-try {
-    $result = $apiInstance->addBasketPackage($basket_ident, $add_basket_package_request);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->addBasketPackage: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **basket_ident** | **string**| The basket identifier. | |
-| **add_basket_package_request** | [**\TebexHeadless\Model\AddBasketPackageRequest**](../Model/AddBasketPackageRequest.md)|  | [optional] |
-
-### Return type
-
-[**\TebexHeadless\Model\Basket**](../Model/Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
 
 ## `applyCoupon()`
 
 ```php
-applyCoupon($token, $basket_ident, $coupon): \TebexHeadless\Model\BasketResponse
+applyCoupon($basket_ident, $apply_coupon_request): \TebexHeadless\Model\ApplyCoupon200Response
 ```
 
-Apply a coupon to a basket.
+Apply a coupon
 
-Applies a creator code to a basket.
+Applies a coupon to a basket.
 
 ### Example
 
@@ -112,12 +55,11 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
-$coupon = new \TebexHeadless\Model\Coupon(); // \TebexHeadless\Model\Coupon | Provide a `coupon_code` to apply to the basket.
+$apply_coupon_request = new \TebexHeadless\Model\ApplyCouponRequest(); // \TebexHeadless\Model\ApplyCouponRequest | Provide a `coupon_code` to apply to the basket.
 
 try {
-    $result = $apiInstance->applyCoupon($token, $basket_ident, $coupon);
+    $result = $apiInstance->applyCoupon($basket_ident, $apply_coupon_request);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->applyCoupon: ', $e->getMessage(), PHP_EOL;
@@ -128,13 +70,12 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **basket_ident** | **string**| The basket identifier. | |
-| **coupon** | [**\TebexHeadless\Model\Coupon**](../Model/Coupon.md)| Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional] |
+| **apply_coupon_request** | [**\TebexHeadless\Model\ApplyCouponRequest**](../Model/ApplyCouponRequest.md)| Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional] |
 
 ### Return type
 
-[**\TebexHeadless\Model\BasketResponse**](../Model/BasketResponse.md)
+[**\TebexHeadless\Model\ApplyCoupon200Response**](../Model/ApplyCoupon200Response.md)
 
 ### Authorization
 
@@ -152,10 +93,10 @@ No authorization required
 ## `applyCreatorCode()`
 
 ```php
-applyCreatorCode($token, $basket_ident, $apply_creator_code_request): \TebexHeadless\Model\BasketResponse
+applyCreatorCode($basket_ident, $apply_creator_code_request): \TebexHeadless\Model\ApplyCreatorCode200Response
 ```
 
-Apply a creator code to a basket.
+Apply a creator code
 
 Applies a creator code to a basket.
 
@@ -172,12 +113,11 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
 $apply_creator_code_request = new \TebexHeadless\Model\ApplyCreatorCodeRequest(); // \TebexHeadless\Model\ApplyCreatorCodeRequest | Provide a `creator_code` to apply to the basket.
 
 try {
-    $result = $apiInstance->applyCreatorCode($token, $basket_ident, $apply_creator_code_request);
+    $result = $apiInstance->applyCreatorCode($basket_ident, $apply_creator_code_request);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->applyCreatorCode: ', $e->getMessage(), PHP_EOL;
@@ -188,13 +128,12 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **basket_ident** | **string**| The basket identifier. | |
 | **apply_creator_code_request** | [**\TebexHeadless\Model\ApplyCreatorCodeRequest**](../Model/ApplyCreatorCodeRequest.md)| Provide a &#x60;creator_code&#x60; to apply to the basket. | [optional] |
 
 ### Return type
 
-[**\TebexHeadless\Model\BasketResponse**](../Model/BasketResponse.md)
+[**\TebexHeadless\Model\ApplyCreatorCode200Response**](../Model/ApplyCreatorCode200Response.md)
 
 ### Authorization
 
@@ -212,12 +151,12 @@ No authorization required
 ## `applyGiftCard()`
 
 ```php
-applyGiftCard($token, $basket_ident, $gift_card): \TebexHeadless\Model\BasketResponse
+applyGiftCard($basket_ident, $gift_card): \TebexHeadless\Model\ApplyGiftCard200Response
 ```
 
-Apply a gift card to a basket.
+Apply a gift card
 
-Applies a creator code to a basket.
+Applies a gift card to the basket.
 
 ### Example
 
@@ -232,12 +171,11 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
 $gift_card = new \TebexHeadless\Model\GiftCard(); // \TebexHeadless\Model\GiftCard | Provide a `card_number` to apply to the basket.
 
 try {
-    $result = $apiInstance->applyGiftCard($token, $basket_ident, $gift_card);
+    $result = $apiInstance->applyGiftCard($basket_ident, $gift_card);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->applyGiftCard: ', $e->getMessage(), PHP_EOL;
@@ -248,13 +186,12 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **basket_ident** | **string**| The basket identifier. | |
 | **gift_card** | [**\TebexHeadless\Model\GiftCard**](../Model/GiftCard.md)| Provide a &#x60;card_number&#x60; to apply to the basket. | [optional] |
 
 ### Return type
 
-[**\TebexHeadless\Model\BasketResponse**](../Model/BasketResponse.md)
+[**\TebexHeadless\Model\ApplyGiftCard200Response**](../Model/ApplyGiftCard200Response.md)
 
 ### Authorization
 
@@ -272,7 +209,7 @@ No authorization required
 ## `createBasket()`
 
 ```php
-createBasket($token, $create_basket_request): \TebexHeadless\Model\BasketResponse
+createBasket($create_basket_request): \TebexHeadless\Model\BasketResponse
 ```
 
 Create a new basket
@@ -292,11 +229,10 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 $create_basket_request = new \TebexHeadless\Model\CreateBasketRequest(); // \TebexHeadless\Model\CreateBasketRequest
 
 try {
-    $result = $apiInstance->createBasket($token, $create_basket_request);
+    $result = $apiInstance->createBasket($create_basket_request);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->createBasket: ', $e->getMessage(), PHP_EOL;
@@ -307,7 +243,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **create_basket_request** | [**\TebexHeadless\Model\CreateBasketRequest**](../Model/CreateBasketRequest.md)|  | [optional] |
 
 ### Return type
@@ -327,15 +262,15 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getAllCategories()`
+## `createDynamicPackage()`
 
 ```php
-getAllCategories($token): \TebexHeadless\Model\CategoryResponse
+createDynamicPackage($basket_ident, $dynamic_packages_request): \TebexHeadless\Model\DynamicPackagesResponse
 ```
 
-Gets all categories available in the webstore.
+Add packages to a dynamic category for a basket.
 
-Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL.
+Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
 
 ### Example
 
@@ -350,13 +285,14 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
+$basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
+$dynamic_packages_request = new \TebexHeadless\Model\DynamicPackagesRequest(); // \TebexHeadless\Model\DynamicPackagesRequest
 
 try {
-    $result = $apiInstance->getAllCategories($token);
+    $result = $apiInstance->createDynamicPackage($basket_ident, $dynamic_packages_request);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->getAllCategories: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling HeadlessApi->createDynamicPackage: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -364,11 +300,12 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
+| **basket_ident** | **string**| The basket identifier. | |
+| **dynamic_packages_request** | [**\TebexHeadless\Model\DynamicPackagesRequest**](../Model/DynamicPackagesRequest.md)|  | [optional] |
 
 ### Return type
 
-[**\TebexHeadless\Model\CategoryResponse**](../Model/CategoryResponse.md)
+[**\TebexHeadless\Model\DynamicPackagesResponse**](../Model/DynamicPackagesResponse.md)
 
 ### Authorization
 
@@ -376,63 +313,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getAllCategoriesIncludingPackages()`
-
-```php
-getAllCategoriesIncludingPackages($token): \TebexHeadless\Model\CategoryResponse
-```
-
-Gets a store's categories including all package information with them.
-
-Gets all categories from a webstore including packages.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new TebexHeadless\Api\HeadlessApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
-
-try {
-    $result = $apiInstance->getAllCategoriesIncludingPackages($token);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->getAllCategoriesIncludingPackages: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
-
-### Return type
-
-[**\TebexHeadless\Model\CategoryResponse**](../Model/CategoryResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -442,12 +323,12 @@ No authorization required
 ## `getAllPackages()`
 
 ```php
-getAllPackages($token): \TebexHeadless\Model\PackageResponse
+getAllPackages(): \TebexHeadless\Model\PackageResponse
 ```
 
-Fetch all packages from a webstore
+Get all packages
 
-Gets all packages from a webstore.
+Gets all packages from a webstore.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
 
 ### Example
 
@@ -462,10 +343,9 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 
 try {
-    $result = $apiInstance->getAllPackages($token);
+    $result = $apiInstance->getAllPackages();
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->getAllPackages: ', $e->getMessage(), PHP_EOL;
@@ -474,9 +354,7 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -498,10 +376,10 @@ No authorization required
 ## `getAllPackagesWithAuthedIP()`
 
 ```php
-getAllPackagesWithAuthedIP($token, $ip_address): \TebexHeadless\Model\PackageResponse
+getAllPackagesWithAuthedIP($ip_address): \TebexHeadless\Model\PackageResponse
 ```
 
-Fetch a package from a webstore by its identifier
+Get packages
 
 Gets all packages from a webstore.
 
@@ -512,17 +390,22 @@ Gets all packages from a webstore.
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: basicAuth
+$config = TebexHeadless\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
-$ip_address = 127.0.0.1; // string | An IP address can be provided with authenticated requests.
+$ip_address = 127.0.0.1; // string | An IP address can be provided with authenticated requests
 
 try {
-    $result = $apiInstance->getAllPackagesWithAuthedIP($token, $ip_address);
+    $result = $apiInstance->getAllPackagesWithAuthedIP($ip_address);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->getAllPackagesWithAuthedIP: ', $e->getMessage(), PHP_EOL;
@@ -533,8 +416,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
-| **ip_address** | **string**| An IP address can be provided with authenticated requests. | |
+| **ip_address** | **string**| An IP address can be provided with authenticated requests | |
 
 ### Return type
 
@@ -542,7 +424,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -556,10 +438,10 @@ No authorization required
 ## `getAllPackagesWithAuthedIPAndBasket()`
 
 ```php
-getAllPackagesWithAuthedIPAndBasket($token, $basket_ident, $ip_address): \TebexHeadless\Model\PackageResponse
+getAllPackagesWithAuthedIPAndBasket($basket_ident, $ip_address): \TebexHeadless\Model\PackageResponse
 ```
 
-Fetch a package from a webstore by its identifier
+Get packages available for IP and basket
 
 Gets all packages from a webstore.
 
@@ -570,18 +452,23 @@ Gets all packages from a webstore.
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: basicAuth
+$config = TebexHeadless\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
 $ip_address = 127.0.0.1; // string | An IP address can be provided with authenticated requests.
 
 try {
-    $result = $apiInstance->getAllPackagesWithAuthedIPAndBasket($token, $basket_ident, $ip_address);
+    $result = $apiInstance->getAllPackagesWithAuthedIPAndBasket($basket_ident, $ip_address);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->getAllPackagesWithAuthedIPAndBasket: ', $e->getMessage(), PHP_EOL;
@@ -592,7 +479,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **basket_ident** | **string**| The basket identifier. | |
 | **ip_address** | **string**| An IP address can be provided with authenticated requests. | |
 
@@ -602,7 +488,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -613,15 +499,15 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getAllPackagesWithBasket()`
+## `getBasket()`
 
 ```php
-getAllPackagesWithBasket($token, $basket_ident): \TebexHeadless\Model\PackageResponse
+getBasket($basket_ident): \TebexHeadless\Model\BasketResponse
 ```
 
-Fetch a package from a webstore by its identifier
+Get a basket
 
-Gets all packages from a webstore.
+Gets a basket associated with the provided identifier.
 
 ### Example
 
@@ -636,14 +522,13 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
 
 try {
-    $result = $apiInstance->getAllPackagesWithBasket($token, $basket_ident);
+    $result = $apiInstance->getBasket($basket_ident);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->getAllPackagesWithBasket: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling HeadlessApi->getBasket: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -651,12 +536,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **basket_ident** | **string**| The basket identifier. | |
 
 ### Return type
 
-[**\TebexHeadless\Model\PackageResponse**](../Model/PackageResponse.md)
+[**\TebexHeadless\Model\BasketResponse**](../Model/BasketResponse.md)
 
 ### Authorization
 
@@ -674,12 +558,12 @@ No authorization required
 ## `getBasketAuthUrl()`
 
 ```php
-getBasketAuthUrl($token, $basket_ident, $return_url): \TebexHeadless\Model\BasketAuthResponseInner[]
+getBasketAuthUrl($basket_ident, $return_url): \TebexHeadless\Model\BasketAuthResponseInner[]
 ```
 
-Get authentication links for a basket.
+Get auth links for basket
 
-Fetches a basket's auth URL.
+Fetches a basket's auth URL. The player should be directed here in order for them to authorize their account. When complete, they will be returned to the provided `returnUrl` and the basket will be authorized from that moment onwards.
 
 ### Example
 
@@ -694,12 +578,11 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
 $return_url = https://example.tebex.io/; // string | The URL you would like to redirect the user to after successful basket authentication.
 
 try {
-    $result = $apiInstance->getBasketAuthUrl($token, $basket_ident, $return_url);
+    $result = $apiInstance->getBasketAuthUrl($basket_ident, $return_url);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->getBasketAuthUrl: ', $e->getMessage(), PHP_EOL;
@@ -710,7 +593,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **basket_ident** | **string**| The basket identifier. | |
 | **return_url** | **string**| The URL you would like to redirect the user to after successful basket authentication. | |
 
@@ -731,15 +613,15 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getBasketById()`
+## `getCategories()`
 
 ```php
-getBasketById($token, $basket_ident): \TebexHeadless\Model\BasketResponse
+getCategories(): \TebexHeadless\Model\CategoryResponse
 ```
 
-Fetch a basket from a webstore by its identifier
+Get all categories
 
-Gets a basket associated with the provided identifier.
+Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL.
 
 ### Example
 
@@ -754,27 +636,22 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
-$basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
 
 try {
-    $result = $apiInstance->getBasketById($token, $basket_ident);
+    $result = $apiInstance->getCategories();
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->getBasketById: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling HeadlessApi->getCategories: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
-| **basket_ident** | **string**| The basket identifier. | |
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**\TebexHeadless\Model\BasketResponse**](../Model/BasketResponse.md)
+[**\TebexHeadless\Model\CategoryResponse**](../Model/CategoryResponse.md)
 
 ### Authorization
 
@@ -789,13 +666,236 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getCMSPages()`
+## `getCategoriesIncludePackages()`
 
 ```php
-getCMSPages($token): \TebexHeadless\Model\CMSPagesResponse
+getCategoriesIncludePackages(): \TebexHeadless\Model\CategoryResponse
 ```
 
-Fetch the custom pages associated with the store.
+Gets all categories and packages
+
+Gets all categories from a webstore including packages.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+
+try {
+    $result = $apiInstance->getCategoriesIncludePackages();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getCategoriesIncludePackages: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\TebexHeadless\Model\CategoryResponse**](../Model/CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getCategory()`
+
+```php
+getCategory($category_id): \TebexHeadless\Model\SingleCategoryResponse
+```
+
+Get specific category
+
+Gets information about a category and returns the packages in that category.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$category_id = 127244343; // string | The ID or slug of the category to fetch.
+
+try {
+    $result = $apiInstance->getCategory($category_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getCategory: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **category_id** | **string**| The ID or slug of the category to fetch. | |
+
+### Return type
+
+[**\TebexHeadless\Model\SingleCategoryResponse**](../Model/SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getCategoryIncludeDynamicPackages()`
+
+```php
+getCategoryIncludeDynamicPackages($category_id, $basket_ident): \TebexHeadless\Model\SingleCategoryResponse
+```
+
+Gets a specific category including packages, populating a dynamic category for the given basket.
+
+Gets information about a category and returns the packages in that category. When the category is dynamic and `basketIdent` is provided, the category is populated with the packages associated with that basket.  If a basket identifier is not provided, a dynamic category will be empty as the basket is required to relate packages to the category.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$category_id = 1234; // string | The ID or slug of the category to fetch.
+$basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
+
+try {
+    $result = $apiInstance->getCategoryIncludeDynamicPackages($category_id, $basket_ident);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getCategoryIncludeDynamicPackages: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **category_id** | **string**| The ID or slug of the category to fetch. | |
+| **basket_ident** | **string**| The basket identifier. | |
+
+### Return type
+
+[**\TebexHeadless\Model\SingleCategoryResponse**](../Model/SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getCategoryIncludePackages()`
+
+```php
+getCategoryIncludePackages($category_id): \TebexHeadless\Model\SingleCategoryResponse
+```
+
+Get a category with all packages
+
+Gets information about a category and returns the packages in that category.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$category_id = 127244343; // string | The ID or slug of the category to fetch.
+
+try {
+    $result = $apiInstance->getCategoryIncludePackages($category_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getCategoryIncludePackages: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **category_id** | **string**| The ID or slug of the category to fetch. | |
+
+### Return type
+
+[**\TebexHeadless\Model\SingleCategoryResponse**](../Model/SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getCustomPages()`
+
+```php
+getCustomPages(): \TebexHeadless\Model\CMSPagesResponse
+```
+
+Get custom pages defined for the webstore.
 
 Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.
 
@@ -812,21 +912,18 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = some-uuid; // string | The webstore identifier.
 
 try {
-    $result = $apiInstance->getCMSPages($token);
+    $result = $apiInstance->getCustomPages();
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->getCMSPages: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling HeadlessApi->getCustomPages: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -845,15 +942,15 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getCategoryById()`
+## `getDynamicCategories()`
 
 ```php
-getCategoryById($token, $category_id): \TebexHeadless\Model\CategoryResponse
+getDynamicCategories($basket_ident): \TebexHeadless\Model\CategoryResponse
 ```
 
-Gets information about a specific category
+Get Dynamic Categories
 
-Gets information about a category and returns the packages in that category.
+Gets all categories from a webstore including packages. When `basketIdent` is provided, dynamic categories are populated with the packages associated with that basket.  If a basket identifier is not provided, dynamic categories will be empty as the basket is required to relate packages to the category.
 
 ### Example
 
@@ -868,14 +965,13 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
-$category_id = 127244343; // string | The ID of the category to fetch.
+$basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
 
 try {
-    $result = $apiInstance->getCategoryById($token, $category_id);
+    $result = $apiInstance->getDynamicCategories($basket_ident);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->getCategoryById: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling HeadlessApi->getDynamicCategories: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -883,8 +979,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
-| **category_id** | **string**| The ID of the category to fetch. | |
+| **basket_ident** | **string**| The basket identifier. | |
 
 ### Return type
 
@@ -903,15 +998,15 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getCategoryIncludingPackages()`
+## `getPackage()`
 
 ```php
-getCategoryIncludingPackages($token, $category_id): \TebexHeadless\Model\CategoryResponse
+getPackage($package_id): \TebexHeadless\Model\SinglePackageResponse
 ```
 
-Gets information about a specific category, including all the packages in the category
+Get package
 
-Gets information about a category and returns the packages in that category.
+Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
 
 ### Example
 
@@ -926,14 +1021,13 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
-$category_id = 127244343; // string | The ID of the category to fetch.
+$package_id = 1272441812; // string | The package's ID or slug.
 
 try {
-    $result = $apiInstance->getCategoryIncludingPackages($token, $category_id);
+    $result = $apiInstance->getPackage($package_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->getCategoryIncludingPackages: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling HeadlessApi->getPackage: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -941,12 +1035,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
-| **category_id** | **string**| The ID of the category to fetch. | |
+| **package_id** | **string**| The package&#39;s ID or slug. | |
 
 ### Return type
 
-[**\TebexHeadless\Model\CategoryResponse**](../Model/CategoryResponse.md)
+[**\TebexHeadless\Model\SinglePackageResponse**](../Model/SinglePackageResponse.md)
 
 ### Authorization
 
@@ -961,15 +1054,15 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getPackageById()`
+## `getPackagesForBasket()`
 
 ```php
-getPackageById($token, $package_id): \TebexHeadless\Model\PackageResponse
+getPackagesForBasket($basket_ident): \TebexHeadless\Model\PackageResponse
 ```
 
-Fetch a package from a webstore by its identifier
+Get packages available for basket
 
-Gets a package from a webstore by ID.
+Gets all packages available to the provided basket.
 
 ### Example
 
@@ -984,14 +1077,13 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
-$package_id = 1272441812; // int | The package's ID.
+$basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
 
 try {
-    $result = $apiInstance->getPackageById($token, $package_id);
+    $result = $apiInstance->getPackagesForBasket($basket_ident);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->getPackageById: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling HeadlessApi->getPackagesForBasket: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -999,8 +1091,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
-| **package_id** | **int**| The package&#39;s ID. | |
+| **basket_ident** | **string**| The basket identifier. | |
 
 ### Return type
 
@@ -1019,13 +1110,69 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getTieredCategoriesForUser()`
+## `getSidebar()`
 
 ```php
-getTieredCategoriesForUser($token, $username_id): \TebexHeadless\Model\CategoryResponse
+getSidebar($token): \TebexHeadless\Model\ModulesResponse
 ```
 
-Gets a store's categories including all package information with them.
+Retrieves the available sidebar modules.
+
+Retrieves the available sidebar modules configured for the store.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$token = some-uuid; // string | The webstore identifier.
+
+try {
+    $result = $apiInstance->getSidebar($token);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getSidebar: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **token** | **string**| The webstore identifier. | |
+
+### Return type
+
+[**\TebexHeadless\Model\ModulesResponse**](../Model/ModulesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getUserTieredCategories()`
+
+```php
+getUserTieredCategories($username_id): \TebexHeadless\Model\CategoryResponse
+```
+
+Get user's tiered categories
 
 Gets all categories from the webstore, returning active tier information for the given player.
 
@@ -1048,14 +1195,13 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     new GuzzleHttp\Client(),
     $config
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 $username_id = 76561198042467022; // int
 
 try {
-    $result = $apiInstance->getTieredCategoriesForUser($token, $username_id);
+    $result = $apiInstance->getUserTieredCategories($username_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->getTieredCategoriesForUser: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling HeadlessApi->getUserTieredCategories: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -1063,7 +1209,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **username_id** | **int**|  | |
 
 ### Return type
@@ -1083,15 +1228,15 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getWebstoreById()`
+## `getWebstore()`
 
 ```php
-getWebstoreById($token): \TebexHeadless\Model\WebstoreResponse
+getWebstore(): \TebexHeadless\Model\WebstoreResponse
 ```
 
-Fetch a webstore by its identifier
+Get the webstore's information
 
-Gets the webstore associated with the provided identifier.
+Gets the webstore associated with the provided token
 
 ### Example
 
@@ -1106,21 +1251,18 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = some-uuid; // string | The webstore identifier.
 
 try {
-    $result = $apiInstance->getWebstoreById($token);
+    $result = $apiInstance->getWebstore();
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->getWebstoreById: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling HeadlessApi->getWebstore: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -1139,68 +1281,10 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `removeBasketPackage()`
-
-```php
-removeBasketPackage($basket_ident, $remove_basket_package_request): \TebexHeadless\Model\Basket
-```
-
-Remove a package from a basket
-
-Remove the given package ID from the basket.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new TebexHeadless\Api\HeadlessApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
-$remove_basket_package_request = new \TebexHeadless\Model\RemoveBasketPackageRequest(); // \TebexHeadless\Model\RemoveBasketPackageRequest
-
-try {
-    $result = $apiInstance->removeBasketPackage($basket_ident, $remove_basket_package_request);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->removeBasketPackage: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **basket_ident** | **string**| The basket identifier. | |
-| **remove_basket_package_request** | [**\TebexHeadless\Model\RemoveBasketPackageRequest**](../Model/RemoveBasketPackageRequest.md)|  | [optional] |
-
-### Return type
-
-[**\TebexHeadless\Model\Basket**](../Model/Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
 ## `removeCoupon()`
 
 ```php
-removeCoupon($token, $basket_ident)
+removeCoupon($basket_ident, $apply_coupon_request)
 ```
 
 Remove a coupon from the basket.
@@ -1220,11 +1304,11 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
+$apply_coupon_request = new \TebexHeadless\Model\ApplyCouponRequest(); // \TebexHeadless\Model\ApplyCouponRequest | Provide a `coupon_code` to remove from the basket.
 
 try {
-    $apiInstance->removeCoupon($token, $basket_ident);
+    $apiInstance->removeCoupon($basket_ident, $apply_coupon_request);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->removeCoupon: ', $e->getMessage(), PHP_EOL;
 }
@@ -1234,8 +1318,8 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **basket_ident** | **string**| The basket identifier. | |
+| **apply_coupon_request** | [**\TebexHeadless\Model\ApplyCouponRequest**](../Model/ApplyCouponRequest.md)| Provide a &#x60;coupon_code&#x60; to remove from the basket. | [optional] |
 
 ### Return type
 
@@ -1247,7 +1331,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: `application/json`
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -1257,12 +1341,12 @@ No authorization required
 ## `removeCreatorCode()`
 
 ```php
-removeCreatorCode($token, $basket_ident)
+removeCreatorCode($basket_ident)
 ```
 
-Remove a creator code from the basket.
+Removes the creator code from the basket.
 
-Applies a creator code to a basket.
+Removes the creator code from the basket.
 
 ### Example
 
@@ -1277,11 +1361,10 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
 
 try {
-    $apiInstance->removeCreatorCode($token, $basket_ident);
+    $apiInstance->removeCreatorCode($basket_ident);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->removeCreatorCode: ', $e->getMessage(), PHP_EOL;
 }
@@ -1291,7 +1374,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **basket_ident** | **string**| The basket identifier. | |
 
 ### Return type
@@ -1314,7 +1396,7 @@ No authorization required
 ## `removeGiftCard()`
 
 ```php
-removeGiftCard($token, $basket_ident, $remove_gift_card_request)
+removeGiftCard($basket_ident, $remove_gift_card_request)
 ```
 
 Remove a gift card from the basket.
@@ -1334,12 +1416,11 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$token = t66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb; // string | The webstore identifier.
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
 $remove_gift_card_request = new \TebexHeadless\Model\RemoveGiftCardRequest(); // \TebexHeadless\Model\RemoveGiftCardRequest | Provide the `card_number` to remove from the basket.
 
 try {
-    $apiInstance->removeGiftCard($token, $basket_ident, $remove_gift_card_request);
+    $apiInstance->removeGiftCard($basket_ident, $remove_gift_card_request);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->removeGiftCard: ', $e->getMessage(), PHP_EOL;
 }
@@ -1349,68 +1430,8 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **basket_ident** | **string**| The basket identifier. | |
 | **remove_gift_card_request** | [**\TebexHeadless\Model\RemoveGiftCardRequest**](../Model/RemoveGiftCardRequest.md)| Provide the &#x60;card_number&#x60; to remove from the basket. | [optional] |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `updatePackageQuantity()`
-
-```php
-updatePackageQuantity($basket_ident, $package_id, $update_package_quantity_request)
-```
-
-Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-
-Sets the quantity of the given item in the basket.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new TebexHeadless\Api\HeadlessApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
-$package_id = 6276316; // int | The package identifier.
-$update_package_quantity_request = new \TebexHeadless\Model\UpdatePackageQuantityRequest(); // \TebexHeadless\Model\UpdatePackageQuantityRequest
-
-try {
-    $apiInstance->updatePackageQuantity($basket_ident, $package_id, $update_package_quantity_request);
-} catch (Exception $e) {
-    echo 'Exception when calling HeadlessApi->updatePackageQuantity: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **basket_ident** | **string**| The basket identifier. | |
-| **package_id** | **int**| The package identifier. | |
-| **update_package_quantity_request** | [**\TebexHeadless\Model\UpdatePackageQuantityRequest**](../Model/UpdatePackageQuantityRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -1432,12 +1453,12 @@ No authorization required
 ## `updateTier()`
 
 ```php
-updateTier($token, $tier_id, $update_tier_request): \TebexHeadless\Model\UpdateTierResponse
+updateTier($tier_id, $update_tier_request): \TebexHeadless\Model\UpdateTierResponse
 ```
 
-Updates the given teir to the provided package.
+Update user's tier to a new package
 
-Updates a tier to a new package.
+Updates a tier to a new package. A recurring payment updated webhook is sent when an update is successful.
 
 ### Example
 
@@ -1458,12 +1479,11 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     new GuzzleHttp\Client(),
     $config
 );
-$token = some-uuid; // string | The webstore identifier.
 $tier_id = 6276316; // int | The tier identifier
 $update_tier_request = new \TebexHeadless\Model\UpdateTierRequest(); // \TebexHeadless\Model\UpdateTierRequest
 
 try {
-    $result = $apiInstance->updateTier($token, $tier_id, $update_tier_request);
+    $result = $apiInstance->updateTier($tier_id, $update_tier_request);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling HeadlessApi->updateTier: ', $e->getMessage(), PHP_EOL;
@@ -1474,7 +1494,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **token** | **string**| The webstore identifier. | |
 | **tier_id** | **int**| The tier identifier | |
 | **update_tier_request** | [**\TebexHeadless\Model\UpdateTierRequest**](../Model/UpdateTierRequest.md)|  | [optional] |
 

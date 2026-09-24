@@ -1,129 +1,58 @@
 # TebexHeadless.HeadlessApi
 
-All URIs are relative to *https://headless.tebex.io/api*
+All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_basket_package**](HeadlessApi.md#add_basket_package) | **POST** /baskets/{basketIdent}/packages | Add a package to a basket
-[**apply_coupon**](HeadlessApi.md#apply_coupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons | Apply a coupon to a basket.
-[**apply_creator_code**](HeadlessApi.md#apply_creator_code) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes | Apply a creator code to a basket.
-[**apply_gift_card**](HeadlessApi.md#apply_gift_card) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards | Apply a gift card to a basket.
-[**create_basket**](HeadlessApi.md#create_basket) | **POST** /accounts/{token}/baskets | Create a new basket
-[**get_all_categories**](HeadlessApi.md#get_all_categories) | **GET** /accounts/{token}/categories | Gets all categories available in the webstore.
-[**get_all_categories_including_packages**](HeadlessApi.md#get_all_categories_including_packages) | **GET** /accounts/{token}/categories?includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
-[**get_all_packages**](HeadlessApi.md#get_all_packages) | **GET** /accounts/{token}/packages | Fetch all packages from a webstore
-[**get_all_packages_with_authed_ip**](HeadlessApi.md#get_all_packages_with_authed_ip) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress} | Fetch a package from a webstore by its identifier
-[**get_all_packages_with_authed_ip_and_basket**](HeadlessApi.md#get_all_packages_with_authed_ip_and_basket) | **GET** /accounts/{token}/packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
-[**get_all_packages_with_basket**](HeadlessApi.md#get_all_packages_with_basket) | **GET** /accounts/{token}/packages?basketIdent&#x3D;{basketIdent} | Fetch a package from a webstore by its identifier
-[**get_basket_auth_url**](HeadlessApi.md#get_basket_auth_url) | **GET** /accounts/{token}/baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get authentication links for a basket.
-[**get_basket_by_id**](HeadlessApi.md#get_basket_by_id) | **GET** /accounts/{token}/baskets/{basketIdent} | Fetch a basket from a webstore by its identifier
-[**get_category_by_id**](HeadlessApi.md#get_category_by_id) | **GET** /accounts/{token}/categories/{categoryId} | Gets information about a specific category
-[**get_category_including_packages**](HeadlessApi.md#get_category_including_packages) | **GET** /accounts/{token}/categories/{categoryId}?includePackages&#x3D;1 | Gets information about a specific category, including all the packages in the category
-[**get_cms_pages**](HeadlessApi.md#get_cms_pages) | **GET** /accounts/{token}/pages | Fetch the custom pages associated with the store.
-[**get_package_by_id**](HeadlessApi.md#get_package_by_id) | **GET** /accounts/{token}/packages/{packageId} | Fetch a package from a webstore by its identifier
-[**get_tiered_categories_for_user**](HeadlessApi.md#get_tiered_categories_for_user) | **GET** /accounts/{token}/categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Gets a store&#39;s categories including all package information with them.
-[**get_webstore_by_id**](HeadlessApi.md#get_webstore_by_id) | **GET** /accounts/{token} | Fetch a webstore by its identifier
-[**remove_basket_package**](HeadlessApi.md#remove_basket_package) | **POST** /baskets/{basketIdent}/packages/remove | Remove a package from a basket
-[**remove_coupon**](HeadlessApi.md#remove_coupon) | **POST** /accounts/{token}/baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
-[**remove_creator_code**](HeadlessApi.md#remove_creator_code) | **POST** /accounts/{token}/baskets/{basketIdent}/creator-codes/remove | Remove a creator code from the basket.
-[**remove_gift_card**](HeadlessApi.md#remove_gift_card) | **POST** /accounts/{token}/baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
-[**update_package_quantity**](HeadlessApi.md#update_package_quantity) | **PUT** /baskets/{basketIdent}/packages/{packageId} | Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-[**update_tier**](HeadlessApi.md#update_tier) | **PATCH** /accounts/{token}/tiers/{tierId} | Updates the given teir to the provided package.
+[**apply_coupon**](HeadlessApi.md#apply_coupon) | **POST** /baskets/{basketIdent}/coupons | Apply a coupon
+[**apply_creator_code**](HeadlessApi.md#apply_creator_code) | **POST** /baskets/{basketIdent}/creator-codes | Apply a creator code
+[**apply_gift_card**](HeadlessApi.md#apply_gift_card) | **POST** /baskets/{basketIdent}/giftcards | Apply a gift card
+[**create_basket**](HeadlessApi.md#create_basket) | **POST** /baskets | Create a new basket
+[**create_dynamic_package**](HeadlessApi.md#create_dynamic_package) | **PUT** /baskets/{basketIdent}/dynamic-packages | Add packages to a dynamic category for a basket.
+[**get_all_packages**](HeadlessApi.md#get_all_packages) | **GET** /packages | Get all packages
+[**get_all_packages_with_authed_ip**](HeadlessApi.md#get_all_packages_with_authed_ip) | **GET** /packages?ipAddress&#x3D;{ipAddress} | Get packages
+[**get_all_packages_with_authed_ip_and_basket**](HeadlessApi.md#get_all_packages_with_authed_ip_and_basket) | **GET** /packages?ipAddress&#x3D;{ipAddress}&amp;basketIdent&#x3D;{basketIdent} | Get packages available for IP and basket
+[**get_basket**](HeadlessApi.md#get_basket) | **GET** /baskets/{basketIdent} | Get a basket
+[**get_basket_auth_url**](HeadlessApi.md#get_basket_auth_url) | **GET** /baskets/{basketIdent}/auth?returnUrl&#x3D;{returnUrl} | Get auth links for basket
+[**get_categories**](HeadlessApi.md#get_categories) | **GET** /categories | Get all categories
+[**get_categories_include_packages**](HeadlessApi.md#get_categories_include_packages) | **GET** /categories?includePackages&#x3D;1 | Gets all categories and packages
+[**get_category**](HeadlessApi.md#get_category) | **GET** /categories/{categoryId} | Get specific category
+[**get_category_include_dynamic_packages**](HeadlessApi.md#get_category_include_dynamic_packages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket.
+[**get_category_include_packages**](HeadlessApi.md#get_category_include_packages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages
+[**get_custom_pages**](HeadlessApi.md#get_custom_pages) | **GET** /pages | Get custom pages defined for the webstore.
+[**get_dynamic_categories**](HeadlessApi.md#get_dynamic_categories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories
+[**get_package**](HeadlessApi.md#get_package) | **GET** /packages/{packageId} | Get package
+[**get_packages_for_basket**](HeadlessApi.md#get_packages_for_basket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket
+[**get_sidebar**](HeadlessApi.md#get_sidebar) | **GET** /sidebar | Retrieves the available sidebar modules.
+[**get_user_tiered_categories**](HeadlessApi.md#get_user_tiered_categories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories
+[**get_webstore**](HeadlessApi.md#get_webstore) | **GET** / | Get the webstore&#39;s information
+[**remove_coupon**](HeadlessApi.md#remove_coupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
+[**remove_creator_code**](HeadlessApi.md#remove_creator_code) | **POST** /baskets/{basketIdent}/creator-codes/remove | Removes the creator code from the basket.
+[**remove_gift_card**](HeadlessApi.md#remove_gift_card) | **POST** /baskets/{basketIdent}/giftcards/remove | Remove a gift card from the basket.
+[**update_tier**](HeadlessApi.md#update_tier) | **PATCH** /tiers/{tierId} | Update user&#39;s tier to a new package
 
-
-# **add_basket_package**
-> Basket add_basket_package(basket_ident, add_basket_package_request=add_basket_package_request)
-
-Add a package to a basket
-
-Add a package with the given ID to the basket.
-
-### Example
-
-
-```python
-import TebexHeadless
-from TebexHeadless.models.add_basket_package_request import AddBasketPackageRequest
-from TebexHeadless.models.basket import Basket
-from TebexHeadless.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://headless.tebex.io/api
-# See configuration.py for a list of all supported configuration parameters.
-configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
-)
-
-
-# Enter a context with an instance of the API client
-with TebexHeadless.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = TebexHeadless.HeadlessApi(api_client)
-    basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
-    add_basket_package_request = TebexHeadless.AddBasketPackageRequest() # AddBasketPackageRequest |  (optional)
-
-    try:
-        # Add a package to a basket
-        api_response = api_instance.add_basket_package(basket_ident, add_basket_package_request=add_basket_package_request)
-        print("The response of HeadlessApi->add_basket_package:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling HeadlessApi->add_basket_package: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **basket_ident** | **str**| The basket identifier. | 
- **add_basket_package_request** | [**AddBasketPackageRequest**](AddBasketPackageRequest.md)|  | [optional] 
-
-### Return type
-
-[**Basket**](Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response. |  -  |
-**422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apply_coupon**
-> BasketResponse apply_coupon(token, basket_ident, coupon=coupon)
+> ApplyCoupon200Response apply_coupon(basket_ident, apply_coupon_request=apply_coupon_request)
 
-Apply a coupon to a basket.
+Apply a coupon
 
-Applies a creator code to a basket.
+Applies a coupon to a basket.
 
 ### Example
 
 
 ```python
 import TebexHeadless
-from TebexHeadless.models.basket_response import BasketResponse
-from TebexHeadless.models.coupon import Coupon
+from TebexHeadless.models.apply_coupon200_response import ApplyCoupon200Response
+from TebexHeadless.models.apply_coupon_request import ApplyCouponRequest
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -131,13 +60,12 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
     basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
-    coupon = TebexHeadless.Coupon() # Coupon | Provide a `coupon_code` to apply to the basket. (optional)
+    apply_coupon_request = TebexHeadless.ApplyCouponRequest() # ApplyCouponRequest | Provide a `coupon_code` to apply to the basket. (optional)
 
     try:
-        # Apply a coupon to a basket.
-        api_response = api_instance.apply_coupon(token, basket_ident, coupon=coupon)
+        # Apply a coupon
+        api_response = api_instance.apply_coupon(basket_ident, apply_coupon_request=apply_coupon_request)
         print("The response of HeadlessApi->apply_coupon:\n")
         pprint(api_response)
     except Exception as e:
@@ -151,13 +79,12 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
  **basket_ident** | **str**| The basket identifier. | 
- **coupon** | [**Coupon**](Coupon.md)| Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional] 
+ **apply_coupon_request** | [**ApplyCouponRequest**](ApplyCouponRequest.md)| Provide a &#x60;coupon_code&#x60; to apply to the basket. | [optional] 
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyCoupon200Response**](ApplyCoupon200Response.md)
 
 ### Authorization
 
@@ -172,14 +99,14 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response returns the basket. |  -  |
+**200** | Successful response returns a success message. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apply_creator_code**
-> BasketResponse apply_creator_code(token, basket_ident, apply_creator_code_request=apply_creator_code_request)
+> ApplyCreatorCode200Response apply_creator_code(basket_ident, apply_creator_code_request=apply_creator_code_request)
 
-Apply a creator code to a basket.
+Apply a creator code
 
 Applies a creator code to a basket.
 
@@ -188,15 +115,15 @@ Applies a creator code to a basket.
 
 ```python
 import TebexHeadless
+from TebexHeadless.models.apply_creator_code200_response import ApplyCreatorCode200Response
 from TebexHeadless.models.apply_creator_code_request import ApplyCreatorCodeRequest
-from TebexHeadless.models.basket_response import BasketResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -204,13 +131,12 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
     basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
     apply_creator_code_request = TebexHeadless.ApplyCreatorCodeRequest() # ApplyCreatorCodeRequest | Provide a `creator_code` to apply to the basket. (optional)
 
     try:
-        # Apply a creator code to a basket.
-        api_response = api_instance.apply_creator_code(token, basket_ident, apply_creator_code_request=apply_creator_code_request)
+        # Apply a creator code
+        api_response = api_instance.apply_creator_code(basket_ident, apply_creator_code_request=apply_creator_code_request)
         print("The response of HeadlessApi->apply_creator_code:\n")
         pprint(api_response)
     except Exception as e:
@@ -224,13 +150,12 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
  **basket_ident** | **str**| The basket identifier. | 
  **apply_creator_code_request** | [**ApplyCreatorCodeRequest**](ApplyCreatorCodeRequest.md)| Provide a &#x60;creator_code&#x60; to apply to the basket. | [optional] 
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyCreatorCode200Response**](ApplyCreatorCode200Response.md)
 
 ### Authorization
 
@@ -245,32 +170,32 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response returns the basket. |  -  |
+**200** | Successful response returns a success object |  -  |
 **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apply_gift_card**
-> BasketResponse apply_gift_card(token, basket_ident, gift_card=gift_card)
+> ApplyGiftCard200Response apply_gift_card(basket_ident, gift_card=gift_card)
 
-Apply a gift card to a basket.
+Apply a gift card
 
-Applies a creator code to a basket.
+Applies a gift card to the basket.
 
 ### Example
 
 
 ```python
 import TebexHeadless
-from TebexHeadless.models.basket_response import BasketResponse
+from TebexHeadless.models.apply_gift_card200_response import ApplyGiftCard200Response
 from TebexHeadless.models.gift_card import GiftCard
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -278,13 +203,12 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
     basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
     gift_card = TebexHeadless.GiftCard() # GiftCard | Provide a `card_number` to apply to the basket. (optional)
 
     try:
-        # Apply a gift card to a basket.
-        api_response = api_instance.apply_gift_card(token, basket_ident, gift_card=gift_card)
+        # Apply a gift card
+        api_response = api_instance.apply_gift_card(basket_ident, gift_card=gift_card)
         print("The response of HeadlessApi->apply_gift_card:\n")
         pprint(api_response)
     except Exception as e:
@@ -298,13 +222,12 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
  **basket_ident** | **str**| The basket identifier. | 
  **gift_card** | [**GiftCard**](GiftCard.md)| Provide a &#x60;card_number&#x60; to apply to the basket. | [optional] 
 
 ### Return type
 
-[**BasketResponse**](BasketResponse.md)
+[**ApplyGiftCard200Response**](ApplyGiftCard200Response.md)
 
 ### Authorization
 
@@ -319,12 +242,12 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response returns the basket. |  -  |
+**200** | Successful response returns a success message. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_basket**
-> BasketResponse create_basket(token, create_basket_request=create_basket_request)
+> BasketResponse create_basket(create_basket_request=create_basket_request)
 
 Create a new basket
 
@@ -340,10 +263,10 @@ from TebexHeadless.models.create_basket_request import CreateBasketRequest
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -351,12 +274,11 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
     create_basket_request = TebexHeadless.CreateBasketRequest() # CreateBasketRequest |  (optional)
 
     try:
         # Create a new basket
-        api_response = api_instance.create_basket(token, create_basket_request=create_basket_request)
+        api_response = api_instance.create_basket(create_basket_request=create_basket_request)
         print("The response of HeadlessApi->create_basket:\n")
         pprint(api_response)
     except Exception as e:
@@ -370,7 +292,6 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
  **create_basket_request** | [**CreateBasketRequest**](CreateBasketRequest.md)|  | [optional] 
 
 ### Return type
@@ -395,26 +316,27 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_all_categories**
-> CategoryResponse get_all_categories(token)
+# **create_dynamic_package**
+> DynamicPackagesResponse create_dynamic_package(basket_ident, dynamic_packages_request=dynamic_packages_request)
 
-Gets all categories available in the webstore.
+Add packages to a dynamic category for a basket.
 
-Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL.
+Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
 
 ### Example
 
 
 ```python
 import TebexHeadless
-from TebexHeadless.models.category_response import CategoryResponse
+from TebexHeadless.models.dynamic_packages_request import DynamicPackagesRequest
+from TebexHeadless.models.dynamic_packages_response import DynamicPackagesResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -422,15 +344,16 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
+    basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
+    dynamic_packages_request = TebexHeadless.DynamicPackagesRequest() # DynamicPackagesRequest |  (optional)
 
     try:
-        # Gets all categories available in the webstore.
-        api_response = api_instance.get_all_categories(token)
-        print("The response of HeadlessApi->get_all_categories:\n")
+        # Add packages to a dynamic category for a basket.
+        api_response = api_instance.create_dynamic_package(basket_ident, dynamic_packages_request=dynamic_packages_request)
+        print("The response of HeadlessApi->create_dynamic_package:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling HeadlessApi->get_all_categories: %s\n" % e)
+        print("Exception when calling HeadlessApi->create_dynamic_package: %s\n" % e)
 ```
 
 
@@ -440,11 +363,12 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
+ **basket_ident** | **str**| The basket identifier. | 
+ **dynamic_packages_request** | [**DynamicPackagesRequest**](DynamicPackagesRequest.md)|  | [optional] 
 
 ### Return type
 
-[**CategoryResponse**](CategoryResponse.md)
+[**DynamicPackagesResponse**](DynamicPackagesResponse.md)
 
 ### Authorization
 
@@ -452,91 +376,24 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response returns a list of category information. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_all_categories_including_packages**
-> CategoryResponse get_all_categories_including_packages(token)
-
-Gets a store's categories including all package information with them.
-
-Gets all categories from a webstore including packages.
-
-### Example
-
-
-```python
-import TebexHeadless
-from TebexHeadless.models.category_response import CategoryResponse
-from TebexHeadless.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://headless.tebex.io/api
-# See configuration.py for a list of all supported configuration parameters.
-configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
-)
-
-
-# Enter a context with an instance of the API client
-with TebexHeadless.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
-
-    try:
-        # Gets a store's categories including all package information with them.
-        api_response = api_instance.get_all_categories_including_packages(token)
-        print("The response of HeadlessApi->get_all_categories_including_packages:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling HeadlessApi->get_all_categories_including_packages: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
-
-### Return type
-
-[**CategoryResponse**](CategoryResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response returns a list of category information. |  -  |
+**200** | Successful response confirms the dynamic packages were created. |  -  |
+**422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_packages**
-> PackageResponse get_all_packages(token)
+> PackageResponse get_all_packages()
 
-Fetch all packages from a webstore
+Get all packages
 
-Gets all packages from a webstore.
+Gets all packages from a webstore.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
 
 ### Example
 
@@ -547,10 +404,10 @@ from TebexHeadless.models.package_response import PackageResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -558,11 +415,10 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
 
     try:
-        # Fetch all packages from a webstore
-        api_response = api_instance.get_all_packages(token)
+        # Get all packages
+        api_response = api_instance.get_all_packages()
         print("The response of HeadlessApi->get_all_packages:\n")
         pprint(api_response)
     except Exception as e:
@@ -573,10 +429,7 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -600,14 +453,15 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_packages_with_authed_ip**
-> PackageResponse get_all_packages_with_authed_ip(token, ip_address)
+> PackageResponse get_all_packages_with_authed_ip(ip_address)
 
-Fetch a package from a webstore by its identifier
+Get packages
 
 Gets all packages from a webstore.
 
 ### Example
 
+* Basic Authentication (basicAuth):
 
 ```python
 import TebexHeadless
@@ -615,23 +469,32 @@ from TebexHeadless.models.package_response import PackageResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = TebexHeadless.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
-    ip_address = '127.0.0.1' # str | An IP address can be provided with authenticated requests.
+    ip_address = '127.0.0.1' # str | An IP address can be provided with authenticated requests
 
     try:
-        # Fetch a package from a webstore by its identifier
-        api_response = api_instance.get_all_packages_with_authed_ip(token, ip_address)
+        # Get packages
+        api_response = api_instance.get_all_packages_with_authed_ip(ip_address)
         print("The response of HeadlessApi->get_all_packages_with_authed_ip:\n")
         pprint(api_response)
     except Exception as e:
@@ -645,8 +508,7 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
- **ip_address** | **str**| An IP address can be provided with authenticated requests. | 
+ **ip_address** | **str**| An IP address can be provided with authenticated requests | 
 
 ### Return type
 
@@ -654,7 +516,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -671,14 +533,15 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_packages_with_authed_ip_and_basket**
-> PackageResponse get_all_packages_with_authed_ip_and_basket(token, basket_ident, ip_address)
+> PackageResponse get_all_packages_with_authed_ip_and_basket(basket_ident, ip_address)
 
-Fetch a package from a webstore by its identifier
+Get packages available for IP and basket
 
 Gets all packages from a webstore.
 
 ### Example
 
+* Basic Authentication (basicAuth):
 
 ```python
 import TebexHeadless
@@ -686,24 +549,33 @@ from TebexHeadless.models.package_response import PackageResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = TebexHeadless.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
     basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
     ip_address = '127.0.0.1' # str | An IP address can be provided with authenticated requests.
 
     try:
-        # Fetch a package from a webstore by its identifier
-        api_response = api_instance.get_all_packages_with_authed_ip_and_basket(token, basket_ident, ip_address)
+        # Get packages available for IP and basket
+        api_response = api_instance.get_all_packages_with_authed_ip_and_basket(basket_ident, ip_address)
         print("The response of HeadlessApi->get_all_packages_with_authed_ip_and_basket:\n")
         pprint(api_response)
     except Exception as e:
@@ -717,7 +589,6 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
  **basket_ident** | **str**| The basket identifier. | 
  **ip_address** | **str**| An IP address can be provided with authenticated requests. | 
 
@@ -727,7 +598,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -743,154 +614,10 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_all_packages_with_basket**
-> PackageResponse get_all_packages_with_basket(token, basket_ident)
+# **get_basket**
+> BasketResponse get_basket(basket_ident)
 
-Fetch a package from a webstore by its identifier
-
-Gets all packages from a webstore.
-
-### Example
-
-
-```python
-import TebexHeadless
-from TebexHeadless.models.package_response import PackageResponse
-from TebexHeadless.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://headless.tebex.io/api
-# See configuration.py for a list of all supported configuration parameters.
-configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
-)
-
-
-# Enter a context with an instance of the API client
-with TebexHeadless.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
-    basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
-
-    try:
-        # Fetch a package from a webstore by its identifier
-        api_response = api_instance.get_all_packages_with_basket(token, basket_ident)
-        print("The response of HeadlessApi->get_all_packages_with_basket:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling HeadlessApi->get_all_packages_with_basket: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
- **basket_ident** | **str**| The basket identifier. | 
-
-### Return type
-
-[**PackageResponse**](PackageResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response returns a list of package information. |  -  |
-**422** | The provided request is invalid. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_basket_auth_url**
-> List[BasketAuthResponseInner] get_basket_auth_url(token, basket_ident, return_url)
-
-Get authentication links for a basket.
-
-Fetches a basket's auth URL.
-
-### Example
-
-
-```python
-import TebexHeadless
-from TebexHeadless.models.basket_auth_response_inner import BasketAuthResponseInner
-from TebexHeadless.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://headless.tebex.io/api
-# See configuration.py for a list of all supported configuration parameters.
-configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
-)
-
-
-# Enter a context with an instance of the API client
-with TebexHeadless.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
-    basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
-    return_url = 'https://example.tebex.io/' # str | The URL you would like to redirect the user to after successful basket authentication.
-
-    try:
-        # Get authentication links for a basket.
-        api_response = api_instance.get_basket_auth_url(token, basket_ident, return_url)
-        print("The response of HeadlessApi->get_basket_auth_url:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling HeadlessApi->get_basket_auth_url: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
- **basket_ident** | **str**| The basket identifier. | 
- **return_url** | **str**| The URL you would like to redirect the user to after successful basket authentication. | 
-
-### Return type
-
-[**List[BasketAuthResponseInner]**](BasketAuthResponseInner.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response returns the basket auth information. |  -  |
-**422** | The provided webstore ID or basket ID is invalid. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_basket_by_id**
-> BasketResponse get_basket_by_id(token, basket_ident)
-
-Fetch a basket from a webstore by its identifier
+Get a basket
 
 Gets a basket associated with the provided identifier.
 
@@ -903,10 +630,10 @@ from TebexHeadless.models.basket_response import BasketResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -914,16 +641,15 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
     basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
 
     try:
-        # Fetch a basket from a webstore by its identifier
-        api_response = api_instance.get_basket_by_id(token, basket_ident)
-        print("The response of HeadlessApi->get_basket_by_id:\n")
+        # Get a basket
+        api_response = api_instance.get_basket(basket_ident)
+        print("The response of HeadlessApi->get_basket:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling HeadlessApi->get_basket_by_id: %s\n" % e)
+        print("Exception when calling HeadlessApi->get_basket: %s\n" % e)
 ```
 
 
@@ -933,7 +659,6 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
  **basket_ident** | **str**| The basket identifier. | 
 
 ### Return type
@@ -957,12 +682,83 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_category_by_id**
-> CategoryResponse get_category_by_id(token, category_id)
+# **get_basket_auth_url**
+> List[BasketAuthResponseInner] get_basket_auth_url(basket_ident, return_url)
 
-Gets information about a specific category
+Get auth links for basket
 
-Gets information about a category and returns the packages in that category.
+Fetches a basket's auth URL. The player should be directed here in order for them to authorize their account. When complete, they will be returned to the provided `returnUrl` and the basket will be authorized from that moment onwards.
+
+### Example
+
+
+```python
+import TebexHeadless
+from TebexHeadless.models.basket_auth_response_inner import BasketAuthResponseInner
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
+    return_url = 'https://example.tebex.io/' # str | The URL you would like to redirect the user to after successful basket authentication.
+
+    try:
+        # Get auth links for basket
+        api_response = api_instance.get_basket_auth_url(basket_ident, return_url)
+        print("The response of HeadlessApi->get_basket_auth_url:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_basket_auth_url: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **basket_ident** | **str**| The basket identifier. | 
+ **return_url** | **str**| The URL you would like to redirect the user to after successful basket authentication. | 
+
+### Return type
+
+[**List[BasketAuthResponseInner]**](BasketAuthResponseInner.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns the auth provider options and URLs of the sign-in link. |  -  |
+**422** | The provided webstore ID or basket ID is invalid. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_categories**
+> CategoryResponse get_categories()
+
+Get all categories
+
+Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL.
 
 ### Example
 
@@ -973,10 +769,10 @@ from TebexHeadless.models.category_response import CategoryResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -984,16 +780,143 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
-    category_id = '127244343' # str | The ID of the category to fetch.
 
     try:
-        # Gets information about a specific category
-        api_response = api_instance.get_category_by_id(token, category_id)
-        print("The response of HeadlessApi->get_category_by_id:\n")
+        # Get all categories
+        api_response = api_instance.get_categories()
+        print("The response of HeadlessApi->get_categories:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling HeadlessApi->get_category_by_id: %s\n" % e)
+        print("Exception when calling HeadlessApi->get_categories: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns a list of category information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_categories_include_packages**
+> CategoryResponse get_categories_include_packages()
+
+Gets all categories and packages
+
+Gets all categories from a webstore including packages.
+
+### Example
+
+
+```python
+import TebexHeadless
+from TebexHeadless.models.category_response import CategoryResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+
+    try:
+        # Gets all categories and packages
+        api_response = api_instance.get_categories_include_packages()
+        print("The response of HeadlessApi->get_categories_include_packages:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_categories_include_packages: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns a list of category information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_category**
+> SingleCategoryResponse get_category(category_id)
+
+Get specific category
+
+Gets information about a category and returns the packages in that category.
+
+### Example
+
+
+```python
+import TebexHeadless
+from TebexHeadless.models.single_category_response import SingleCategoryResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    category_id = '127244343' # str | The ID or slug of the category to fetch.
+
+    try:
+        # Get specific category
+        api_response = api_instance.get_category(category_id)
+        print("The response of HeadlessApi->get_category:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_category: %s\n" % e)
 ```
 
 
@@ -1003,12 +926,11 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
- **category_id** | **str**| The ID of the category to fetch. | 
+ **category_id** | **str**| The ID or slug of the category to fetch. | 
 
 ### Return type
 
-[**CategoryResponse**](CategoryResponse.md)
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
 
 ### Authorization
 
@@ -1027,26 +949,26 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_category_including_packages**
-> CategoryResponse get_category_including_packages(token, category_id)
+# **get_category_include_dynamic_packages**
+> SingleCategoryResponse get_category_include_dynamic_packages(category_id, basket_ident)
 
-Gets information about a specific category, including all the packages in the category
+Gets a specific category including packages, populating a dynamic category for the given basket.
 
-Gets information about a category and returns the packages in that category.
+Gets information about a category and returns the packages in that category. When the category is dynamic and `basketIdent` is provided, the category is populated with the packages associated with that basket.  If a basket identifier is not provided, a dynamic category will be empty as the basket is required to relate packages to the category.
 
 ### Example
 
 
 ```python
 import TebexHeadless
-from TebexHeadless.models.category_response import CategoryResponse
+from TebexHeadless.models.single_category_response import SingleCategoryResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -1054,16 +976,16 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
-    category_id = '127244343' # str | The ID of the category to fetch.
+    category_id = '1234' # str | The ID or slug of the category to fetch.
+    basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
 
     try:
-        # Gets information about a specific category, including all the packages in the category
-        api_response = api_instance.get_category_including_packages(token, category_id)
-        print("The response of HeadlessApi->get_category_including_packages:\n")
+        # Gets a specific category including packages, populating a dynamic category for the given basket.
+        api_response = api_instance.get_category_include_dynamic_packages(category_id, basket_ident)
+        print("The response of HeadlessApi->get_category_include_dynamic_packages:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling HeadlessApi->get_category_including_packages: %s\n" % e)
+        print("Exception when calling HeadlessApi->get_category_include_dynamic_packages: %s\n" % e)
 ```
 
 
@@ -1073,12 +995,12 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
- **category_id** | **str**| The ID of the category to fetch. | 
+ **category_id** | **str**| The ID or slug of the category to fetch. | 
+ **basket_ident** | **str**| The basket identifier. | 
 
 ### Return type
 
-[**CategoryResponse**](CategoryResponse.md)
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
 
 ### Authorization
 
@@ -1097,10 +1019,78 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_cms_pages**
-> CMSPagesResponse get_cms_pages(token)
+# **get_category_include_packages**
+> SingleCategoryResponse get_category_include_packages(category_id)
 
-Fetch the custom pages associated with the store.
+Get a category with all packages
+
+Gets information about a category and returns the packages in that category.
+
+### Example
+
+
+```python
+import TebexHeadless
+from TebexHeadless.models.single_category_response import SingleCategoryResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    category_id = '127244343' # str | The ID or slug of the category to fetch.
+
+    try:
+        # Get a category with all packages
+        api_response = api_instance.get_category_include_packages(category_id)
+        print("The response of HeadlessApi->get_category_include_packages:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_category_include_packages: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **category_id** | **str**| The ID or slug of the category to fetch. | 
+
+### Return type
+
+[**SingleCategoryResponse**](SingleCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns the category with package information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_custom_pages**
+> CMSPagesResponse get_custom_pages()
+
+Get custom pages defined for the webstore.
 
 Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.
 
@@ -1113,10 +1103,10 @@ from TebexHeadless.models.cms_pages_response import CMSPagesResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -1124,25 +1114,21 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 'some-uuid' # str | The webstore identifier.
 
     try:
-        # Fetch the custom pages associated with the store.
-        api_response = api_instance.get_cms_pages(token)
-        print("The response of HeadlessApi->get_cms_pages:\n")
+        # Get custom pages defined for the webstore.
+        api_response = api_instance.get_custom_pages()
+        print("The response of HeadlessApi->get_custom_pages:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling HeadlessApi->get_cms_pages: %s\n" % e)
+        print("Exception when calling HeadlessApi->get_custom_pages: %s\n" % e)
 ```
 
 
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -1165,26 +1151,26 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_package_by_id**
-> PackageResponse get_package_by_id(token, package_id)
+# **get_dynamic_categories**
+> CategoryResponse get_dynamic_categories(basket_ident)
 
-Fetch a package from a webstore by its identifier
+Get Dynamic Categories
 
-Gets a package from a webstore by ID.
+Gets all categories from a webstore including packages. When `basketIdent` is provided, dynamic categories are populated with the packages associated with that basket.  If a basket identifier is not provided, dynamic categories will be empty as the basket is required to relate packages to the category.
 
 ### Example
 
 
 ```python
 import TebexHeadless
-from TebexHeadless.models.package_response import PackageResponse
+from TebexHeadless.models.category_response import CategoryResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -1192,16 +1178,15 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
-    package_id = 1272441812 # int | The package's ID.
+    basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
 
     try:
-        # Fetch a package from a webstore by its identifier
-        api_response = api_instance.get_package_by_id(token, package_id)
-        print("The response of HeadlessApi->get_package_by_id:\n")
+        # Get Dynamic Categories
+        api_response = api_instance.get_dynamic_categories(basket_ident)
+        print("The response of HeadlessApi->get_dynamic_categories:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling HeadlessApi->get_package_by_id: %s\n" % e)
+        print("Exception when calling HeadlessApi->get_dynamic_categories: %s\n" % e)
 ```
 
 
@@ -1211,12 +1196,79 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
- **package_id** | **int**| The package&#39;s ID. | 
+ **basket_ident** | **str**| The basket identifier. | 
 
 ### Return type
 
-[**PackageResponse**](PackageResponse.md)
+[**CategoryResponse**](CategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns a list of category information. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_package**
+> SinglePackageResponse get_package(package_id)
+
+Get package
+
+Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
+
+### Example
+
+
+```python
+import TebexHeadless
+from TebexHeadless.models.single_package_response import SinglePackageResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    package_id = '1272441812' # str | The package's ID or slug.
+
+    try:
+        # Get package
+        api_response = api_instance.get_package(package_id)
+        print("The response of HeadlessApi->get_package:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_package: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **package_id** | **str**| The package&#39;s ID or slug. | 
+
+### Return type
+
+[**SinglePackageResponse**](SinglePackageResponse.md)
 
 ### Authorization
 
@@ -1235,10 +1287,147 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_tiered_categories_for_user**
-> CategoryResponse get_tiered_categories_for_user(token, username_id)
+# **get_packages_for_basket**
+> PackageResponse get_packages_for_basket(basket_ident)
 
-Gets a store's categories including all package information with them.
+Get packages available for basket
+
+Gets all packages available to the provided basket.
+
+### Example
+
+
+```python
+import TebexHeadless
+from TebexHeadless.models.package_response import PackageResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
+
+    try:
+        # Get packages available for basket
+        api_response = api_instance.get_packages_for_basket(basket_ident)
+        print("The response of HeadlessApi->get_packages_for_basket:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_packages_for_basket: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **basket_ident** | **str**| The basket identifier. | 
+
+### Return type
+
+[**PackageResponse**](PackageResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns a list of package information. |  -  |
+**422** | The provided request is invalid. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_sidebar**
+> ModulesResponse get_sidebar(token)
+
+Retrieves the available sidebar modules.
+
+Retrieves the available sidebar modules configured for the store.
+
+### Example
+
+
+```python
+import TebexHeadless
+from TebexHeadless.models.modules_response import ModulesResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    token = 'some-uuid' # str | The webstore identifier.
+
+    try:
+        # Retrieves the available sidebar modules.
+        api_response = api_instance.get_sidebar(token)
+        print("The response of HeadlessApi->get_sidebar:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_sidebar: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **str**| The webstore identifier. | 
+
+### Return type
+
+[**ModulesResponse**](ModulesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_user_tiered_categories**
+> CategoryResponse get_user_tiered_categories(username_id)
+
+Get user's tiered categories
 
 Gets all categories from the webstore, returning active tier information for the given player.
 
@@ -1252,10 +1441,10 @@ from TebexHeadless.models.category_response import CategoryResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1273,16 +1462,15 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
     username_id = 76561198042467022 # int | 
 
     try:
-        # Gets a store's categories including all package information with them.
-        api_response = api_instance.get_tiered_categories_for_user(token, username_id)
-        print("The response of HeadlessApi->get_tiered_categories_for_user:\n")
+        # Get user's tiered categories
+        api_response = api_instance.get_user_tiered_categories(username_id)
+        print("The response of HeadlessApi->get_user_tiered_categories:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling HeadlessApi->get_tiered_categories_for_user: %s\n" % e)
+        print("Exception when calling HeadlessApi->get_user_tiered_categories: %s\n" % e)
 ```
 
 
@@ -1292,7 +1480,6 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
  **username_id** | **int**|  | 
 
 ### Return type
@@ -1316,12 +1503,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_webstore_by_id**
-> WebstoreResponse get_webstore_by_id(token)
+# **get_webstore**
+> WebstoreResponse get_webstore()
 
-Fetch a webstore by its identifier
+Get the webstore's information
 
-Gets the webstore associated with the provided identifier.
+Gets the webstore associated with the provided token
 
 ### Example
 
@@ -1332,10 +1519,10 @@ from TebexHeadless.models.webstore_response import WebstoreResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -1343,25 +1530,21 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 'some-uuid' # str | The webstore identifier.
 
     try:
-        # Fetch a webstore by its identifier
-        api_response = api_instance.get_webstore_by_id(token)
-        print("The response of HeadlessApi->get_webstore_by_id:\n")
+        # Get the webstore's information
+        api_response = api_instance.get_webstore()
+        print("The response of HeadlessApi->get_webstore:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling HeadlessApi->get_webstore_by_id: %s\n" % e)
+        print("Exception when calling HeadlessApi->get_webstore: %s\n" % e)
 ```
 
 
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -1384,80 +1567,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **remove_basket_package**
-> Basket remove_basket_package(basket_ident, remove_basket_package_request=remove_basket_package_request)
-
-Remove a package from a basket
-
-Remove the given package ID from the basket.
-
-### Example
-
-
-```python
-import TebexHeadless
-from TebexHeadless.models.basket import Basket
-from TebexHeadless.models.remove_basket_package_request import RemoveBasketPackageRequest
-from TebexHeadless.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://headless.tebex.io/api
-# See configuration.py for a list of all supported configuration parameters.
-configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
-)
-
-
-# Enter a context with an instance of the API client
-with TebexHeadless.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = TebexHeadless.HeadlessApi(api_client)
-    basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
-    remove_basket_package_request = TebexHeadless.RemoveBasketPackageRequest() # RemoveBasketPackageRequest |  (optional)
-
-    try:
-        # Remove a package from a basket
-        api_response = api_instance.remove_basket_package(basket_ident, remove_basket_package_request=remove_basket_package_request)
-        print("The response of HeadlessApi->remove_basket_package:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling HeadlessApi->remove_basket_package: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **basket_ident** | **str**| The basket identifier. | 
- **remove_basket_package_request** | [**RemoveBasketPackageRequest**](RemoveBasketPackageRequest.md)|  | [optional] 
-
-### Return type
-
-[**Basket**](Basket.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response returns the basket. |  -  |
-**422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **remove_coupon**
-> remove_coupon(token, basket_ident)
+> remove_coupon(basket_ident, apply_coupon_request=apply_coupon_request)
 
 Remove a coupon from the basket.
 
@@ -1468,13 +1579,14 @@ Removes a coupon code from a basket
 
 ```python
 import TebexHeadless
+from TebexHeadless.models.apply_coupon_request import ApplyCouponRequest
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -1482,12 +1594,12 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
     basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
+    apply_coupon_request = TebexHeadless.ApplyCouponRequest() # ApplyCouponRequest | Provide a `coupon_code` to remove from the basket. (optional)
 
     try:
         # Remove a coupon from the basket.
-        api_instance.remove_coupon(token, basket_ident)
+        api_instance.remove_coupon(basket_ident, apply_coupon_request=apply_coupon_request)
     except Exception as e:
         print("Exception when calling HeadlessApi->remove_coupon: %s\n" % e)
 ```
@@ -1499,8 +1611,8 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
  **basket_ident** | **str**| The basket identifier. | 
+ **apply_coupon_request** | [**ApplyCouponRequest**](ApplyCouponRequest.md)| Provide a &#x60;coupon_code&#x60; to remove from the basket. | [optional] 
 
 ### Return type
 
@@ -1512,7 +1624,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: Not defined
 
 ### HTTP response details
@@ -1525,11 +1637,11 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **remove_creator_code**
-> remove_creator_code(token, basket_ident)
+> remove_creator_code(basket_ident)
 
-Remove a creator code from the basket.
+Removes the creator code from the basket.
 
-Applies a creator code to a basket.
+Removes the creator code from the basket.
 
 ### Example
 
@@ -1539,10 +1651,10 @@ import TebexHeadless
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -1550,12 +1662,11 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
     basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
 
     try:
-        # Remove a creator code from the basket.
-        api_instance.remove_creator_code(token, basket_ident)
+        # Removes the creator code from the basket.
+        api_instance.remove_creator_code(basket_ident)
     except Exception as e:
         print("Exception when calling HeadlessApi->remove_creator_code: %s\n" % e)
 ```
@@ -1567,7 +1678,6 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
  **basket_ident** | **str**| The basket identifier. | 
 
 ### Return type
@@ -1593,7 +1703,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **remove_gift_card**
-> remove_gift_card(token, basket_ident, remove_gift_card_request=remove_gift_card_request)
+> remove_gift_card(basket_ident, remove_gift_card_request=remove_gift_card_request)
 
 Remove a gift card from the basket.
 
@@ -1608,10 +1718,10 @@ from TebexHeadless.models.remove_gift_card_request import RemoveGiftCardRequest
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 
@@ -1619,13 +1729,12 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 't66x-7cd928b1e9312709e6810edac6dc1fd1eefc57cb' # str | The webstore identifier.
     basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
     remove_gift_card_request = TebexHeadless.RemoveGiftCardRequest() # RemoveGiftCardRequest | Provide the `card_number` to remove from the basket. (optional)
 
     try:
         # Remove a gift card from the basket.
-        api_instance.remove_gift_card(token, basket_ident, remove_gift_card_request=remove_gift_card_request)
+        api_instance.remove_gift_card(basket_ident, remove_gift_card_request=remove_gift_card_request)
     except Exception as e:
         print("Exception when calling HeadlessApi->remove_gift_card: %s\n" % e)
 ```
@@ -1637,7 +1746,6 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
  **basket_ident** | **str**| The basket identifier. | 
  **remove_gift_card_request** | [**RemoveGiftCardRequest**](RemoveGiftCardRequest.md)| Provide the &#x60;card_number&#x60; to remove from the basket. | [optional] 
 
@@ -1663,83 +1771,12 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_package_quantity**
-> update_package_quantity(basket_ident, package_id, update_package_quantity_request=update_package_quantity_request)
-
-Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-
-Sets the quantity of the given item in the basket.
-
-### Example
-
-
-```python
-import TebexHeadless
-from TebexHeadless.models.update_package_quantity_request import UpdatePackageQuantityRequest
-from TebexHeadless.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://headless.tebex.io/api
-# See configuration.py for a list of all supported configuration parameters.
-configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
-)
-
-
-# Enter a context with an instance of the API client
-with TebexHeadless.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = TebexHeadless.HeadlessApi(api_client)
-    basket_ident = 'c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c' # str | The basket identifier.
-    package_id = 6276316 # int | The package identifier.
-    update_package_quantity_request = TebexHeadless.UpdatePackageQuantityRequest() # UpdatePackageQuantityRequest |  (optional)
-
-    try:
-        # Updates the quantity of the given package in the basket. The user must be logged in before the quantity can be changed.
-        api_instance.update_package_quantity(basket_ident, package_id, update_package_quantity_request=update_package_quantity_request)
-    except Exception as e:
-        print("Exception when calling HeadlessApi->update_package_quantity: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **basket_ident** | **str**| The basket identifier. | 
- **package_id** | **int**| The package identifier. | 
- **update_package_quantity_request** | [**UpdatePackageQuantityRequest**](UpdatePackageQuantityRequest.md)|  | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response. |  -  |
-**422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **update_tier**
-> UpdateTierResponse update_tier(token, tier_id, update_tier_request=update_tier_request)
+> UpdateTierResponse update_tier(tier_id, update_tier_request=update_tier_request)
 
-Updates the given teir to the provided package.
+Update user's tier to a new package
 
-Updates a tier to a new package.
+Updates a tier to a new package. A recurring payment updated webhook is sent when an update is successful.
 
 ### Example
 
@@ -1752,10 +1789,10 @@ from TebexHeadless.models.update_tier_response import UpdateTierResponse
 from TebexHeadless.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://headless.tebex.io/api
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
 # See configuration.py for a list of all supported configuration parameters.
 configuration = TebexHeadless.Configuration(
-    host = "https://headless.tebex.io/api"
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1773,13 +1810,12 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    token = 'some-uuid' # str | The webstore identifier.
     tier_id = 6276316 # int | The tier identifier
     update_tier_request = TebexHeadless.UpdateTierRequest() # UpdateTierRequest |  (optional)
 
     try:
-        # Updates the given teir to the provided package.
-        api_response = api_instance.update_tier(token, tier_id, update_tier_request=update_tier_request)
+        # Update user's tier to a new package
+        api_response = api_instance.update_tier(tier_id, update_tier_request=update_tier_request)
         print("The response of HeadlessApi->update_tier:\n")
         pprint(api_response)
     except Exception as e:
@@ -1793,7 +1829,6 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| The webstore identifier. | 
  **tier_id** | **int**| The tier identifier | 
  **update_tier_request** | [**UpdateTierRequest**](UpdateTierRequest.md)|  | [optional] 
 

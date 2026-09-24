@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Ident** | Pointer to **string** |  | [optional] 
 **Complete** | Pointer to **bool** |  | [optional] 
-**Email** | Pointer to **NullableString** |  | [optional] 
-**Username** | Pointer to **NullableString** |  | [optional] 
+**Email** | Pointer to **string** |  | [optional] 
+**Username** | Pointer to **string** |  | [optional] 
 **Coupons** | Pointer to [**[]Coupon**](Coupon.md) |  | [optional] 
 **Giftcards** | Pointer to [**[]GiftCard**](GiftCard.md) |  | [optional] 
 **CreatorCode** | Pointer to **string** | The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes | [optional] 
 **CancelUrl** | Pointer to **string** |  | [optional] 
-**CompleteUrl** | Pointer to **NullableString** |  | [optional] 
+**CompleteUrl** | Pointer to **string** |  | [optional] 
 **CompleteAutoRedirect** | Pointer to **bool** |  | [optional] 
 **Country** | Pointer to **string** | A two-character country code | [optional] 
 **Ip** | Pointer to **string** |  | [optional] 
@@ -145,16 +145,6 @@ SetEmail sets Email field to given value.
 
 HasEmail returns a boolean if a field has been set.
 
-### SetEmailNil
-
-`func (o *Basket) SetEmailNil(b bool)`
-
- SetEmailNil sets the value for Email to be an explicit nil
-
-### UnsetEmail
-`func (o *Basket) UnsetEmail()`
-
-UnsetEmail ensures that no value is present for Email, not even an explicit nil
 ### GetUsername
 
 `func (o *Basket) GetUsername() string`
@@ -180,16 +170,6 @@ SetUsername sets Username field to given value.
 
 HasUsername returns a boolean if a field has been set.
 
-### SetUsernameNil
-
-`func (o *Basket) SetUsernameNil(b bool)`
-
- SetUsernameNil sets the value for Username to be an explicit nil
-
-### UnsetUsername
-`func (o *Basket) UnsetUsername()`
-
-UnsetUsername ensures that no value is present for Username, not even an explicit nil
 ### GetCoupons
 
 `func (o *Basket) GetCoupons() []Coupon`
@@ -315,16 +295,6 @@ SetCompleteUrl sets CompleteUrl field to given value.
 
 HasCompleteUrl returns a boolean if a field has been set.
 
-### SetCompleteUrlNil
-
-`func (o *Basket) SetCompleteUrlNil(b bool)`
-
- SetCompleteUrlNil sets the value for CompleteUrl to be an explicit nil
-
-### UnsetCompleteUrl
-`func (o *Basket) UnsetCompleteUrl()`
-
-UnsetCompleteUrl ensures that no value is present for CompleteUrl, not even an explicit nil
 ### GetCompleteAutoRedirect
 
 `func (o *Basket) GetCompleteAutoRedirect() bool`
@@ -575,16 +545,6 @@ SetCustom sets Custom field to given value.
 
 HasCustom returns a boolean if a field has been set.
 
-### SetCustomNil
-
-`func (o *Basket) SetCustomNil(b bool)`
-
- SetCustomNil sets the value for Custom to be an explicit nil
-
-### UnsetCustom
-`func (o *Basket) UnsetCustom()`
-
-UnsetCustom ensures that no value is present for Custom, not even an explicit nil
 ### GetLinks
 
 `func (o *Basket) GetLinks() BasketLinks`

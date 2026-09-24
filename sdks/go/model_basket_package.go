@@ -1,9 +1,9 @@
 /*
 Tebex Headless API
 
-The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), or from a backend server, such as for in-game GUIs.
+The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 1.1.0
+API version: 2.0.1
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -20,12 +20,19 @@ var _ MappedNullable = &BasketPackage{}
 
 // BasketPackage A package within an existing basket.
 type BasketPackage struct {
-	// The quantity of `package` in this basket. This is not the total quantity of overall items in the basket.
-	Qty *int32 `json:"qty,omitempty"`
+	// The package ID
+	Id *int32 `json:"id,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Image *string `json:"image,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Slug *string `json:"slug,omitempty"`
+	InBasket *BasketPackageInBasket `json:"in_basket,omitempty"`
 	// The type of payment, either `single` for one-time payments or `subscription`.
 	Type *string `json:"type,omitempty"`
 	// An array of payment destination objects describing how the purchase should be split between multiple wallets. **Only available with pre-agreement from Tebex.**
 	RevenueShare []RevenueShare `json:"revenue_share,omitempty"`
+	// Whether this package is a recurring (subscription) purchase.
+	IsRecurring *bool `json:"is_recurring,omitempty"`
 }
 
 // NewBasketPackage instantiates a new BasketPackage object
@@ -45,36 +52,196 @@ func NewBasketPackageWithDefaults() *BasketPackage {
 	return &this
 }
 
-// GetQty returns the Qty field value if set, zero value otherwise.
-func (o *BasketPackage) GetQty() int32 {
-	if o == nil || IsNil(o.Qty) {
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *BasketPackage) GetId() int32 {
+	if o == nil || IsNil(o.Id) {
 		var ret int32
 		return ret
 	}
-	return *o.Qty
+	return *o.Id
 }
 
-// GetQtyOk returns a tuple with the Qty field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BasketPackage) GetQtyOk() (*int32, bool) {
-	if o == nil || IsNil(o.Qty) {
+func (o *BasketPackage) GetIdOk() (*int32, bool) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return o.Qty, true
+	return o.Id, true
 }
 
-// HasQty returns a boolean if a field has been set.
-func (o *BasketPackage) HasQty() bool {
-	if o != nil && !IsNil(o.Qty) {
+// HasId returns a boolean if a field has been set.
+func (o *BasketPackage) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// SetQty gets a reference to the given int32 and assigns it to the Qty field.
-func (o *BasketPackage) SetQty(v int32) {
-	o.Qty = &v
+// SetId gets a reference to the given int32 and assigns it to the Id field.
+func (o *BasketPackage) SetId(v int32) {
+	o.Id = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *BasketPackage) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BasketPackage) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *BasketPackage) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *BasketPackage) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetImage returns the Image field value if set, zero value otherwise.
+func (o *BasketPackage) GetImage() string {
+	if o == nil || IsNil(o.Image) {
+		var ret string
+		return ret
+	}
+	return *o.Image
+}
+
+// GetImageOk returns a tuple with the Image field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BasketPackage) GetImageOk() (*string, bool) {
+	if o == nil || IsNil(o.Image) {
+		return nil, false
+	}
+	return o.Image, true
+}
+
+// HasImage returns a boolean if a field has been set.
+func (o *BasketPackage) HasImage() bool {
+	if o != nil && !IsNil(o.Image) {
+		return true
+	}
+
+	return false
+}
+
+// SetImage gets a reference to the given string and assigns it to the Image field.
+func (o *BasketPackage) SetImage(v string) {
+	o.Image = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *BasketPackage) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BasketPackage) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *BasketPackage) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *BasketPackage) SetName(v string) {
+	o.Name = &v
+}
+
+// GetSlug returns the Slug field value if set, zero value otherwise.
+func (o *BasketPackage) GetSlug() string {
+	if o == nil || IsNil(o.Slug) {
+		var ret string
+		return ret
+	}
+	return *o.Slug
+}
+
+// GetSlugOk returns a tuple with the Slug field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BasketPackage) GetSlugOk() (*string, bool) {
+	if o == nil || IsNil(o.Slug) {
+		return nil, false
+	}
+	return o.Slug, true
+}
+
+// HasSlug returns a boolean if a field has been set.
+func (o *BasketPackage) HasSlug() bool {
+	if o != nil && !IsNil(o.Slug) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlug gets a reference to the given string and assigns it to the Slug field.
+func (o *BasketPackage) SetSlug(v string) {
+	o.Slug = &v
+}
+
+// GetInBasket returns the InBasket field value if set, zero value otherwise.
+func (o *BasketPackage) GetInBasket() BasketPackageInBasket {
+	if o == nil || IsNil(o.InBasket) {
+		var ret BasketPackageInBasket
+		return ret
+	}
+	return *o.InBasket
+}
+
+// GetInBasketOk returns a tuple with the InBasket field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BasketPackage) GetInBasketOk() (*BasketPackageInBasket, bool) {
+	if o == nil || IsNil(o.InBasket) {
+		return nil, false
+	}
+	return o.InBasket, true
+}
+
+// HasInBasket returns a boolean if a field has been set.
+func (o *BasketPackage) HasInBasket() bool {
+	if o != nil && !IsNil(o.InBasket) {
+		return true
+	}
+
+	return false
+}
+
+// SetInBasket gets a reference to the given BasketPackageInBasket and assigns it to the InBasket field.
+func (o *BasketPackage) SetInBasket(v BasketPackageInBasket) {
+	o.InBasket = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -141,6 +308,38 @@ func (o *BasketPackage) SetRevenueShare(v []RevenueShare) {
 	o.RevenueShare = v
 }
 
+// GetIsRecurring returns the IsRecurring field value if set, zero value otherwise.
+func (o *BasketPackage) GetIsRecurring() bool {
+	if o == nil || IsNil(o.IsRecurring) {
+		var ret bool
+		return ret
+	}
+	return *o.IsRecurring
+}
+
+// GetIsRecurringOk returns a tuple with the IsRecurring field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BasketPackage) GetIsRecurringOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsRecurring) {
+		return nil, false
+	}
+	return o.IsRecurring, true
+}
+
+// HasIsRecurring returns a boolean if a field has been set.
+func (o *BasketPackage) HasIsRecurring() bool {
+	if o != nil && !IsNil(o.IsRecurring) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsRecurring gets a reference to the given bool and assigns it to the IsRecurring field.
+func (o *BasketPackage) SetIsRecurring(v bool) {
+	o.IsRecurring = &v
+}
+
 func (o BasketPackage) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -151,14 +350,32 @@ func (o BasketPackage) MarshalJSON() ([]byte, error) {
 
 func (o BasketPackage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Qty) {
-		toSerialize["qty"] = o.Qty
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Image) {
+		toSerialize["image"] = o.Image
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Slug) {
+		toSerialize["slug"] = o.Slug
+	}
+	if !IsNil(o.InBasket) {
+		toSerialize["in_basket"] = o.InBasket
 	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 	if !IsNil(o.RevenueShare) {
 		toSerialize["revenue_share"] = o.RevenueShare
+	}
+	if !IsNil(o.IsRecurring) {
+		toSerialize["is_recurring"] = o.IsRecurring
 	}
 	return toSerialize, nil
 }

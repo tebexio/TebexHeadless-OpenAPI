@@ -6,9 +6,15 @@ A package within an existing basket.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**qty** | **int** | The quantity of &#x60;package&#x60; in this basket. This is not the total quantity of overall items in the basket. | [optional] 
+**id** | **int** | The package ID | [optional] 
+**description** | **str** |  | [optional] 
+**image** | **str** |  | [optional] 
+**name** | **str** |  | [optional] 
+**slug** | **str** |  | [optional] 
+**in_basket** | [**BasketPackageInBasket**](BasketPackageInBasket.md) |  | [optional] 
 **type** | **str** | The type of payment, either &#x60;single&#x60; for one-time payments or &#x60;subscription&#x60;. | [optional] 
 **revenue_share** | [**List[RevenueShare]**](RevenueShare.md) | An array of payment destination objects describing how the purchase should be split between multiple wallets. **Only available with pre-agreement from Tebex.** | [optional] 
+**is_recurring** | **bool** | Whether this package is a recurring (subscription) purchase. | [optional] 
 
 ## Example
 

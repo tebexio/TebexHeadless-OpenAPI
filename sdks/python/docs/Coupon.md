@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**coupon_code** | **str** |  | [optional] 
+**code** | **str** |  | [optional] 
 
 ## Example
 

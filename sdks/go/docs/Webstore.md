@@ -10,10 +10,13 @@ Name | Type | Description | Notes
 **WebstoreUrl** | Pointer to **string** | URL of the webstore | [optional] 
 **Currency** | Pointer to **string** | Currency used in the store | [optional] 
 **Lang** | Pointer to **string** | Language of the store | [optional] 
-**Logo** | Pointer to **NullableString** | URL of the store&#39;s logo | [optional] 
+**Logo** | Pointer to **string** | URL of the store&#39;s logo | [optional] 
 **PlatformType** | Pointer to **string** | Platform type for the store | [optional] 
 **PlatformTypeId** | Pointer to **string** |  | [optional] 
+**Disabled** | Pointer to **bool** | True if the store is disabled. | [optional] 
 **CreatedAt** | Pointer to **time.Time** | The date and time when the store was created | [optional] 
+**SupportsUsernames** | Pointer to **bool** | True if the store&#39;s platform identifies customers by username. | [optional] 
+**SupportsGifting** | Pointer to **bool** | True if packages can be gifted to another user. | [optional] 
 
 ## Methods
 
@@ -209,16 +212,6 @@ SetLogo sets Logo field to given value.
 
 HasLogo returns a boolean if a field has been set.
 
-### SetLogoNil
-
-`func (o *Webstore) SetLogoNil(b bool)`
-
- SetLogoNil sets the value for Logo to be an explicit nil
-
-### UnsetLogo
-`func (o *Webstore) UnsetLogo()`
-
-UnsetLogo ensures that no value is present for Logo, not even an explicit nil
 ### GetPlatformType
 
 `func (o *Webstore) GetPlatformType() string`
@@ -269,6 +262,31 @@ SetPlatformTypeId sets PlatformTypeId field to given value.
 
 HasPlatformTypeId returns a boolean if a field has been set.
 
+### GetDisabled
+
+`func (o *Webstore) GetDisabled() bool`
+
+GetDisabled returns the Disabled field if non-nil, zero value otherwise.
+
+### GetDisabledOk
+
+`func (o *Webstore) GetDisabledOk() (*bool, bool)`
+
+GetDisabledOk returns a tuple with the Disabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDisabled
+
+`func (o *Webstore) SetDisabled(v bool)`
+
+SetDisabled sets Disabled field to given value.
+
+### HasDisabled
+
+`func (o *Webstore) HasDisabled() bool`
+
+HasDisabled returns a boolean if a field has been set.
+
 ### GetCreatedAt
 
 `func (o *Webstore) GetCreatedAt() time.Time`
@@ -293,6 +311,56 @@ SetCreatedAt sets CreatedAt field to given value.
 `func (o *Webstore) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
+
+### GetSupportsUsernames
+
+`func (o *Webstore) GetSupportsUsernames() bool`
+
+GetSupportsUsernames returns the SupportsUsernames field if non-nil, zero value otherwise.
+
+### GetSupportsUsernamesOk
+
+`func (o *Webstore) GetSupportsUsernamesOk() (*bool, bool)`
+
+GetSupportsUsernamesOk returns a tuple with the SupportsUsernames field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSupportsUsernames
+
+`func (o *Webstore) SetSupportsUsernames(v bool)`
+
+SetSupportsUsernames sets SupportsUsernames field to given value.
+
+### HasSupportsUsernames
+
+`func (o *Webstore) HasSupportsUsernames() bool`
+
+HasSupportsUsernames returns a boolean if a field has been set.
+
+### GetSupportsGifting
+
+`func (o *Webstore) GetSupportsGifting() bool`
+
+GetSupportsGifting returns the SupportsGifting field if non-nil, zero value otherwise.
+
+### GetSupportsGiftingOk
+
+`func (o *Webstore) GetSupportsGiftingOk() (*bool, bool)`
+
+GetSupportsGiftingOk returns a tuple with the SupportsGifting field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSupportsGifting
+
+`func (o *Webstore) SetSupportsGifting(v bool)`
+
+SetSupportsGifting sets SupportsGifting field to given value.
+
+### HasSupportsGifting
+
+`func (o *Webstore) HasSupportsGifting() bool`
+
+HasSupportsGifting returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
