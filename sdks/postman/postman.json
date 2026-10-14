@@ -250,7 +250,7 @@
                                     ],
                                     "body": {
                                         "mode": "raw",
-                                        "raw": "{\n \"complete_url\": \"<string>\",\n \"cancel_url\": \"<string>\",\n \"custom\": \"<string>\",\n \"complete_auto_redirect\": \"<string>\"\n}",
+                                        "raw": "{\n \"package_id\": \"<string>\",\n \"quantity\": \"<number>\",\n \"dynamic\": \"<string>\"\n}",
                                         "options": {
                                             "raw": {
                                                 "language": "json"
@@ -1706,6 +1706,1299 @@
                                         ]
                                     },
                                     "description": "Gets the customer who spent the most in the given period. This does not depend on the sidebar's Top Customer module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  - `total` is in the account's currency, net of tax, and matches the revenue statistics in the control panel. - Free, manual, zero-price and incomplete payments are never counted. - Responses are cached for 10 minutes. - If there is no top customer for the period, `data` is null."
+                                }
+                            }
+                            ]
+                        }
+	                    ]
+	        },
+	        {
+	            "name": "Headless",
+	            "item": [
+	                        {
+    "name": "/",
+                "description": "Gets the webstore associated with the provided token",
+                 "item": [
+                            {
+                                "name": "Get the webstore's information",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            ""
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets the webstore associated with the provided token"
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets",
+                "description": "Creates a new basket for use during checkout.",
+                 "item": [
+                            {
+                                "name": "Create a new basket",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"complete_url\": \"<string>\",\n \"cancel_url\": \"<string>\",\n \"custom\": \"<string>\",\n \"complete_auto_redirect\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Creates a new basket for use during checkout."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent",
+                "description": "Gets a basket associated with the provided identifier.",
+                 "item": [
+                            {
+                                "name": "Get a basket",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets a basket associated with the provided identifier."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent/auth?returnUrl&#x3D;:returnUrl",
+                "description": "Fetches a basket's auth URL. The player should be directed here in order for them to authorize their account. When complete, they will be returned to the provided `returnUrl` and the basket will be authorized from that moment onwards.",
+                 "item": [
+                            {
+                                "name": "Get auth links for basket",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent/auth?returnUrl&#x3D;:returnUrl",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent",
+                                            "auth?returnUrl&#x3D;:returnUrl"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            },
+                                            {
+                                                "key": "returnUrl",
+                                                "value": "",
+                                                "description": "The URL you would like to redirect the user to after successful basket authentication."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Fetches a basket's auth URL. The player should be directed here in order for them to authorize their account. When complete, they will be returned to the provided `returnUrl` and the basket will be authorized from that moment onwards."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent/coupons",
+                "description": "Applies a coupon to a basket.",
+                 "item": [
+                            {
+                                "name": "Apply a coupon",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"coupon_code\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent/coupons",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent",
+                                            "coupons"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Applies a coupon to a basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent/coupons/remove",
+                "description": "Removes a coupon code from a basket",
+                 "item": [
+                            {
+                                "name": "Remove a coupon from the basket.",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"coupon_code\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent/coupons/remove",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent",
+                                            "coupons",
+                                            "remove"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Removes a coupon code from a basket"
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent/creator-codes",
+                "description": "Applies a creator code to a basket.",
+                 "item": [
+                            {
+                                "name": "Apply a creator code",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"creator_code\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent/creator-codes",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent",
+                                            "creator-codes"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Applies a creator code to a basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent/creator-codes/remove",
+                "description": "Removes the creator code from the basket.",
+                 "item": [
+                            {
+                                "name": "Removes the creator code from the basket.",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent/creator-codes/remove",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent",
+                                            "creator-codes",
+                                            "remove"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Removes the creator code from the basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent/dynamic-packages",
+                "description": "Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.",
+                 "item": [
+                            {
+                                "name": "Add packages to a dynamic category for a basket.",
+                                "request": {
+                                    "method": "PUT",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"username\": \"<string>\",\n \"category_id\": \"<number>\",\n \"packages\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent/dynamic-packages",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent",
+                                            "dynamic-packages"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent/giftcards",
+                "description": "Applies a gift card to the basket.",
+                 "item": [
+                            {
+                                "name": "Apply a gift card",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"card_number\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent/giftcards",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent",
+                                            "giftcards"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Applies a gift card to the basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:basketIdent/giftcards/remove",
+                "description": "Removes a gift card from the basket.",
+                 "item": [
+                            {
+                                "name": "Remove a gift card from the basket.",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"card_number\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:basketIdent/giftcards/remove",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":basketIdent",
+                                            "giftcards",
+                                            "remove"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Removes a gift card from the basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/categories",
+                "description": "Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL.",
+                 "item": [
+                            {
+                                "name": "Get all categories",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/categories",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "categories"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/categories/:categoryId",
+                "description": "Gets information about a category and returns the packages in that category.",
+                 "item": [
+                            {
+                                "name": "Get specific category",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/categories/:categoryId",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "categories",
+                                            ":categoryId"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "categoryId",
+                                                "value": "",
+                                                "description": "The ID or slug of the category to fetch."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets information about a category and returns the packages in that category."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/categories/:categoryId?includePackages&#x3D;1",
+                "description": "Gets information about a category and returns the packages in that category.",
+                 "item": [
+                            {
+                                "name": "Get a category with all packages",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/categories/:categoryId?includePackages&#x3D;1",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "categories",
+                                            ":categoryId?includePackages&#x3D;1"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "categoryId",
+                                                "value": "",
+                                                "description": "The ID or slug of the category to fetch."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets information about a category and returns the packages in that category."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/categories/:categoryId?includePackages&#x3D;1&amp;basketIdent&#x3D;:basketIdent",
+                "description": "Gets information about a category and returns the packages in that category. When the category is dynamic and `basketIdent` is provided, the category is populated with the packages associated with that basket.  If a basket identifier is not provided, a dynamic category will be empty as the basket is required to relate packages to the category.",
+                 "item": [
+                            {
+                                "name": "Gets a specific category including packages, populating a dynamic category for the given basket.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/categories/:categoryId?includePackages&#x3D;1&amp;basketIdent&#x3D;:basketIdent",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "categories",
+                                            ":categoryId?includePackages&#x3D;1&amp;basketIdent&#x3D;:basketIdent"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "categoryId",
+                                                "value": "",
+                                                "description": "The ID or slug of the category to fetch."
+                                            },
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets information about a category and returns the packages in that category. When the category is dynamic and `basketIdent` is provided, the category is populated with the packages associated with that basket.  If a basket identifier is not provided, a dynamic category will be empty as the basket is required to relate packages to the category."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/categories?includePackages&#x3D;1",
+                "description": "Gets all categories from a webstore including packages.",
+                 "item": [
+                            {
+                                "name": "Gets all categories and packages",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/categories?includePackages&#x3D;1",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "categories?includePackages&#x3D;1"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all categories from a webstore including packages."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/categories?includePackages&#x3D;1&amp;basketIdent&#x3D;:basketIdent",
+                "description": "Gets all categories from a webstore including packages. When `basketIdent` is provided, dynamic categories are populated with the packages associated with that basket.  If a basket identifier is not provided, dynamic categories will be empty as the basket is required to relate packages to the category.",
+                 "item": [
+                            {
+                                "name": "Get Dynamic Categories",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/categories?includePackages&#x3D;1&amp;basketIdent&#x3D;:basketIdent",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "categories?includePackages&#x3D;1&amp;basketIdent&#x3D;:basketIdent"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all categories from a webstore including packages. When `basketIdent` is provided, dynamic categories are populated with the packages associated with that basket.  If a basket identifier is not provided, dynamic categories will be empty as the basket is required to relate packages to the category."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/categories?usernameId&#x3D;:usernameId&amp;includePackages&#x3D;1",
+                "description": "Gets all categories from the webstore, returning active tier information for the given player.",
+                 "item": [
+                            {
+                                "name": "Get user's tiered categories",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/categories?usernameId&#x3D;:usernameId&amp;includePackages&#x3D;1",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "categories?usernameId&#x3D;:usernameId&amp;includePackages&#x3D;1"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "usernameId",
+                                                "value": "",
+                                                "description": ""
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all categories from the webstore, returning active tier information for the given player."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/packages",
+                "description": "Gets all packages from a webstore.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.",
+                 "item": [
+                            {
+                                "name": "Get all packages",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/packages",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "packages"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all packages from a webstore.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/packages/:packageId",
+                "description": "Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.",
+                 "item": [
+                            {
+                                "name": "Get package",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/packages/:packageId",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "packages",
+                                            ":packageId"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "packageId",
+                                                "value": "",
+                                                "description": "The package's ID or slug."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/packages?basketIdent&#x3D;:basketIdent",
+                "description": "Gets all packages available to the provided basket.",
+                 "item": [
+                            {
+                                "name": "Get packages available for basket",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/packages?basketIdent&#x3D;:basketIdent",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "packages?basketIdent&#x3D;:basketIdent"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all packages available to the provided basket."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/packages?ipAddress&#x3D;:ipAddress",
+                "description": "Gets all packages from a webstore.",
+                 "item": [
+                            {
+                                "name": "Get packages",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/packages?ipAddress&#x3D;:ipAddress",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "packages?ipAddress&#x3D;:ipAddress"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "ipAddress",
+                                                "value": "",
+                                                "description": "An IP address can be provided with authenticated requests"
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all packages from a webstore."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/packages?ipAddress&#x3D;:ipAddress&amp;basketIdent&#x3D;:basketIdent",
+                "description": "Gets all packages from a webstore.",
+                 "item": [
+                            {
+                                "name": "Get packages available for IP and basket",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/packages?ipAddress&#x3D;:ipAddress&amp;basketIdent&#x3D;:basketIdent",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "packages?ipAddress&#x3D;:ipAddress&amp;basketIdent&#x3D;:basketIdent"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "basketIdent",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            },
+                                            {
+                                                "key": "ipAddress",
+                                                "value": "",
+                                                "description": "An IP address can be provided with authenticated requests."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets all packages from a webstore."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/pages",
+                "description": "Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.",
+                 "item": [
+                            {
+                                "name": "Get custom pages defined for the webstore.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/pages",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "pages"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/sidebar",
+                "description": "Retrieves the available sidebar modules configured for the store.",
+                 "item": [
+                            {
+                                "name": "Retrieves the available sidebar modules.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/sidebar",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "sidebar"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "token",
+                                                "value": "",
+                                                "description": "The webstore identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Retrieves the available sidebar modules configured for the store."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/tiers/:tierId",
+                "description": "Updates a tier to a new package. A recurring payment updated webhook is sent when an update is successful.",
+                 "item": [
+                            {
+                                "name": "Update user's tier to a new package",
+                                "request": {
+                                    "method": "PATCH",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"package_id\": \"<number>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/tiers/:tierId",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "tiers",
+                                            ":tierId"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "tierId",
+                                                "value": "",
+                                                "description": "The tier identifier"
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Updates a tier to a new package. A recurring payment updated webhook is sent when an update is successful."
                                 }
                             }
                             ]

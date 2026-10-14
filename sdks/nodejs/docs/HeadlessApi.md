@@ -1030,11 +1030,6 @@ Lists the store&#39;s most recent payments, newest first. This does not depend o
 
 ```javascript
 import TebexHeadlessApi from 'tebex_headless_api';
-let defaultClient = TebexHeadlessApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
 let opts = {
