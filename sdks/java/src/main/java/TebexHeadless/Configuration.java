@@ -13,7 +13,7 @@
 
 package TebexHeadless;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-14T12:41:28.186144444-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-14T12:55:20.653169505-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class Configuration {
     public static final String VERSION = "2.1.0";
 

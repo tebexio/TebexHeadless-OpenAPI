@@ -53,7 +53,7 @@ import TebexHeadless.JSON;
 /**
  * A condition for the sale. Fields present depend on &#x60;type&#x60;: - &#x60;purchased_packages&#x60;: &#x60;packages&#x60; and &#x60;match&#x60; (always &#x60;all&#x60;). &#x60;packages&#x60; is empty if every required package is hidden. - &#x60;lifetime_spend&#x60;: &#x60;amount&#x60; and &#x60;currency&#x60;. - &#x60;minimum_basket_value&#x60;: &#x60;amount&#x60; and &#x60;currency&#x60;.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-14T12:41:28.186144444-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-14T12:55:20.653169505-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class SaleRequirement {
   /**
    * The type of requirement for the sale. Additional requirement types may be added later. Clients must ignore requirement types they do not know.

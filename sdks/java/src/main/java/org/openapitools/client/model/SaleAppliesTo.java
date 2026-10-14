@@ -52,7 +52,7 @@ import TebexHeadless.JSON;
 /**
  * What the sale applies to. Only the array matching &#x60;type&#x60; is filled; the others are empty. When &#x60;type&#x60; is &#x60;all&#x60;, only &#x60;excluded_packages&#x60; may be filled.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-14T12:41:28.186144444-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-14T12:55:20.653169505-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class SaleAppliesTo {
   /**
    * Gets or Sets type

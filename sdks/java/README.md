@@ -2,7 +2,7 @@
 
 Tebex Headless API
 - API version: 2.1.0
-  - Build date: 2026-10-14T12:41:28.186144444-05:00[America/Chicago]
+  - Build date: 2026-10-14T12:55:20.653169505-05:00[America/Chicago]
   - Generator version: 7.5.0
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
