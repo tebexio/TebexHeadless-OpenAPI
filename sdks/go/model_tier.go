@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -25,15 +25,15 @@ type Tier struct {
 	// The date and time when the tier became active
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The user's username ID. For Steam, this is a numeric representation of their Steam64ID
-	UsernameId *string `json:"username_id,omitempty"`
-	Package *Package `json:"package,omitempty"`
+	UsernameId *string  `json:"username_id,omitempty"`
+	Package    *Package `json:"package,omitempty"`
 	// True if the tier is currently active.
 	Active *bool `json:"active,omitempty"`
 	// The ID of the recurring payment this tier is attached to.
 	RecurringPaymentReference *string `json:"recurring_payment_reference,omitempty"`
 	// The date and time of the next payment for this tier.
-	NextPaymentDate *time.Time `json:"next_payment_date,omitempty"`
-	Status *TierStatus `json:"status,omitempty"`
+	NextPaymentDate         *time.Time                   `json:"next_payment_date,omitempty"`
+	Status                  *TierStatus                  `json:"status,omitempty"`
 	PendingDowngradePackage *TierPendingDowngradePackage `json:"pending_downgrade_package,omitempty"`
 }
 
@@ -343,7 +343,7 @@ func (o *Tier) SetPendingDowngradePackage(v TierPendingDowngradePackage) {
 }
 
 func (o Tier) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -417,5 +417,3 @@ func (v *NullableTier) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

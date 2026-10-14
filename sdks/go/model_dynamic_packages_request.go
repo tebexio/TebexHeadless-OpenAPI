@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -12,8 +12,8 @@ Contact: tebex-integrations@overwolf.com
 package TebexHeadless
 
 import (
-	"encoding/json"
 	"bytes"
+	"encoding/json"
 	"fmt"
 )
 
@@ -22,11 +22,13 @@ var _ MappedNullable = &DynamicPackagesRequest{}
 
 // DynamicPackagesRequest struct for DynamicPackagesRequest
 type DynamicPackagesRequest struct {
+	// The basket's ident. Use the same value as the `basketIdent` path parameter.
+	BasketId string `json:"basket_id"`
 	// The username of the authenticated customer the packages are being created for.
 	Username string `json:"username"`
-	// The ID of the dynamic category to populate.
-	CategoryId int32 `json:"category_id"`
-	Packages []DynamicPackageInput `json:"packages"`
+	// The ID of the dynamic category to populate. Must be a category of type `dynamic`.
+	CategoryId int32                 `json:"category_id"`
+	Packages   []DynamicPackageInput `json:"packages"`
 }
 
 type _DynamicPackagesRequest DynamicPackagesRequest
@@ -35,8 +37,9 @@ type _DynamicPackagesRequest DynamicPackagesRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDynamicPackagesRequest(username string, categoryId int32, packages []DynamicPackageInput) *DynamicPackagesRequest {
+func NewDynamicPackagesRequest(basketId string, username string, categoryId int32, packages []DynamicPackageInput) *DynamicPackagesRequest {
 	this := DynamicPackagesRequest{}
+	this.BasketId = basketId
 	this.Username = username
 	this.CategoryId = categoryId
 	this.Packages = packages
@@ -49,6 +52,30 @@ func NewDynamicPackagesRequest(username string, categoryId int32, packages []Dyn
 func NewDynamicPackagesRequestWithDefaults() *DynamicPackagesRequest {
 	this := DynamicPackagesRequest{}
 	return &this
+}
+
+// GetBasketId returns the BasketId field value
+func (o *DynamicPackagesRequest) GetBasketId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.BasketId
+}
+
+// GetBasketIdOk returns a tuple with the BasketId field value
+// and a boolean to check if the value has been set.
+func (o *DynamicPackagesRequest) GetBasketIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.BasketId, true
+}
+
+// SetBasketId sets field value
+func (o *DynamicPackagesRequest) SetBasketId(v string) {
+	o.BasketId = v
 }
 
 // GetUsername returns the Username field value
@@ -124,7 +151,7 @@ func (o *DynamicPackagesRequest) SetPackages(v []DynamicPackageInput) {
 }
 
 func (o DynamicPackagesRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -133,6 +160,7 @@ func (o DynamicPackagesRequest) MarshalJSON() ([]byte, error) {
 
 func (o DynamicPackagesRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["basket_id"] = o.BasketId
 	toSerialize["username"] = o.Username
 	toSerialize["category_id"] = o.CategoryId
 	toSerialize["packages"] = o.Packages
@@ -144,6 +172,7 @@ func (o *DynamicPackagesRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"basket_id",
 		"username",
 		"category_id",
 		"packages",
@@ -154,10 +183,10 @@ func (o *DynamicPackagesRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -213,5 +242,3 @@ func (v *NullableDynamicPackagesRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

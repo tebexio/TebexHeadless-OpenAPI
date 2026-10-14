@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -12,8 +12,8 @@ Contact: tebex-integrations@overwolf.com
 package TebexHeadless
 
 import (
-	"encoding/json"
 	"bytes"
+	"encoding/json"
 	"fmt"
 )
 
@@ -22,8 +22,9 @@ var _ MappedNullable = &AddBasketPackageRequest{}
 
 // AddBasketPackageRequest struct for AddBasketPackageRequest
 type AddBasketPackageRequest struct {
+	// The package's `ident` (recommended) or numeric ID. `ident` is required for external packages. Send the `ident` exactly as returned by the package endpoints.
 	PackageId string `json:"package_id"`
-	Quantity int32 `json:"quantity"`
+	Quantity  int32  `json:"quantity"`
 	// Set to `true` when adding a package that belongs to a dynamic category. When omitted, the API acts as if a normal package ID was provided.
 	Dynamic *bool `json:"dynamic,omitempty"`
 }
@@ -130,7 +131,7 @@ func (o *AddBasketPackageRequest) SetDynamic(v bool) {
 }
 
 func (o AddBasketPackageRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -161,10 +162,10 @@ func (o *AddBasketPackageRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -220,5 +221,3 @@ func (v *NullableAddBasketPackageRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

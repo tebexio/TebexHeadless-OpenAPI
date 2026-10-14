@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -12,10 +12,10 @@ Contact: tebex-integrations@overwolf.com
 package TebexHeadless
 
 import (
-	"encoding/json"
-	"time"
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // checks if the ModuleBase type satisfies the MappedNullable interface at compile time
@@ -25,7 +25,7 @@ var _ MappedNullable = &ModuleBase{}
 type ModuleBase struct {
 	Id int64 `json:"id"`
 	// Discriminator for module kind.
-	Type string `json:"type"`
+	Type      string    `json:"type"`
 	StartTime time.Time `json:"start_time"`
 	// Nullable; when null the module is ongoing.
 	EndTime NullableTime `json:"end_time,omitempty"`
@@ -160,6 +160,7 @@ func (o *ModuleBase) HasEndTime() bool {
 func (o *ModuleBase) SetEndTime(v time.Time) {
 	o.EndTime.Set(&v)
 }
+
 // SetEndTimeNil sets the value for EndTime to be an explicit nil
 func (o *ModuleBase) SetEndTimeNil() {
 	o.EndTime.Set(nil)
@@ -195,7 +196,7 @@ func (o *ModuleBase) SetData(v map[string]interface{}) {
 }
 
 func (o ModuleBase) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -230,10 +231,10 @@ func (o *ModuleBase) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -289,5 +290,3 @@ func (v *NullableModuleBase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

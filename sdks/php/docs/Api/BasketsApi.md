@@ -18,7 +18,7 @@ addBasketPackage($basket_ident, $add_basket_package_request): \TebexHeadless\Mod
 - https://headless.tebex.io/api/baskets Basket-only API, account token not required
 Add package to basket
 
-Add a package with the given ID to the basket.  To add a package belonging to a dynamic category, set `dynamic` to `true`. Without this property the API will treat the request as a normal package ID.
+Add a package to the basket by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. It is required for external packages. - Numeric IDs still work for standard packages.  To add a package belonging to a dynamic category, set `dynamic` to `true`. Without this property the API will treat the request as a normal package ID.
 
 ### Example
 
@@ -83,7 +83,7 @@ removeBasketPackage($basket_ident, $remove_basket_package_request): \TebexHeadle
 - https://headless.tebex.io/api/baskets Basket-only API, account token not required
 Remove a package from a basket
 
-Remove the given package ID from the basket.
+Remove a package from the basket by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it. - Numeric IDs still work for standard packages.
 
 ### Example
 
@@ -148,7 +148,7 @@ updatePackageQuantity($basket_ident, $package_id, $update_package_quantity_reque
 - https://headless.tebex.io/api/baskets Basket-only API, account token not required
 Update package quantity
 
-Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.
+Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.  - `{packageId}` accepts the package's `ident` or numeric ID. Using `ident` is recommended, since it works for every package type. - Numeric IDs still work for standard packages.
 
 ### Example
 
@@ -164,7 +164,7 @@ $apiInstance = new TebexHeadless\Api\BasketsApi(
     new GuzzleHttp\Client()
 );
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
-$package_id = 6276316; // string | The package identifier
+$package_id = pkg_12_456; // string | The package's `ident` (recommended) or numeric ID.
 $update_package_quantity_request = new \TebexHeadless\Model\UpdatePackageQuantityRequest(); // \TebexHeadless\Model\UpdatePackageQuantityRequest
 
 $hostIndex = 0;
@@ -183,7 +183,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **basket_ident** | **string**| The basket identifier. | |
-| **package_id** | **string**| The package identifier | |
+| **package_id** | **string**| The package&#39;s &#x60;ident&#x60; (recommended) or numeric ID. | |
 | **update_package_quantity_request** | [**\TebexHeadless\Model\UpdatePackageQuantityRequest**](../Model/UpdatePackageQuantityRequest.md)|  | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |

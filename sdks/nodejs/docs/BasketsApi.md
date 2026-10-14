@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Add package to basket
 
-Add a package with the given ID to the basket.  To add a package belonging to a dynamic category, set &#x60;dynamic&#x60; to &#x60;true&#x60;. Without this property the API will treat the request as a normal package ID.
+Add a package to the basket by its &#x60;ident&#x60; or numeric ID.  - Using &#x60;ident&#x60; is recommended, since it works for every package type. It is required for external packages. - Numeric IDs still work for standard packages.  To add a package belonging to a dynamic category, set &#x60;dynamic&#x60; to &#x60;true&#x60;. Without this property the API will treat the request as a normal package ID.
 
 ### Example
 
@@ -65,7 +65,7 @@ No authorization required
 
 Remove a package from a basket
 
-Remove the given package ID from the basket.
+Remove a package from the basket by its &#x60;ident&#x60; or numeric ID.  - Using &#x60;ident&#x60; is recommended, since it works for every package type. Send it back exactly as returned; don&#39;t build or parse it. - Numeric IDs still work for standard packages.
 
 ### Example
 
@@ -114,7 +114,7 @@ No authorization required
 
 Update package quantity
 
-Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.
+Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.  - &#x60;{packageId}&#x60; accepts the package&#39;s &#x60;ident&#x60; or numeric ID. Using &#x60;ident&#x60; is recommended, since it works for every package type. - Numeric IDs still work for standard packages.
 
 ### Example
 
@@ -123,7 +123,7 @@ import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.BasketsApi();
 let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
-let packageId = "6276316"; // String | The package identifier
+let packageId = "pkg_12_456"; // String | The package's `ident` (recommended) or numeric ID.
 let opts = {
   'updatePackageQuantityRequest': new TebexHeadlessApi.UpdatePackageQuantityRequest() // UpdatePackageQuantityRequest | 
 };
@@ -142,7 +142,7 @@ apiInstance.updatePackageQuantity(basketIdent, packageId, opts, (error, data, re
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **basketIdent** | **String**| The basket identifier. | 
- **packageId** | **String**| The package identifier | 
+ **packageId** | **String**| The package&#39;s &#x60;ident&#x60; (recommended) or numeric ID. | 
  **updatePackageQuantityRequest** | [**UpdatePackageQuantityRequest**](UpdatePackageQuantityRequest.md)|  | [optional] 
 
 ### Return type

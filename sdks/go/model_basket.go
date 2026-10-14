@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -20,30 +20,30 @@ var _ MappedNullable = &Basket{}
 
 // Basket struct for Basket
 type Basket struct {
-	Id *string `json:"id,omitempty"`
-	Ident *string `json:"ident,omitempty"`
-	Complete *bool `json:"complete,omitempty"`
-	Email *string `json:"email,omitempty"`
-	Username *string `json:"username,omitempty"`
-	Coupons []Coupon `json:"coupons,omitempty"`
+	Id        *string    `json:"id,omitempty"`
+	Ident     *string    `json:"ident,omitempty"`
+	Complete  *bool      `json:"complete,omitempty"`
+	Email     *string    `json:"email,omitempty"`
+	Username  *string    `json:"username,omitempty"`
+	Coupons   []Coupon   `json:"coupons,omitempty"`
 	Giftcards []GiftCard `json:"giftcards,omitempty"`
 	// The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
-	CreatorCode *string `json:"creator_code,omitempty"`
-	CancelUrl *string `json:"cancel_url,omitempty"`
-	CompleteUrl *string `json:"complete_url,omitempty"`
-	CompleteAutoRedirect *bool `json:"complete_auto_redirect,omitempty"`
+	CreatorCode          *string `json:"creator_code,omitempty"`
+	CancelUrl            *string `json:"cancel_url,omitempty"`
+	CompleteUrl          *string `json:"complete_url,omitempty"`
+	CompleteAutoRedirect *bool   `json:"complete_auto_redirect,omitempty"`
 	// A two-character country code
-	Country *string `json:"country,omitempty"`
-	Ip *string `json:"ip,omitempty"`
-	UsernameId *int32 `json:"username_id,omitempty"`
-	BasePrice *float32 `json:"base_price,omitempty"`
-	SalesTax *float32 `json:"sales_tax,omitempty"`
+	Country    *string  `json:"country,omitempty"`
+	Ip         *string  `json:"ip,omitempty"`
+	UsernameId *int32   `json:"username_id,omitempty"`
+	BasePrice  *float32 `json:"base_price,omitempty"`
+	SalesTax   *float32 `json:"sales_tax,omitempty"`
 	TotalPrice *float32 `json:"total_price,omitempty"`
 	// A 3 character currency code
-	Currency *string `json:"currency,omitempty"`
-	Packages []BasketPackage `json:"packages,omitempty"`
-	Custom map[string]interface{} `json:"custom,omitempty"`
-	Links *BasketLinks `json:"links,omitempty"`
+	Currency *string                `json:"currency,omitempty"`
+	Packages []BasketPackage        `json:"packages,omitempty"`
+	Custom   map[string]interface{} `json:"custom,omitempty"`
+	Links    *BasketLinks           `json:"links,omitempty"`
 }
 
 // NewBasket instantiates a new Basket object
@@ -736,7 +736,7 @@ func (o *Basket) SetLinks(v BasketLinks) {
 }
 
 func (o Basket) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -846,5 +846,3 @@ func (v *NullableBasket) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

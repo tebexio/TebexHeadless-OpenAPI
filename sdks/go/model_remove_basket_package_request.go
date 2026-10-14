@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -20,6 +20,7 @@ var _ MappedNullable = &RemoveBasketPackageRequest{}
 
 // RemoveBasketPackageRequest struct for RemoveBasketPackageRequest
 type RemoveBasketPackageRequest struct {
+	// The package's `ident` (recommended) or numeric ID.
 	PackageId *string `json:"package_id,omitempty"`
 }
 
@@ -73,7 +74,7 @@ func (o *RemoveBasketPackageRequest) SetPackageId(v string) {
 }
 
 func (o RemoveBasketPackageRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -123,5 +124,3 @@ func (v *NullableRemoveBasketPackageRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

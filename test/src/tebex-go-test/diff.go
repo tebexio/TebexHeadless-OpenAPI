@@ -123,6 +123,9 @@ func diffKeys(expected any, raw []byte, recurse bool) diffResult {
 			switch v := inner.(type) {
 			case map[string]any:
 				objMap = v
+			case nil: // nullable single-object endpoints (e.g. no top customer)
+				res.notes = append(res.notes, "null data, cannot diff keys")
+				return res
 			case []any: // list endpoints: reduce to first element
 				if len(v) > 0 {
 					if first, ok := v[0].(map[string]any); ok {

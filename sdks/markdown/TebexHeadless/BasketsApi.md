@@ -15,7 +15,7 @@ All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOK
 
 Add package to basket
 
-    Add a package with the given ID to the basket.  To add a package belonging to a dynamic category, set &#x60;dynamic&#x60; to &#x60;true&#x60;. Without this property the API will treat the request as a normal package ID.
+    Add a package to the basket by its &#x60;ident&#x60; or numeric ID.  - Using &#x60;ident&#x60; is recommended, since it works for every package type. It is required for external packages. - Numeric IDs still work for standard packages.  To add a package belonging to a dynamic category, set &#x60;dynamic&#x60; to &#x60;true&#x60;. Without this property the API will treat the request as a normal package ID.
 
 ### Parameters
 
@@ -43,7 +43,7 @@ No authorization required
 
 Remove a package from a basket
 
-    Remove the given package ID from the basket.
+    Remove a package from the basket by its &#x60;ident&#x60; or numeric ID.  - Using &#x60;ident&#x60; is recommended, since it works for every package type. Send it back exactly as returned; don&#39;t build or parse it. - Numeric IDs still work for standard packages.
 
 ### Parameters
 
@@ -71,14 +71,14 @@ No authorization required
 
 Update package quantity
 
-    Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.
+    Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.  - &#x60;{packageId}&#x60; accepts the package&#39;s &#x60;ident&#x60; or numeric ID. Using &#x60;ident&#x60; is recommended, since it works for every package type. - Numeric IDs still work for standard packages.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **basketIdent** | **String**| The basket identifier. | [default to null] |
-| **packageId** | **String**| The package identifier | [default to null] |
+| **packageId** | **String**| The package&#39;s &#x60;ident&#x60; (recommended) or numeric ID. | [default to null] |
 | **updatePackageQuantity\_request** | [**updatePackageQuantity_request**](../Models/updatePackageQuantity_request.md)|  | [optional] |
 
 ### Return type

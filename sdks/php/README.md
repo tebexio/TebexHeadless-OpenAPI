@@ -91,11 +91,16 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**getCategory**](docs/Api/HeadlessApi.md#getcategory) | **GET** /categories/{categoryId} | Get specific category
 *HeadlessApi* | [**getCategoryIncludeDynamicPackages**](docs/Api/HeadlessApi.md#getcategoryincludedynamicpackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket.
 *HeadlessApi* | [**getCategoryIncludePackages**](docs/Api/HeadlessApi.md#getcategoryincludepackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages
+*HeadlessApi* | [**getCommunityGoal**](docs/Api/HeadlessApi.md#getcommunitygoal) | **GET** /community-goals/{communityGoalId} | Get a community goal.
+*HeadlessApi* | [**getCommunityGoals**](docs/Api/HeadlessApi.md#getcommunitygoals) | **GET** /community-goals | Get the webstore&#39;s community goals.
 *HeadlessApi* | [**getCustomPages**](docs/Api/HeadlessApi.md#getcustompages) | **GET** /pages | Get custom pages defined for the webstore.
 *HeadlessApi* | [**getDynamicCategories**](docs/Api/HeadlessApi.md#getdynamiccategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories
 *HeadlessApi* | [**getPackage**](docs/Api/HeadlessApi.md#getpackage) | **GET** /packages/{packageId} | Get package
 *HeadlessApi* | [**getPackagesForBasket**](docs/Api/HeadlessApi.md#getpackagesforbasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket
+*HeadlessApi* | [**getRecentPayments**](docs/Api/HeadlessApi.md#getrecentpayments) | **GET** /recent-payments | Get the webstore&#39;s recent payments.
+*HeadlessApi* | [**getSales**](docs/Api/HeadlessApi.md#getsales) | **GET** /sales | Get the webstore&#39;s active sales.
 *HeadlessApi* | [**getSidebar**](docs/Api/HeadlessApi.md#getsidebar) | **GET** /sidebar | Retrieves the available sidebar modules.
+*HeadlessApi* | [**getTopCustomer**](docs/Api/HeadlessApi.md#gettopcustomer) | **GET** /top-customers | Get the webstore&#39;s top customer.
 *HeadlessApi* | [**getUserTieredCategories**](docs/Api/HeadlessApi.md#getusertieredcategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories
 *HeadlessApi* | [**getWebstore**](docs/Api/HeadlessApi.md#getwebstore) | **GET** / | Get the webstore&#39;s information
 *HeadlessApi* | [**removeCoupon**](docs/Api/HeadlessApi.md#removecoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -121,8 +126,11 @@ Class | Method | HTTP request | Description
 - [CMSPagesResponse](docs/Model/CMSPagesResponse.md)
 - [Category](docs/Model/Category.md)
 - [CategoryResponse](docs/Model/CategoryResponse.md)
+- [CommunityGoal](docs/Model/CommunityGoal.md)
 - [CommunityGoalData](docs/Model/CommunityGoalData.md)
 - [CommunityGoalModule](docs/Model/CommunityGoalModule.md)
+- [CommunityGoalResponse](docs/Model/CommunityGoalResponse.md)
+- [CommunityGoalsResponse](docs/Model/CommunityGoalsResponse.md)
 - [Coupon](docs/Model/Coupon.md)
 - [CreateBasketRequest](docs/Model/CreateBasketRequest.md)
 - [DynamicPackageInput](docs/Model/DynamicPackageInput.md)
@@ -145,12 +153,20 @@ Class | Method | HTTP request | Description
 - [PaymentGoalModule](docs/Model/PaymentGoalModule.md)
 - [Players](docs/Model/Players.md)
 - [RecentPayment](docs/Model/RecentPayment.md)
+- [RecentPaymentEntry](docs/Model/RecentPaymentEntry.md)
 - [RecentPaymentPackage](docs/Model/RecentPaymentPackage.md)
 - [RecentPaymentsData](docs/Model/RecentPaymentsData.md)
 - [RecentPaymentsModule](docs/Model/RecentPaymentsModule.md)
+- [RecentPaymentsResponse](docs/Model/RecentPaymentsResponse.md)
 - [RemoveBasketPackageRequest](docs/Model/RemoveBasketPackageRequest.md)
 - [RemoveGiftCardRequest](docs/Model/RemoveGiftCardRequest.md)
 - [RevenueShare](docs/Model/RevenueShare.md)
+- [Sale](docs/Model/Sale.md)
+- [SaleAppliesTo](docs/Model/SaleAppliesTo.md)
+- [SaleDiscount](docs/Model/SaleDiscount.md)
+- [SaleReference](docs/Model/SaleReference.md)
+- [SaleRequirement](docs/Model/SaleRequirement.md)
+- [SalesResponse](docs/Model/SalesResponse.md)
 - [ServerStatusData](docs/Model/ServerStatusData.md)
 - [ServerStatusModule](docs/Model/ServerStatusModule.md)
 - [SingleCategoryResponse](docs/Model/SingleCategoryResponse.md)
@@ -160,8 +176,10 @@ Class | Method | HTTP request | Description
 - [Tier](docs/Model/Tier.md)
 - [TierPendingDowngradePackage](docs/Model/TierPendingDowngradePackage.md)
 - [TierStatus](docs/Model/TierStatus.md)
+- [TopCustomer](docs/Model/TopCustomer.md)
 - [TopCustomerData](docs/Model/TopCustomerData.md)
 - [TopCustomerModule](docs/Model/TopCustomerModule.md)
+- [TopCustomerResponse](docs/Model/TopCustomerResponse.md)
 - [UpdatePackageQuantityRequest](docs/Model/UpdatePackageQuantityRequest.md)
 - [UpdateTierRequest](docs/Model/UpdateTierRequest.md)
 - [UpdateTierResponse](docs/Model/UpdateTierResponse.md)
@@ -192,6 +210,6 @@ tebex-integrations@overwolf.com
 
 This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: `2.0.1`
+- API version: `2.1.0`
     - Generator version: `7.5.0`
 - Build package: `org.openapitools.codegen.languages.PhpClientCodegen`

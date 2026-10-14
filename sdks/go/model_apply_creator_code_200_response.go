@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &ApplyCreatorCode200Response{}
 
 // ApplyCreatorCode200Response struct for ApplyCreatorCode200Response
 type ApplyCreatorCode200Response struct {
-	Success *bool `json:"success,omitempty"`
+	Success *bool   `json:"success,omitempty"`
 	Message *string `json:"message,omitempty"`
 }
 
@@ -106,7 +106,7 @@ func (o *ApplyCreatorCode200Response) SetMessage(v string) {
 }
 
 func (o ApplyCreatorCode200Response) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -159,5 +159,3 @@ func (v *NullableApplyCreatorCode200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

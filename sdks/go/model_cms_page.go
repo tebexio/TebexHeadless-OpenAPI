@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -21,17 +21,17 @@ var _ MappedNullable = &CMSPage{}
 
 // CMSPage struct for CMSPage
 type CMSPage struct {
-	Id *int32 `json:"id,omitempty"`
+	Id        *int32     `json:"id,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	AccountId *int32 `json:"account_id,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Slug *string `json:"slug,omitempty"`
-	Private *bool `json:"private,omitempty"`
-	Hidden *bool `json:"hidden,omitempty"`
-	Disabled *bool `json:"disabled,omitempty"`
-	Sequence *bool `json:"sequence,omitempty"`
-	Content *string `json:"content,omitempty"`
+	AccountId *int32     `json:"account_id,omitempty"`
+	Title     *string    `json:"title,omitempty"`
+	Slug      *string    `json:"slug,omitempty"`
+	Private   *bool      `json:"private,omitempty"`
+	Hidden    *bool      `json:"hidden,omitempty"`
+	Disabled  *bool      `json:"disabled,omitempty"`
+	Sequence  *bool      `json:"sequence,omitempty"`
+	Content   *string    `json:"content,omitempty"`
 }
 
 // NewCMSPage instantiates a new CMSPage object
@@ -404,7 +404,7 @@ func (o *CMSPage) SetContent(v string) {
 }
 
 func (o CMSPage) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -484,5 +484,3 @@ func (v *NullableCMSPage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

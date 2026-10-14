@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -21,32 +21,33 @@ var _ MappedNullable = &Package{}
 
 // Package struct for Package
 type Package struct {
-	Id *int32 `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Image *string `json:"image,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Category *PackageCategory `json:"category,omitempty"`
-	BasePrice *float32 `json:"base_price,omitempty"`
-	SalesTax *float32 `json:"sales_tax,omitempty"`
-	TotalPrice *float32 `json:"total_price,omitempty"`
-	Currency *string `json:"currency,omitempty"`
+	// The package's numeric ID. For external packages this is synthetic; use `ident` instead.
+	Id          *int32           `json:"id,omitempty"`
+	Name        *string          `json:"name,omitempty"`
+	Description *string          `json:"description,omitempty"`
+	Image       *string          `json:"image,omitempty"`
+	Type        *string          `json:"type,omitempty"`
+	Category    *PackageCategory `json:"category,omitempty"`
+	BasePrice   *float32         `json:"base_price,omitempty"`
+	SalesTax    *float32         `json:"sales_tax,omitempty"`
+	TotalPrice  *float32         `json:"total_price,omitempty"`
+	Currency    *string          `json:"currency,omitempty"`
 	// If this package is part of a tiered category, this is the difference on upgrade pricing from the current active tier.
-	ProratePrice *float32 `json:"prorate_price,omitempty"`
-	Discount *float32 `json:"discount,omitempty"`
-	DisableQuantity *bool `json:"disable_quantity,omitempty"`
-	DisableGifting *bool `json:"disable_gifting,omitempty"`
-	ExpirationDate *time.Time `json:"expiration_date,omitempty"`
-	Media []PackageMedia `json:"media,omitempty"`
-	Order *int32 `json:"order,omitempty"`
-	Slug *string `json:"slug,omitempty"`
-	UserLimit *int32 `json:"user_limit,omitempty"`
+	ProratePrice    *float32               `json:"prorate_price,omitempty"`
+	Discount        *float32               `json:"discount,omitempty"`
+	DisableQuantity *bool                  `json:"disable_quantity,omitempty"`
+	DisableGifting  *bool                  `json:"disable_gifting,omitempty"`
+	ExpirationDate  *time.Time             `json:"expiration_date,omitempty"`
+	Media           []PackageMedia         `json:"media,omitempty"`
+	Order           *int32                 `json:"order,omitempty"`
+	Slug            *string                `json:"slug,omitempty"`
+	UserLimit       *int32                 `json:"user_limit,omitempty"`
 	CreatorMetaData map[string]interface{} `json:"creator_meta_data,omitempty"`
-	Options []string `json:"options,omitempty"`
-	Variables []string `json:"variables,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	// The package's string identifier.
+	Options         []string               `json:"options,omitempty"`
+	Variables       []string               `json:"variables,omitempty"`
+	CreatedAt       *time.Time             `json:"created_at,omitempty"`
+	UpdatedAt       *time.Time             `json:"updated_at,omitempty"`
+	// The package's string identifier, returned on every package (standard, dynamic and external). Treat it as an opaque string: store it and send it back as-is to `getPackage` and `addBasketPackage`; don't build or parse it.  It has the form `{prefix}_{categoryId}_{id}`, where `prefix` is `pkg` (standard), `dyn` (dynamic, numeric id) or `ext` (external, e.g. `ext_10_{asset-uuid}` for INTRACT, with the provider's identifier URL-encoded).
 	Ident *string `json:"ident,omitempty"`
 	// The package's VIP status. Only `null` has been observed so far, so the non-null type is unconfirmed.
 	VipStatus *string `json:"vip_status,omitempty"`
@@ -902,7 +903,7 @@ func (o *Package) SetVipStatus(v string) {
 }
 
 func (o Package) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -1027,5 +1028,3 @@ func (v *NullablePackage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

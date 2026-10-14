@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -18,14 +18,14 @@ import (
 
 // Module - struct for Module
 type Module struct {
-	CommunityGoalModule *CommunityGoalModule
+	CommunityGoalModule   *CommunityGoalModule
 	FeaturedPackageModule *FeaturedPackageModule
 	GiftcardBalanceModule *GiftcardBalanceModule
-	PaymentGoalModule *PaymentGoalModule
-	RecentPaymentsModule *RecentPaymentsModule
-	ServerStatusModule *ServerStatusModule
-	TextboxModule *TextboxModule
-	TopCustomerModule *TopCustomerModule
+	PaymentGoalModule     *PaymentGoalModule
+	RecentPaymentsModule  *RecentPaymentsModule
+	ServerStatusModule    *ServerStatusModule
+	TextboxModule         *TextboxModule
+	TopCustomerModule     *TopCustomerModule
 }
 
 // CommunityGoalModuleAsModule is a convenience function that returns CommunityGoalModule wrapped in Module
@@ -83,7 +83,6 @@ func TopCustomerModuleAsModule(v *TopCustomerModule) Module {
 		TopCustomerModule: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *Module) UnmarshalJSON(data []byte) error {
@@ -250,7 +249,7 @@ func (src Module) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *Module) GetActualInstance() (interface{}) {
+func (obj *Module) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -325,5 +324,3 @@ func (v *NullableModule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

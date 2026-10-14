@@ -19,11 +19,16 @@ Method | HTTP request | Description
 [**GetCategory**](HeadlessAPI.md#GetCategory) | **Get** /categories/{categoryId} | Get specific category
 [**GetCategoryIncludeDynamicPackages**](HeadlessAPI.md#GetCategoryIncludeDynamicPackages) | **Get** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket.
 [**GetCategoryIncludePackages**](HeadlessAPI.md#GetCategoryIncludePackages) | **Get** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages
+[**GetCommunityGoal**](HeadlessAPI.md#GetCommunityGoal) | **Get** /community-goals/{communityGoalId} | Get a community goal.
+[**GetCommunityGoals**](HeadlessAPI.md#GetCommunityGoals) | **Get** /community-goals | Get the webstore&#39;s community goals.
 [**GetCustomPages**](HeadlessAPI.md#GetCustomPages) | **Get** /pages | Get custom pages defined for the webstore.
 [**GetDynamicCategories**](HeadlessAPI.md#GetDynamicCategories) | **Get** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories
 [**GetPackage**](HeadlessAPI.md#GetPackage) | **Get** /packages/{packageId} | Get package
 [**GetPackagesForBasket**](HeadlessAPI.md#GetPackagesForBasket) | **Get** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket
+[**GetRecentPayments**](HeadlessAPI.md#GetRecentPayments) | **Get** /recent-payments | Get the webstore&#39;s recent payments.
+[**GetSales**](HeadlessAPI.md#GetSales) | **Get** /sales | Get the webstore&#39;s active sales.
 [**GetSidebar**](HeadlessAPI.md#GetSidebar) | **Get** /sidebar | Retrieves the available sidebar modules.
+[**GetTopCustomer**](HeadlessAPI.md#GetTopCustomer) | **Get** /top-customers | Get the webstore&#39;s top customer.
 [**GetUserTieredCategories**](HeadlessAPI.md#GetUserTieredCategories) | **Get** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories
 [**GetWebstore**](HeadlessAPI.md#GetWebstore) | **Get** / | Get the webstore&#39;s information
 [**RemoveCoupon**](HeadlessAPI.md#RemoveCoupon) | **Post** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -337,7 +342,7 @@ import (
 
 func main() {
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
-	dynamicPackagesRequest := *openapiclient.NewDynamicPackagesRequest("TestUser", int32(1234), []openapiclient.DynamicPackageInput{*openapiclient.NewDynamicPackageInput("Package Name 1", float32(10.0), "package-name-1")}) // DynamicPackagesRequest |  (optional)
+	dynamicPackagesRequest := *openapiclient.NewDynamicPackagesRequest("dvcbln-d7f6355161726d63e6dbe235ca25d2641184295b", "TestUser", int32(1234), []openapiclient.DynamicPackageInput{*openapiclient.NewDynamicPackageInput("Package Name 1", float32(10.0), "package-name-1")}) // DynamicPackagesRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -375,7 +380,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -1069,6 +1074,142 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetCommunityGoal
+
+> CommunityGoalResponse GetCommunityGoal(ctx, communityGoalId).Execute()
+
+Get a community goal.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	communityGoalId := int32(1) // int32 | The community goal ID.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetCommunityGoal(context.Background(), communityGoalId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCommunityGoal``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCommunityGoal`: CommunityGoalResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCommunityGoal`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**communityGoalId** | **int32** | The community goal ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommunityGoalRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CommunityGoalResponse**](CommunityGoalResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommunityGoals
+
+> CommunityGoalsResponse GetCommunityGoals(ctx).Status(status).Execute()
+
+Get the webstore's community goals.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	status := []string{"Status_example"} // []string | Only return goals with these statuses, e.g. `status[]=active&status[]=completed`. A single `status=active` is also accepted. With no filter, all goals are returned. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetCommunityGoals(context.Background()).Status(status).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetCommunityGoals``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCommunityGoals`: CommunityGoalsResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetCommunityGoals`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommunityGoalsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **[]string** | Only return goals with these statuses, e.g. &#x60;status[]&#x3D;active&amp;status[]&#x3D;completed&#x60;. A single &#x60;status&#x3D;active&#x60; is also accepted. With no filter, all goals are returned. | 
+
+### Return type
+
+[**CommunityGoalsResponse**](CommunityGoalsResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetCustomPages
 
 > CMSPagesResponse GetCustomPages(ctx).Execute()
@@ -1221,7 +1362,7 @@ import (
 )
 
 func main() {
-	packageId := "1272441812" // string | The package's ID or slug.
+	packageId := "1272441812" // string | The package's `ident` (recommended, e.g. `pkg_12_456`) or numeric ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1241,7 +1382,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**packageId** | **string** | The package&#39;s ID or slug. | 
+**packageId** | **string** | The package&#39;s &#x60;ident&#x60; (recommended, e.g. &#x60;pkg_12_456&#x60;) or numeric ID. | 
 
 ### Other Parameters
 
@@ -1340,6 +1481,133 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetRecentPayments
+
+> RecentPaymentsResponse GetRecentPayments(ctx).Limit(limit).Execute()
+
+Get the webstore's recent payments.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	limit := int32(56) // int32 | The number of payments to return, from 1 to 50. (optional) (default to 5)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetRecentPayments(context.Background()).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetRecentPayments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRecentPayments`: RecentPaymentsResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetRecentPayments`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetRecentPaymentsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int32** | The number of payments to return, from 1 to 50. | [default to 5]
+
+### Return type
+
+[**RecentPaymentsResponse**](RecentPaymentsResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSales
+
+> SalesResponse GetSales(ctx).Execute()
+
+Get the webstore's active sales.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetSales(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetSales``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSales`: SalesResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetSales`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSalesRequest struct via the builder pattern
+
+
+### Return type
+
+[**SalesResponse**](SalesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetSidebar
 
 > ModulesResponse GetSidebar(ctx, token).Execute()
@@ -1399,6 +1667,72 @@ Name | Type | Description  | Notes
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetTopCustomer
+
+> TopCustomerResponse GetTopCustomer(ctx).Period(period).Execute()
+
+Get the webstore's top customer.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	period := "period_example" // string | The period to rank customers over. `none` covers all time. (optional) (default to "monthly")
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HeadlessAPI.GetTopCustomer(context.Background()).Period(period).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HeadlessAPI.GetTopCustomer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTopCustomer`: TopCustomerResponse
+	fmt.Fprintf(os.Stdout, "Response from `HeadlessAPI.GetTopCustomer`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTopCustomerRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **period** | **string** | The period to rank customers over. &#x60;none&#x60; covers all time. | [default to &quot;monthly&quot;]
+
+### Return type
+
+[**TopCustomerResponse**](TopCustomerResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

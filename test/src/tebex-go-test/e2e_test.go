@@ -26,6 +26,7 @@ package tebex_go_test
 import (
 	"context"
 	"errors"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -89,7 +90,10 @@ func TestEndpoints(t *testing.T) {
 		t.Skip("skipping live E2E API test in -short mode")
 	}
 
-	cfg, err := loadConfig(envOr("E2E_CONFIG", "e2e_config.json"))
+	pwd, _ := os.Getwd()
+	fmt.Println(pwd)
+
+	cfg, err := loadConfig(envOr("E2E_CONFIG", "./tebex-go-test/e2e_config.json"))
 	if err != nil {
 		t.Fatalf("load config: %v", err)
 	}

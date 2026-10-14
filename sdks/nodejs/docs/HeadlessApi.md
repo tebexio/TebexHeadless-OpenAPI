@@ -19,11 +19,16 @@ Method | HTTP request | Description
 [**getCategory**](HeadlessApi.md#getCategory) | **GET** /categories/{categoryId} | Get specific category
 [**getCategoryIncludeDynamicPackages**](HeadlessApi.md#getCategoryIncludeDynamicPackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket.
 [**getCategoryIncludePackages**](HeadlessApi.md#getCategoryIncludePackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages
+[**getCommunityGoal**](HeadlessApi.md#getCommunityGoal) | **GET** /community-goals/{communityGoalId} | Get a community goal.
+[**getCommunityGoals**](HeadlessApi.md#getCommunityGoals) | **GET** /community-goals | Get the webstore&#39;s community goals.
 [**getCustomPages**](HeadlessApi.md#getCustomPages) | **GET** /pages | Get custom pages defined for the webstore.
 [**getDynamicCategories**](HeadlessApi.md#getDynamicCategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories
 [**getPackage**](HeadlessApi.md#getPackage) | **GET** /packages/{packageId} | Get package
 [**getPackagesForBasket**](HeadlessApi.md#getPackagesForBasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket
+[**getRecentPayments**](HeadlessApi.md#getRecentPayments) | **GET** /recent-payments | Get the webstore&#39;s recent payments.
+[**getSales**](HeadlessApi.md#getSales) | **GET** /sales | Get the webstore&#39;s active sales.
 [**getSidebar**](HeadlessApi.md#getSidebar) | **GET** /sidebar | Retrieves the available sidebar modules.
+[**getTopCustomer**](HeadlessApi.md#getTopCustomer) | **GET** /top-customers | Get the webstore&#39;s top customer.
 [**getUserTieredCategories**](HeadlessApi.md#getUserTieredCategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories
 [**getWebstore**](HeadlessApi.md#getWebstore) | **GET** / | Get the webstore&#39;s information
 [**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -233,12 +238,17 @@ No authorization required
 
 Add packages to a dynamic category for a basket.
 
-Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type &#x60;dynamic&#x60;, and are typically populated in response to a &#x60;basket.authenticated&#x60; webhook.  Once created, the packages can be fetched using the category endpoints with both &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; provided.
+Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type &#x60;dynamic&#x60;, and are typically populated in response to a &#x60;basket.authenticated&#x60; webhook.  Requires basic auth: the username is the webstore identifier and the password is the account&#39;s checkout API key.  Once created, the packages can be fetched using the category endpoints with both &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; provided.
 
 ### Example
 
 ```javascript
 import TebexHeadlessApi from 'tebex_headless_api';
+let defaultClient = TebexHeadlessApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
 let basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
@@ -268,7 +278,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -730,6 +740,108 @@ No authorization required
 - **Accept**: application/json
 
 
+## getCommunityGoal
+
+> CommunityGoalResponse getCommunityGoal(communityGoalId)
+
+Get a community goal.
+
+Gets a single community goal by its ID.  Requires basic auth: the username is the webstore identifier and the password is the account&#39;s checkout API key.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+let defaultClient = TebexHeadlessApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+let communityGoalId = 1; // Number | The community goal ID.
+apiInstance.getCommunityGoal(communityGoalId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **communityGoalId** | **Number**| The community goal ID. | 
+
+### Return type
+
+[**CommunityGoalResponse**](CommunityGoalResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## getCommunityGoals
+
+> CommunityGoalsResponse getCommunityGoals(opts)
+
+Get the webstore&#39;s community goals.
+
+Lists the store&#39;s community goals. This does not depend on the sidebar&#39;s Community Goal module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account&#39;s checkout API key.  If there are no matching goals, &#x60;data&#x60; is an empty array.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+let defaultClient = TebexHeadlessApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+let opts = {
+  'status': ["null"] // [String] | Only return goals with these statuses, e.g. `status[]=active&status[]=completed`. A single `status=active` is also accepted. With no filter, all goals are returned.
+};
+apiInstance.getCommunityGoals(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | [**[String]**](String.md)| Only return goals with these statuses, e.g. &#x60;status[]&#x3D;active&amp;status[]&#x3D;completed&#x60;. A single &#x60;status&#x3D;active&#x60; is also accepted. With no filter, all goals are returned. | [optional] 
+
+### Return type
+
+[**CommunityGoalsResponse**](CommunityGoalsResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## getCustomPages
 
 > CMSPagesResponse getCustomPages()
@@ -822,7 +934,7 @@ No authorization required
 
 Get package
 
-Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; to fetch dynamic packages.
+Gets a package from a webstore by its &#x60;ident&#x60; or numeric ID.  - Using &#x60;ident&#x60; is recommended, since it works for every package type. Send it back exactly as returned; don&#39;t build or parse it. - &#x60;id&#x60; stays numeric for standard packages. For external packages &#x60;id&#x60; is synthetic, so always use &#x60;ident&#x60;.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; to fetch dynamic packages.
 
 ### Example
 
@@ -830,7 +942,7 @@ Gets a package from a webstore by its ID or slug.  Note: this endpoint does not 
 import TebexHeadlessApi from 'tebex_headless_api';
 
 let apiInstance = new TebexHeadlessApi.HeadlessApi();
-let packageId = "1272441812"; // String | The package's ID or slug.
+let packageId = "1272441812"; // String | The package's `ident` (recommended, e.g. `pkg_12_456`) or numeric ID.
 apiInstance.getPackage(packageId, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -845,7 +957,7 @@ apiInstance.getPackage(packageId, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **packageId** | **String**| The package&#39;s ID or slug. | 
+ **packageId** | **String**| The package&#39;s &#x60;ident&#x60; (recommended, e.g. &#x60;pkg_12_456&#x60;) or numeric ID. | 
 
 ### Return type
 
@@ -906,6 +1018,99 @@ No authorization required
 - **Accept**: application/json
 
 
+## getRecentPayments
+
+> RecentPaymentsResponse getRecentPayments(opts)
+
+Get the webstore&#39;s recent payments.
+
+Lists the store&#39;s most recent payments, newest first. This does not depend on the sidebar&#39;s Recent Payments module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account&#39;s checkout API key.  - Free, manual, zero-price and incomplete payments are never included. - Responses are cached for 10 minutes. - If there are no payments, &#x60;data&#x60; is an empty array.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+let defaultClient = TebexHeadlessApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+let opts = {
+  'limit': 5 // Number | The number of payments to return, from 1 to 50.
+};
+apiInstance.getRecentPayments(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Number**| The number of payments to return, from 1 to 50. | [optional] [default to 5]
+
+### Return type
+
+[**RecentPaymentsResponse**](RecentPaymentsResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## getSales
+
+> SalesResponse getSales()
+
+Get the webstore&#39;s active sales.
+
+Lists the store&#39;s currently active sales, in the same order as the control panel. No authentication is required.  - Only sales whose start/end window includes the current time are returned. Expired sales, future sales and Lighthouse sales are left out. - Hidden packages and categories (disabled, removed, unpublished, or inside a disabled category) are left out of every array. - If there are no active sales, &#x60;data&#x60; is an empty array.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+apiInstance.getSales((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**SalesResponse**](SalesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## getSidebar
 
 > ModulesResponse getSidebar(token)
@@ -944,6 +1149,58 @@ Name | Type | Description  | Notes
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## getTopCustomer
+
+> TopCustomerResponse getTopCustomer(opts)
+
+Get the webstore&#39;s top customer.
+
+Gets the customer who spent the most in the given period. This does not depend on the sidebar&#39;s Top Customer module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account&#39;s checkout API key.  - &#x60;total&#x60; is in the account&#39;s currency, net of tax, and matches the revenue statistics in the control panel. - Free, manual, zero-price and incomplete payments are never counted. - Responses are cached for 10 minutes. - If there is no top customer for the period, &#x60;data&#x60; is null.
+
+### Example
+
+```javascript
+import TebexHeadlessApi from 'tebex_headless_api';
+let defaultClient = TebexHeadlessApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+
+let apiInstance = new TebexHeadlessApi.HeadlessApi();
+let opts = {
+  'period': "'monthly'" // String | The period to rank customers over. `none` covers all time.
+};
+apiInstance.getTopCustomer(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **period** | **String**| The period to rank customers over. &#x60;none&#x60; covers all time. | [optional] [default to &#39;monthly&#39;]
+
+### Return type
+
+[**TopCustomerResponse**](TopCustomerResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

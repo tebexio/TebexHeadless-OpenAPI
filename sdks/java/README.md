@@ -1,8 +1,8 @@
 # openapi-java-client
 
 Tebex Headless API
-- API version: 2.0.1
-  - Build date: 2026-09-24T11:21:56.600931566-05:00[America/Chicago]
+- API version: 2.1.0
+  - Build date: 2026-10-14T12:41:28.186144444-05:00[America/Chicago]
   - Generator version: 7.5.0
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
@@ -41,7 +41,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.openapitools</groupId>
   <artifactId>openapi-java-client</artifactId>
-  <version>2.0.1</version>
+  <version>2.1.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -57,7 +57,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.openapitools:openapi-java-client:2.0.1"
+     implementation "org.openapitools:openapi-java-client:2.1.0"
   }
 ```
 
@@ -71,7 +71,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-2.0.1.jar`
+* `target/openapi-java-client-2.1.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -134,11 +134,16 @@ Class | Method | HTTP request | Description
 *HeadlessApi* | [**getCategory**](docs/HeadlessApi.md#getCategory) | **GET** /categories/{categoryId} | Get specific category
 *HeadlessApi* | [**getCategoryIncludeDynamicPackages**](docs/HeadlessApi.md#getCategoryIncludeDynamicPackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket.
 *HeadlessApi* | [**getCategoryIncludePackages**](docs/HeadlessApi.md#getCategoryIncludePackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages
+*HeadlessApi* | [**getCommunityGoal**](docs/HeadlessApi.md#getCommunityGoal) | **GET** /community-goals/{communityGoalId} | Get a community goal.
+*HeadlessApi* | [**getCommunityGoals**](docs/HeadlessApi.md#getCommunityGoals) | **GET** /community-goals | Get the webstore&#39;s community goals.
 *HeadlessApi* | [**getCustomPages**](docs/HeadlessApi.md#getCustomPages) | **GET** /pages | Get custom pages defined for the webstore.
 *HeadlessApi* | [**getDynamicCategories**](docs/HeadlessApi.md#getDynamicCategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories
 *HeadlessApi* | [**getPackage**](docs/HeadlessApi.md#getPackage) | **GET** /packages/{packageId} | Get package
 *HeadlessApi* | [**getPackagesForBasket**](docs/HeadlessApi.md#getPackagesForBasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket
+*HeadlessApi* | [**getRecentPayments**](docs/HeadlessApi.md#getRecentPayments) | **GET** /recent-payments | Get the webstore&#39;s recent payments.
+*HeadlessApi* | [**getSales**](docs/HeadlessApi.md#getSales) | **GET** /sales | Get the webstore&#39;s active sales.
 *HeadlessApi* | [**getSidebar**](docs/HeadlessApi.md#getSidebar) | **GET** /sidebar | Retrieves the available sidebar modules.
+*HeadlessApi* | [**getTopCustomer**](docs/HeadlessApi.md#getTopCustomer) | **GET** /top-customers | Get the webstore&#39;s top customer.
 *HeadlessApi* | [**getUserTieredCategories**](docs/HeadlessApi.md#getUserTieredCategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories
 *HeadlessApi* | [**getWebstore**](docs/HeadlessApi.md#getWebstore) | **GET** / | Get the webstore&#39;s information
 *HeadlessApi* | [**removeCoupon**](docs/HeadlessApi.md#removeCoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -165,8 +170,11 @@ Class | Method | HTTP request | Description
  - [CMSPagesResponse](docs/CMSPagesResponse.md)
  - [Category](docs/Category.md)
  - [CategoryResponse](docs/CategoryResponse.md)
+ - [CommunityGoal](docs/CommunityGoal.md)
  - [CommunityGoalData](docs/CommunityGoalData.md)
  - [CommunityGoalModule](docs/CommunityGoalModule.md)
+ - [CommunityGoalResponse](docs/CommunityGoalResponse.md)
+ - [CommunityGoalsResponse](docs/CommunityGoalsResponse.md)
  - [Coupon](docs/Coupon.md)
  - [CreateBasketRequest](docs/CreateBasketRequest.md)
  - [DynamicPackageInput](docs/DynamicPackageInput.md)
@@ -189,12 +197,20 @@ Class | Method | HTTP request | Description
  - [PaymentGoalModule](docs/PaymentGoalModule.md)
  - [Players](docs/Players.md)
  - [RecentPayment](docs/RecentPayment.md)
+ - [RecentPaymentEntry](docs/RecentPaymentEntry.md)
  - [RecentPaymentPackage](docs/RecentPaymentPackage.md)
  - [RecentPaymentsData](docs/RecentPaymentsData.md)
  - [RecentPaymentsModule](docs/RecentPaymentsModule.md)
+ - [RecentPaymentsResponse](docs/RecentPaymentsResponse.md)
  - [RemoveBasketPackageRequest](docs/RemoveBasketPackageRequest.md)
  - [RemoveGiftCardRequest](docs/RemoveGiftCardRequest.md)
  - [RevenueShare](docs/RevenueShare.md)
+ - [Sale](docs/Sale.md)
+ - [SaleAppliesTo](docs/SaleAppliesTo.md)
+ - [SaleDiscount](docs/SaleDiscount.md)
+ - [SaleReference](docs/SaleReference.md)
+ - [SaleRequirement](docs/SaleRequirement.md)
+ - [SalesResponse](docs/SalesResponse.md)
  - [ServerStatusData](docs/ServerStatusData.md)
  - [ServerStatusModule](docs/ServerStatusModule.md)
  - [SingleCategoryResponse](docs/SingleCategoryResponse.md)
@@ -204,8 +220,10 @@ Class | Method | HTTP request | Description
  - [Tier](docs/Tier.md)
  - [TierPendingDowngradePackage](docs/TierPendingDowngradePackage.md)
  - [TierStatus](docs/TierStatus.md)
+ - [TopCustomer](docs/TopCustomer.md)
  - [TopCustomerData](docs/TopCustomerData.md)
  - [TopCustomerModule](docs/TopCustomerModule.md)
+ - [TopCustomerResponse](docs/TopCustomerResponse.md)
  - [UpdatePackageQuantityRequest](docs/UpdatePackageQuantityRequest.md)
  - [UpdateTierRequest](docs/UpdateTierRequest.md)
  - [UpdateTierResponse](docs/UpdateTierResponse.md)

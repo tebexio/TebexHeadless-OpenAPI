@@ -19,11 +19,16 @@ All URIs are relative to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKE
 | [**getCategory()**](HeadlessApi.md#getCategory) | **GET** /categories/{categoryId} | Get specific category |
 | [**getCategoryIncludeDynamicPackages()**](HeadlessApi.md#getCategoryIncludeDynamicPackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket. |
 | [**getCategoryIncludePackages()**](HeadlessApi.md#getCategoryIncludePackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages |
+| [**getCommunityGoal()**](HeadlessApi.md#getCommunityGoal) | **GET** /community-goals/{communityGoalId} | Get a community goal. |
+| [**getCommunityGoals()**](HeadlessApi.md#getCommunityGoals) | **GET** /community-goals | Get the webstore&#39;s community goals. |
 | [**getCustomPages()**](HeadlessApi.md#getCustomPages) | **GET** /pages | Get custom pages defined for the webstore. |
 | [**getDynamicCategories()**](HeadlessApi.md#getDynamicCategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories |
 | [**getPackage()**](HeadlessApi.md#getPackage) | **GET** /packages/{packageId} | Get package |
 | [**getPackagesForBasket()**](HeadlessApi.md#getPackagesForBasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket |
+| [**getRecentPayments()**](HeadlessApi.md#getRecentPayments) | **GET** /recent-payments | Get the webstore&#39;s recent payments. |
+| [**getSales()**](HeadlessApi.md#getSales) | **GET** /sales | Get the webstore&#39;s active sales. |
 | [**getSidebar()**](HeadlessApi.md#getSidebar) | **GET** /sidebar | Retrieves the available sidebar modules. |
+| [**getTopCustomer()**](HeadlessApi.md#getTopCustomer) | **GET** /top-customers | Get the webstore&#39;s top customer. |
 | [**getUserTieredCategories()**](HeadlessApi.md#getUserTieredCategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories |
 | [**getWebstore()**](HeadlessApi.md#getWebstore) | **GET** / | Get the webstore&#39;s information |
 | [**removeCoupon()**](HeadlessApi.md#removeCoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
@@ -270,7 +275,7 @@ createDynamicPackage($basket_ident, $dynamic_packages_request): \TebexHeadless\M
 
 Add packages to a dynamic category for a basket.
 
-Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
+Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
 
 ### Example
 
@@ -279,11 +284,17 @@ Populates a dynamic category with custom packages for the given basket. Dynamic 
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: basicAuth
+$config = TebexHeadless\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $basket_ident = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c; // string | The basket identifier.
 $dynamic_packages_request = new \TebexHeadless\Model\DynamicPackagesRequest(); // \TebexHeadless\Model\DynamicPackagesRequest
@@ -309,7 +320,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -889,6 +900,130 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getCommunityGoal()`
+
+```php
+getCommunityGoal($community_goal_id): \TebexHeadless\Model\CommunityGoalResponse
+```
+
+Get a community goal.
+
+Gets a single community goal by its ID.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: basicAuth
+$config = TebexHeadless\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$community_goal_id = 1; // int | The community goal ID.
+
+try {
+    $result = $apiInstance->getCommunityGoal($community_goal_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getCommunityGoal: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **community_goal_id** | **int**| The community goal ID. | |
+
+### Return type
+
+[**\TebexHeadless\Model\CommunityGoalResponse**](../Model/CommunityGoalResponse.md)
+
+### Authorization
+
+[basicAuth](../../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getCommunityGoals()`
+
+```php
+getCommunityGoals($status): \TebexHeadless\Model\CommunityGoalsResponse
+```
+
+Get the webstore's community goals.
+
+Lists the store's community goals. This does not depend on the sidebar's Community Goal module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  If there are no matching goals, `data` is an empty array.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: basicAuth
+$config = TebexHeadless\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$status = array('status_example'); // string[] | Only return goals with these statuses, e.g. `status[]=active&status[]=completed`. A single `status=active` is also accepted. With no filter, all goals are returned.
+
+try {
+    $result = $apiInstance->getCommunityGoals($status);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getCommunityGoals: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **status** | [**string[]**](../Model/string.md)| Only return goals with these statuses, e.g. &#x60;status[]&#x3D;active&amp;status[]&#x3D;completed&#x60;. A single &#x60;status&#x3D;active&#x60; is also accepted. With no filter, all goals are returned. | [optional] |
+
+### Return type
+
+[**\TebexHeadless\Model\CommunityGoalsResponse**](../Model/CommunityGoalsResponse.md)
+
+### Authorization
+
+[basicAuth](../../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getCustomPages()`
 
 ```php
@@ -1006,7 +1141,7 @@ getPackage($package_id): \TebexHeadless\Model\SinglePackageResponse
 
 Get package
 
-Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
+Gets a package from a webstore by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it. - `id` stays numeric for standard packages. For external packages `id` is synthetic, so always use `ident`.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
 
 ### Example
 
@@ -1021,7 +1156,7 @@ $apiInstance = new TebexHeadless\Api\HeadlessApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$package_id = 1272441812; // string | The package's ID or slug.
+$package_id = 1272441812; // string | The package's `ident` (recommended, e.g. `pkg_12_456`) or numeric ID.
 
 try {
     $result = $apiInstance->getPackage($package_id);
@@ -1035,7 +1170,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **package_id** | **string**| The package&#39;s ID or slug. | |
+| **package_id** | **string**| The package&#39;s &#x60;ident&#x60; (recommended, e.g. &#x60;pkg_12_456&#x60;) or numeric ID. | |
 
 ### Return type
 
@@ -1110,6 +1245,121 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getRecentPayments()`
+
+```php
+getRecentPayments($limit): \TebexHeadless\Model\RecentPaymentsResponse
+```
+
+Get the webstore's recent payments.
+
+Lists the store's most recent payments, newest first. This does not depend on the sidebar's Recent Payments module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  - Free, manual, zero-price and incomplete payments are never included. - Responses are cached for 10 minutes. - If there are no payments, `data` is an empty array.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: basicAuth
+$config = TebexHeadless\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$limit = 5; // int | The number of payments to return, from 1 to 50.
+
+try {
+    $result = $apiInstance->getRecentPayments($limit);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getRecentPayments: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **limit** | **int**| The number of payments to return, from 1 to 50. | [optional] [default to 5] |
+
+### Return type
+
+[**\TebexHeadless\Model\RecentPaymentsResponse**](../Model/RecentPaymentsResponse.md)
+
+### Authorization
+
+[basicAuth](../../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getSales()`
+
+```php
+getSales(): \TebexHeadless\Model\SalesResponse
+```
+
+Get the webstore's active sales.
+
+Lists the store's currently active sales, in the same order as the control panel. No authentication is required.  - Only sales whose start/end window includes the current time are returned. Expired sales, future sales and Lighthouse sales are left out. - Hidden packages and categories (disabled, removed, unpublished, or inside a disabled category) are left out of every array. - If there are no active sales, `data` is an empty array.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+
+try {
+    $result = $apiInstance->getSales();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getSales: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\TebexHeadless\Model\SalesResponse**](../Model/SalesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getSidebar()`
 
 ```php
@@ -1156,6 +1406,68 @@ try {
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getTopCustomer()`
+
+```php
+getTopCustomer($period): \TebexHeadless\Model\TopCustomerResponse
+```
+
+Get the webstore's top customer.
+
+Gets the customer who spent the most in the given period. This does not depend on the sidebar's Top Customer module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  - `total` is in the account's currency, net of tax, and matches the revenue statistics in the control panel. - Free, manual, zero-price and incomplete payments are never counted. - Responses are cached for 10 minutes. - If there is no top customer for the period, `data` is null.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: basicAuth
+$config = TebexHeadless\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new TebexHeadless\Api\HeadlessApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$period = 'monthly'; // string | The period to rank customers over. `none` covers all time.
+
+try {
+    $result = $apiInstance->getTopCustomer($period);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HeadlessApi->getTopCustomer: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **period** | **string**| The period to rank customers over. &#x60;none&#x60; covers all time. | [optional] [default to &#39;monthly&#39;] |
+
+### Return type
+
+[**\TebexHeadless\Model\TopCustomerResponse**](../Model/TopCustomerResponse.md)
+
+### Authorization
+
+[basicAuth](../../README.md#basicAuth)
 
 ### HTTP request headers
 

@@ -32,7 +32,7 @@ import (
 
 func main() {
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
-	addBasketPackageRequest := *openapiclient.NewAddBasketPackageRequest("6276316", int32(1)) // AddBasketPackageRequest |  (optional)
+	addBasketPackageRequest := *openapiclient.NewAddBasketPackageRequest("pkg_12_456", int32(1)) // AddBasketPackageRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -176,7 +176,7 @@ import (
 
 func main() {
 	basketIdent := "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c" // string | The basket identifier.
-	packageId := "6276316" // string | The package identifier
+	packageId := "pkg_12_456" // string | The package's `ident` (recommended) or numeric ID.
 	updatePackageQuantityRequest := *openapiclient.NewUpdatePackageQuantityRequest() // UpdatePackageQuantityRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **basketIdent** | **string** | The basket identifier. | 
-**packageId** | **string** | The package identifier | 
+**packageId** | **string** | The package&#39;s &#x60;ident&#x60; (recommended) or numeric ID. | 
 
 ### Other Parameters
 

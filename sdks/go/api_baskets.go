@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -20,14 +20,13 @@ import (
 	"strings"
 )
 
-
 // BasketsAPIService BasketsAPI service
 type BasketsAPIService service
 
 type ApiAddBasketPackageRequest struct {
-	ctx context.Context
-	ApiService *BasketsAPIService
-	basketIdent string
+	ctx                     context.Context
+	ApiService              *BasketsAPIService
+	basketIdent             string
 	addBasketPackageRequest *AddBasketPackageRequest
 }
 
@@ -43,30 +42,34 @@ func (r ApiAddBasketPackageRequest) Execute() (*BasketResponse, *http.Response, 
 /*
 AddBasketPackage Add package to basket
 
-Add a package with the given ID to the basket.
+Add a package to the basket by its `ident` or numeric ID.
+
+- Using `ident` is recommended, since it works for every package type. It is required for external packages.
+- Numeric IDs still work for standard packages.
 
 To add a package belonging to a dynamic category, set `dynamic` to `true`. Without this property the API will treat the request as a normal package ID.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiAddBasketPackageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiAddBasketPackageRequest
 */
 func (a *BasketsAPIService) AddBasketPackage(ctx context.Context, basketIdent string) ApiAddBasketPackageRequest {
 	return ApiAddBasketPackageRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
 
 // Execute executes the request
-//  @return BasketResponse
+//
+//	@return BasketResponse
 func (a *BasketsAPIService) AddBasketPackageExecute(r ApiAddBasketPackageRequest) (*BasketResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *BasketResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BasketResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasketsAPIService.AddBasketPackage")
@@ -122,6 +125,17 @@ func (a *BasketsAPIService) AddBasketPackageExecute(r ApiAddBasketPackageRequest
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -138,9 +152,9 @@ func (a *BasketsAPIService) AddBasketPackageExecute(r ApiAddBasketPackageRequest
 }
 
 type ApiRemoveBasketPackageRequest struct {
-	ctx context.Context
-	ApiService *BasketsAPIService
-	basketIdent string
+	ctx                        context.Context
+	ApiService                 *BasketsAPIService
+	basketIdent                string
 	removeBasketPackageRequest *RemoveBasketPackageRequest
 }
 
@@ -156,28 +170,32 @@ func (r ApiRemoveBasketPackageRequest) Execute() (*BasketResponse, *http.Respons
 /*
 RemoveBasketPackage Remove a package from a basket
 
-Remove the given package ID from the basket.
+Remove a package from the basket by its `ident` or numeric ID.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiRemoveBasketPackageRequest
+- Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it.
+- Numeric IDs still work for standard packages.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiRemoveBasketPackageRequest
 */
 func (a *BasketsAPIService) RemoveBasketPackage(ctx context.Context, basketIdent string) ApiRemoveBasketPackageRequest {
 	return ApiRemoveBasketPackageRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
 
 // Execute executes the request
-//  @return BasketResponse
+//
+//	@return BasketResponse
 func (a *BasketsAPIService) RemoveBasketPackageExecute(r ApiRemoveBasketPackageRequest) (*BasketResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *BasketResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BasketResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasketsAPIService.RemoveBasketPackage")
@@ -249,10 +267,10 @@ func (a *BasketsAPIService) RemoveBasketPackageExecute(r ApiRemoveBasketPackageR
 }
 
 type ApiUpdatePackageQuantityRequest struct {
-	ctx context.Context
-	ApiService *BasketsAPIService
-	basketIdent string
-	packageId string
+	ctx                          context.Context
+	ApiService                   *BasketsAPIService
+	basketIdent                  string
+	packageId                    string
 	updatePackageQuantityRequest *UpdatePackageQuantityRequest
 }
 
@@ -270,26 +288,29 @@ UpdatePackageQuantity Update package quantity
 
 Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @param packageId The package identifier
- @return ApiUpdatePackageQuantityRequest
+- `{packageId}` accepts the package's `ident` or numeric ID. Using `ident` is recommended, since it works for every package type.
+- Numeric IDs still work for standard packages.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@param packageId The package's `ident` (recommended) or numeric ID.
+	@return ApiUpdatePackageQuantityRequest
 */
 func (a *BasketsAPIService) UpdatePackageQuantity(ctx context.Context, basketIdent string, packageId string) ApiUpdatePackageQuantityRequest {
 	return ApiUpdatePackageQuantityRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
-		packageId: packageId,
+		packageId:   packageId,
 	}
 }
 
 // Execute executes the request
 func (a *BasketsAPIService) UpdatePackageQuantityExecute(r ApiUpdatePackageQuantityRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasketsAPIService.UpdatePackageQuantity")
