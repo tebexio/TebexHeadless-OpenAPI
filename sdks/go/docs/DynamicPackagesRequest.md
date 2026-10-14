@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**BasketId** | **string** | The basket&#39;s ident. Use the same value as the &#x60;basketIdent&#x60; path parameter. | 
 **Username** | **string** | The username of the authenticated customer the packages are being created for. | 
-**CategoryId** | **int32** | The ID of the dynamic category to populate. | 
+**CategoryId** | **int32** | The ID of the dynamic category to populate. Must be a category of type &#x60;dynamic&#x60;. | 
 **Packages** | [**[]DynamicPackageInput**](DynamicPackageInput.md) |  | 
 
 ## Methods
 
 ### NewDynamicPackagesRequest
 
-`func NewDynamicPackagesRequest(username string, categoryId int32, packages []DynamicPackageInput, ) *DynamicPackagesRequest`
+`func NewDynamicPackagesRequest(basketId string, username string, categoryId int32, packages []DynamicPackageInput, ) *DynamicPackagesRequest`
 
 NewDynamicPackagesRequest instantiates a new DynamicPackagesRequest object
 This constructor will assign default values to properties that have it defined,
@@ -26,6 +27,26 @@ will change when the set of required properties is changed
 NewDynamicPackagesRequestWithDefaults instantiates a new DynamicPackagesRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetBasketId
+
+`func (o *DynamicPackagesRequest) GetBasketId() string`
+
+GetBasketId returns the BasketId field if non-nil, zero value otherwise.
+
+### GetBasketIdOk
+
+`func (o *DynamicPackagesRequest) GetBasketIdOk() (*string, bool)`
+
+GetBasketIdOk returns a tuple with the BasketId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBasketId
+
+`func (o *DynamicPackagesRequest) SetBasketId(v string)`
+
+SetBasketId sets BasketId field to given value.
+
 
 ### GetUsername
 

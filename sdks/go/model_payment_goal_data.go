@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -12,8 +12,8 @@ Contact: tebex-integrations@overwolf.com
 package TebexHeadless
 
 import (
-	"encoding/json"
 	"bytes"
+	"encoding/json"
 	"fmt"
 )
 
@@ -22,10 +22,10 @@ var _ MappedNullable = &PaymentGoalData{}
 
 // PaymentGoalData struct for PaymentGoalData
 type PaymentGoalData struct {
-	Header string `json:"header"`
-	Percentage float32 `json:"percentage"`
-	BarStyle string `json:"bar_style"`
-	BarAnimated bool `json:"bar_animated"`
+	Header      string  `json:"header"`
+	Percentage  float32 `json:"percentage"`
+	BarStyle    string  `json:"bar_style"`
+	BarAnimated bool    `json:"bar_animated"`
 	// Optional, present depending on module configuration.
 	Total NullableFloat32 `json:"total,omitempty"`
 	// Optional, present depending on module configuration.
@@ -183,6 +183,7 @@ func (o *PaymentGoalData) HasTotal() bool {
 func (o *PaymentGoalData) SetTotal(v float32) {
 	o.Total.Set(&v)
 }
+
 // SetTotalNil sets the value for Total to be an explicit nil
 func (o *PaymentGoalData) SetTotalNil() {
 	o.Total.Set(nil)
@@ -225,6 +226,7 @@ func (o *PaymentGoalData) HasTarget() bool {
 func (o *PaymentGoalData) SetTarget(v float32) {
 	o.Target.Set(&v)
 }
+
 // SetTargetNil sets the value for Target to be an explicit nil
 func (o *PaymentGoalData) SetTargetNil() {
 	o.Target.Set(nil)
@@ -236,7 +238,7 @@ func (o *PaymentGoalData) UnsetTarget() {
 }
 
 func (o PaymentGoalData) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -274,10 +276,10 @@ func (o *PaymentGoalData) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -333,5 +335,3 @@ func (v *NullablePaymentGoalData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

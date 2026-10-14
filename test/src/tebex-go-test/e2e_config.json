@@ -1,7 +1,7 @@
 {
   "auth": {
     "username": "t66x-7cd928b1e9399909e6810edac6dc1fd1eefc57cb",
-    "password": "Qqw7B0JCRmbNMX0nkK7gMUymPECGriW7"
+    "password": "IcMHFsgZuVMyK7t41scJ3PW61AeXvvXc"
   },
   "variables": {
     "token": "t66x-7cd928b1e9399909e6810edac6dc1fd1eefc57cb",
@@ -9,6 +9,8 @@
     "ipAddress": "127.0.0.1",
     "packageId": "7262379",
     "categoryId": "3219935",
+    "dynamicCategoryId": "3344956",
+    "communityGoalId": "54109",
     "tierId": "1",
     "usernameId": "1"
   },
@@ -24,6 +26,11 @@
     "getCategoryIncludeDynamicPackages",
     "getUserTieredCategories",
     "getSidebar",
+    "getSales",
+    "getRecentPayments",
+    "getTopCustomer",
+    "getCommunityGoals",
+    "getCommunityGoal",
     "getAllPackages",
     "getPackage",
     "getAllPackagesWithAuthedIP",

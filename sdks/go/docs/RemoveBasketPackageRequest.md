@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PackageId** | Pointer to **string** |  | [optional] 
+**PackageId** | Pointer to **string** | The package&#39;s &#x60;ident&#x60; (recommended) or numeric ID. | [optional] 
 
 ## Methods
 

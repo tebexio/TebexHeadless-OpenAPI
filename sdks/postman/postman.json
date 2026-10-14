@@ -5,7 +5,7 @@
 		    "content": "The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.",
 		    "type": "text/markdown"
 		},
-		"version": "2.0.1",
+		"version": "2.1.0",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -14,7 +14,7 @@
 	            "item": [
 	                        {
     "name": "/:basketIdent/packages",
-                "description": "Add a package with the given ID to the basket.  To add a package belonging to a dynamic category, set `dynamic` to `true`. Without this property the API will treat the request as a normal package ID.",
+                "description": "Add a package to the basket by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. It is required for external packages. - Numeric IDs still work for standard packages.  To add a package belonging to a dynamic category, set `dynamic` to `true`. Without this property the API will treat the request as a normal package ID.",
                  "item": [
                             {
                                 "name": "Add package to basket",
@@ -62,14 +62,14 @@
                                         "query": [
                                         ]
                                     },
-                                    "description": "Add a package with the given ID to the basket.  To add a package belonging to a dynamic category, set `dynamic` to `true`. Without this property the API will treat the request as a normal package ID."
+                                    "description": "Add a package to the basket by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. It is required for external packages. - Numeric IDs still work for standard packages.  To add a package belonging to a dynamic category, set `dynamic` to `true`. Without this property the API will treat the request as a normal package ID."
                                 }
                             }
                             ]
                         },
 	                        {
     "name": "/:basketIdent/packages/:packageId",
-                "description": "Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.",
+                "description": "Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.  - `{packageId}` accepts the package's `ident` or numeric ID. Using `ident` is recommended, since it works for every package type. - Numeric IDs still work for standard packages.",
                  "item": [
                             {
                                 "name": "Update package quantity",
@@ -111,20 +111,20 @@
                                             {
                                                 "key": "packageId",
                                                 "value": "",
-                                                "description": "The package identifier"
+                                                "description": "The package's `ident` (recommended) or numeric ID."
                                             }
                                         ],
                                         "query": [
                                         ]
                                     },
-                                    "description": "Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed."
+                                    "description": "Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.  - `{packageId}` accepts the package's `ident` or numeric ID. Using `ident` is recommended, since it works for every package type. - Numeric IDs still work for standard packages."
                                 }
                             }
                             ]
                         },
 	                        {
     "name": "/:basketIdent/packages/remove",
-                "description": "Remove the given package ID from the basket.",
+                "description": "Remove a package from the basket by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it. - Numeric IDs still work for standard packages.",
                  "item": [
                             {
                                 "name": "Remove a package from a basket",
@@ -173,7 +173,7 @@
                                         "query": [
                                         ]
                                     },
-                                    "description": "Remove the given package ID from the basket."
+                                    "description": "Remove a package from the basket by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it. - Numeric IDs still work for standard packages."
                                 }
                             }
                             ]
@@ -589,7 +589,7 @@
                         },
 	                        {
     "name": "/baskets/:basketIdent/dynamic-packages",
-                "description": "Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.",
+                "description": "Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.",
                  "item": [
                             {
                                 "name": "Add packages to a dynamic category for a basket.",
@@ -611,7 +611,7 @@
                                     ],
                                     "body": {
                                         "mode": "raw",
-                                        "raw": "{\n \"username\": \"<string>\",\n \"category_id\": \"<number>\",\n \"packages\": \"<string>\"\n}",
+                                        "raw": "{\n \"basket_id\": \"<string>\",\n \"username\": \"<string>\",\n \"category_id\": \"<number>\",\n \"packages\": \"<string>\"\n}",
                                         "options": {
                                             "raw": {
                                                 "language": "json"
@@ -638,7 +638,7 @@
                                         "query": [
                                         ]
                                     },
-                                    "description": "Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided."
+                                    "description": "Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided."
                                 }
                             }
                             ]
@@ -1085,6 +1085,104 @@
                             ]
                         },
 	                        {
+    "name": "/community-goals",
+                "description": "Lists the store's community goals. This does not depend on the sidebar's Community Goal module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  If there are no matching goals, `data` is an empty array.",
+                 "item": [
+                            {
+                                "name": "Get the webstore's community goals.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/community-goals",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "community-goals"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                            {
+                                                "key": "statusLeft_Square_BracketRight_Square_Bracket",
+                                                "value": "",
+                                                "description": "Only return goals with these statuses, e.g. `status[]=active&status[]=completed`. A single `status=active` is also accepted. With no filter, all goals are returned.",
+                                                "disabled": true
+                                            }
+                                        ]
+                                    },
+                                    "description": "Lists the store's community goals. This does not depend on the sidebar's Community Goal module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  If there are no matching goals, `data` is an empty array."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/community-goals/:communityGoalId",
+                "description": "Gets a single community goal by its ID.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.",
+                 "item": [
+                            {
+                                "name": "Get a community goal.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/community-goals/:communityGoalId",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "community-goals",
+                                            ":communityGoalId"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "communityGoalId",
+                                                "value": "",
+                                                "description": "The community goal ID."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets a single community goal by its ID.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key."
+                                }
+                            }
+                            ]
+                        },
+	                        {
     "name": "/packages",
                 "description": "Gets all packages from a webstore.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.",
                  "item": [
@@ -1129,7 +1227,7 @@
                         },
 	                        {
     "name": "/packages/:packageId",
-                "description": "Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.",
+                "description": "Gets a package from a webstore by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it. - `id` stays numeric for standard packages. For external packages `id` is synthetic, so always use `ident`.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.",
                  "item": [
                             {
                                 "name": "Get package",
@@ -1165,13 +1263,13 @@
                                             {
                                                 "key": "packageId",
                                                 "value": "",
-                                                "description": "The package's ID or slug."
+                                                "description": "The package's `ident` (recommended, e.g. `pkg_12_456`) or numeric ID."
                                             }
                                         ],
                                         "query": [
                                         ]
                                     },
-                                    "description": "Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages."
+                                    "description": "Gets a package from a webstore by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it. - `id` stays numeric for standard packages. For external packages `id` is synthetic, so always use `ident`.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages."
                                 }
                             }
                             ]
@@ -1369,6 +1467,98 @@
                             ]
                         },
 	                        {
+    "name": "/recent-payments",
+                "description": "Lists the store's most recent payments, newest first. This does not depend on the sidebar's Recent Payments module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  - Free, manual, zero-price and incomplete payments are never included. - Responses are cached for 10 minutes. - If there are no payments, `data` is an empty array.",
+                 "item": [
+                            {
+                                "name": "Get the webstore's recent payments.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/recent-payments",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "recent-payments"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                            {
+                                                "key": "limit",
+                                                "value": "56",
+                                                "description": "The number of payments to return, from 1 to 50.",
+                                                "disabled": true
+                                            }
+                                        ]
+                                    },
+                                    "description": "Lists the store's most recent payments, newest first. This does not depend on the sidebar's Recent Payments module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  - Free, manual, zero-price and incomplete payments are never included. - Responses are cached for 10 minutes. - If there are no payments, `data` is an empty array."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/sales",
+                "description": "Lists the store's currently active sales, in the same order as the control panel. No authentication is required.  - Only sales whose start/end window includes the current time are returned. Expired sales, future sales and Lighthouse sales are left out. - Hidden packages and categories (disabled, removed, unpublished, or inside a disabled category) are left out of every array. - If there are no active sales, `data` is an empty array.",
+                 "item": [
+                            {
+                                "name": "Get the webstore's active sales.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/sales",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "sales"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Lists the store's currently active sales, in the same order as the control panel. No authentication is required.  - Only sales whose start/end window includes the current time are returned. Expired sales, future sales and Lighthouse sales are left out. - Hidden packages and categories (disabled, removed, unpublished, or inside a disabled category) are left out of every array. - If there are no active sales, `data` is an empty array."
+                                }
+                            }
+                            ]
+                        },
+	                        {
     "name": "/sidebar",
                 "description": "Retrieves the available sidebar modules configured for the store.",
                  "item": [
@@ -1467,6 +1657,55 @@
                                         ]
                                     },
                                     "description": "Updates a tier to a new package. A recurring payment updated webhook is sent when an update is successful."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/top-customers",
+                "description": "Gets the customer who spent the most in the given period. This does not depend on the sidebar's Top Customer module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  - `total` is in the account's currency, net of tax, and matches the revenue statistics in the control panel. - Free, manual, zero-price and incomplete payments are never counted. - Responses are cached for 10 minutes. - If there is no top customer for the period, `data` is null.",
+                 "item": [
+                            {
+                                "name": "Get the webstore's top customer.",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/top-customers",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "top-customers"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                            {
+                                                "key": "period",
+                                                "value": "period_example",
+                                                "description": "The period to rank customers over. `none` covers all time.",
+                                                "disabled": true
+                                            }
+                                        ]
+                                    },
+                                    "description": "Gets the customer who spent the most in the given period. This does not depend on the sidebar's Top Customer module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  - `total` is in the account's currency, net of tax, and matches the revenue statistics in the control panel. - Free, manual, zero-price and incomplete payments are never counted. - Responses are cached for 10 minutes. - If there is no top customer for the period, `data` is null."
                                 }
                             }
                             ]

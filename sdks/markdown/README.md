@@ -25,11 +25,16 @@ All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOK
 *HeadlessApi* | [**getCategory**](Apis/HeadlessApi.md#getcategory) | **GET** /categories/{categoryId} | Get specific category |
 *HeadlessApi* | [**getCategoryIncludeDynamicPackages**](Apis/HeadlessApi.md#getcategoryincludedynamicpackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket. |
 *HeadlessApi* | [**getCategoryIncludePackages**](Apis/HeadlessApi.md#getcategoryincludepackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages |
+*HeadlessApi* | [**getCommunityGoal**](Apis/HeadlessApi.md#getcommunitygoal) | **GET** /community-goals/{communityGoalId} | Get a community goal. |
+*HeadlessApi* | [**getCommunityGoals**](Apis/HeadlessApi.md#getcommunitygoals) | **GET** /community-goals | Get the webstore's community goals. |
 *HeadlessApi* | [**getCustomPages**](Apis/HeadlessApi.md#getcustompages) | **GET** /pages | Get custom pages defined for the webstore. |
 *HeadlessApi* | [**getDynamicCategories**](Apis/HeadlessApi.md#getdynamiccategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories |
 *HeadlessApi* | [**getPackage**](Apis/HeadlessApi.md#getpackage) | **GET** /packages/{packageId} | Get package |
 *HeadlessApi* | [**getPackagesForBasket**](Apis/HeadlessApi.md#getpackagesforbasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket |
+*HeadlessApi* | [**getRecentPayments**](Apis/HeadlessApi.md#getrecentpayments) | **GET** /recent-payments | Get the webstore's recent payments. |
+*HeadlessApi* | [**getSales**](Apis/HeadlessApi.md#getsales) | **GET** /sales | Get the webstore's active sales. |
 *HeadlessApi* | [**getSidebar**](Apis/HeadlessApi.md#getsidebar) | **GET** /sidebar | Retrieves the available sidebar modules. |
+*HeadlessApi* | [**getTopCustomer**](Apis/HeadlessApi.md#gettopcustomer) | **GET** /top-customers | Get the webstore's top customer. |
 *HeadlessApi* | [**getUserTieredCategories**](Apis/HeadlessApi.md#getusertieredcategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user's tiered categories |
 *HeadlessApi* | [**getWebstore**](Apis/HeadlessApi.md#getwebstore) | **GET** / | Get the webstore's information |
 *HeadlessApi* | [**removeCoupon**](Apis/HeadlessApi.md#removecoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
@@ -52,8 +57,11 @@ All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOK
  - [CMSPagesResponse](./Models/CMSPagesResponse.md)
  - [Category](./Models/Category.md)
  - [CategoryResponse](./Models/CategoryResponse.md)
+ - [CommunityGoal](./Models/CommunityGoal.md)
  - [CommunityGoalData](./Models/CommunityGoalData.md)
  - [CommunityGoalModule](./Models/CommunityGoalModule.md)
+ - [CommunityGoalResponse](./Models/CommunityGoalResponse.md)
+ - [CommunityGoalsResponse](./Models/CommunityGoalsResponse.md)
  - [Coupon](./Models/Coupon.md)
  - [DynamicPackageInput](./Models/DynamicPackageInput.md)
  - [DynamicPackagesRequest](./Models/DynamicPackagesRequest.md)
@@ -75,10 +83,18 @@ All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOK
  - [PaymentGoalModule](./Models/PaymentGoalModule.md)
  - [Players](./Models/Players.md)
  - [RecentPayment](./Models/RecentPayment.md)
+ - [RecentPaymentEntry](./Models/RecentPaymentEntry.md)
  - [RecentPayment_package](./Models/RecentPayment_package.md)
  - [RecentPaymentsData](./Models/RecentPaymentsData.md)
  - [RecentPaymentsModule](./Models/RecentPaymentsModule.md)
+ - [RecentPaymentsResponse](./Models/RecentPaymentsResponse.md)
  - [RevenueShare](./Models/RevenueShare.md)
+ - [Sale](./Models/Sale.md)
+ - [SaleAppliesTo](./Models/SaleAppliesTo.md)
+ - [SaleDiscount](./Models/SaleDiscount.md)
+ - [SaleReference](./Models/SaleReference.md)
+ - [SaleRequirement](./Models/SaleRequirement.md)
+ - [SalesResponse](./Models/SalesResponse.md)
  - [ServerStatusData](./Models/ServerStatusData.md)
  - [ServerStatusModule](./Models/ServerStatusModule.md)
  - [SingleCategoryResponse](./Models/SingleCategoryResponse.md)
@@ -88,8 +104,10 @@ All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOK
  - [Tier](./Models/Tier.md)
  - [Tier_pending_downgrade_package](./Models/Tier_pending_downgrade_package.md)
  - [Tier_status](./Models/Tier_status.md)
+ - [TopCustomer](./Models/TopCustomer.md)
  - [TopCustomerData](./Models/TopCustomerData.md)
  - [TopCustomerModule](./Models/TopCustomerModule.md)
+ - [TopCustomerResponse](./Models/TopCustomerResponse.md)
  - [UpdateTierResponse](./Models/UpdateTierResponse.md)
  - [Webstore](./Models/Webstore.md)
  - [WebstoreResponse](./Models/WebstoreResponse.md)

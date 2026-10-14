@@ -16,8 +16,11 @@ export * from './cMSPage';
 export * from './cMSPagesResponse';
 export * from './category';
 export * from './categoryResponse';
+export * from './communityGoal';
 export * from './communityGoalData';
 export * from './communityGoalModule';
+export * from './communityGoalResponse';
+export * from './communityGoalsResponse';
 export * from './coupon';
 export * from './createBasketRequest';
 export * from './dynamicPackageInput';
@@ -40,12 +43,20 @@ export * from './paymentGoalData';
 export * from './paymentGoalModule';
 export * from './players';
 export * from './recentPayment';
+export * from './recentPaymentEntry';
 export * from './recentPaymentPackage';
 export * from './recentPaymentsData';
 export * from './recentPaymentsModule';
+export * from './recentPaymentsResponse';
 export * from './removeBasketPackageRequest';
 export * from './removeGiftCardRequest';
 export * from './revenueShare';
+export * from './sale';
+export * from './saleAppliesTo';
+export * from './saleDiscount';
+export * from './saleReference';
+export * from './saleRequirement';
+export * from './salesResponse';
 export * from './serverStatusData';
 export * from './serverStatusModule';
 export * from './singleCategoryResponse';
@@ -55,8 +66,10 @@ export * from './textboxModule';
 export * from './tier';
 export * from './tierPendingDowngradePackage';
 export * from './tierStatus';
+export * from './topCustomer';
 export * from './topCustomerData';
 export * from './topCustomerModule';
+export * from './topCustomerResponse';
 export * from './updatePackageQuantityRequest';
 export * from './updateTierRequest';
 export * from './updateTierResponse';
@@ -92,8 +105,11 @@ import { CMSPage } from './cMSPage';
 import { CMSPagesResponse } from './cMSPagesResponse';
 import { Category } from './category';
 import { CategoryResponse } from './categoryResponse';
+import { CommunityGoal } from './communityGoal';
 import { CommunityGoalData } from './communityGoalData';
 import { CommunityGoalModule } from './communityGoalModule';
+import { CommunityGoalResponse } from './communityGoalResponse';
+import { CommunityGoalsResponse } from './communityGoalsResponse';
 import { Coupon } from './coupon';
 import { CreateBasketRequest } from './createBasketRequest';
 import { DynamicPackageInput } from './dynamicPackageInput';
@@ -116,12 +132,20 @@ import { PaymentGoalData } from './paymentGoalData';
 import { PaymentGoalModule } from './paymentGoalModule';
 import { Players } from './players';
 import { RecentPayment } from './recentPayment';
+import { RecentPaymentEntry } from './recentPaymentEntry';
 import { RecentPaymentPackage } from './recentPaymentPackage';
 import { RecentPaymentsData } from './recentPaymentsData';
 import { RecentPaymentsModule } from './recentPaymentsModule';
+import { RecentPaymentsResponse } from './recentPaymentsResponse';
 import { RemoveBasketPackageRequest } from './removeBasketPackageRequest';
 import { RemoveGiftCardRequest } from './removeGiftCardRequest';
 import { RevenueShare } from './revenueShare';
+import { Sale } from './sale';
+import { SaleAppliesTo } from './saleAppliesTo';
+import { SaleDiscount } from './saleDiscount';
+import { SaleReference } from './saleReference';
+import { SaleRequirement } from './saleRequirement';
+import { SalesResponse } from './salesResponse';
 import { ServerStatusData } from './serverStatusData';
 import { ServerStatusModule } from './serverStatusModule';
 import { SingleCategoryResponse } from './singleCategoryResponse';
@@ -131,8 +155,10 @@ import { TextboxModule } from './textboxModule';
 import { Tier } from './tier';
 import { TierPendingDowngradePackage } from './tierPendingDowngradePackage';
 import { TierStatus } from './tierStatus';
+import { TopCustomer } from './topCustomer';
 import { TopCustomerData } from './topCustomerData';
 import { TopCustomerModule } from './topCustomerModule';
+import { TopCustomerResponse } from './topCustomerResponse';
 import { UpdatePackageQuantityRequest } from './updatePackageQuantityRequest';
 import { UpdateTierRequest } from './updateTierRequest';
 import { UpdateTierResponse } from './updateTierResponse';
@@ -154,9 +180,15 @@ let primitives = [
 let enumsMap: {[index: string]: any} = {
         "BasketPackage.TypeEnum": BasketPackage.TypeEnum,
         "Category.DisplayTypeEnum": Category.DisplayTypeEnum,
+        "CommunityGoal.StatusEnum": CommunityGoal.StatusEnum,
         "CommunityGoalData.BarStyleEnum": CommunityGoalData.BarStyleEnum,
         "PackageMedia.TypeEnum": PackageMedia.TypeEnum,
         "PaymentGoalData.BarStyleEnum": PaymentGoalData.BarStyleEnum,
+        "SaleAppliesTo.TypeEnum": SaleAppliesTo.TypeEnum,
+        "SaleDiscount.TypeEnum": SaleDiscount.TypeEnum,
+        "SaleRequirement.TypeEnum": SaleRequirement.TypeEnum,
+        "SaleRequirement.MatchEnum": SaleRequirement.MatchEnum,
+        "TopCustomer.PeriodEnum": TopCustomer.PeriodEnum,
 }
 
 let typeMap: {[index: string]: any} = {
@@ -176,8 +208,11 @@ let typeMap: {[index: string]: any} = {
     "CMSPagesResponse": CMSPagesResponse,
     "Category": Category,
     "CategoryResponse": CategoryResponse,
+    "CommunityGoal": CommunityGoal,
     "CommunityGoalData": CommunityGoalData,
     "CommunityGoalModule": CommunityGoalModule,
+    "CommunityGoalResponse": CommunityGoalResponse,
+    "CommunityGoalsResponse": CommunityGoalsResponse,
     "Coupon": Coupon,
     "CreateBasketRequest": CreateBasketRequest,
     "DynamicPackageInput": DynamicPackageInput,
@@ -200,12 +235,20 @@ let typeMap: {[index: string]: any} = {
     "PaymentGoalModule": PaymentGoalModule,
     "Players": Players,
     "RecentPayment": RecentPayment,
+    "RecentPaymentEntry": RecentPaymentEntry,
     "RecentPaymentPackage": RecentPaymentPackage,
     "RecentPaymentsData": RecentPaymentsData,
     "RecentPaymentsModule": RecentPaymentsModule,
+    "RecentPaymentsResponse": RecentPaymentsResponse,
     "RemoveBasketPackageRequest": RemoveBasketPackageRequest,
     "RemoveGiftCardRequest": RemoveGiftCardRequest,
     "RevenueShare": RevenueShare,
+    "Sale": Sale,
+    "SaleAppliesTo": SaleAppliesTo,
+    "SaleDiscount": SaleDiscount,
+    "SaleReference": SaleReference,
+    "SaleRequirement": SaleRequirement,
+    "SalesResponse": SalesResponse,
     "ServerStatusData": ServerStatusData,
     "ServerStatusModule": ServerStatusModule,
     "SingleCategoryResponse": SingleCategoryResponse,
@@ -215,8 +258,10 @@ let typeMap: {[index: string]: any} = {
     "Tier": Tier,
     "TierPendingDowngradePackage": TierPendingDowngradePackage,
     "TierStatus": TierStatus,
+    "TopCustomer": TopCustomer,
     "TopCustomerData": TopCustomerData,
     "TopCustomerModule": TopCustomerModule,
+    "TopCustomerResponse": TopCustomerResponse,
     "UpdatePackageQuantityRequest": UpdatePackageQuantityRequest,
     "UpdateTierRequest": UpdateTierRequest,
     "UpdateTierResponse": UpdateTierResponse,

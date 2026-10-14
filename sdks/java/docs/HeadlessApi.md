@@ -19,11 +19,16 @@ All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOK
 | [**getCategory**](HeadlessApi.md#getCategory) | **GET** /categories/{categoryId} | Get specific category |
 | [**getCategoryIncludeDynamicPackages**](HeadlessApi.md#getCategoryIncludeDynamicPackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket. |
 | [**getCategoryIncludePackages**](HeadlessApi.md#getCategoryIncludePackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages |
+| [**getCommunityGoal**](HeadlessApi.md#getCommunityGoal) | **GET** /community-goals/{communityGoalId} | Get a community goal. |
+| [**getCommunityGoals**](HeadlessApi.md#getCommunityGoals) | **GET** /community-goals | Get the webstore&#39;s community goals. |
 | [**getCustomPages**](HeadlessApi.md#getCustomPages) | **GET** /pages | Get custom pages defined for the webstore. |
 | [**getDynamicCategories**](HeadlessApi.md#getDynamicCategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories |
 | [**getPackage**](HeadlessApi.md#getPackage) | **GET** /packages/{packageId} | Get package |
 | [**getPackagesForBasket**](HeadlessApi.md#getPackagesForBasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket |
+| [**getRecentPayments**](HeadlessApi.md#getRecentPayments) | **GET** /recent-payments | Get the webstore&#39;s recent payments. |
+| [**getSales**](HeadlessApi.md#getSales) | **GET** /sales | Get the webstore&#39;s active sales. |
 | [**getSidebar**](HeadlessApi.md#getSidebar) | **GET** /sidebar | Retrieves the available sidebar modules. |
+| [**getTopCustomer**](HeadlessApi.md#getTopCustomer) | **GET** /top-customers | Get the webstore&#39;s top customer. |
 | [**getUserTieredCategories**](HeadlessApi.md#getUserTieredCategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories |
 | [**getWebstore**](HeadlessApi.md#getWebstore) | **GET** / | Get the webstore&#39;s information |
 | [**removeCoupon**](HeadlessApi.md#removeCoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
@@ -294,7 +299,7 @@ No authorization required
 
 Add packages to a dynamic category for a basket.
 
-Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type &#x60;dynamic&#x60;, and are typically populated in response to a &#x60;basket.authenticated&#x60; webhook.  Once created, the packages can be fetched using the category endpoints with both &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; provided.
+Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type &#x60;dynamic&#x60;, and are typically populated in response to a &#x60;basket.authenticated&#x60; webhook.  Requires basic auth: the username is the webstore identifier and the password is the account&#39;s checkout API key.  Once created, the packages can be fetched using the category endpoints with both &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; provided.
 
 ### Example
 ```java
@@ -302,6 +307,7 @@ Populates a dynamic category with custom packages for the given basket. Dynamic 
 import TebexHeadless.ApiClient;
 import TebexHeadless.ApiException;
 import TebexHeadless.Configuration;
+import TebexHeadless.auth.*;
 import TebexHeadless.models.*;
 import TebexHeadless.HeadlessApi;
 
@@ -309,6 +315,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+    
+    // Configure HTTP basic authorization: basicAuth
+    HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+    basicAuth.setUsername("YOUR USERNAME");
+    basicAuth.setPassword("YOUR PASSWORD");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
     String basketIdent = "c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c"; // String | The basket identifier.
@@ -340,7 +351,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -351,7 +362,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response confirms the dynamic packages were created. |  -  |
-| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
+| **422** | The request is invalid. The error response will include detail as to which parameter failed validation. This is also returned when basic auth credentials are missing (\&quot;Basic auth credentials are required\&quot;) or when &#x60;category_id&#x60; is not a dynamic category (\&quot;The specified category is not a dynamic category.\&quot;). |  -  |
 
 <a id="getAllPackages"></a>
 # **getAllPackages**
@@ -982,6 +993,143 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Successful response returns the category with package information. |  -  |
 
+<a id="getCommunityGoal"></a>
+# **getCommunityGoal**
+> CommunityGoalResponse getCommunityGoal(communityGoalId)
+
+Get a community goal.
+
+Gets a single community goal by its ID.  Requires basic auth: the username is the webstore identifier and the password is the account&#39;s checkout API key.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.auth.*;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+    
+    // Configure HTTP basic authorization: basicAuth
+    HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+    basicAuth.setUsername("YOUR USERNAME");
+    basicAuth.setPassword("YOUR PASSWORD");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    Integer communityGoalId = 1; // Integer | The community goal ID.
+    try {
+      CommunityGoalResponse result = apiInstance.getCommunityGoal(communityGoalId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getCommunityGoal");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **communityGoalId** | **Integer**| The community goal ID. | |
+
+### Return type
+
+[**CommunityGoalResponse**](CommunityGoalResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the community goal. |  -  |
+| **404** | No community goal with that ID exists for this account. |  -  |
+
+<a id="getCommunityGoals"></a>
+# **getCommunityGoals**
+> CommunityGoalsResponse getCommunityGoals(status)
+
+Get the webstore&#39;s community goals.
+
+Lists the store&#39;s community goals. This does not depend on the sidebar&#39;s Community Goal module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account&#39;s checkout API key.  If there are no matching goals, &#x60;data&#x60; is an empty array.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.auth.*;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+    
+    // Configure HTTP basic authorization: basicAuth
+    HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+    basicAuth.setUsername("YOUR USERNAME");
+    basicAuth.setPassword("YOUR PASSWORD");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    List<String> status = Arrays.asList(); // List<String> | Only return goals with these statuses, e.g. `status[]=active&status[]=completed`. A single `status=active` is also accepted. With no filter, all goals are returned.
+    try {
+      CommunityGoalsResponse result = apiInstance.getCommunityGoals(status);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getCommunityGoals");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **status** | [**List&lt;String&gt;**](String.md)| Only return goals with these statuses, e.g. &#x60;status[]&#x3D;active&amp;status[]&#x3D;completed&#x60;. A single &#x60;status&#x3D;active&#x60; is also accepted. With no filter, all goals are returned. | [optional] [enum: active, completed, disabled] |
+
+### Return type
+
+[**CommunityGoalsResponse**](CommunityGoalsResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the community goals. |  -  |
+
 <a id="getCustomPages"></a>
 # **getCustomPages**
 > CMSPagesResponse getCustomPages()
@@ -1108,7 +1256,7 @@ No authorization required
 
 Get package
 
-Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; to fetch dynamic packages.
+Gets a package from a webstore by its &#x60;ident&#x60; or numeric ID.  - Using &#x60;ident&#x60; is recommended, since it works for every package type. Send it back exactly as returned; don&#39;t build or parse it. - &#x60;id&#x60; stays numeric for standard packages. For external packages &#x60;id&#x60; is synthetic, so always use &#x60;ident&#x60;.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with &#x60;includePackages&#x3D;1&#x60; and &#x60;basketIdent&#x60; to fetch dynamic packages.
 
 ### Example
 ```java
@@ -1125,7 +1273,7 @@ public class Example {
     defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
 
     HeadlessApi apiInstance = new HeadlessApi(defaultClient);
-    String packageId = "1272441812"; // String | The package's ID or slug.
+    String packageId = "1272441812"; // String | The package's `ident` (recommended, e.g. `pkg_12_456`) or numeric ID.
     try {
       SinglePackageResponse result = apiInstance.getPackage(packageId);
       System.out.println(result);
@@ -1144,7 +1292,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **packageId** | **String**| The package&#39;s ID or slug. | |
+| **packageId** | **String**| The package&#39;s &#x60;ident&#x60; (recommended, e.g. &#x60;pkg_12_456&#x60;) or numeric ID. | |
 
 ### Return type
 
@@ -1227,6 +1375,133 @@ No authorization required
 | **200** | Successful response returns a list of package information. |  -  |
 | **422** | The provided request is invalid. |  -  |
 
+<a id="getRecentPayments"></a>
+# **getRecentPayments**
+> RecentPaymentsResponse getRecentPayments(limit)
+
+Get the webstore&#39;s recent payments.
+
+Lists the store&#39;s most recent payments, newest first. This does not depend on the sidebar&#39;s Recent Payments module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account&#39;s checkout API key.  - Free, manual, zero-price and incomplete payments are never included. - Responses are cached for 10 minutes. - If there are no payments, &#x60;data&#x60; is an empty array.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.auth.*;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+    
+    // Configure HTTP basic authorization: basicAuth
+    HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+    basicAuth.setUsername("YOUR USERNAME");
+    basicAuth.setPassword("YOUR PASSWORD");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    Integer limit = 5; // Integer | The number of payments to return, from 1 to 50.
+    try {
+      RecentPaymentsResponse result = apiInstance.getRecentPayments(limit);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getRecentPayments");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **limit** | **Integer**| The number of payments to return, from 1 to 50. | [optional] [default to 5] |
+
+### Return type
+
+[**RecentPaymentsResponse**](RecentPaymentsResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the recent payments. |  -  |
+
+<a id="getSales"></a>
+# **getSales**
+> SalesResponse getSales()
+
+Get the webstore&#39;s active sales.
+
+Lists the store&#39;s currently active sales, in the same order as the control panel. No authentication is required.  - Only sales whose start/end window includes the current time are returned. Expired sales, future sales and Lighthouse sales are left out. - Hidden packages and categories (disabled, removed, unpublished, or inside a disabled category) are left out of every array. - If there are no active sales, &#x60;data&#x60; is an empty array.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    try {
+      SalesResponse result = apiInstance.getSales();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getSales");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**SalesResponse**](SalesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the active sales. |  -  |
+| **404** | The store identifier is invalid. |  -  |
+
 <a id="getSidebar"></a>
 # **getSidebar**
 > ModulesResponse getSidebar(token)
@@ -1288,6 +1563,74 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response. |  -  |
+
+<a id="getTopCustomer"></a>
+# **getTopCustomer**
+> TopCustomerResponse getTopCustomer(period)
+
+Get the webstore&#39;s top customer.
+
+Gets the customer who spent the most in the given period. This does not depend on the sidebar&#39;s Top Customer module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account&#39;s checkout API key.  - &#x60;total&#x60; is in the account&#39;s currency, net of tax, and matches the revenue statistics in the control panel. - Free, manual, zero-price and incomplete payments are never counted. - Responses are cached for 10 minutes. - If there is no top customer for the period, &#x60;data&#x60; is null.
+
+### Example
+```java
+// Import classes:
+import TebexHeadless.ApiClient;
+import TebexHeadless.ApiException;
+import TebexHeadless.Configuration;
+import TebexHeadless.auth.*;
+import TebexHeadless.models.*;
+import TebexHeadless.HeadlessApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN");
+    
+    // Configure HTTP basic authorization: basicAuth
+    HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+    basicAuth.setUsername("YOUR USERNAME");
+    basicAuth.setPassword("YOUR PASSWORD");
+
+    HeadlessApi apiInstance = new HeadlessApi(defaultClient);
+    String period = "hourly"; // String | The period to rank customers over. `none` covers all time.
+    try {
+      TopCustomerResponse result = apiInstance.getTopCustomer(period);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling HeadlessApi#getTopCustomer");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **period** | **String**| The period to rank customers over. &#x60;none&#x60; covers all time. | [optional] [default to monthly] [enum: hourly, daily, weekly, monthly, yearly, none] |
+
+### Return type
+
+[**TopCustomerResponse**](TopCustomerResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the top customer, or null. |  -  |
 
 <a id="getUserTieredCategories"></a>
 # **getUserTieredCategories**

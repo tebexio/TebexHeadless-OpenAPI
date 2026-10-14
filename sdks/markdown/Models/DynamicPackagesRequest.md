@@ -3,8 +3,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+| **basket\_id** | **String** | The basket&#39;s ident. Use the same value as the &#x60;basketIdent&#x60; path parameter. | [default to null] |
 | **username** | **String** | The username of the authenticated customer the packages are being created for. | [default to null] |
-| **category\_id** | **Integer** | The ID of the dynamic category to populate. | [default to null] |
+| **category\_id** | **Integer** | The ID of the dynamic category to populate. Must be a category of type &#x60;dynamic&#x60;. | [default to null] |
 | **packages** | [**List**](DynamicPackageInput.md) |  | [default to null] |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

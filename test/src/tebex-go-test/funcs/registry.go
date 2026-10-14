@@ -27,6 +27,12 @@ func BuildRegistry() map[string]SdkOperation {
 		// getSidebar returns ModulesResponse whose data is a oneOf Module union with
 		// no json tags, so reflection key-diffing is unreliable; assert status only (nil).
 		{"getSidebar", Spec{"GET", "/accounts/{token}/sidebar", nil}, getSidebar},
+		{"getSales", Spec{"GET", "/accounts/{token}/sales", TebexHeadless.Sale{}}, getSales},
+		// getTopCustomer returns {"data": null} when there is no top customer for the period.
+		{"getRecentPayments", Spec{"GET", "/accounts/{token}/recent-payments", TebexHeadless.RecentPaymentEntry{}}, getRecentPayments},
+		{"getTopCustomer", Spec{"GET", "/accounts/{token}/top-customers", TebexHeadless.TopCustomer{}}, getTopCustomer},
+		{"getCommunityGoals", Spec{"GET", "/accounts/{token}/community-goals", TebexHeadless.CommunityGoal{}}, getCommunityGoals},
+		{"getCommunityGoal", Spec{"GET", "/accounts/{token}/community-goals/{communityGoalId}", TebexHeadless.CommunityGoal{}}, getCommunityGoal},
 
 		// ---- Mutating (POST/PUT/PATCH) ----
 		{"createBasket", Spec{"POST", "/accounts/{token}/baskets", TebexHeadless.Basket{}}, createBasket},

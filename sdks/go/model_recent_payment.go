@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -12,10 +12,10 @@ Contact: tebex-integrations@overwolf.com
 package TebexHeadless
 
 import (
-	"encoding/json"
-	"time"
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // checks if the RecentPayment type satisfies the MappedNullable interface at compile time
@@ -23,9 +23,9 @@ var _ MappedNullable = &RecentPayment{}
 
 // RecentPayment struct for RecentPayment
 type RecentPayment struct {
-	Username string `json:"username"`
-	UsernameId string `json:"username_id"`
-	Package RecentPaymentPackage `json:"package"`
+	Username   string               `json:"username"`
+	UsernameId string               `json:"username_id"`
+	Package    RecentPaymentPackage `json:"package"`
 	// Optional, present depending on module configuration.
 	CreatedAt NullableTime `json:"created_at,omitempty"`
 	// Optional, present depending on module configuration.
@@ -160,6 +160,7 @@ func (o *RecentPayment) HasCreatedAt() bool {
 func (o *RecentPayment) SetCreatedAt(v time.Time) {
 	o.CreatedAt.Set(&v)
 }
+
 // SetCreatedAtNil sets the value for CreatedAt to be an explicit nil
 func (o *RecentPayment) SetCreatedAtNil() {
 	o.CreatedAt.Set(nil)
@@ -202,6 +203,7 @@ func (o *RecentPayment) HasPrice() bool {
 func (o *RecentPayment) SetPrice(v float32) {
 	o.Price.Set(&v)
 }
+
 // SetPriceNil sets the value for Price to be an explicit nil
 func (o *RecentPayment) SetPriceNil() {
 	o.Price.Set(nil)
@@ -244,6 +246,7 @@ func (o *RecentPayment) HasCurrency() bool {
 func (o *RecentPayment) SetCurrency(v string) {
 	o.Currency.Set(&v)
 }
+
 // SetCurrencyNil sets the value for Currency to be an explicit nil
 func (o *RecentPayment) SetCurrencyNil() {
 	o.Currency.Set(nil)
@@ -255,7 +258,7 @@ func (o *RecentPayment) UnsetCurrency() {
 }
 
 func (o RecentPayment) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -294,10 +297,10 @@ func (o *RecentPayment) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -353,5 +356,3 @@ func (v *NullableRecentPayment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

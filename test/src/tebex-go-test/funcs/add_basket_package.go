@@ -16,6 +16,6 @@ func addBasketPackage(ctx context.Context, client client, s *VarStore) error {
 		return err
 	}
 	body := TebexHeadless.NewAddBasketPackageRequest(packageId, 1) // package_id is a string in this request model
-	_, _, err = client.HeadlessAPI.AddBasketPackage(ctx, basketIdent).AddBasketPackageRequest(*body).Execute()
+	_, _, err = client.BasketsAPI.AddBasketPackage(ctx, basketIdent).AddBasketPackageRequest(*body).Execute()
 	return err
 }

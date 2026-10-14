@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -17,17 +17,17 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 )
-
 
 // HeadlessAPIService HeadlessAPI service
 type HeadlessAPIService service
 
 type ApiApplyCouponRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
-	basketIdent string
+	ctx                context.Context
+	ApiService         *HeadlessAPIService
+	basketIdent        string
 	applyCouponRequest *ApplyCouponRequest
 }
 
@@ -46,26 +46,27 @@ ApplyCoupon Apply a coupon
 
 Applies a coupon to a basket.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiApplyCouponRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiApplyCouponRequest
 */
 func (a *HeadlessAPIService) ApplyCoupon(ctx context.Context, basketIdent string) ApiApplyCouponRequest {
 	return ApiApplyCouponRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
 
 // Execute executes the request
-//  @return ApplyCoupon200Response
+//
+//	@return ApplyCoupon200Response
 func (a *HeadlessAPIService) ApplyCouponExecute(r ApiApplyCouponRequest) (*ApplyCoupon200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ApplyCoupon200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ApplyCoupon200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.ApplyCoupon")
@@ -137,9 +138,9 @@ func (a *HeadlessAPIService) ApplyCouponExecute(r ApiApplyCouponRequest) (*Apply
 }
 
 type ApiApplyCreatorCodeRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
-	basketIdent string
+	ctx                     context.Context
+	ApiService              *HeadlessAPIService
+	basketIdent             string
 	applyCreatorCodeRequest *ApplyCreatorCodeRequest
 }
 
@@ -158,26 +159,27 @@ ApplyCreatorCode Apply a creator code
 
 Applies a creator code to a basket.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiApplyCreatorCodeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiApplyCreatorCodeRequest
 */
 func (a *HeadlessAPIService) ApplyCreatorCode(ctx context.Context, basketIdent string) ApiApplyCreatorCodeRequest {
 	return ApiApplyCreatorCodeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
 
 // Execute executes the request
-//  @return ApplyCreatorCode200Response
+//
+//	@return ApplyCreatorCode200Response
 func (a *HeadlessAPIService) ApplyCreatorCodeExecute(r ApiApplyCreatorCodeRequest) (*ApplyCreatorCode200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ApplyCreatorCode200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ApplyCreatorCode200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.ApplyCreatorCode")
@@ -249,10 +251,10 @@ func (a *HeadlessAPIService) ApplyCreatorCodeExecute(r ApiApplyCreatorCodeReques
 }
 
 type ApiApplyGiftCardRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
+	ctx         context.Context
+	ApiService  *HeadlessAPIService
 	basketIdent string
-	giftCard *GiftCard
+	giftCard    *GiftCard
 }
 
 // Provide a &#x60;card_number&#x60; to apply to the basket.
@@ -270,26 +272,27 @@ ApplyGiftCard Apply a gift card
 
 Applies a gift card to the basket.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiApplyGiftCardRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiApplyGiftCardRequest
 */
 func (a *HeadlessAPIService) ApplyGiftCard(ctx context.Context, basketIdent string) ApiApplyGiftCardRequest {
 	return ApiApplyGiftCardRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
 
 // Execute executes the request
-//  @return ApplyGiftCard200Response
+//
+//	@return ApplyGiftCard200Response
 func (a *HeadlessAPIService) ApplyGiftCardExecute(r ApiApplyGiftCardRequest) (*ApplyGiftCard200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ApplyGiftCard200Response
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ApplyGiftCard200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.ApplyGiftCard")
@@ -361,8 +364,8 @@ func (a *HeadlessAPIService) ApplyGiftCardExecute(r ApiApplyGiftCardRequest) (*A
 }
 
 type ApiCreateBasketRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
+	ctx                 context.Context
+	ApiService          *HeadlessAPIService
 	createBasketRequest *CreateBasketRequest
 }
 
@@ -380,24 +383,25 @@ CreateBasket Create a new basket
 
 Creates a new basket for use during checkout.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateBasketRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateBasketRequest
 */
 func (a *HeadlessAPIService) CreateBasket(ctx context.Context) ApiCreateBasketRequest {
 	return ApiCreateBasketRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return BasketResponse
+//
+//	@return BasketResponse
 func (a *HeadlessAPIService) CreateBasketExecute(r ApiCreateBasketRequest) (*BasketResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *BasketResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BasketResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.CreateBasket")
@@ -468,9 +472,9 @@ func (a *HeadlessAPIService) CreateBasketExecute(r ApiCreateBasketRequest) (*Bas
 }
 
 type ApiCreateDynamicPackageRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
-	basketIdent string
+	ctx                    context.Context
+	ApiService             *HeadlessAPIService
+	basketIdent            string
 	dynamicPackagesRequest *DynamicPackagesRequest
 }
 
@@ -488,28 +492,31 @@ CreateDynamicPackage Add packages to a dynamic category for a basket.
 
 Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.
 
+Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
 Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiCreateDynamicPackageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiCreateDynamicPackageRequest
 */
 func (a *HeadlessAPIService) CreateDynamicPackage(ctx context.Context, basketIdent string) ApiCreateDynamicPackageRequest {
 	return ApiCreateDynamicPackageRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
 
 // Execute executes the request
-//  @return DynamicPackagesResponse
+//
+//	@return DynamicPackagesResponse
 func (a *HeadlessAPIService) CreateDynamicPackageExecute(r ApiCreateDynamicPackageRequest) (*DynamicPackagesResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DynamicPackagesResponse
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DynamicPackagesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.CreateDynamicPackage")
@@ -565,6 +572,16 @@ func (a *HeadlessAPIService) CreateDynamicPackageExecute(r ApiCreateDynamicPacka
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -581,7 +598,7 @@ func (a *HeadlessAPIService) CreateDynamicPackageExecute(r ApiCreateDynamicPacka
 }
 
 type ApiGetAllPackagesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *HeadlessAPIService
 }
 
@@ -596,24 +613,25 @@ Gets all packages from a webstore.
 
 Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetAllPackagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAllPackagesRequest
 */
 func (a *HeadlessAPIService) GetAllPackages(ctx context.Context) ApiGetAllPackagesRequest {
 	return ApiGetAllPackagesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return PackageResponse
+//
+//	@return PackageResponse
 func (a *HeadlessAPIService) GetAllPackagesExecute(r ApiGetAllPackagesRequest) (*PackageResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *PackageResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PackageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetAllPackages")
@@ -682,9 +700,9 @@ func (a *HeadlessAPIService) GetAllPackagesExecute(r ApiGetAllPackagesRequest) (
 }
 
 type ApiGetAllPackagesWithAuthedIPRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *HeadlessAPIService
-	ipAddress string
+	ipAddress  string
 }
 
 func (r ApiGetAllPackagesWithAuthedIPRequest) Execute() (*PackageResponse, *http.Response, error) {
@@ -696,26 +714,27 @@ GetAllPackagesWithAuthedIP Get packages
 
 Gets all packages from a webstore.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param ipAddress An IP address can be provided with authenticated requests
- @return ApiGetAllPackagesWithAuthedIPRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ipAddress An IP address can be provided with authenticated requests
+	@return ApiGetAllPackagesWithAuthedIPRequest
 */
 func (a *HeadlessAPIService) GetAllPackagesWithAuthedIP(ctx context.Context, ipAddress string) ApiGetAllPackagesWithAuthedIPRequest {
 	return ApiGetAllPackagesWithAuthedIPRequest{
 		ApiService: a,
-		ctx: ctx,
-		ipAddress: ipAddress,
+		ctx:        ctx,
+		ipAddress:  ipAddress,
 	}
 }
 
 // Execute executes the request
-//  @return PackageResponse
+//
+//	@return PackageResponse
 func (a *HeadlessAPIService) GetAllPackagesWithAuthedIPExecute(r ApiGetAllPackagesWithAuthedIPRequest) (*PackageResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *PackageResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PackageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetAllPackagesWithAuthedIP")
@@ -785,10 +804,10 @@ func (a *HeadlessAPIService) GetAllPackagesWithAuthedIPExecute(r ApiGetAllPackag
 }
 
 type ApiGetAllPackagesWithAuthedIPAndBasketRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
+	ctx         context.Context
+	ApiService  *HeadlessAPIService
 	basketIdent string
-	ipAddress string
+	ipAddress   string
 }
 
 func (r ApiGetAllPackagesWithAuthedIPAndBasketRequest) Execute() (*PackageResponse, *http.Response, error) {
@@ -800,28 +819,29 @@ GetAllPackagesWithAuthedIPAndBasket Get packages available for IP and basket
 
 Gets all packages from a webstore.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @param ipAddress An IP address can be provided with authenticated requests.
- @return ApiGetAllPackagesWithAuthedIPAndBasketRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@param ipAddress An IP address can be provided with authenticated requests.
+	@return ApiGetAllPackagesWithAuthedIPAndBasketRequest
 */
 func (a *HeadlessAPIService) GetAllPackagesWithAuthedIPAndBasket(ctx context.Context, basketIdent string, ipAddress string) ApiGetAllPackagesWithAuthedIPAndBasketRequest {
 	return ApiGetAllPackagesWithAuthedIPAndBasketRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
-		ipAddress: ipAddress,
+		ipAddress:   ipAddress,
 	}
 }
 
 // Execute executes the request
-//  @return PackageResponse
+//
+//	@return PackageResponse
 func (a *HeadlessAPIService) GetAllPackagesWithAuthedIPAndBasketExecute(r ApiGetAllPackagesWithAuthedIPAndBasketRequest) (*PackageResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *PackageResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PackageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetAllPackagesWithAuthedIPAndBasket")
@@ -892,8 +912,8 @@ func (a *HeadlessAPIService) GetAllPackagesWithAuthedIPAndBasketExecute(r ApiGet
 }
 
 type ApiGetBasketRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
+	ctx         context.Context
+	ApiService  *HeadlessAPIService
 	basketIdent string
 }
 
@@ -906,26 +926,27 @@ GetBasket Get a basket
 
 Gets a basket associated with the provided identifier.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiGetBasketRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiGetBasketRequest
 */
 func (a *HeadlessAPIService) GetBasket(ctx context.Context, basketIdent string) ApiGetBasketRequest {
 	return ApiGetBasketRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
 
 // Execute executes the request
-//  @return BasketResponse
+//
+//	@return BasketResponse
 func (a *HeadlessAPIService) GetBasketExecute(r ApiGetBasketRequest) (*BasketResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *BasketResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BasketResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetBasket")
@@ -995,10 +1016,10 @@ func (a *HeadlessAPIService) GetBasketExecute(r ApiGetBasketRequest) (*BasketRes
 }
 
 type ApiGetBasketAuthUrlRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
+	ctx         context.Context
+	ApiService  *HeadlessAPIService
 	basketIdent string
-	returnUrl string
+	returnUrl   string
 }
 
 func (r ApiGetBasketAuthUrlRequest) Execute() ([]BasketAuthResponseInner, *http.Response, error) {
@@ -1011,28 +1032,29 @@ GetBasketAuthUrl Get auth links for basket
 Fetches a basket's auth URL. The player should be directed here in order for them to authorize their account.
 When complete, they will be returned to the provided `returnUrl` and the basket will be authorized from that moment onwards.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @param returnUrl The URL you would like to redirect the user to after successful basket authentication.
- @return ApiGetBasketAuthUrlRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@param returnUrl The URL you would like to redirect the user to after successful basket authentication.
+	@return ApiGetBasketAuthUrlRequest
 */
 func (a *HeadlessAPIService) GetBasketAuthUrl(ctx context.Context, basketIdent string, returnUrl string) ApiGetBasketAuthUrlRequest {
 	return ApiGetBasketAuthUrlRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
-		returnUrl: returnUrl,
+		returnUrl:   returnUrl,
 	}
 }
 
 // Execute executes the request
-//  @return []BasketAuthResponseInner
+//
+//	@return []BasketAuthResponseInner
 func (a *HeadlessAPIService) GetBasketAuthUrlExecute(r ApiGetBasketAuthUrlRequest) ([]BasketAuthResponseInner, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []BasketAuthResponseInner
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []BasketAuthResponseInner
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetBasketAuthUrl")
@@ -1103,7 +1125,7 @@ func (a *HeadlessAPIService) GetBasketAuthUrlExecute(r ApiGetBasketAuthUrlReques
 }
 
 type ApiGetCategoriesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *HeadlessAPIService
 }
 
@@ -1116,24 +1138,25 @@ GetCategories Get all categories
 
 Gets all categories from a webstore. This does not include package information. To include package information, add `?includePackages=1` to the URL.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCategoriesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetCategoriesRequest
 */
 func (a *HeadlessAPIService) GetCategories(ctx context.Context) ApiGetCategoriesRequest {
 	return ApiGetCategoriesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CategoryResponse
+//
+//	@return CategoryResponse
 func (a *HeadlessAPIService) GetCategoriesExecute(r ApiGetCategoriesRequest) (*CategoryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CategoryResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CategoryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetCategories")
@@ -1202,7 +1225,7 @@ func (a *HeadlessAPIService) GetCategoriesExecute(r ApiGetCategoriesRequest) (*C
 }
 
 type ApiGetCategoriesIncludePackagesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *HeadlessAPIService
 }
 
@@ -1215,24 +1238,25 @@ GetCategoriesIncludePackages Gets all categories and packages
 
 Gets all categories from a webstore including packages.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCategoriesIncludePackagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetCategoriesIncludePackagesRequest
 */
 func (a *HeadlessAPIService) GetCategoriesIncludePackages(ctx context.Context) ApiGetCategoriesIncludePackagesRequest {
 	return ApiGetCategoriesIncludePackagesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CategoryResponse
+//
+//	@return CategoryResponse
 func (a *HeadlessAPIService) GetCategoriesIncludePackagesExecute(r ApiGetCategoriesIncludePackagesRequest) (*CategoryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CategoryResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CategoryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetCategoriesIncludePackages")
@@ -1301,7 +1325,7 @@ func (a *HeadlessAPIService) GetCategoriesIncludePackagesExecute(r ApiGetCategor
 }
 
 type ApiGetCategoryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *HeadlessAPIService
 	categoryId string
 }
@@ -1315,26 +1339,27 @@ GetCategory Get specific category
 
 Gets information about a category and returns the packages in that category.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param categoryId The ID or slug of the category to fetch.
- @return ApiGetCategoryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param categoryId The ID or slug of the category to fetch.
+	@return ApiGetCategoryRequest
 */
 func (a *HeadlessAPIService) GetCategory(ctx context.Context, categoryId string) ApiGetCategoryRequest {
 	return ApiGetCategoryRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		categoryId: categoryId,
 	}
 }
 
 // Execute executes the request
-//  @return SingleCategoryResponse
+//
+//	@return SingleCategoryResponse
 func (a *HeadlessAPIService) GetCategoryExecute(r ApiGetCategoryRequest) (*SingleCategoryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SingleCategoryResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SingleCategoryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetCategory")
@@ -1404,9 +1429,9 @@ func (a *HeadlessAPIService) GetCategoryExecute(r ApiGetCategoryRequest) (*Singl
 }
 
 type ApiGetCategoryIncludeDynamicPackagesRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
-	categoryId string
+	ctx         context.Context
+	ApiService  *HeadlessAPIService
+	categoryId  string
 	basketIdent string
 }
 
@@ -1421,28 +1446,29 @@ Gets information about a category and returns the packages in that category. Whe
 
 If a basket identifier is not provided, a dynamic category will be empty as the basket is required to relate packages to the category.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param categoryId The ID or slug of the category to fetch.
- @param basketIdent The basket identifier.
- @return ApiGetCategoryIncludeDynamicPackagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param categoryId The ID or slug of the category to fetch.
+	@param basketIdent The basket identifier.
+	@return ApiGetCategoryIncludeDynamicPackagesRequest
 */
 func (a *HeadlessAPIService) GetCategoryIncludeDynamicPackages(ctx context.Context, categoryId string, basketIdent string) ApiGetCategoryIncludeDynamicPackagesRequest {
 	return ApiGetCategoryIncludeDynamicPackagesRequest{
-		ApiService: a,
-		ctx: ctx,
-		categoryId: categoryId,
+		ApiService:  a,
+		ctx:         ctx,
+		categoryId:  categoryId,
 		basketIdent: basketIdent,
 	}
 }
 
 // Execute executes the request
-//  @return SingleCategoryResponse
+//
+//	@return SingleCategoryResponse
 func (a *HeadlessAPIService) GetCategoryIncludeDynamicPackagesExecute(r ApiGetCategoryIncludeDynamicPackagesRequest) (*SingleCategoryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SingleCategoryResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SingleCategoryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetCategoryIncludeDynamicPackages")
@@ -1513,7 +1539,7 @@ func (a *HeadlessAPIService) GetCategoryIncludeDynamicPackagesExecute(r ApiGetCa
 }
 
 type ApiGetCategoryIncludePackagesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *HeadlessAPIService
 	categoryId string
 }
@@ -1527,26 +1553,27 @@ GetCategoryIncludePackages Get a category with all packages
 
 Gets information about a category and returns the packages in that category.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param categoryId The ID or slug of the category to fetch.
- @return ApiGetCategoryIncludePackagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param categoryId The ID or slug of the category to fetch.
+	@return ApiGetCategoryIncludePackagesRequest
 */
 func (a *HeadlessAPIService) GetCategoryIncludePackages(ctx context.Context, categoryId string) ApiGetCategoryIncludePackagesRequest {
 	return ApiGetCategoryIncludePackagesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		categoryId: categoryId,
 	}
 }
 
 // Execute executes the request
-//  @return SingleCategoryResponse
+//
+//	@return SingleCategoryResponse
 func (a *HeadlessAPIService) GetCategoryIncludePackagesExecute(r ApiGetCategoryIncludePackagesRequest) (*SingleCategoryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SingleCategoryResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SingleCategoryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetCategoryIncludePackages")
@@ -1615,8 +1642,246 @@ func (a *HeadlessAPIService) GetCategoryIncludePackagesExecute(r ApiGetCategoryI
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetCommunityGoalRequest struct {
+	ctx             context.Context
+	ApiService      *HeadlessAPIService
+	communityGoalId int32
+}
+
+func (r ApiGetCommunityGoalRequest) Execute() (*CommunityGoalResponse, *http.Response, error) {
+	return r.ApiService.GetCommunityGoalExecute(r)
+}
+
+/*
+GetCommunityGoal Get a community goal.
+
+Gets a single community goal by its ID.
+
+Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param communityGoalId The community goal ID.
+	@return ApiGetCommunityGoalRequest
+*/
+func (a *HeadlessAPIService) GetCommunityGoal(ctx context.Context, communityGoalId int32) ApiGetCommunityGoalRequest {
+	return ApiGetCommunityGoalRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		communityGoalId: communityGoalId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return CommunityGoalResponse
+func (a *HeadlessAPIService) GetCommunityGoalExecute(r ApiGetCommunityGoalRequest) (*CommunityGoalResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CommunityGoalResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetCommunityGoal")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/community-goals/{communityGoalId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"communityGoalId"+"}", url.PathEscape(parameterValueToString(r.communityGoalId, "communityGoalId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetCommunityGoalsRequest struct {
+	ctx        context.Context
+	ApiService *HeadlessAPIService
+	status     *[]string
+}
+
+// Only return goals with these statuses, e.g. &#x60;status[]&#x3D;active&amp;status[]&#x3D;completed&#x60;. A single &#x60;status&#x3D;active&#x60; is also accepted. With no filter, all goals are returned.
+func (r ApiGetCommunityGoalsRequest) Status(status []string) ApiGetCommunityGoalsRequest {
+	r.status = &status
+	return r
+}
+
+func (r ApiGetCommunityGoalsRequest) Execute() (*CommunityGoalsResponse, *http.Response, error) {
+	return r.ApiService.GetCommunityGoalsExecute(r)
+}
+
+/*
+GetCommunityGoals Get the webstore's community goals.
+
+Lists the store's community goals. This does not depend on the sidebar's Community Goal module being configured.
+
+Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
+If there are no matching goals, `data` is an empty array.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetCommunityGoalsRequest
+*/
+func (a *HeadlessAPIService) GetCommunityGoals(ctx context.Context) ApiGetCommunityGoalsRequest {
+	return ApiGetCommunityGoalsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return CommunityGoalsResponse
+func (a *HeadlessAPIService) GetCommunityGoalsExecute(r ApiGetCommunityGoalsRequest) (*CommunityGoalsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CommunityGoalsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetCommunityGoals")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/community-goals"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.status != nil {
+		t := *r.status
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "status[]", s.Index(i).Interface(), "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "status[]", t, "multi")
+		}
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetCustomPagesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *HeadlessAPIService
 }
 
@@ -1629,24 +1894,25 @@ GetCustomPages Get custom pages defined for the webstore.
 
 Gets a list of custom pages associated with the webstore. These contain a `content` variable with the HTML content of the page.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCustomPagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetCustomPagesRequest
 */
 func (a *HeadlessAPIService) GetCustomPages(ctx context.Context) ApiGetCustomPagesRequest {
 	return ApiGetCustomPagesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CMSPagesResponse
+//
+//	@return CMSPagesResponse
 func (a *HeadlessAPIService) GetCustomPagesExecute(r ApiGetCustomPagesRequest) (*CMSPagesResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CMSPagesResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CMSPagesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetCustomPages")
@@ -1715,8 +1981,8 @@ func (a *HeadlessAPIService) GetCustomPagesExecute(r ApiGetCustomPagesRequest) (
 }
 
 type ApiGetDynamicCategoriesRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
+	ctx         context.Context
+	ApiService  *HeadlessAPIService
 	basketIdent string
 }
 
@@ -1731,26 +1997,27 @@ Gets all categories from a webstore including packages. When `basketIdent` is pr
 
 If a basket identifier is not provided, dynamic categories will be empty as the basket is required to relate packages to the category.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiGetDynamicCategoriesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiGetDynamicCategoriesRequest
 */
 func (a *HeadlessAPIService) GetDynamicCategories(ctx context.Context, basketIdent string) ApiGetDynamicCategoriesRequest {
 	return ApiGetDynamicCategoriesRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
 
 // Execute executes the request
-//  @return CategoryResponse
+//
+//	@return CategoryResponse
 func (a *HeadlessAPIService) GetDynamicCategoriesExecute(r ApiGetDynamicCategoriesRequest) (*CategoryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CategoryResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CategoryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetDynamicCategories")
@@ -1820,9 +2087,9 @@ func (a *HeadlessAPIService) GetDynamicCategoriesExecute(r ApiGetDynamicCategori
 }
 
 type ApiGetPackageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *HeadlessAPIService
-	packageId string
+	packageId  string
 }
 
 func (r ApiGetPackageRequest) Execute() (*SinglePackageResponse, *http.Response, error) {
@@ -1832,30 +2099,34 @@ func (r ApiGetPackageRequest) Execute() (*SinglePackageResponse, *http.Response,
 /*
 GetPackage Get package
 
-Gets a package from a webstore by its ID or slug.
+Gets a package from a webstore by its `ident` or numeric ID.
+
+- Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it.
+- `id` stays numeric for standard packages. For external packages `id` is synthetic, so always use `ident`.
 
 Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param packageId The package's ID or slug.
- @return ApiGetPackageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param packageId The package's `ident` (recommended, e.g. `pkg_12_456`) or numeric ID.
+	@return ApiGetPackageRequest
 */
 func (a *HeadlessAPIService) GetPackage(ctx context.Context, packageId string) ApiGetPackageRequest {
 	return ApiGetPackageRequest{
 		ApiService: a,
-		ctx: ctx,
-		packageId: packageId,
+		ctx:        ctx,
+		packageId:  packageId,
 	}
 }
 
 // Execute executes the request
-//  @return SinglePackageResponse
+//
+//	@return SinglePackageResponse
 func (a *HeadlessAPIService) GetPackageExecute(r ApiGetPackageRequest) (*SinglePackageResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SinglePackageResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SinglePackageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetPackage")
@@ -1925,8 +2196,8 @@ func (a *HeadlessAPIService) GetPackageExecute(r ApiGetPackageRequest) (*SingleP
 }
 
 type ApiGetPackagesForBasketRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
+	ctx         context.Context
+	ApiService  *HeadlessAPIService
 	basketIdent string
 }
 
@@ -1939,26 +2210,27 @@ GetPackagesForBasket Get packages available for basket
 
 Gets all packages available to the provided basket.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiGetPackagesForBasketRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiGetPackagesForBasketRequest
 */
 func (a *HeadlessAPIService) GetPackagesForBasket(ctx context.Context, basketIdent string) ApiGetPackagesForBasketRequest {
 	return ApiGetPackagesForBasketRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
 
 // Execute executes the request
-//  @return PackageResponse
+//
+//	@return PackageResponse
 func (a *HeadlessAPIService) GetPackagesForBasketExecute(r ApiGetPackagesForBasketRequest) (*PackageResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *PackageResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PackageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetPackagesForBasket")
@@ -2027,10 +2299,243 @@ func (a *HeadlessAPIService) GetPackagesForBasketExecute(r ApiGetPackagesForBask
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetSidebarRequest struct {
-	ctx context.Context
+type ApiGetRecentPaymentsRequest struct {
+	ctx        context.Context
 	ApiService *HeadlessAPIService
-	token string
+	limit      *int32
+}
+
+// The number of payments to return, from 1 to 50.
+func (r ApiGetRecentPaymentsRequest) Limit(limit int32) ApiGetRecentPaymentsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r ApiGetRecentPaymentsRequest) Execute() (*RecentPaymentsResponse, *http.Response, error) {
+	return r.ApiService.GetRecentPaymentsExecute(r)
+}
+
+/*
+GetRecentPayments Get the webstore's recent payments.
+
+Lists the store's most recent payments, newest first. This does not depend on the sidebar's Recent Payments module being configured.
+
+Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
+- Free, manual, zero-price and incomplete payments are never included.
+- Responses are cached for 10 minutes.
+- If there are no payments, `data` is an empty array.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetRecentPaymentsRequest
+*/
+func (a *HeadlessAPIService) GetRecentPayments(ctx context.Context) ApiGetRecentPaymentsRequest {
+	return ApiGetRecentPaymentsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return RecentPaymentsResponse
+func (a *HeadlessAPIService) GetRecentPaymentsExecute(r ApiGetRecentPaymentsRequest) (*RecentPaymentsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RecentPaymentsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetRecentPayments")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/recent-payments"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+	} else {
+		var defaultValue int32 = 5
+		r.limit = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSalesRequest struct {
+	ctx        context.Context
+	ApiService *HeadlessAPIService
+}
+
+func (r ApiGetSalesRequest) Execute() (*SalesResponse, *http.Response, error) {
+	return r.ApiService.GetSalesExecute(r)
+}
+
+/*
+GetSales Get the webstore's active sales.
+
+Lists the store's currently active sales, in the same order as the control panel. No authentication is required.
+
+- Only sales whose start/end window includes the current time are returned. Expired sales, future sales and Lighthouse sales are left out.
+- Hidden packages and categories (disabled, removed, unpublished, or inside a disabled category) are left out of every array.
+- If there are no active sales, `data` is an empty array.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetSalesRequest
+*/
+func (a *HeadlessAPIService) GetSales(ctx context.Context) ApiGetSalesRequest {
+	return ApiGetSalesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SalesResponse
+func (a *HeadlessAPIService) GetSalesExecute(r ApiGetSalesRequest) (*SalesResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SalesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetSales")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/sales"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSidebarRequest struct {
+	ctx        context.Context
+	ApiService *HeadlessAPIService
+	token      string
 }
 
 func (r ApiGetSidebarRequest) Execute() (*ModulesResponse, *http.Response, error) {
@@ -2042,26 +2547,27 @@ GetSidebar Retrieves the available sidebar modules.
 
 Retrieves the available sidebar modules configured for the store.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param token The webstore identifier.
- @return ApiGetSidebarRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param token The webstore identifier.
+	@return ApiGetSidebarRequest
 */
 func (a *HeadlessAPIService) GetSidebar(ctx context.Context, token string) ApiGetSidebarRequest {
 	return ApiGetSidebarRequest{
 		ApiService: a,
-		ctx: ctx,
-		token: token,
+		ctx:        ctx,
+		token:      token,
 	}
 }
 
 // Execute executes the request
-//  @return ModulesResponse
+//
+//	@return ModulesResponse
 func (a *HeadlessAPIService) GetSidebarExecute(r ApiGetSidebarRequest) (*ModulesResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ModulesResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ModulesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetSidebar")
@@ -2130,8 +2636,128 @@ func (a *HeadlessAPIService) GetSidebarExecute(r ApiGetSidebarRequest) (*Modules
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetTopCustomerRequest struct {
+	ctx        context.Context
+	ApiService *HeadlessAPIService
+	period     *string
+}
+
+// The period to rank customers over. &#x60;none&#x60; covers all time.
+func (r ApiGetTopCustomerRequest) Period(period string) ApiGetTopCustomerRequest {
+	r.period = &period
+	return r
+}
+
+func (r ApiGetTopCustomerRequest) Execute() (*TopCustomerResponse, *http.Response, error) {
+	return r.ApiService.GetTopCustomerExecute(r)
+}
+
+/*
+GetTopCustomer Get the webstore's top customer.
+
+Gets the customer who spent the most in the given period. This does not depend on the sidebar's Top Customer module being configured.
+
+Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
+- `total` is in the account's currency, net of tax, and matches the revenue statistics in the control panel.
+- Free, manual, zero-price and incomplete payments are never counted.
+- Responses are cached for 10 minutes.
+- If there is no top customer for the period, `data` is null.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTopCustomerRequest
+*/
+func (a *HeadlessAPIService) GetTopCustomer(ctx context.Context) ApiGetTopCustomerRequest {
+	return ApiGetTopCustomerRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TopCustomerResponse
+func (a *HeadlessAPIService) GetTopCustomerExecute(r ApiGetTopCustomerRequest) (*TopCustomerResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TopCustomerResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetTopCustomer")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/top-customers"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.period != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "")
+	} else {
+		var defaultValue string = "monthly"
+		r.period = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetUserTieredCategoriesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *HeadlessAPIService
 	usernameId int32
 }
@@ -2145,26 +2771,27 @@ GetUserTieredCategories Get user's tiered categories
 
 Gets all categories from the webstore, returning active tier information for the given player.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param usernameId
- @return ApiGetUserTieredCategoriesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param usernameId
+	@return ApiGetUserTieredCategoriesRequest
 */
 func (a *HeadlessAPIService) GetUserTieredCategories(ctx context.Context, usernameId int32) ApiGetUserTieredCategoriesRequest {
 	return ApiGetUserTieredCategoriesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		usernameId: usernameId,
 	}
 }
 
 // Execute executes the request
-//  @return CategoryResponse
+//
+//	@return CategoryResponse
 func (a *HeadlessAPIService) GetUserTieredCategoriesExecute(r ApiGetUserTieredCategoriesRequest) (*CategoryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CategoryResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CategoryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetUserTieredCategories")
@@ -2234,7 +2861,7 @@ func (a *HeadlessAPIService) GetUserTieredCategoriesExecute(r ApiGetUserTieredCa
 }
 
 type ApiGetWebstoreRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *HeadlessAPIService
 }
 
@@ -2247,24 +2874,25 @@ GetWebstore Get the webstore's information
 
 Gets the webstore associated with the provided token
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetWebstoreRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetWebstoreRequest
 */
 func (a *HeadlessAPIService) GetWebstore(ctx context.Context) ApiGetWebstoreRequest {
 	return ApiGetWebstoreRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return WebstoreResponse
+//
+//	@return WebstoreResponse
 func (a *HeadlessAPIService) GetWebstoreExecute(r ApiGetWebstoreRequest) (*WebstoreResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *WebstoreResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WebstoreResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.GetWebstore")
@@ -2333,9 +2961,9 @@ func (a *HeadlessAPIService) GetWebstoreExecute(r ApiGetWebstoreRequest) (*Webst
 }
 
 type ApiRemoveCouponRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
-	basketIdent string
+	ctx                context.Context
+	ApiService         *HeadlessAPIService
+	basketIdent        string
 	applyCouponRequest *ApplyCouponRequest
 }
 
@@ -2354,14 +2982,14 @@ RemoveCoupon Remove a coupon from the basket.
 
 Removes a coupon code from a basket
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiRemoveCouponRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiRemoveCouponRequest
 */
 func (a *HeadlessAPIService) RemoveCoupon(ctx context.Context, basketIdent string) ApiRemoveCouponRequest {
 	return ApiRemoveCouponRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
@@ -2369,9 +2997,9 @@ func (a *HeadlessAPIService) RemoveCoupon(ctx context.Context, basketIdent strin
 // Execute executes the request
 func (a *HeadlessAPIService) RemoveCouponExecute(r ApiRemoveCouponRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.RemoveCoupon")
@@ -2434,8 +3062,8 @@ func (a *HeadlessAPIService) RemoveCouponExecute(r ApiRemoveCouponRequest) (*htt
 }
 
 type ApiRemoveCreatorCodeRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
+	ctx         context.Context
+	ApiService  *HeadlessAPIService
 	basketIdent string
 }
 
@@ -2448,14 +3076,14 @@ RemoveCreatorCode Removes the creator code from the basket.
 
 Removes the creator code from the basket.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiRemoveCreatorCodeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiRemoveCreatorCodeRequest
 */
 func (a *HeadlessAPIService) RemoveCreatorCode(ctx context.Context, basketIdent string) ApiRemoveCreatorCodeRequest {
 	return ApiRemoveCreatorCodeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
@@ -2463,9 +3091,9 @@ func (a *HeadlessAPIService) RemoveCreatorCode(ctx context.Context, basketIdent 
 // Execute executes the request
 func (a *HeadlessAPIService) RemoveCreatorCodeExecute(r ApiRemoveCreatorCodeRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.RemoveCreatorCode")
@@ -2526,9 +3154,9 @@ func (a *HeadlessAPIService) RemoveCreatorCodeExecute(r ApiRemoveCreatorCodeRequ
 }
 
 type ApiRemoveGiftCardRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
-	basketIdent string
+	ctx                   context.Context
+	ApiService            *HeadlessAPIService
+	basketIdent           string
 	removeGiftCardRequest *RemoveGiftCardRequest
 }
 
@@ -2547,14 +3175,14 @@ RemoveGiftCard Remove a gift card from the basket.
 
 Removes a gift card from the basket.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param basketIdent The basket identifier.
- @return ApiRemoveGiftCardRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param basketIdent The basket identifier.
+	@return ApiRemoveGiftCardRequest
 */
 func (a *HeadlessAPIService) RemoveGiftCard(ctx context.Context, basketIdent string) ApiRemoveGiftCardRequest {
 	return ApiRemoveGiftCardRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		basketIdent: basketIdent,
 	}
 }
@@ -2562,9 +3190,9 @@ func (a *HeadlessAPIService) RemoveGiftCard(ctx context.Context, basketIdent str
 // Execute executes the request
 func (a *HeadlessAPIService) RemoveGiftCardExecute(r ApiRemoveGiftCardRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.RemoveGiftCard")
@@ -2627,9 +3255,9 @@ func (a *HeadlessAPIService) RemoveGiftCardExecute(r ApiRemoveGiftCardRequest) (
 }
 
 type ApiUpdateTierRequest struct {
-	ctx context.Context
-	ApiService *HeadlessAPIService
-	tierId int32
+	ctx               context.Context
+	ApiService        *HeadlessAPIService
+	tierId            int32
 	updateTierRequest *UpdateTierRequest
 }
 
@@ -2647,26 +3275,27 @@ UpdateTier Update user's tier to a new package
 
 Updates a tier to a new package. A recurring payment updated webhook is sent when an update is successful.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tierId The tier identifier
- @return ApiUpdateTierRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tierId The tier identifier
+	@return ApiUpdateTierRequest
 */
 func (a *HeadlessAPIService) UpdateTier(ctx context.Context, tierId int32) ApiUpdateTierRequest {
 	return ApiUpdateTierRequest{
 		ApiService: a,
-		ctx: ctx,
-		tierId: tierId,
+		ctx:        ctx,
+		tierId:     tierId,
 	}
 }
 
 // Execute executes the request
-//  @return UpdateTierResponse
+//
+//	@return UpdateTierResponse
 func (a *HeadlessAPIService) UpdateTierExecute(r ApiUpdateTierRequest) (*UpdateTierResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *UpdateTierResponse
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *UpdateTierResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HeadlessAPIService.UpdateTier")

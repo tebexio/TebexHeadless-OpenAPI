@@ -38,7 +38,7 @@ func specOperationIDs(t *testing.T, specPath string) map[string]bool {
 // also flags registry entries that no longer exist in the spec (stale tests). It
 // is a static check — no network — so it runs even under `go test -short`.
 func TestSpecCoverage(t *testing.T) {
-	specPath := envOr("E2E_SPEC", "../../../headless-api.yaml")
+	specPath := envOr("E2E_SPEC", "../../headless-api.yaml")
 	specOps := specOperationIDs(t, specPath)
 	registry := funcs.BuildRegistry()
 

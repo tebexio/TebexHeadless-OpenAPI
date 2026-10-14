@@ -17,6 +17,6 @@ func updatePackageQuantity(ctx context.Context, client client, s *VarStore) erro
 	}
 	body := TebexHeadless.NewUpdatePackageQuantityRequest()
 	body.SetQuantity(2)
-	_, err = client.HeadlessAPI.UpdatePackageQuantity(ctx, basketIdent, packageId).UpdatePackageQuantityRequest(*body).Execute()
+	_, err = client.BasketsAPI.UpdatePackageQuantity(ctx, basketIdent, packageId).UpdatePackageQuantityRequest(*body).Execute()
 	return err
 }

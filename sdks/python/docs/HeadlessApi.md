@@ -19,11 +19,16 @@ Method | HTTP request | Description
 [**get_category**](HeadlessApi.md#get_category) | **GET** /categories/{categoryId} | Get specific category
 [**get_category_include_dynamic_packages**](HeadlessApi.md#get_category_include_dynamic_packages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket.
 [**get_category_include_packages**](HeadlessApi.md#get_category_include_packages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages
+[**get_community_goal**](HeadlessApi.md#get_community_goal) | **GET** /community-goals/{communityGoalId} | Get a community goal.
+[**get_community_goals**](HeadlessApi.md#get_community_goals) | **GET** /community-goals | Get the webstore&#39;s community goals.
 [**get_custom_pages**](HeadlessApi.md#get_custom_pages) | **GET** /pages | Get custom pages defined for the webstore.
 [**get_dynamic_categories**](HeadlessApi.md#get_dynamic_categories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories
 [**get_package**](HeadlessApi.md#get_package) | **GET** /packages/{packageId} | Get package
 [**get_packages_for_basket**](HeadlessApi.md#get_packages_for_basket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket
+[**get_recent_payments**](HeadlessApi.md#get_recent_payments) | **GET** /recent-payments | Get the webstore&#39;s recent payments.
+[**get_sales**](HeadlessApi.md#get_sales) | **GET** /sales | Get the webstore&#39;s active sales.
 [**get_sidebar**](HeadlessApi.md#get_sidebar) | **GET** /sidebar | Retrieves the available sidebar modules.
+[**get_top_customer**](HeadlessApi.md#get_top_customer) | **GET** /top-customers | Get the webstore&#39;s top customer.
 [**get_user_tiered_categories**](HeadlessApi.md#get_user_tiered_categories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories
 [**get_webstore**](HeadlessApi.md#get_webstore) | **GET** / | Get the webstore&#39;s information
 [**remove_coupon**](HeadlessApi.md#remove_coupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket.
@@ -321,10 +326,11 @@ No authorization required
 
 Add packages to a dynamic category for a basket.
 
-Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
+Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
 
 ### Example
 
+* Basic Authentication (basicAuth):
 
 ```python
 import TebexHeadless
@@ -339,6 +345,16 @@ configuration = TebexHeadless.Configuration(
     host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = TebexHeadless.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexHeadless.ApiClient(configuration) as api_client:
@@ -372,7 +388,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -384,7 +400,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response confirms the dynamic packages were created. |  -  |
-**422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
+**422** | The request is invalid. The error response will include detail as to which parameter failed validation. This is also returned when basic auth credentials are missing (\&quot;Basic auth credentials are required\&quot;) or when &#x60;category_id&#x60; is not a dynamic category (\&quot;The specified category is not a dynamic category.\&quot;). |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1087,6 +1103,165 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_community_goal**
+> CommunityGoalResponse get_community_goal(community_goal_id)
+
+Get a community goal.
+
+Gets a single community goal by its ID.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
+### Example
+
+* Basic Authentication (basicAuth):
+
+```python
+import TebexHeadless
+from TebexHeadless.models.community_goal_response import CommunityGoalResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = TebexHeadless.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    community_goal_id = 1 # int | The community goal ID.
+
+    try:
+        # Get a community goal.
+        api_response = api_instance.get_community_goal(community_goal_id)
+        print("The response of HeadlessApi->get_community_goal:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_community_goal: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **community_goal_id** | **int**| The community goal ID. | 
+
+### Return type
+
+[**CommunityGoalResponse**](CommunityGoalResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns the community goal. |  -  |
+**404** | No community goal with that ID exists for this account. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_community_goals**
+> CommunityGoalsResponse get_community_goals(status=status)
+
+Get the webstore's community goals.
+
+Lists the store's community goals. This does not depend on the sidebar's Community Goal module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  If there are no matching goals, `data` is an empty array.
+
+### Example
+
+* Basic Authentication (basicAuth):
+
+```python
+import TebexHeadless
+from TebexHeadless.models.community_goals_response import CommunityGoalsResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = TebexHeadless.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    status = ['status_example'] # List[str] | Only return goals with these statuses, e.g. `status[]=active&status[]=completed`. A single `status=active` is also accepted. With no filter, all goals are returned. (optional)
+
+    try:
+        # Get the webstore's community goals.
+        api_response = api_instance.get_community_goals(status=status)
+        print("The response of HeadlessApi->get_community_goals:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_community_goals: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | [**List[str]**](str.md)| Only return goals with these statuses, e.g. &#x60;status[]&#x3D;active&amp;status[]&#x3D;completed&#x60;. A single &#x60;status&#x3D;active&#x60; is also accepted. With no filter, all goals are returned. | [optional] 
+
+### Return type
+
+[**CommunityGoalsResponse**](CommunityGoalsResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns the community goals. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_custom_pages**
 > CMSPagesResponse get_custom_pages()
 
@@ -1224,7 +1399,7 @@ No authorization required
 
 Get package
 
-Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
+Gets a package from a webstore by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it. - `id` stays numeric for standard packages. For external packages `id` is synthetic, so always use `ident`.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
 
 ### Example
 
@@ -1246,7 +1421,7 @@ configuration = TebexHeadless.Configuration(
 with TebexHeadless.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexHeadless.HeadlessApi(api_client)
-    package_id = '1272441812' # str | The package's ID or slug.
+    package_id = '1272441812' # str | The package's `ident` (recommended, e.g. `pkg_12_456`) or numeric ID.
 
     try:
         # Get package
@@ -1264,7 +1439,7 @@ with TebexHeadless.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **package_id** | **str**| The package&#39;s ID or slug. | 
+ **package_id** | **str**| The package&#39;s &#x60;ident&#x60; (recommended, e.g. &#x60;pkg_12_456&#x60;) or numeric ID. | 
 
 ### Return type
 
@@ -1356,6 +1531,150 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_recent_payments**
+> RecentPaymentsResponse get_recent_payments(limit=limit)
+
+Get the webstore's recent payments.
+
+Lists the store's most recent payments, newest first. This does not depend on the sidebar's Recent Payments module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  - Free, manual, zero-price and incomplete payments are never included. - Responses are cached for 10 minutes. - If there are no payments, `data` is an empty array.
+
+### Example
+
+* Basic Authentication (basicAuth):
+
+```python
+import TebexHeadless
+from TebexHeadless.models.recent_payments_response import RecentPaymentsResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = TebexHeadless.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    limit = 5 # int | The number of payments to return, from 1 to 50. (optional) (default to 5)
+
+    try:
+        # Get the webstore's recent payments.
+        api_response = api_instance.get_recent_payments(limit=limit)
+        print("The response of HeadlessApi->get_recent_payments:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_recent_payments: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**| The number of payments to return, from 1 to 50. | [optional] [default to 5]
+
+### Return type
+
+[**RecentPaymentsResponse**](RecentPaymentsResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns the recent payments. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_sales**
+> SalesResponse get_sales()
+
+Get the webstore's active sales.
+
+Lists the store's currently active sales, in the same order as the control panel. No authentication is required.  - Only sales whose start/end window includes the current time are returned. Expired sales, future sales and Lighthouse sales are left out. - Hidden packages and categories (disabled, removed, unpublished, or inside a disabled category) are left out of every array. - If there are no active sales, `data` is an empty array.
+
+### Example
+
+
+```python
+import TebexHeadless
+from TebexHeadless.models.sales_response import SalesResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+
+    try:
+        # Get the webstore's active sales.
+        api_response = api_instance.get_sales()
+        print("The response of HeadlessApi->get_sales:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_sales: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**SalesResponse**](SalesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns the active sales. |  -  |
+**404** | The store identifier is invalid. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_sidebar**
 > ModulesResponse get_sidebar(token)
 
@@ -1421,6 +1740,85 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_top_customer**
+> TopCustomerResponse get_top_customer(period=period)
+
+Get the webstore's top customer.
+
+Gets the customer who spent the most in the given period. This does not depend on the sidebar's Top Customer module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  - `total` is in the account's currency, net of tax, and matches the revenue statistics in the control panel. - Free, manual, zero-price and incomplete payments are never counted. - Responses are cached for 10 minutes. - If there is no top customer for the period, `data` is null.
+
+### Example
+
+* Basic Authentication (basicAuth):
+
+```python
+import TebexHeadless
+from TebexHeadless.models.top_customer_response import TopCustomerResponse
+from TebexHeadless.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexHeadless.Configuration(
+    host = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = TebexHeadless.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Enter a context with an instance of the API client
+with TebexHeadless.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexHeadless.HeadlessApi(api_client)
+    period = 'monthly' # str | The period to rank customers over. `none` covers all time. (optional) (default to 'monthly')
+
+    try:
+        # Get the webstore's top customer.
+        api_response = api_instance.get_top_customer(period=period)
+        print("The response of HeadlessApi->get_top_customer:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeadlessApi->get_top_customer: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **period** | **str**| The period to rank customers over. &#x60;none&#x60; covers all time. | [optional] [default to &#39;monthly&#39;]
+
+### Return type
+
+[**TopCustomerResponse**](TopCustomerResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns the top customer, or null. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

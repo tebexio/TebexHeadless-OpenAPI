@@ -19,11 +19,16 @@ All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOK
 | [**GetCategory**](HeadlessApi.md#getcategory) | **GET** /categories/{categoryId} | Get specific category |
 | [**GetCategoryIncludeDynamicPackages**](HeadlessApi.md#getcategoryincludedynamicpackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Gets a specific category including packages, populating a dynamic category for the given basket. |
 | [**GetCategoryIncludePackages**](HeadlessApi.md#getcategoryincludepackages) | **GET** /categories/{categoryId}?includePackages&#x3D;1 | Get a category with all packages |
+| [**GetCommunityGoal**](HeadlessApi.md#getcommunitygoal) | **GET** /community-goals/{communityGoalId} | Get a community goal. |
+| [**GetCommunityGoals**](HeadlessApi.md#getcommunitygoals) | **GET** /community-goals | Get the webstore&#39;s community goals. |
 | [**GetCustomPages**](HeadlessApi.md#getcustompages) | **GET** /pages | Get custom pages defined for the webstore. |
 | [**GetDynamicCategories**](HeadlessApi.md#getdynamiccategories) | **GET** /categories?includePackages&#x3D;1&amp;basketIdent&#x3D;{basketIdent} | Get Dynamic Categories |
 | [**GetPackage**](HeadlessApi.md#getpackage) | **GET** /packages/{packageId} | Get package |
 | [**GetPackagesForBasket**](HeadlessApi.md#getpackagesforbasket) | **GET** /packages?basketIdent&#x3D;{basketIdent} | Get packages available for basket |
+| [**GetRecentPayments**](HeadlessApi.md#getrecentpayments) | **GET** /recent-payments | Get the webstore&#39;s recent payments. |
+| [**GetSales**](HeadlessApi.md#getsales) | **GET** /sales | Get the webstore&#39;s active sales. |
 | [**GetSidebar**](HeadlessApi.md#getsidebar) | **GET** /sidebar | Retrieves the available sidebar modules. |
+| [**GetTopCustomer**](HeadlessApi.md#gettopcustomer) | **GET** /top-customers | Get the webstore&#39;s top customer. |
 | [**GetUserTieredCategories**](HeadlessApi.md#getusertieredcategories) | **GET** /categories?usernameId&#x3D;{usernameId}&amp;includePackages&#x3D;1 | Get user&#39;s tiered categories |
 | [**GetWebstore**](HeadlessApi.md#getwebstore) | **GET** / | Get the webstore&#39;s information |
 | [**RemoveCoupon**](HeadlessApi.md#removecoupon) | **POST** /baskets/{basketIdent}/coupons/remove | Remove a coupon from the basket. |
@@ -409,7 +414,7 @@ No authorization required
 
 Add packages to a dynamic category for a basket.
 
-Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
+Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
 
 ### Example
 ```csharp
@@ -427,6 +432,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            // Configure HTTP basic authorization: basicAuth
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new HeadlessApi(config);
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
             var dynamicPackagesRequest = new DynamicPackagesRequest?(); // DynamicPackagesRequest? |  (optional) 
@@ -481,7 +490,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -493,7 +502,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response confirms the dynamic packages were created. |  -  |
-| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
+| **422** | The request is invalid. The error response will include detail as to which parameter failed validation. This is also returned when basic auth credentials are missing (\&quot;Basic auth credentials are required\&quot;) or when &#x60;category_id&#x60; is not a dynamic category (\&quot;The specified category is not a dynamic category.\&quot;). |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1409,6 +1418,197 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="getcommunitygoal"></a>
+# **GetCommunityGoal**
+> CommunityGoalResponse GetCommunityGoal (int communityGoalId)
+
+Get a community goal.
+
+Gets a single community goal by its ID.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetCommunityGoalExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            // Configure HTTP basic authorization: basicAuth
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
+            var apiInstance = new HeadlessApi(config);
+            var communityGoalId = 1;  // int | The community goal ID.
+
+            try
+            {
+                // Get a community goal.
+                CommunityGoalResponse result = apiInstance.GetCommunityGoal(communityGoalId);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetCommunityGoal: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetCommunityGoalWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get a community goal.
+    ApiResponse<CommunityGoalResponse> response = apiInstance.GetCommunityGoalWithHttpInfo(communityGoalId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetCommunityGoalWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **communityGoalId** | **int** | The community goal ID. |  |
+
+### Return type
+
+[**CommunityGoalResponse**](CommunityGoalResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the community goal. |  -  |
+| **404** | No community goal with that ID exists for this account. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getcommunitygoals"></a>
+# **GetCommunityGoals**
+> CommunityGoalsResponse GetCommunityGoals (List<string>? status = null)
+
+Get the webstore's community goals.
+
+Lists the store's community goals. This does not depend on the sidebar's Community Goal module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  If there are no matching goals, `data` is an empty array.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetCommunityGoalsExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            // Configure HTTP basic authorization: basicAuth
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
+            var apiInstance = new HeadlessApi(config);
+            var status = new List<string>?(); // List<string>? | Only return goals with these statuses, e.g. `status[]=active&status[]=completed`. A single `status=active` is also accepted. With no filter, all goals are returned. (optional) 
+
+            try
+            {
+                // Get the webstore's community goals.
+                CommunityGoalsResponse result = apiInstance.GetCommunityGoals(status);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetCommunityGoals: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetCommunityGoalsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get the webstore's community goals.
+    ApiResponse<CommunityGoalsResponse> response = apiInstance.GetCommunityGoalsWithHttpInfo(status);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetCommunityGoalsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **status** | [**List&lt;string&gt;?**](string.md) | Only return goals with these statuses, e.g. &#x60;status[]&#x3D;active&amp;status[]&#x3D;completed&#x60;. A single &#x60;status&#x3D;active&#x60; is also accepted. With no filter, all goals are returned. | [optional]  |
+
+### Return type
+
+[**CommunityGoalsResponse**](CommunityGoalsResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the community goals. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a id="getcustompages"></a>
 # **GetCustomPages**
 > CMSPagesResponse GetCustomPages ()
@@ -1592,7 +1792,7 @@ No authorization required
 
 Get package
 
-Gets a package from a webstore by its ID or slug.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
+Gets a package from a webstore by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it. - `id` stays numeric for standard packages. For external packages `id` is synthetic, so always use `ident`.  Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
 
 ### Example
 ```csharp
@@ -1611,7 +1811,7 @@ namespace Example
             Configuration config = new Configuration();
             config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new HeadlessApi(config);
-            var packageId = 1272441812;  // string | The package's ID or slug.
+            var packageId = 1272441812;  // string | The package's `ident` (recommended, e.g. `pkg_12_456`) or numeric ID.
 
             try
             {
@@ -1654,7 +1854,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **packageId** | **string** | The package&#39;s ID or slug. |  |
+| **packageId** | **string** | The package&#39;s &#x60;ident&#x60; (recommended, e.g. &#x60;pkg_12_456&#x60;) or numeric ID. |  |
 
 ### Return type
 
@@ -1769,6 +1969,188 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="getrecentpayments"></a>
+# **GetRecentPayments**
+> RecentPaymentsResponse GetRecentPayments (int? limit = null)
+
+Get the webstore's recent payments.
+
+Lists the store's most recent payments, newest first. This does not depend on the sidebar's Recent Payments module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  - Free, manual, zero-price and incomplete payments are never included. - Responses are cached for 10 minutes. - If there are no payments, `data` is an empty array.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetRecentPaymentsExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            // Configure HTTP basic authorization: basicAuth
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
+            var apiInstance = new HeadlessApi(config);
+            var limit = 5;  // int? | The number of payments to return, from 1 to 50. (optional)  (default to 5)
+
+            try
+            {
+                // Get the webstore's recent payments.
+                RecentPaymentsResponse result = apiInstance.GetRecentPayments(limit);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetRecentPayments: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetRecentPaymentsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get the webstore's recent payments.
+    ApiResponse<RecentPaymentsResponse> response = apiInstance.GetRecentPaymentsWithHttpInfo(limit);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetRecentPaymentsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **limit** | **int?** | The number of payments to return, from 1 to 50. | [optional] [default to 5] |
+
+### Return type
+
+[**RecentPaymentsResponse**](RecentPaymentsResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the recent payments. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getsales"></a>
+# **GetSales**
+> SalesResponse GetSales ()
+
+Get the webstore's active sales.
+
+Lists the store's currently active sales, in the same order as the control panel. No authentication is required.  - Only sales whose start/end window includes the current time are returned. Expired sales, future sales and Lighthouse sales are left out. - Hidden packages and categories (disabled, removed, unpublished, or inside a disabled category) are left out of every array. - If there are no active sales, `data` is an empty array.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetSalesExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            var apiInstance = new HeadlessApi(config);
+
+            try
+            {
+                // Get the webstore's active sales.
+                SalesResponse result = apiInstance.GetSales();
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetSales: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetSalesWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get the webstore's active sales.
+    ApiResponse<SalesResponse> response = apiInstance.GetSalesWithHttpInfo();
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetSalesWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+### Return type
+
+[**SalesResponse**](SalesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the active sales. |  -  |
+| **404** | The store identifier is invalid. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a id="getsidebar"></a>
 # **GetSidebar**
 > ModulesResponse GetSidebar (string token)
@@ -1857,6 +2239,101 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="gettopcustomer"></a>
+# **GetTopCustomer**
+> TopCustomerResponse GetTopCustomer (string? period = null)
+
+Get the webstore's top customer.
+
+Gets the customer who spent the most in the given period. This does not depend on the sidebar's Top Customer module being configured.  Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.  - `total` is in the account's currency, net of tax, and matches the revenue statistics in the control panel. - Free, manual, zero-price and incomplete payments are never counted. - Responses are cached for 10 minutes. - If there is no top customer for the period, `data` is null.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexHeadless.TebexHeadless;
+using TebexHeadless.Client;
+using TebexHeadless.Model;
+
+namespace Example
+{
+    public class GetTopCustomerExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
+            // Configure HTTP basic authorization: basicAuth
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
+            var apiInstance = new HeadlessApi(config);
+            var period = "hourly";  // string? | The period to rank customers over. `none` covers all time. (optional)  (default to monthly)
+
+            try
+            {
+                // Get the webstore's top customer.
+                TopCustomerResponse result = apiInstance.GetTopCustomer(period);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling HeadlessApi.GetTopCustomer: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetTopCustomerWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get the webstore's top customer.
+    ApiResponse<TopCustomerResponse> response = apiInstance.GetTopCustomerWithHttpInfo(period);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling HeadlessApi.GetTopCustomerWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **period** | **string?** | The period to rank customers over. &#x60;none&#x60; covers all time. | [optional] [default to monthly] |
+
+### Return type
+
+[**TopCustomerResponse**](TopCustomerResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response returns the top customer, or null. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

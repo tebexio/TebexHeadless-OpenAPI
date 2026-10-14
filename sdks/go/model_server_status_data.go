@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -12,8 +12,8 @@ Contact: tebex-integrations@overwolf.com
 package TebexHeadless
 
 import (
-	"encoding/json"
 	"bytes"
+	"encoding/json"
 	"fmt"
 )
 
@@ -22,11 +22,11 @@ var _ MappedNullable = &ServerStatusData{}
 
 // ServerStatusData struct for ServerStatusData
 type ServerStatusData struct {
-	Header string `json:"header"`
-	Hostname string `json:"hostname"`
-	Port int32 `json:"port"`
-	Online bool `json:"online"`
-	Players NullablePlayers `json:"players"`
+	Header   string          `json:"header"`
+	Hostname string          `json:"hostname"`
+	Port     int32           `json:"port"`
+	Online   bool            `json:"online"`
+	Players  NullablePlayers `json:"players"`
 }
 
 type _ServerStatusData ServerStatusData
@@ -176,7 +176,7 @@ func (o *ServerStatusData) SetPlayers(v Players) {
 }
 
 func (o ServerStatusData) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -210,10 +210,10 @@ func (o *ServerStatusData) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -269,5 +269,3 @@ func (v *NullableServerStatusData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -21,12 +21,12 @@ var _ MappedNullable = &BasketPackage{}
 // BasketPackage A package within an existing basket.
 type BasketPackage struct {
 	// The package ID
-	Id *int32 `json:"id,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Image *string `json:"image,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Slug *string `json:"slug,omitempty"`
-	InBasket *BasketPackageInBasket `json:"in_basket,omitempty"`
+	Id          *int32                 `json:"id,omitempty"`
+	Description *string                `json:"description,omitempty"`
+	Image       *string                `json:"image,omitempty"`
+	Name        *string                `json:"name,omitempty"`
+	Slug        *string                `json:"slug,omitempty"`
+	InBasket    *BasketPackageInBasket `json:"in_basket,omitempty"`
 	// The type of payment, either `single` for one-time payments or `subscription`.
 	Type *string `json:"type,omitempty"`
 	// An array of payment destination objects describing how the purchase should be split between multiple wallets. **Only available with pre-agreement from Tebex.**
@@ -341,7 +341,7 @@ func (o *BasketPackage) SetIsRecurring(v bool) {
 }
 
 func (o BasketPackage) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -415,5 +415,3 @@ func (v *NullableBasketPackage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

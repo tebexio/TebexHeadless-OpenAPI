@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**package_id** | **str** |  | [optional] 
+**package_id** | **str** | The package&#39;s &#x60;ident&#x60; (recommended) or numeric ID. | [optional] 
 
 ## Example
 

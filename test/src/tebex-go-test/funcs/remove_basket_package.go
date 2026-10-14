@@ -17,6 +17,6 @@ func removeBasketPackage(ctx context.Context, client client, s *VarStore) error 
 	}
 	body := TebexHeadless.NewRemoveBasketPackageRequest()
 	body.SetPackageId(packageId) // string in this request model
-	_, _, err = client.HeadlessAPI.RemoveBasketPackage(ctx, basketIdent).RemoveBasketPackageRequest(*body).Execute()
+	_, _, err = client.BasketsAPI.RemoveBasketPackage(ctx, basketIdent).RemoveBasketPackageRequest(*body).Execute()
 	return err
 }

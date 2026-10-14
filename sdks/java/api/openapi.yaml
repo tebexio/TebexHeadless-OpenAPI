@@ -11,7 +11,7 @@ info:
     url: https://opensource.org/license/mit
   termsOfService: https://tebex.io/terms-creator-agreement
   title: Tebex Headless API
-  version: 2.0.1
+  version: 2.1.0
 servers:
 - description: Main API scoped to public token
   url: "https://headless.tebex.io/api/accounts/{token}"
@@ -138,6 +138,8 @@ paths:
       description: |-
         Populates a dynamic category with custom packages for the given basket. Dynamic categories are created in the creator panel with the type `dynamic`, and are typically populated in response to a `basket.authenticated` webhook.
 
+        Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
         Once created, the packages can be fetched using the category endpoints with both `includePackages=1` and `basketIdent` provided.
       operationId: createDynamicPackage
       parameters:
@@ -155,8 +157,17 @@ paths:
                 $ref: '#/components/schemas/DynamicPackagesResponse'
           description: Successful response confirms the dynamic packages were created.
         "422":
-          description: The provided request is invalid. The error response will include
-            detail as to which parameter failed validation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The request is invalid. The error response will include detail
+            as to which parameter failed validation. This is also returned when basic
+            auth credentials are missing ("Basic auth credentials are required") or
+            when `category_id` is not a dynamic category ("The specified category
+            is not a dynamic category.").
+      security:
+      - basicAuth: []
       summary: Add packages to a dynamic category for a basket.
       tags:
       - Headless
@@ -173,6 +184,22 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                categories:
+                  summary: Categories
+                  value:
+                    data:
+                    - id: 2678660
+                      name: Packages
+                      slug: packages
+                      parent: null
+                      tiered: false
+                      active_tier: null
+                      description: <p>Packages category.</p>
+                      order: 1
+                      display_type: list
+                      image_url: null
+                      dynamic: false
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
           description: Successful response returns a list of category information.
@@ -189,6 +216,57 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                categories:
+                  summary: Categories with packages
+                  value:
+                    data:
+                    - id: 2678660
+                      name: Packages
+                      slug: packages
+                      parent: null
+                      tiered: false
+                      active_tier: null
+                      description: <p>Packages category.</p>
+                      packages:
+                      - id: 6276316
+                        name: test package 101
+                        description: <p>this is just a test. only a test. nothing
+                          more.</p>
+                        image: null
+                        type: single
+                        category:
+                          id: 2678660
+                          name: Packages
+                        base_price: 5
+                        sales_tax: 0
+                        total_price: 5
+                        currency: USD
+                        prorate_price: null
+                        discount: 0
+                        disable_quantity: false
+                        disable_gifting: false
+                        expiration_date: null
+                        media:
+                        - type: image
+                          name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                          url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                          featured: false
+                          primary: true
+                        order: 0
+                        slug: test-package-101
+                        user_limit: 0
+                        creator_meta_data: {}
+                        options: []
+                        variables: []
+                        created_at: 2024-05-21T18:09:17+00:00
+                        updated_at: 2024-05-21T18:09:17+00:00
+                        ident: pkg_2678660_6276316
+                        vip_status: null
+                      order: 1
+                      display_type: list
+                      image_url: null
+                      dynamic: false
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
           description: Successful response returns a list of category information.
@@ -215,6 +293,64 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                categories:
+                  summary: Tiered categories
+                  value:
+                    data:
+                    - id: 2678661
+                      name: Ranks
+                      slug: ranks
+                      parent: null
+                      tiered: true
+                      active_tier:
+                        id: 40796
+                        created_at: 2025-05-14T13:48:56.000000Z
+                        username_id: "76561198042467022"
+                        package:
+                          id: 6834821
+                          name: Silver
+                        active: true
+                        recurring_payment_reference: tbx-r-757925142
+                        next_payment_date: 2025-06-14T13:48:56+00:00
+                        status:
+                          id: 2
+                          description: Active
+                        pending_downgrade_package: null
+                      description: <p>Ranks category.</p>
+                      packages:
+                      - id: 6834821
+                        name: Silver
+                        description: <p>Silver tier.</p>
+                        image: null
+                        type: subscription
+                        category:
+                          id: 2678661
+                          name: Ranks
+                        base_price: 10
+                        sales_tax: 0
+                        total_price: 10
+                        currency: USD
+                        prorate_price: null
+                        discount: 0
+                        disable_quantity: true
+                        disable_gifting: false
+                        expiration_date: null
+                        media: []
+                        order: 0
+                        slug: silver
+                        user_limit: 0
+                        creator_meta_data: {}
+                        options: []
+                        variables: []
+                        created_at: 2025-05-14T13:48:56+00:00
+                        updated_at: 2025-05-14T13:48:56+00:00
+                        ident: pkg_2678661_6834821
+                        vip_status: null
+                      order: 1
+                      display_type: list
+                      image_url: null
+                      dynamic: false
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
           description: Successful response returns a list of category information.
@@ -238,6 +374,97 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                categories:
+                  summary: Categories with dynamic packages
+                  value:
+                    data:
+                    - id: 2678660
+                      name: Packages
+                      slug: packages
+                      parent: null
+                      tiered: false
+                      active_tier: null
+                      description: <p>Packages category.</p>
+                      packages:
+                      - id: 6276316
+                        name: test package 101
+                        description: <p>this is just a test. only a test. nothing
+                          more.</p>
+                        image: null
+                        type: single
+                        category:
+                          id: 2678660
+                          name: Packages
+                        base_price: 5
+                        sales_tax: 0
+                        total_price: 5
+                        currency: USD
+                        prorate_price: null
+                        discount: 0
+                        disable_quantity: false
+                        disable_gifting: false
+                        expiration_date: null
+                        media:
+                        - type: image
+                          name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                          url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                          featured: false
+                          primary: true
+                        order: 0
+                        slug: test-package-101
+                        user_limit: 0
+                        creator_meta_data: {}
+                        options: []
+                        variables: []
+                        created_at: 2024-05-21T18:09:17+00:00
+                        updated_at: 2024-05-21T18:09:17+00:00
+                        ident: pkg_2678660_6276316
+                        vip_status: null
+                      order: 1
+                      display_type: list
+                      image_url: null
+                      dynamic: false
+                    - id: 2678662
+                      name: Dynamic
+                      slug: dynamic
+                      parent: null
+                      tiered: false
+                      active_tier: null
+                      description: <p>Dynamic category.</p>
+                      packages:
+                      - id: 1
+                        name: Package Name 1
+                        description: This is the description
+                        image: image.url/imageurl
+                        type: single
+                        category:
+                          id: 2678662
+                          name: Dynamic
+                        base_price: 10
+                        sales_tax: 0
+                        total_price: 10
+                        currency: USD
+                        prorate_price: null
+                        discount: 0
+                        disable_quantity: false
+                        disable_gifting: false
+                        expiration_date: null
+                        media: []
+                        order: 0
+                        slug: package-name-1
+                        user_limit: 0
+                        creator_meta_data: {}
+                        options: []
+                        variables: []
+                        created_at: 2024-05-21T18:09:17+00:00
+                        updated_at: 2024-05-21T18:09:17+00:00
+                        ident: pkg_2678662_1
+                        vip_status: null
+                      order: 1
+                      display_type: list
+                      image_url: null
+                      dynamic: true
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
           description: Successful response returns a list of category information.
@@ -265,6 +492,22 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                categories:
+                  summary: Category
+                  value:
+                    data:
+                      id: 2678660
+                      name: Packages
+                      slug: packages
+                      parent: null
+                      tiered: false
+                      active_tier: null
+                      description: <p>Packages category.</p>
+                      order: 1
+                      display_type: list
+                      image_url: null
+                      dynamic: false
               schema:
                 $ref: '#/components/schemas/SingleCategoryResponse'
           description: Successful response returns the category without package information.
@@ -292,6 +535,57 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                categories:
+                  summary: Category with packages
+                  value:
+                    data:
+                      id: 2678660
+                      name: Packages
+                      slug: packages
+                      parent: null
+                      tiered: false
+                      active_tier: null
+                      description: <p>Packages category.</p>
+                      packages:
+                      - id: 6276316
+                        name: test package 101
+                        description: <p>this is just a test. only a test. nothing
+                          more.</p>
+                        image: null
+                        type: single
+                        category:
+                          id: 2678660
+                          name: Packages
+                        base_price: 5
+                        sales_tax: 0
+                        total_price: 5
+                        currency: USD
+                        prorate_price: null
+                        discount: 0
+                        disable_quantity: false
+                        disable_gifting: false
+                        expiration_date: null
+                        media:
+                        - type: image
+                          name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                          url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                          featured: false
+                          primary: true
+                        order: 0
+                        slug: test-package-101
+                        user_limit: 0
+                        creator_meta_data: {}
+                        options: []
+                        variables: []
+                        created_at: 2024-05-21T18:09:17+00:00
+                        updated_at: 2024-05-21T18:09:17+00:00
+                        ident: pkg_2678660_6276316
+                        vip_status: null
+                      order: 1
+                      display_type: list
+                      image_url: null
+                      dynamic: false
               schema:
                 $ref: '#/components/schemas/SingleCategoryResponse'
           description: Successful response returns the category with package information.
@@ -322,6 +616,51 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                categories:
+                  summary: Dynamic category
+                  value:
+                    data:
+                      id: 2678662
+                      name: Dynamic
+                      slug: dynamic
+                      parent: null
+                      tiered: false
+                      active_tier: null
+                      description: <p>Dynamic category.</p>
+                      packages:
+                      - id: 1
+                        name: Package Name 1
+                        description: This is the description
+                        image: image.url/imageurl
+                        type: single
+                        category:
+                          id: 2678662
+                          name: Dynamic
+                        base_price: 10
+                        sales_tax: 0
+                        total_price: 10
+                        currency: USD
+                        prorate_price: null
+                        discount: 0
+                        disable_quantity: false
+                        disable_gifting: false
+                        expiration_date: null
+                        media: []
+                        order: 0
+                        slug: package-name-1
+                        user_limit: 0
+                        creator_meta_data: {}
+                        options: []
+                        variables: []
+                        created_at: 2024-05-21T18:09:17+00:00
+                        updated_at: 2024-05-21T18:09:17+00:00
+                        ident: pkg_2678662_1
+                        vip_status: null
+                      order: 1
+                      display_type: list
+                      image_url: null
+                      dynamic: true
               schema:
                 $ref: '#/components/schemas/SingleCategoryResponse'
           description: Successful response returns the category with package information.
@@ -334,12 +673,16 @@ paths:
   /packages/{packageId}:
     get:
       description: |-
-        Gets a package from a webstore by its ID or slug.
+        Gets a package from a webstore by its `ident` or numeric ID.
+
+        - Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it.
+        - `id` stays numeric for standard packages. For external packages `id` is synthetic, so always use `ident`.
 
         Note: this endpoint does not support packages belonging to dynamic categories. Use the category endpoints with `includePackages=1` and `basketIdent` to fetch dynamic packages.
       operationId: getPackage
       parameters:
-      - description: The package's ID or slug.
+      - description: "The package's `ident` (recommended, e.g. `pkg_12_456`) or numeric\
+          \ ID."
         explode: false
         in: path
         name: packageId
@@ -371,6 +714,44 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                packages:
+                  summary: Packages
+                  value:
+                    data:
+                    - id: 6276316
+                      name: test package 101
+                      description: <p>this is just a test. only a test. nothing more.</p>
+                      image: null
+                      type: single
+                      category:
+                        id: 2678660
+                        name: Packages
+                      base_price: 5
+                      sales_tax: 0
+                      total_price: 5
+                      currency: USD
+                      prorate_price: null
+                      discount: 0
+                      disable_quantity: false
+                      disable_gifting: false
+                      expiration_date: null
+                      media:
+                      - type: image
+                        name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                        url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                        featured: false
+                        primary: true
+                      order: 0
+                      slug: test-package-101
+                      user_limit: 0
+                      creator_meta_data: {}
+                      options: []
+                      variables: []
+                      created_at: 2024-05-21T18:09:17+00:00
+                      updated_at: 2024-05-21T18:09:17+00:00
+                      ident: pkg_2678660_6276316
+                      vip_status: null
               schema:
                 $ref: '#/components/schemas/PackageResponse'
           description: Successful response returns a list of package information.
@@ -397,6 +778,44 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                packages:
+                  summary: Packages
+                  value:
+                    data:
+                    - id: 6276316
+                      name: test package 101
+                      description: <p>this is just a test. only a test. nothing more.</p>
+                      image: null
+                      type: single
+                      category:
+                        id: 2678660
+                        name: Packages
+                      base_price: 5
+                      sales_tax: 0
+                      total_price: 5
+                      currency: USD
+                      prorate_price: null
+                      discount: 0
+                      disable_quantity: false
+                      disable_gifting: false
+                      expiration_date: null
+                      media:
+                      - type: image
+                        name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                        url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                        featured: false
+                        primary: true
+                      order: 0
+                      slug: test-package-101
+                      user_limit: 0
+                      creator_meta_data: {}
+                      options: []
+                      variables: []
+                      created_at: 2024-05-21T18:09:17+00:00
+                      updated_at: 2024-05-21T18:09:17+00:00
+                      ident: pkg_2678660_6276316
+                      vip_status: null
               schema:
                 $ref: '#/components/schemas/PackageResponse'
           description: Successful response returns a list of package information.
@@ -419,6 +838,44 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                packages:
+                  summary: Packages
+                  value:
+                    data:
+                    - id: 6276316
+                      name: test package 101
+                      description: <p>this is just a test. only a test. nothing more.</p>
+                      image: null
+                      type: single
+                      category:
+                        id: 2678660
+                        name: Packages
+                      base_price: 5
+                      sales_tax: 0
+                      total_price: 5
+                      currency: USD
+                      prorate_price: null
+                      discount: 0
+                      disable_quantity: false
+                      disable_gifting: false
+                      expiration_date: null
+                      media:
+                      - type: image
+                        name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                        url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                        featured: false
+                        primary: true
+                      order: 0
+                      slug: test-package-101
+                      user_limit: 0
+                      creator_meta_data: {}
+                      options: []
+                      variables: []
+                      created_at: 2024-05-21T18:09:17+00:00
+                      updated_at: 2024-05-21T18:09:17+00:00
+                      ident: pkg_2678660_6276316
+                      vip_status: null
               schema:
                 $ref: '#/components/schemas/PackageResponse'
           description: Successful response returns a list of package information.
@@ -448,6 +905,44 @@ paths:
         "200":
           content:
             application/json:
+              examples:
+                packages:
+                  summary: Packages
+                  value:
+                    data:
+                    - id: 6276316
+                      name: test package 101
+                      description: <p>this is just a test. only a test. nothing more.</p>
+                      image: null
+                      type: single
+                      category:
+                        id: 2678660
+                        name: Packages
+                      base_price: 5
+                      sales_tax: 0
+                      total_price: 5
+                      currency: USD
+                      prorate_price: null
+                      discount: 0
+                      disable_quantity: false
+                      disable_gifting: false
+                      expiration_date: null
+                      media:
+                      - type: image
+                        name: e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                        url: https://dunb17ur4ymx4.cloudfront.net/packages/images/e875d1010b2edb7f8c376728ab9dedfffe5bd012.jpg
+                        featured: false
+                        primary: true
+                      order: 0
+                      slug: test-package-101
+                      user_limit: 0
+                      creator_meta_data: {}
+                      options: []
+                      variables: []
+                      created_at: 2024-05-21T18:09:17+00:00
+                      updated_at: 2024-05-21T18:09:17+00:00
+                      ident: pkg_2678660_6276316
+                      vip_status: null
               schema:
                 $ref: '#/components/schemas/PackageResponse'
           description: Successful response returns a list of package information.
@@ -606,7 +1101,10 @@ paths:
   /{basketIdent}/packages:
     post:
       description: |-
-        Add a package with the given ID to the basket.
+        Add a package to the basket by its `ident` or numeric ID.
+
+        - Using `ident` is recommended, since it works for every package type. It is required for external packages.
+        - Numeric IDs still work for standard packages.
 
         To add a package belonging to a dynamic category, set `dynamic` to `true`. Without this property the API will treat the request as a normal package ID.
       operationId: addBasketPackage
@@ -624,9 +1122,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/BasketResponse'
           description: Successful response.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The ident is unknown or does not match a package in this store
+            ("The selected id is invalid.").
         "422":
           description: The provided request is invalid. The error response will include
-            detail as to which parameter failed validation.
+            detail as to which parameter failed validation. A malformed `package_id`
+            fails with "package_id must be a package ID or ident."
       summary: Add package to basket
       tags:
       - Baskets
@@ -638,7 +1144,11 @@ paths:
       url: https://headless.tebex.io/api/baskets
   /{basketIdent}/packages/remove:
     post:
-      description: Remove the given package ID from the basket.
+      description: |-
+        Remove a package from the basket by its `ident` or numeric ID.
+
+        - Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it.
+        - Numeric IDs still work for standard packages.
       operationId: removeBasketPackage
       parameters:
       - $ref: '#/components/parameters/basketIdent'
@@ -668,18 +1178,21 @@ paths:
       url: https://headless.tebex.io/api/baskets
   /{basketIdent}/packages/{packageId}:
     put:
-      description: Sets the quantity of the given item in the basket. The user must
-        be logged in before the quantity can be changed.
+      description: |-
+        Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.
+
+        - `{packageId}` accepts the package's `ident` or numeric ID. Using `ident` is recommended, since it works for every package type.
+        - Numeric IDs still work for standard packages.
       operationId: updatePackageQuantity
       parameters:
       - $ref: '#/components/parameters/basketIdent'
-      - description: The package identifier
+      - description: The package's `ident` (recommended) or numeric ID.
         explode: false
         in: path
         name: packageId
         required: true
         schema:
-          example: 6276316
+          example: pkg_12_456
           type: string
         style: simple
       requestBody:
@@ -759,6 +1272,404 @@ paths:
                 $ref: '#/components/schemas/ModulesResponse'
           description: Successful response.
       summary: Retrieves the available sidebar modules.
+      tags:
+      - Headless
+      x-accepts:
+      - application/json
+  /sales:
+    get:
+      description: |-
+        Lists the store's currently active sales, in the same order as the control panel. No authentication is required.
+
+        - Only sales whose start/end window includes the current time are returned. Expired sales, future sales and Lighthouse sales are left out.
+        - Hidden packages and categories (disabled, removed, unpublished, or inside a disabled category) are left out of every array.
+        - If there are no active sales, `data` is an empty array.
+      operationId: getSales
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                sales:
+                  summary: Active sales
+                  value:
+                    data:
+                    - id: 14
+                      name: Summer Sale
+                      starts_at: 2026-10-04T13:59:09+00:00
+                      ends_at: 2026-10-19T13:59:09+00:00
+                      discount:
+                        type: percentage
+                        percentage: 20
+                        amount: null
+                        currency: USD
+                      applies_to:
+                        type: all
+                        packages: []
+                        categories: []
+                        variable_options: []
+                        excluded_packages:
+                        - id: 28
+                          name: GIFTCARD
+                      requirements: []
+                    - id: 15
+                      name: $5.50 Off Starter Packs
+                      starts_at: 2026-10-04T13:59:09+00:00
+                      ends_at: 2026-10-19T13:59:09+00:00
+                      discount:
+                        type: amount
+                        percentage: null
+                        amount: 5.5
+                        currency: USD
+                      applies_to:
+                        type: package
+                        packages:
+                        - id: 1
+                          name: Test Package
+                        - id: 10
+                          name: Command
+                        categories: []
+                        variable_options: []
+                        excluded_packages: []
+                      requirements: []
+                    - id: 16
+                      name: Bonus Commands Weekend
+                      starts_at: 2026-10-04T13:59:09+00:00
+                      ends_at: 2026-10-19T13:59:09+00:00
+                      discount:
+                        type: commands
+                        percentage: null
+                        amount: null
+                        currency: USD
+                      applies_to:
+                        type: category
+                        packages: []
+                        categories:
+                        - id: 1
+                          name: Packages
+                        - id: 52
+                          name: Staff Ranks
+                        variable_options: []
+                        excluded_packages: []
+                      requirements: []
+                    - id: 17
+                      name: Colour Option Discount
+                      starts_at: 2026-10-04T13:59:09+00:00
+                      ends_at: 2026-10-19T13:59:09+00:00
+                      discount:
+                        type: percentage
+                        percentage: 10
+                        amount: null
+                        currency: USD
+                      applies_to:
+                        type: variable_option
+                        packages: []
+                        categories: []
+                        variable_options:
+                        - id: 1
+                          name: one
+                        - id: 2
+                          name: two
+                        excluded_packages: []
+                      requirements: []
+                    - id: 18
+                      name: Loyalty Unlock
+                      starts_at: 2026-10-04T13:59:09+00:00
+                      ends_at: 2026-10-19T13:59:09+00:00
+                      discount:
+                        type: percentage
+                        percentage: 10
+                        amount: null
+                        currency: USD
+                      applies_to:
+                        type: all
+                        packages: []
+                        categories: []
+                        variable_options: []
+                        excluded_packages: []
+                      requirements:
+                      - type: purchased_packages
+                        packages:
+                        - id: 12
+                          name: Asset package
+                        - id: 17
+                          name: This is another package
+                        match: all
+                    - id: 19
+                      name: Big Spender Reward
+                      starts_at: 2026-10-04T13:59:09+00:00
+                      ends_at: 2026-10-19T13:59:09+00:00
+                      discount:
+                        type: percentage
+                        percentage: 10
+                        amount: null
+                        currency: USD
+                      applies_to:
+                        type: all
+                        packages: []
+                        categories: []
+                        variable_options: []
+                        excluded_packages: []
+                      requirements:
+                      - type: lifetime_spend
+                        amount: 50
+                        currency: USD
+                      - type: minimum_basket_value
+                        amount: 10
+                        currency: USD
+                empty:
+                  summary: No active sales
+                  value:
+                    data: []
+              schema:
+                $ref: '#/components/schemas/SalesResponse'
+          description: Successful response returns the active sales.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The store identifier is invalid.
+      summary: Get the webstore's active sales.
+      tags:
+      - Headless
+      x-accepts:
+      - application/json
+  /recent-payments:
+    get:
+      description: |-
+        Lists the store's most recent payments, newest first. This does not depend on the sidebar's Recent Payments module being configured.
+
+        Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
+        - Free, manual, zero-price and incomplete payments are never included.
+        - Responses are cached for 10 minutes.
+        - If there are no payments, `data` is an empty array.
+      operationId: getRecentPayments
+      parameters:
+      - description: "The number of payments to return, from 1 to 50."
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 5
+          maximum: 50
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                payments:
+                  summary: Recent payments
+                  value:
+                    data:
+                    - id: 2728
+                      username: "12345"
+                      username_id: "6379162"
+                      avatar_url: https://avatars.discourse-cdn.com/v4/letter/1/ec9cab/256.png
+                      package_name: This is another package + 1 more
+                      created_at: 2026-09-17T07:15:49+00:00
+                      price: 2.99
+                      currency: USD
+                    - id: 2727
+                      username: "1234"
+                      username_id: "15692197"
+                      avatar_url: https://avatars.discourse-cdn.com/v4/letter/1/a5b964/256.png
+                      package_name: GIFTCARD
+                      created_at: 2026-09-16T17:15:48+00:00
+                      price: 10
+                      currency: USD
+                empty:
+                  summary: No payments
+                  value:
+                    data: []
+              schema:
+                $ref: '#/components/schemas/RecentPaymentsResponse'
+          description: Successful response returns the recent payments.
+      security:
+      - basicAuth: []
+      summary: Get the webstore's recent payments.
+      tags:
+      - Headless
+      x-accepts:
+      - application/json
+  /top-customers:
+    get:
+      description: |-
+        Gets the customer who spent the most in the given period. This does not depend on the sidebar's Top Customer module being configured.
+
+        Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
+        - `total` is in the account's currency, net of tax, and matches the revenue statistics in the control panel.
+        - Free, manual, zero-price and incomplete payments are never counted.
+        - Responses are cached for 10 minutes.
+        - If there is no top customer for the period, `data` is null.
+      operationId: getTopCustomer
+      parameters:
+      - description: The period to rank customers over. `none` covers all time.
+        explode: true
+        in: query
+        name: period
+        required: false
+        schema:
+          default: monthly
+          enum:
+          - hourly
+          - daily
+          - weekly
+          - monthly
+          - yearly
+          - none
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                customer:
+                  summary: Top customer this month
+                  value:
+                    data:
+                      username: George_Peel
+                      username_id: "15413447"
+                      avatar_url: https://forum.cfx.re/user_avatar/forum.cfx.re/george_peel/256/4582854_2.png
+                      total: 21.99
+                      currency: USD
+                      period: monthly
+                empty:
+                  summary: No top customer
+                  value:
+                    data: null
+              schema:
+                $ref: '#/components/schemas/TopCustomerResponse'
+          description: "Successful response returns the top customer, or null."
+      security:
+      - basicAuth: []
+      summary: Get the webstore's top customer.
+      tags:
+      - Headless
+      x-accepts:
+      - application/json
+  /community-goals:
+    get:
+      description: |-
+        Lists the store's community goals. This does not depend on the sidebar's Community Goal module being configured.
+
+        Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+
+        If there are no matching goals, `data` is an empty array.
+      operationId: getCommunityGoals
+      parameters:
+      - description: "Only return goals with these statuses, e.g. `status[]=active&status[]=completed`.\
+          \ A single `status=active` is also accepted. With no filter, all goals are\
+          \ returned."
+        explode: true
+        in: query
+        name: "status[]"
+        required: false
+        schema:
+          items:
+            enum:
+            - active
+            - completed
+            - disabled
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                goals:
+                  summary: Active and completed goals
+                  value:
+                    data:
+                    - id: 1
+                      name: New Server
+                      description: Fund a second server
+                      image_url: null
+                      target: 1000
+                      current: 630
+                      currency: USD
+                      percentage: 63
+                      repeatable: false
+                      times_achieved: 0
+                      last_achieved: null
+                      status: active
+                      created_at: 2026-09-17T11:44:46+00:00
+                      updated_at: 2026-09-17T11:44:46+00:00
+                    - id: 2
+                      name: Summer Event
+                      description: Unlock the summer map
+                      image_url: null
+                      target: 500
+                      current: 500
+                      currency: USD
+                      percentage: 100
+                      repeatable: false
+                      times_achieved: 1
+                      last_achieved: null
+                      status: completed
+                      created_at: 2026-09-17T11:44:46+00:00
+                      updated_at: 2026-09-17T11:44:46+00:00
+                empty:
+                  summary: No goals
+                  value:
+                    data: []
+              schema:
+                $ref: '#/components/schemas/CommunityGoalsResponse'
+          description: Successful response returns the community goals.
+      security:
+      - basicAuth: []
+      summary: Get the webstore's community goals.
+      tags:
+      - Headless
+      x-accepts:
+      - application/json
+  /community-goals/{communityGoalId}:
+    get:
+      description: |-
+        Gets a single community goal by its ID.
+
+        Requires basic auth: the username is the webstore identifier and the password is the account's checkout API key.
+      operationId: getCommunityGoal
+      parameters:
+      - description: The community goal ID.
+        explode: false
+        in: path
+        name: communityGoalId
+        required: true
+        schema:
+          example: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityGoalResponse'
+          description: Successful response returns the community goal.
+        "404":
+          content:
+            application/json:
+              example:
+                status: 404
+                type: about:blank
+                title: Community goal not found
+                detail: No community goal with that ID exists for this account
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: No community goal with that ID exists for this account.
+      security:
+      - basicAuth: []
+      summary: Get a community goal.
       tags:
       - Headless
       x-accepts:
@@ -992,6 +1903,12 @@ components:
             for helpful guides on getting started.</p>
           type: string
     ErrorResponse:
+      example:
+        instance: /path/to/ref
+        detail: Parameter 'first_name' is required.
+        type: ""
+        title: Bad Request
+        status: 400
       properties:
         type: {}
         title:
@@ -1290,7 +2207,7 @@ components:
           packages:
           - prorate_price: 0.8008282
             disable_quantity: false
-            ident: pkg_3081120_7088903
+            ident: pkg_12_456
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
@@ -1332,7 +2249,7 @@ components:
               id: 2678660
           - prorate_price: 0.8008282
             disable_quantity: false
-            ident: pkg_3081120_7088903
+            ident: pkg_12_456
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
@@ -1377,7 +2294,7 @@ components:
             package:
               prorate_price: 0.8008282
               disable_quantity: false
-              ident: pkg_3081120_7088903
+              ident: pkg_12_456
               description: <p>this is just a test. only a test. nothing more.</p>
               discount: 0
               disable_gifting: false
@@ -1441,7 +2358,7 @@ components:
           packages:
           - prorate_price: 0.8008282
             disable_quantity: false
-            ident: pkg_3081120_7088903
+            ident: pkg_12_456
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
@@ -1483,7 +2400,7 @@ components:
               id: 2678660
           - prorate_price: 0.8008282
             disable_quantity: false
-            ident: pkg_3081120_7088903
+            ident: pkg_12_456
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
@@ -1528,7 +2445,7 @@ components:
             package:
               prorate_price: 0.8008282
               disable_quantity: false
-              ident: pkg_3081120_7088903
+              ident: pkg_12_456
               description: <p>this is just a test. only a test. nothing more.</p>
               discount: 0
               disable_gifting: false
@@ -1600,7 +2517,7 @@ components:
           packages:
           - prorate_price: 0.8008282
             disable_quantity: false
-            ident: pkg_3081120_7088903
+            ident: pkg_12_456
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
@@ -1642,7 +2559,7 @@ components:
               id: 2678660
           - prorate_price: 0.8008282
             disable_quantity: false
-            ident: pkg_3081120_7088903
+            ident: pkg_12_456
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
@@ -1687,7 +2604,7 @@ components:
             package:
               prorate_price: 0.8008282
               disable_quantity: false
-              ident: pkg_3081120_7088903
+              ident: pkg_12_456
               description: <p>this is just a test. only a test. nothing more.</p>
               discount: 0
               disable_gifting: false
@@ -1756,7 +2673,7 @@ components:
         packages:
         - prorate_price: 0.8008282
           disable_quantity: false
-          ident: pkg_3081120_7088903
+          ident: pkg_12_456
           description: <p>this is just a test. only a test. nothing more.</p>
           discount: 0
           disable_gifting: false
@@ -1798,7 +2715,7 @@ components:
             id: 2678660
         - prorate_price: 0.8008282
           disable_quantity: false
-          ident: pkg_3081120_7088903
+          ident: pkg_12_456
           description: <p>this is just a test. only a test. nothing more.</p>
           discount: 0
           disable_gifting: false
@@ -1843,7 +2760,7 @@ components:
           package:
             prorate_price: 0.8008282
             disable_quantity: false
-            ident: pkg_3081120_7088903
+            ident: pkg_12_456
             description: <p>this is just a test. only a test. nothing more.</p>
             discount: 0
             disable_gifting: false
@@ -1957,7 +2874,7 @@ components:
         data:
         - prorate_price: 0.8008282
           disable_quantity: false
-          ident: pkg_3081120_7088903
+          ident: pkg_12_456
           description: <p>this is just a test. only a test. nothing more.</p>
           discount: 0
           disable_gifting: false
@@ -1999,7 +2916,7 @@ components:
             id: 2678660
         - prorate_price: 0.8008282
           disable_quantity: false
-          ident: pkg_3081120_7088903
+          ident: pkg_12_456
           description: <p>this is just a test. only a test. nothing more.</p>
           discount: 0
           disable_gifting: false
@@ -2049,7 +2966,7 @@ components:
         data:
           prorate_price: 0.8008282
           disable_quantity: false
-          ident: pkg_3081120_7088903
+          ident: pkg_12_456
           description: <p>this is just a test. only a test. nothing more.</p>
           discount: 0
           disable_gifting: false
@@ -2096,7 +3013,7 @@ components:
       example:
         prorate_price: 0.8008282
         disable_quantity: false
-        ident: pkg_3081120_7088903
+        ident: pkg_12_456
         description: <p>this is just a test. only a test. nothing more.</p>
         discount: 0
         disable_gifting: false
@@ -2138,6 +3055,8 @@ components:
           id: 2678660
       properties:
         id:
+          description: The package's numeric ID. For external packages this is synthetic;
+            use `ident` instead.
           example: 6276316
           type: integer
         name:
@@ -2222,8 +3141,11 @@ components:
           format: date-time
           type: string
         ident:
-          description: The package's string identifier.
-          example: pkg_3081120_7088903
+          description: |-
+            The package's string identifier, returned on every package (standard, dynamic and external). Treat it as an opaque string: store it and send it back as-is to `getPackage` and `addBasketPackage`; don't build or parse it.
+
+            It has the form `{prefix}_{categoryId}_{id}`, where `prefix` is `pkg` (standard), `dyn` (dynamic, numeric id) or `ext` (external, e.g. `ext_10_{asset-uuid}` for INTRACT, with the provider's identifier URL-encoded).
+          example: pkg_12_456
           type: string
         vip_status:
           description: "The package's VIP status. Only `null` has been observed so\
@@ -2315,7 +3237,7 @@ components:
         package:
           prorate_price: 0.8008282
           disable_quantity: false
-          ident: pkg_3081120_7088903
+          ident: pkg_12_456
           description: <p>this is just a test. only a test. nothing more.</p>
           discount: 0
           disable_gifting: false
@@ -2434,6 +3356,7 @@ components:
     DynamicPackagesRequest:
       example:
         category_id: 1234
+        basket_id: dvcbln-d7f6355161726d63e6dbe235ca25d2641184295b
         packages:
         - price: 10.0
           image_url: image.url/imageurl
@@ -2455,13 +3378,19 @@ components:
           slug: package-name-1
         username: TestUser
       properties:
+        basket_id:
+          description: The basket's ident. Use the same value as the `basketIdent`
+            path parameter.
+          example: dvcbln-d7f6355161726d63e6dbe235ca25d2641184295b
+          type: string
         username:
           description: The username of the authenticated customer the packages are
             being created for.
           example: TestUser
           type: string
         category_id:
-          description: The ID of the dynamic category to populate.
+          description: The ID of the dynamic category to populate. Must be a category
+            of type `dynamic`.
           example: 1234
           type: integer
         packages:
@@ -2469,6 +3398,7 @@ components:
             $ref: '#/components/schemas/DynamicPackageInput'
           type: array
       required:
+      - basket_id
       - category_id
       - packages
       - username
@@ -2515,10 +3445,10 @@ components:
       - slug
     DynamicPackagesResponse:
       example:
-        message: Dynamic packages created successfully.
+        message: Dynamic packages updated successfully.
       properties:
         message:
-          example: Dynamic packages created successfully.
+          example: Dynamic packages updated successfully.
           type: string
     ModulesResponse:
       example:
@@ -2869,6 +3799,646 @@ components:
       - bar_style
       - header
       - percentage
+    SalesResponse:
+      example:
+        data:
+        - starts_at: 2026-10-04T13:59:09+00:00
+          requirements:
+          - amount: 50
+            match: all
+            currency: USD
+            type: lifetime_spend
+            packages:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+          - amount: 50
+            match: all
+            currency: USD
+            type: lifetime_spend
+            packages:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+          applies_to:
+            variable_options:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+            excluded_packages:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+            categories:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+            type: all
+            packages:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+          name: Summer Sale
+          discount:
+            amount: 0.8008281904610115
+            percentage: 20
+            currency: USD
+            type: percentage
+          id: 14
+          ends_at: 2026-10-19T13:59:09+00:00
+        - starts_at: 2026-10-04T13:59:09+00:00
+          requirements:
+          - amount: 50
+            match: all
+            currency: USD
+            type: lifetime_spend
+            packages:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+          - amount: 50
+            match: all
+            currency: USD
+            type: lifetime_spend
+            packages:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+          applies_to:
+            variable_options:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+            excluded_packages:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+            categories:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+            type: all
+            packages:
+            - name: GIFTCARD
+              id: 28
+            - name: GIFTCARD
+              id: 28
+          name: Summer Sale
+          discount:
+            amount: 0.8008281904610115
+            percentage: 20
+            currency: USD
+            type: percentage
+          id: 14
+          ends_at: 2026-10-19T13:59:09+00:00
+      properties:
+        data:
+          description: "Active sales, in control panel order. Empty when there are\
+            \ none."
+          items:
+            $ref: '#/components/schemas/Sale'
+          type: array
+      required:
+      - data
+    Sale:
+      example:
+        starts_at: 2026-10-04T13:59:09+00:00
+        requirements:
+        - amount: 50
+          match: all
+          currency: USD
+          type: lifetime_spend
+          packages:
+          - name: GIFTCARD
+            id: 28
+          - name: GIFTCARD
+            id: 28
+        - amount: 50
+          match: all
+          currency: USD
+          type: lifetime_spend
+          packages:
+          - name: GIFTCARD
+            id: 28
+          - name: GIFTCARD
+            id: 28
+        applies_to:
+          variable_options:
+          - name: GIFTCARD
+            id: 28
+          - name: GIFTCARD
+            id: 28
+          excluded_packages:
+          - name: GIFTCARD
+            id: 28
+          - name: GIFTCARD
+            id: 28
+          categories:
+          - name: GIFTCARD
+            id: 28
+          - name: GIFTCARD
+            id: 28
+          type: all
+          packages:
+          - name: GIFTCARD
+            id: 28
+          - name: GIFTCARD
+            id: 28
+        name: Summer Sale
+        discount:
+          amount: 0.8008281904610115
+          percentage: 20
+          currency: USD
+          type: percentage
+        id: 14
+        ends_at: 2026-10-19T13:59:09+00:00
+      properties:
+        id:
+          example: 14
+          type: integer
+        name:
+          example: Summer Sale
+          type: string
+        starts_at:
+          description: "Start of the sale, ISO 8601 in UTC."
+          example: 2026-10-04T13:59:09+00:00
+          format: date-time
+          type: string
+        ends_at:
+          description: "End of the sale, ISO 8601 in UTC."
+          example: 2026-10-19T13:59:09+00:00
+          format: date-time
+          type: string
+        discount:
+          $ref: '#/components/schemas/SaleDiscount'
+        applies_to:
+          $ref: '#/components/schemas/SaleAppliesTo'
+        requirements:
+          description: Conditions a customer must meet for the sale to apply. Empty
+            when the sale has none. `minimum_basket_value` can appear alongside `purchased_packages`
+            or `lifetime_spend`.
+          items:
+            $ref: '#/components/schemas/SaleRequirement'
+          type: array
+      required:
+      - applies_to
+      - discount
+      - ends_at
+      - id
+      - name
+      - requirements
+      - starts_at
+    SaleDiscount:
+      example:
+        amount: 0.8008281904610115
+        percentage: 20
+        currency: USD
+        type: percentage
+      properties:
+        type:
+          enum:
+          - percentage
+          - amount
+          - commands
+          example: percentage
+          type: string
+        percentage:
+          description: "Set only when `type` is `percentage`, otherwise null."
+          example: 20
+          nullable: true
+          type: number
+        amount:
+          description: "Set only when `type` is `amount`, otherwise null."
+          nullable: true
+          type: number
+          example: null
+        currency:
+          description: The store currency.
+          example: USD
+          type: string
+      required:
+      - amount
+      - currency
+      - percentage
+      - type
+    SaleAppliesTo:
+      description: "What the sale applies to. Only the array matching `type` is filled;\
+        \ the others are empty. When `type` is `all`, only `excluded_packages` may\
+        \ be filled."
+      example:
+        variable_options:
+        - name: GIFTCARD
+          id: 28
+        - name: GIFTCARD
+          id: 28
+        excluded_packages:
+        - name: GIFTCARD
+          id: 28
+        - name: GIFTCARD
+          id: 28
+        categories:
+        - name: GIFTCARD
+          id: 28
+        - name: GIFTCARD
+          id: 28
+        type: all
+        packages:
+        - name: GIFTCARD
+          id: 28
+        - name: GIFTCARD
+          id: 28
+      properties:
+        type:
+          enum:
+          - all
+          - package
+          - category
+          - variable_option
+          example: all
+          type: string
+        packages:
+          description: Filled when `type` is `package`.
+          items:
+            $ref: '#/components/schemas/SaleReference'
+          type: array
+        categories:
+          description: Filled when `type` is `category`.
+          items:
+            $ref: '#/components/schemas/SaleReference'
+          type: array
+        variable_options:
+          description: Filled when `type` is `variable_option`.
+          items:
+            $ref: '#/components/schemas/SaleReference'
+          type: array
+        excluded_packages:
+          description: Packages excluded from the sale. Filled only when `type` is
+            `all`.
+          items:
+            $ref: '#/components/schemas/SaleReference'
+          type: array
+      required:
+      - categories
+      - excluded_packages
+      - packages
+      - type
+      - variable_options
+    SaleReference:
+      description: "A package, category or variable option referenced by a sale."
+      example:
+        name: GIFTCARD
+        id: 28
+      properties:
+        id:
+          example: 28
+          type: integer
+        name:
+          example: GIFTCARD
+          type: string
+      required:
+      - id
+      - name
+    SaleRequirement:
+      description: |-
+        A condition for the sale. Fields present depend on `type`:
+        - `purchased_packages`: `packages` and `match` (always `all`). `packages` is empty if every required package is hidden.
+        - `lifetime_spend`: `amount` and `currency`.
+        - `minimum_basket_value`: `amount` and `currency`.
+      example:
+        amount: 50
+        match: all
+        currency: USD
+        type: lifetime_spend
+        packages:
+        - name: GIFTCARD
+          id: 28
+        - name: GIFTCARD
+          id: 28
+      properties:
+        type:
+          description: The type of requirement for the sale. Additional requirement
+            types may be added later. Clients must ignore requirement types they do
+            not know.
+          enum:
+          - purchased_packages
+          - lifetime_spend
+          - minimum_basket_value
+          example: lifetime_spend
+          type: string
+        packages:
+          description: Packages the customer must have purchased. Present for `purchased_packages`.
+          items:
+            $ref: '#/components/schemas/SaleReference'
+          type: array
+        match:
+          description: Present for `purchased_packages`. Always `all`.
+          enum:
+          - all
+          type: string
+        amount:
+          description: Present for `lifetime_spend` and `minimum_basket_value`.
+          example: 50
+          type: number
+        currency:
+          description: Present for `lifetime_spend` and `minimum_basket_value`. The
+            store currency.
+          example: USD
+          type: string
+      required:
+      - type
+    RecentPaymentsResponse:
+      example:
+        data:
+        - avatar_url: https://avatars.discourse-cdn.com/v4/letter/1/ec9cab/256.png
+          price: 2.99
+          username_id: "6379162"
+          package_name: This is another package + 1 more
+          created_at: 2026-09-17T07:15:49+00:00
+          currency: USD
+          id: 2728
+          username: "12345"
+        - avatar_url: https://avatars.discourse-cdn.com/v4/letter/1/ec9cab/256.png
+          price: 2.99
+          username_id: "6379162"
+          package_name: This is another package + 1 more
+          created_at: 2026-09-17T07:15:49+00:00
+          currency: USD
+          id: 2728
+          username: "12345"
+      properties:
+        data:
+          description: "Recent payments, newest first. Empty when there are none."
+          items:
+            $ref: '#/components/schemas/RecentPaymentEntry'
+          type: array
+      required:
+      - data
+    RecentPaymentEntry:
+      example:
+        avatar_url: https://avatars.discourse-cdn.com/v4/letter/1/ec9cab/256.png
+        price: 2.99
+        username_id: "6379162"
+        package_name: This is another package + 1 more
+        created_at: 2026-09-17T07:15:49+00:00
+        currency: USD
+        id: 2728
+        username: "12345"
+      properties:
+        id:
+          example: 2728
+          type: integer
+        username:
+          example: "12345"
+          type: string
+        username_id:
+          example: "6379162"
+          type: string
+        avatar_url:
+          example: https://avatars.discourse-cdn.com/v4/letter/1/ec9cab/256.png
+          format: uri
+          type: string
+        package_name:
+          description: "The first package on the payment. If the payment holds more,\
+            \ it is suffixed, e.g. \"+ 1 more\"."
+          example: This is another package + 1 more
+          type: string
+        created_at:
+          example: 2026-09-17T07:15:49+00:00
+          format: date-time
+          type: string
+        price:
+          example: 2.99
+          type: number
+        currency:
+          example: USD
+          type: string
+      required:
+      - avatar_url
+      - created_at
+      - currency
+      - id
+      - package_name
+      - price
+      - username
+      - username_id
+    TopCustomerResponse:
+      example:
+        data:
+          total: 21.99
+          period: monthly
+          avatar_url: https://forum.cfx.re/user_avatar/forum.cfx.re/george_peel/256/4582854_2.png
+          username_id: "15413447"
+          currency: USD
+          username: George_Peel
+      properties:
+        data:
+          $ref: '#/components/schemas/TopCustomer'
+      required:
+      - data
+    TopCustomer:
+      example:
+        total: 21.99
+        period: monthly
+        avatar_url: https://forum.cfx.re/user_avatar/forum.cfx.re/george_peel/256/4582854_2.png
+        username_id: "15413447"
+        currency: USD
+        username: George_Peel
+      properties:
+        username:
+          example: George_Peel
+          type: string
+        username_id:
+          example: "15413447"
+          type: string
+        avatar_url:
+          example: https://forum.cfx.re/user_avatar/forum.cfx.re/george_peel/256/4582854_2.png
+          format: uri
+          type: string
+        total:
+          description: "Amount spent in the period, in the account's currency, net\
+            \ of tax."
+          example: 21.99
+          type: number
+        currency:
+          example: USD
+          type: string
+        period:
+          description: The period requested.
+          enum:
+          - hourly
+          - daily
+          - weekly
+          - monthly
+          - yearly
+          - none
+          example: monthly
+          type: string
+      required:
+      - avatar_url
+      - currency
+      - period
+      - total
+      - username
+      - username_id
+    CommunityGoalsResponse:
+      example:
+        data:
+        - times_achieved: 0
+          image_url: https://openapi-generator.tech
+          description: Fund a second server
+          created_at: 2026-09-17T11:44:46+00:00
+          target: 1000
+          current: 630
+          updated_at: 2026-09-17T11:44:46+00:00
+          last_achieved: 2000-01-23T04:56:07.000+00:00
+          repeatable: false
+          percentage: 63
+          name: New Server
+          currency: USD
+          id: 1
+          status: active
+        - times_achieved: 0
+          image_url: https://openapi-generator.tech
+          description: Fund a second server
+          created_at: 2026-09-17T11:44:46+00:00
+          target: 1000
+          current: 630
+          updated_at: 2026-09-17T11:44:46+00:00
+          last_achieved: 2000-01-23T04:56:07.000+00:00
+          repeatable: false
+          percentage: 63
+          name: New Server
+          currency: USD
+          id: 1
+          status: active
+      properties:
+        data:
+          description: Community goals. Empty when none match.
+          items:
+            $ref: '#/components/schemas/CommunityGoal'
+          type: array
+      required:
+      - data
+    CommunityGoalResponse:
+      example:
+        data:
+          times_achieved: 0
+          image_url: https://openapi-generator.tech
+          description: Fund a second server
+          created_at: 2026-09-17T11:44:46+00:00
+          target: 1000
+          current: 630
+          updated_at: 2026-09-17T11:44:46+00:00
+          last_achieved: 2000-01-23T04:56:07.000+00:00
+          repeatable: false
+          percentage: 63
+          name: New Server
+          currency: USD
+          id: 1
+          status: active
+      properties:
+        data:
+          $ref: '#/components/schemas/CommunityGoal'
+      required:
+      - data
+    CommunityGoal:
+      example:
+        times_achieved: 0
+        image_url: https://openapi-generator.tech
+        description: Fund a second server
+        created_at: 2026-09-17T11:44:46+00:00
+        target: 1000
+        current: 630
+        updated_at: 2026-09-17T11:44:46+00:00
+        last_achieved: 2000-01-23T04:56:07.000+00:00
+        repeatable: false
+        percentage: 63
+        name: New Server
+        currency: USD
+        id: 1
+        status: active
+      properties:
+        id:
+          example: 1
+          type: integer
+        name:
+          example: New Server
+          type: string
+        description:
+          example: Fund a second server
+          type: string
+        image_url:
+          format: uri
+          nullable: true
+          type: string
+          example: null
+        target:
+          description: "The goal amount, in `currency`."
+          example: 1000
+          type: number
+        current:
+          description: "The amount raised so far, in `currency`."
+          example: 630
+          type: number
+        currency:
+          description: The account currency.
+          example: USD
+          type: string
+        percentage:
+          example: 63
+          type: number
+        repeatable:
+          example: false
+          type: boolean
+        times_achieved:
+          example: 0
+          type: integer
+        last_achieved:
+          format: date-time
+          nullable: true
+          type: string
+          example: null
+        status:
+          enum:
+          - active
+          - completed
+          - disabled
+          example: active
+          type: string
+        created_at:
+          example: 2026-09-17T11:44:46+00:00
+          format: date-time
+          type: string
+        updated_at:
+          example: 2026-09-17T11:44:46+00:00
+          format: date-time
+          type: string
+      required:
+      - created_at
+      - currency
+      - current
+      - description
+      - id
+      - image_url
+      - last_achieved
+      - name
+      - percentage
+      - repeatable
+      - status
+      - target
+      - times_achieved
+      - updated_at
     createBasket_request:
       properties:
         complete_url:
@@ -2939,7 +4509,10 @@ components:
     addBasketPackage_request:
       properties:
         package_id:
-          example: 6276316
+          description: The package's `ident` (recommended) or numeric ID. `ident`
+            is required for external packages. Send the `ident` exactly as returned
+            by the package endpoints.
+          example: pkg_12_456
           type: string
         quantity:
           example: 1
@@ -2955,7 +4528,8 @@ components:
     removeBasketPackage_request:
       properties:
         package_id:
-          example: 6276316
+          description: The package's `ident` (recommended) or numeric ID.
+          example: pkg_12_456
           type: string
     updatePackageQuantity_request:
       properties:

@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -12,10 +12,10 @@ Contact: tebex-integrations@overwolf.com
 package TebexHeadless
 
 import (
-	"encoding/json"
-	"time"
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // checks if the TopCustomerModule type satisfies the MappedNullable interface at compile time
@@ -23,12 +23,12 @@ var _ MappedNullable = &TopCustomerModule{}
 
 // TopCustomerModule struct for TopCustomerModule
 type TopCustomerModule struct {
-	Id int64 `json:"id"`
-	Type interface{} `json:"type"`
-	StartTime time.Time `json:"start_time"`
+	Id        int64       `json:"id"`
+	Type      interface{} `json:"type"`
+	StartTime time.Time   `json:"start_time"`
 	// Nullable; when null the module is ongoing.
-	EndTime *time.Time `json:"end_time,omitempty"`
-	Data TopCustomerData `json:"data"`
+	EndTime *time.Time      `json:"end_time,omitempty"`
+	Data    TopCustomerData `json:"data"`
 }
 
 type _TopCustomerModule TopCustomerModule
@@ -185,7 +185,7 @@ func (o *TopCustomerModule) SetData(v TopCustomerData) {
 }
 
 func (o TopCustomerModule) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -222,10 +222,10 @@ func (o *TopCustomerModule) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -281,5 +281,3 @@ func (v *NullableTopCustomerModule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

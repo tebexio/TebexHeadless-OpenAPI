@@ -3,7 +3,7 @@ Tebex Headless API
 
 The headless API is designed for implementing your own store frontend with the data of your store. You are able to call the Headless API directly from a web browser (such as within an SPA), from a backend server, or in-game GUIs.
 
-API version: 2.0.1
+API version: 2.1.0
 Contact: tebex-integrations@overwolf.com
 */
 
@@ -66,9 +66,9 @@ type ServerVariable struct {
 
 // ServerConfiguration stores the information about a server
 type ServerConfiguration struct {
-	URL string
+	URL         string
 	Description string
-	Variables map[string]ServerVariable
+	Variables   map[string]ServerVariable
 }
 
 // ServerConfigurations stores multiple ServerConfiguration items
@@ -89,16 +89,16 @@ type Configuration struct {
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		DefaultHeader:    make(map[string]string),
-		UserAgent:        "OpenAPI-Generator/1.0.0/go",
-		Debug:            false,
-		Servers:          ServerConfigurations{
+		DefaultHeader: make(map[string]string),
+		UserAgent:     "OpenAPI-Generator/1.0.0/go",
+		Debug:         false,
+		Servers: ServerConfigurations{
 			{
-				URL: "https://headless.tebex.io/api/accounts/{token}",
+				URL:         "https://headless.tebex.io/api/accounts/{token}",
 				Description: "Main API scoped to public token",
 				Variables: map[string]ServerVariable{
 					"token": ServerVariable{
-						Description: "The store's public token",
+						Description:  "The store's public token",
 						DefaultValue: "YOUR_PUBLIC_TOKEN",
 					},
 				},
@@ -107,19 +107,19 @@ func NewConfiguration() *Configuration {
 		OperationServers: map[string]ServerConfigurations{
 			"BasketsAPIService.AddBasketPackage": {
 				{
-					URL: "https://headless.tebex.io/api/baskets",
+					URL:         "https://headless.tebex.io/api/baskets",
 					Description: "Basket-only API, account token not required",
 				},
 			},
 			"BasketsAPIService.RemoveBasketPackage": {
 				{
-					URL: "https://headless.tebex.io/api/baskets",
+					URL:         "https://headless.tebex.io/api/baskets",
 					Description: "Basket-only API, account token not required",
 				},
 			},
 			"BasketsAPIService.UpdatePackageQuantity": {
 				{
-					URL: "https://headless.tebex.io/api/baskets",
+					URL:         "https://headless.tebex.io/api/baskets",
 					Description: "Basket-only API, account token not required",
 				},
 			},

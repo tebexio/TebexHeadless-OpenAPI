@@ -1,3 +1,32 @@
+2.1.0
+-----
+**Added**
+
+- getSales (`/sales`): lists the store's currently active sales. No authentication is required. Returns 404 for an invalid store identifier.
+  - Only sales whose start/end window includes the current time are returned. Expired, future and Lighthouse sales are left out.
+  - Hidden packages and categories are left out of every array.
+- Schemas: SalesResponse, Sale, SaleDiscount, SaleAppliesTo, SaleReference and SaleRequirement.
+- Storefront block endpoints. These need basic auth (username is the webstore identifier, password is the checkout API key) and do not depend on any sidebar module being configured. Free, manual, zero-price and incomplete payments are never included.
+  - getRecentPayments (`/recent-payments`): recent payments, newest first. `limit` 1–50, default 5. Cached for 10 minutes.
+  - getTopCustomer (`/top-customers`): top spender for `period` (hourly, daily, weekly, monthly, yearly, none; default monthly). `data` is null when there is none. Cached for 10 minutes.
+  - getCommunityGoals (`/community-goals`): community goals, optionally filtered by `status[]` (active, completed, disabled).
+  - getCommunityGoal (`/community-goals/{communityGoalId}`): a single community goal. 404 if it does not exist.
+- Schemas: RecentPaymentsResponse, RecentPaymentEntry, TopCustomerResponse, TopCustomer, CommunityGoalsResponse, CommunityGoalResponse and CommunityGoal.
+
+**Changed**
+
+- Package idents: `ident` is returned on every package (standard, dynamic and external) in the form `{prefix}_{categoryId}_{id}`, with prefix `pkg` (standard), `dyn` (dynamic) or `ext` (external, provider id URL-encoded). Treat it as opaque: store it and send it back as-is.
+  - Package `id` is synthetic for external packages; use `ident`.
+- getPackage (`/packages/{packageId}`): `packageId` accepts an ident (recommended) or a numeric ID.
+- addBasketPackage (`/{basketIdent}/packages`): `package_id` accepts an ident (recommended, required for external packages) or a numeric ID. Numeric IDs still work for standard packages.
+  - A malformed value fails with 422 "package_id must be a package ID or ident."
+  - An unknown or mismatched ident returns 400 "The selected id is invalid."
+- createDynamicPackage (`/baskets/{basketIdent}/dynamic-packages`):
+  - DynamicPackagesRequest has a new required `basket_id` (string, the basket's ident). Without it the API returns 422 "The basket id field is required."
+  - Now declares basicAuth security, which the API already required.
+  - Documents the 422 responses for missing auth and for a `category_id` that isn't a dynamic category. The DynamicPackagesResponse example message is now "Dynamic packages updated successfully."
+- removeBasketPackage (`/{basketIdent}/packages/remove`) and updatePackageQuantity (`/{basketIdent}/packages/{packageId}`): `package_id` / `packageId` accept an ident (recommended) or a numeric ID. Numeric IDs still work for standard packages.
+
 2.0.1
 -----
 **Fixed**

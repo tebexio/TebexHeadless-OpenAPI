@@ -14,7 +14,7 @@ All URIs are relative to *https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOK
 
 Add package to basket
 
-Add a package with the given ID to the basket.  To add a package belonging to a dynamic category, set `dynamic` to `true`. Without this property the API will treat the request as a normal package ID.
+Add a package to the basket by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. It is required for external packages. - Numeric IDs still work for standard packages.  To add a package belonging to a dynamic category, set `dynamic` to `true`. Without this property the API will treat the request as a normal package ID.
 
 ### Example
 ```csharp
@@ -98,7 +98,8 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response. |  -  |
-| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. |  -  |
+| **400** | The ident is unknown or does not match a package in this store (\&quot;The selected id is invalid.\&quot;). |  -  |
+| **422** | The provided request is invalid. The error response will include detail as to which parameter failed validation. A malformed &#x60;package_id&#x60; fails with \&quot;package_id must be a package ID or ident.\&quot; |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -108,7 +109,7 @@ No authorization required
 
 Remove a package from a basket
 
-Remove the given package ID from the basket.
+Remove a package from the basket by its `ident` or numeric ID.  - Using `ident` is recommended, since it works for every package type. Send it back exactly as returned; don't build or parse it. - Numeric IDs still work for standard packages.
 
 ### Example
 ```csharp
@@ -202,7 +203,7 @@ No authorization required
 
 Update package quantity
 
-Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.
+Sets the quantity of the given item in the basket. The user must be logged in before the quantity can be changed.  - `{packageId}` accepts the package's `ident` or numeric ID. Using `ident` is recommended, since it works for every package type. - Numeric IDs still work for standard packages.
 
 ### Example
 ```csharp
@@ -222,7 +223,7 @@ namespace Example
             config.BasePath = "https://headless.tebex.io/api/accounts/YOUR_PUBLIC_TOKEN";
             var apiInstance = new BasketsApi(config);
             var basketIdent = c00244-d2ac2e77418a55b25292a6bc7a719ad9c529ba2c;  // string | The basket identifier.
-            var packageId = 6276316;  // string | The package identifier
+            var packageId = pkg_12_456;  // string | The package's `ident` (recommended) or numeric ID.
             var updatePackageQuantityRequest = new UpdatePackageQuantityRequest?(); // UpdatePackageQuantityRequest? |  (optional) 
 
             try
@@ -263,7 +264,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **basketIdent** | **string** | The basket identifier. |  |
-| **packageId** | **string** | The package identifier |  |
+| **packageId** | **string** | The package&#39;s &#x60;ident&#x60; (recommended) or numeric ID. |  |
 | **updatePackageQuantityRequest** | [**UpdatePackageQuantityRequest?**](UpdatePackageQuantityRequest?.md) |  | [optional]  |
 
 ### Return type

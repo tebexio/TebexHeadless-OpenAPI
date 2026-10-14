@@ -5,8 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**basket_id** | **str** | The basket&#39;s ident. Use the same value as the &#x60;basketIdent&#x60; path parameter. | 
 **username** | **str** | The username of the authenticated customer the packages are being created for. | 
-**category_id** | **int** | The ID of the dynamic category to populate. | 
+**category_id** | **int** | The ID of the dynamic category to populate. Must be a category of type &#x60;dynamic&#x60;. | 
 **packages** | [**List[DynamicPackageInput]**](DynamicPackageInput.md) |  | 
 
 ## Example
